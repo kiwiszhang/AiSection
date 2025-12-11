@@ -1,0 +1,37 @@
+{
+  "name": "TrackReport",
+  "version": "1.1.5",
+  "summary": "TrackReport components",
+  "homepage": "https://github.com/OYForever",
+  "license": "MIT",
+  "authors": "MIT",
+  "source": {
+    "git": "https://github.com/OYForever/TrackReport.git",
+    "tag": "1.1.5"
+  },
+  "platforms": {
+    "ios": "13.0"
+  },
+  "swift_versions": "5.0",
+  "source_files": "TrackReport/src/**/*.{swift}",
+  "resources": [
+    "TrackReport/src/Resource/TrackReport.bundle"
+  ],
+  "resource_bundles": {
+    "TrackReport_Privacy": [
+      "TrackReport/src/Resource/PrivacyInfo.xcprivacy"
+    ]
+  },
+  "static_framework": true,
+  "pod_target_xcconfig": {
+    "MACH_O_TYPE": "staticlib",
+    "OTHER_LDFLAGS": "-ObjC"
+  },
+  "dependencies": {
+    "FirebaseAnalytics": [],
+    "FirebaseRemoteConfig": [],
+    "FirebaseCrashlytics": []
+  },
+  "frameworks": "AdSupport",
+  "swift_version": "5.0"
+}

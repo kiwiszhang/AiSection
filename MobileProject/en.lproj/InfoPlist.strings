@@ -1,0 +1,4 @@
+NSCameraUsageDescription = "Allow camera access to capture photos and videos";
+NSMicrophoneUsageDescription = "Microphone permission is needed for audio recording";
+NSPhotoLibraryAddUsageDescription = "Allow saving media to your Photos";
+NSPhotoLibraryUsageDescription = "Allow photo library access to choose pictures";

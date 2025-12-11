@@ -1,0 +1,233 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
+  "identifier" : "3B416273",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6749284697",
+    "_developerTeamID" : "NKTVSPZ2V9",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 780022706.76734197,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21747366",
+      "localizations" : [
+
+      ],
+      "name" : "WAIytics Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "9.99",
+          "familyShareable" : false,
+          "groupNumber" : 5,
+          "internalID" : "6749881127",
+          "introductoryOffer" : null,
+          "localizations" : [
+
+          ],
+          "productID" : "com.tayue.chatinfo.guidRetrieve.weekly9.99",
+          "recurringSubscriptionPeriod" : "P1W",
+          "referenceName" : "引导挽留订阅-9.99-周定",
+          "subscriptionGroupID" : "21747366",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "9.99",
+          "familyShareable" : false,
+          "groupNumber" : 4,
+          "internalID" : "6749881037",
+          "introductoryOffer" : null,
+          "localizations" : [
+
+          ],
+          "productID" : "com.tayue.chatinfo.guid.weekly9.99",
+          "recurringSubscriptionPeriod" : "P1W",
+          "referenceName" : "引导订阅-9.99-周定",
+          "subscriptionGroupID" : "21747366",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "29.99",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "6749519734",
+          "introductoryOffer" : null,
+          "localizations" : [
+
+          ],
+          "productID" : "com.tayue.chatinfo.pro.month29.99",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "聊天-29.99-月订-设置订阅",
+          "subscriptionGroupID" : "21747366",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "69.99",
+          "familyShareable" : false,
+          "groupNumber" : 3,
+          "internalID" : "6749519397",
+          "introductoryOffer" : null,
+          "localizations" : [
+
+          ],
+          "productID" : "com.tayue.chatinfo.pro.year69.99",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "聊天-69.99-年订-设置订阅",
+          "subscriptionGroupID" : "21747366",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "9.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "6749519555",
+          "introductoryOffer" : null,
+          "localizations" : [
+
+          ],
+          "productID" : "com.tayue.chatinfo.pro.weekly9.99",
+          "recurringSubscriptionPeriod" : "P1W",
+          "referenceName" : "聊天-9.99-周订-设置订阅",
+          "subscriptionGroupID" : "21747366",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "9.99",
+          "familyShareable" : false,
+          "groupNumber" : 6,
+          "internalID" : "6749881215",
+          "introductoryOffer" : null,
+          "localizations" : [
+
+          ],
+          "productID" : "com.tayue.chatinfo.homeGetAll.weekly9.99",
+          "recurringSubscriptionPeriod" : "P1W",
+          "referenceName" : "首页GetALL-9.99-周定",
+          "subscriptionGroupID" : "21747366",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

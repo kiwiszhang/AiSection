@@ -1,0 +1,34 @@
+// MARK: - Subscribe
+"subscribe.getPremium" = "Get Premium";
+"subscribe.getPremiumTips" = "Save & share all you want";
+"subscribe.premiumTitle" = "Design & Create";
+"subscribe.premiumTips" = "Save your wonderful memories";
+"subscribe.restore" = "Restore";
+"subscribe.day" = "day";
+"subscribe.week" = "week";
+"subscribe.month" = "month";
+"subscribe.year" = "year";
+"subscribe.%d_days" = "%d days";
+"subscribe.%d_weeks" = "%d weeks";
+"subscribe.%d_months" = "%d months";
+"subscribe.%d_years" = "%d years";
+"subscribe.noRestorablePurchases" = "No restorable purchases found";
+"subscribe.productNotFound" = "Unable to obtain product information temporarily, please check the network and try again";
+"subscribe.product.tips" = "%@/%@, unlimited access to all features, cancel anytime";
+"subscribe.product.freeTips" = "First %d days free, then %@";
+"subscribe.%d_freeTrial" = "%d Days Free";
+"subscribe.desc" = "Unlock Export Features";
+"subscribe.feature1" = "Video";
+"subscribe.feature2" = "Audio";
+"subscribe.feature3" = "Image";
+"subscribe.feature4" = "Gif";
+
+//MARK: - 内购提示
+"mb-restore-success" = "Subscription restored successfully";
+"mb-restore-error" = "Failed to restore purchases";
+"mb-restore-expired" = "Your subscription has expired";
+"mb-restore-none" = "No active subscriptions found";
+"mb-enable-buy" = "You are currently a subscriber";
+"mb-buy-success" = "Purchase Successful!";
+"mb-buy-error" = "Purchase Error!";
+

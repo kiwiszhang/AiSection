@@ -1,0 +1,4 @@
+NSCameraUsageDescription = "Fotoğraf çekmek ve video kaydetmek için kameranıza erişim izni verin";
+NSMicrophoneUsageDescription = "Ses kaydı yapmak için mikrofon izni gereklidir";
+NSPhotoLibraryAddUsageDescription = "Medya dosyalarınızı Fotoğraflar'a kaydetme izni verin";
+NSPhotoLibraryUsageDescription = "Fotoğraf seçmek için fotoğraf kitaplığına erişim izni verin";

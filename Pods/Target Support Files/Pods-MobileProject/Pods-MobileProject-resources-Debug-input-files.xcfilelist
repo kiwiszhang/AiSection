@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-MobileProject/Pods-MobileProject-resources.sh
+${PODS_ROOT}/TrackReport/TrackReport/src/Resource/TrackReport.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/TrackReport/TrackReport_Privacy.bundle
