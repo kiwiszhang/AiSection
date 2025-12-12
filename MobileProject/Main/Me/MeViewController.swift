@@ -11,7 +11,7 @@ class MeViewController: SuperViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemTeal
+        view.backgroundColor = .systemPink
         // Do any additional setup after loading the view.
     }
     

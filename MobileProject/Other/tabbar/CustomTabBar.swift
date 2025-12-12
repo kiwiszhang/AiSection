@@ -9,18 +9,25 @@ import UIKit
 class CustomTabBar: UITabBar {
     let centerButton = UIButton()
 
+    private let bgView = UIImageView(image: UIImage(named: "tabbar-button"))
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .white
+
+        
+//        backgroundImage = UIImage(named: "tabbar-button")
+//        shadowImage = UIImage()          // 去掉顶部的系统分割线
+//        // TabBar 不透明
+//        isTranslucent = false
+
+        insertSubview(bgView, at: 0)
+        bgView.contentMode = .scaleAspectFill
+
+
         // 配置中间按钮
-        centerButton.setImage(UIImage(named: "takePic"), for: .normal)
-        centerButton.setImage(UIImage(named: "takePic"), for: .highlighted)
+        centerButton.setImage(UIImage(named: "addSelected"), for: .normal)
+        centerButton.setImage(UIImage(named: "addUnselected"), for: .highlighted)
         centerButton.backgroundColor = .clear
-//        centerButton.layer.cornerRadius = 28
-//        centerButton.layer.shadowColor = kkColorFromHex("A4A9B1").cgColor
-//        centerButton.layer.shadowOpacity = 0.4
-//        centerButton.layer.shadowOffset = CGSize(width: 0, height: 4)
-//        centerButton.layer.shadowRadius  = 4// 阴影的模糊半径(blur)
         addSubview(centerButton)
     }
     
@@ -31,6 +38,8 @@ class CustomTabBar: UITabBar {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        bgView.frame = bounds
+
         let buttonW: CGFloat = 56
         let buttonH: CGFloat = 60
         let tabBarWidth = bounds.width
@@ -38,14 +47,14 @@ class CustomTabBar: UITabBar {
         // 设置中间按钮位置（凸起）
         centerButton.frame = CGRect(
             x: (tabBarWidth - buttonW) / 2,
-            y: -10,
+            y: -30,
             width: buttonW,
             height: buttonH
         )
         
         // 调整其他 TabBarItem 位置，给中间按钮留位置
         var index = 0
-        let tabBarButtonWidth = tabBarWidth / 5
+        let tabBarButtonWidth = tabBarWidth / 3
         for subview in subviews {
             if let control = subview as? UIControl, control != centerButton {
                 var frame = control.frame
@@ -53,7 +62,7 @@ class CustomTabBar: UITabBar {
                 frame.size.width = tabBarButtonWidth
                 control.frame = frame
                 index += 1
-                if index == 2 { index += 1 } // 跳过中间位置
+                if index == 1 { index += 1 } // 跳过中间位置
             }
         }
     }

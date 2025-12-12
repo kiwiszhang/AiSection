@@ -13,9 +13,7 @@
 		388FB18A2DA1761F006C52AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 388FB18C2DA1761F006C52AC /* Localizable.strings */; };
 		51AF4179CF536DCEB5636D5F /* Pods_MobileProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A5FBC1CA381B6B6EA83964B /* Pods_MobileProject.framework */; };
 		531CD8712EEAA97B00FC22F7 /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8702EEAA97B00FC22F7 /* UIWindow+Extension.swift */; };
-		531CD8AC2EEAAA0400FC22F7 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD89F2EEAAA0400FC22F7 /* MainTabBarController.swift */; };
 		531CD8AD2EEAAA0400FC22F7 /* VersionTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD87C2EEAAA0400FC22F7 /* VersionTool.swift */; };
-		531CD8AE2EEAAA0400FC22F7 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD89E2EEAAA0400FC22F7 /* CustomTabBar.swift */; };
 		531CD8B02EEAAA0400FC22F7 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD87E2EEAAA0400FC22F7 /* CALayer+Extension.swift */; };
 		531CD8B22EEAAA0400FC22F7 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8852EEAAA0400FC22F7 /* UIFont+Extension.swift */; };
 		531CD8B32EEAAA0400FC22F7 /* UIButton+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8822EEAAA0400FC22F7 /* UIButton+Create.swift */; };
@@ -47,6 +45,8 @@
 		531CD90B2EEAAF6400FC22F7 /* expensesSynced.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 531CD8F12EEAAF6400FC22F7 /* expensesSynced.storekit */; };
 		531CD90C2EEAAF6400FC22F7 /* expenses.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 531CD8F02EEAAF6400FC22F7 /* expenses.storekit */; };
 		531CD90D2EEAAF6400FC22F7 /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 531CD8F22EEAAF6400FC22F7 /* StoreKitTestCertificate.cer */; };
+		531CD9102EEBA17200FC22F7 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD90F2EEBA17200FC22F7 /* MainTabBarController.swift */; };
+		531CD9112EEBA17200FC22F7 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD90E2EEBA17200FC22F7 /* CustomTabBar.swift */; };
 		533D12442E1BAB4300C97724 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 533D12432E1BAB4300C97724 /* LaunchScreen.storyboard */; };
 		539F2D432DA8B1190030DA8F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 539F2D412DA8B1190030DA8F /* InfoPlist.strings */; };
 		539F2D4C2DA921030030DA8F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F2D4B2DA921030030DA8F /* WebViewController.swift */; };
@@ -91,8 +91,6 @@
 		531CD8842EEAAA0400FC22F7 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		531CD8852EEAAA0400FC22F7 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		531CD89B2EEAAA0400FC22F7 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
-		531CD89E2EEAAA0400FC22F7 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
-		531CD89F2EEAAA0400FC22F7 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		531CD8D22EEAAB6E00FC22F7 /* GlobalImports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalImports.swift; sourceTree = "<group>"; };
 		531CD8D42EEAABB400FC22F7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		531CD8D62EEAABD100FC22F7 /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +113,8 @@
 		531CD8F82EEAAF6400FC22F7 /* UtitilTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtitilTools.swift; sourceTree = "<group>"; };
 		531CD8FA2EEAAF6400FC22F7 /* AppIconHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconHelper.swift; sourceTree = "<group>"; };
 		531CD8FC2EEAAF6400FC22F7 /* CoreDataICloud.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataICloud.xcdatamodel; sourceTree = "<group>"; };
+		531CD90E2EEBA17200FC22F7 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+		531CD90F2EEBA17200FC22F7 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		533D12432E1BAB4300C97724 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
 		539F2D422DA8B1190030DA8F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -277,8 +277,8 @@
 		531CD8A12EEAAA0400FC22F7 /* tabbar */ = {
 			isa = PBXGroup;
 			children = (
-				531CD89E2EEAAA0400FC22F7 /* CustomTabBar.swift */,
-				531CD89F2EEAAA0400FC22F7 /* MainTabBarController.swift */,
+				531CD90E2EEBA17200FC22F7 /* CustomTabBar.swift */,
+				531CD90F2EEBA17200FC22F7 /* MainTabBarController.swift */,
 			);
 			path = tabbar;
 			sourceTree = "<group>";
@@ -560,9 +560,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				531CD8D72EEAABD100FC22F7 /* MeViewController.swift in Sources */,
-				531CD8AC2EEAAA0400FC22F7 /* MainTabBarController.swift in Sources */,
 				531CD8AD2EEAAA0400FC22F7 /* VersionTool.swift in Sources */,
-				531CD8AE2EEAAA0400FC22F7 /* CustomTabBar.swift in Sources */,
 				531CD8D52EEAABB400FC22F7 /* HomeViewController.swift in Sources */,
 				531CD8B02EEAAA0400FC22F7 /* CALayer+Extension.swift in Sources */,
 				531CD8B22EEAAA0400FC22F7 /* UIFont+Extension.swift in Sources */,
@@ -579,6 +577,8 @@
 				531CD8E32EEAACF100FC22F7 /* Files.swift in Sources */,
 				531CD8E42EEAACF100FC22F7 /* Strings.swift in Sources */,
 				388FB08D2DA17037006C52AC /* AppDelegate.swift in Sources */,
+				531CD9102EEBA17200FC22F7 /* MainTabBarController.swift in Sources */,
+				531CD9112EEBA17200FC22F7 /* CustomTabBar.swift in Sources */,
 				531CD8712EEAA97B00FC22F7 /* UIWindow+Extension.swift in Sources */,
 				531CD8D32EEAAB6E00FC22F7 /* GlobalImports.swift in Sources */,
 				531CD8FD2EEAAF6400FC22F7 /* NotificationCenterKeys.swift in Sources */,

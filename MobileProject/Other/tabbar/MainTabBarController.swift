@@ -11,7 +11,6 @@ import Vision
 import Localize_Swift
 
 
-
 class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +61,6 @@ class MainTabBarController: UITabBarController {
     }
     @objc private func centerButtonTapped() {
         print("中间按钮点击了")
-        
     }
 }
 
