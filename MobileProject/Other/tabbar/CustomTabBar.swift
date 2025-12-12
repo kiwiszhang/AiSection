@@ -14,12 +14,6 @@ class CustomTabBar: UITabBar {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        
-//        backgroundImage = UIImage(named: "tabbar-button")
-//        shadowImage = UIImage()          // 去掉顶部的系统分割线
-//        // TabBar 不透明
-//        isTranslucent = false
-
         insertSubview(bgView, at: 0)
         bgView.contentMode = .scaleAspectFill
 

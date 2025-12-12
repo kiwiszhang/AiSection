@@ -24,6 +24,8 @@ internal enum L10n {
   internal static let mbRestoreNone = L10n.tr("Localizable", "mb-restore-none", fallback: "No active subscriptions found")
   /// Subscription restored successfully
   internal static let mbRestoreSuccess = L10n.tr("Localizable", "mb-restore-success", fallback: "Subscription restored successfully")
+  /// The network is not connected or limited.
+  internal static let notConnectedLimited = L10n.tr("Localizable", "not-connected-limited", fallback: "The network is not connected or limited.")
   internal enum Subscribe {
     /// %d days
     internal static func dDays(_ p1: Int) -> String {

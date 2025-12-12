@@ -25,49 +25,48 @@ extension UIWindow {
         })
     }
     
-//    func showInitialViewController() {
-//        if AppHelper.isShowGuidView {
-////            AppHelper.isShowGuidView = false
-//            // 显示引导页
+    func showInitialViewController() {
+        if AppHelper.isShowGuidView {
+//            AppHelper.isShowGuidView = false
+            // 显示引导页
 //            showGuidViewController(index: 0)
-//        } else {
-//            // 进入主页
-//            if isPremiumUser {
-//                showMainViewController()
-//            }else{
-//                showTreeViewController()
-//            }
-//        }
-//    }
-//    
-//    func showMainOrBuyWithPermium(){
+            showTreeViewController()
+        } else {
+            // 进入主页
+            if isPremiumUser {
+                showMainViewController()
+            }else{
+                showTreeViewController()
+            }
+        }
+    }
+    
+    func showMainOrBuyWithPermium(){
 //        if isShowPay {
 //            if isPremiumUser {
-//                showMainViewController()
+                showMainViewController()
 //            }else{
 //                showInitialViewController()
 //            }
 //        }else{
 //            showInitialViewController()
 //        }
-//    }
-//    
-//    /// 显示主界
-//    func showMainViewController(){
-//        EventReport.subscriptionSuccess(from: .event3234)
-//        let tabVC = MainTabBarController()
-//        switchRootViewController(tabVC)
-//    }
-//    /// 显示试用界面
-//    func showTreeViewController() {
+    }
+    
+    /// 显示主界
+    func showMainViewController(){
+        let tabVC = MainTabBarController()
+        switchRootViewController(tabVC)
+    }
+    /// 显示试用界面
+    func showTreeViewController() {
 //        EventReport.subscriptionSuccess(from: .event3232)
-//        self.rootViewController = CustomNavigationController(rootViewController: FreeTrialViewController())
-//    }
-//    /// 显示挽留界面
-//    func showRetrieveViewController() {
-//        EventReport.subscriptionSuccess(from: .event3233)
-//        self.rootViewController = CustomNavigationController(rootViewController: RetrieveViewController())
-//    }
+        self.rootViewController = CustomNavigationController(rootViewController: HomeViewController())
+    }
+    /// 显示挽留界面
+    func showRetrieveViewController() {
+        self.rootViewController = CustomNavigationController(rootViewController: MeViewController())
+    }
 //    /// 显示选择货币界面
 //    func showFirstViewController() {
 //        self.rootViewController = CustomNavigationController(rootViewController: FirstViewController())
@@ -93,12 +92,6 @@ extension UIWindow {
     func showLanchViewController(){
         let vc = MainTabBarController()
         self.rootViewController = vc
-    }
-    
-    /// 显示主界
-    func showMainViewController(){
-        let tabVC = MainTabBarController()
-        switchRootViewController(tabVC)
     }
 }
 

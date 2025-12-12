@@ -47,6 +47,8 @@
 		531CD90D2EEAAF6400FC22F7 /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 531CD8F22EEAAF6400FC22F7 /* StoreKitTestCertificate.cer */; };
 		531CD9102EEBA17200FC22F7 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD90F2EEBA17200FC22F7 /* MainTabBarController.swift */; };
 		531CD9112EEBA17200FC22F7 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD90E2EEBA17200FC22F7 /* CustomTabBar.swift */; };
+		531CD9162EEBAE7900FC22F7 /* AppHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD9142EEBAE7900FC22F7 /* AppHelper.swift */; };
+		531CD9172EEBAE7900FC22F7 /* ABTestDebugConfigPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD9132EEBAE7900FC22F7 /* ABTestDebugConfigPage.swift */; };
 		533D12442E1BAB4300C97724 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 533D12432E1BAB4300C97724 /* LaunchScreen.storyboard */; };
 		539F2D432DA8B1190030DA8F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 539F2D412DA8B1190030DA8F /* InfoPlist.strings */; };
 		539F2D4C2DA921030030DA8F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F2D4B2DA921030030DA8F /* WebViewController.swift */; };
@@ -115,6 +117,9 @@
 		531CD8FC2EEAAF6400FC22F7 /* CoreDataICloud.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataICloud.xcdatamodel; sourceTree = "<group>"; };
 		531CD90E2EEBA17200FC22F7 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		531CD90F2EEBA17200FC22F7 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		531CD9122EEBAE1A00FC22F7 /* MobileProjectDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProjectDebug.entitlements; sourceTree = "<group>"; };
+		531CD9132EEBAE7900FC22F7 /* ABTestDebugConfigPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABTestDebugConfigPage.swift; sourceTree = "<group>"; };
+		531CD9142EEBAE7900FC22F7 /* AppHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHelper.swift; sourceTree = "<group>"; };
 		533D12432E1BAB4300C97724 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
 		539F2D422DA8B1190030DA8F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -165,6 +170,8 @@
 		388FB08B2DA17037006C52AC /* MobileProject */ = {
 			isa = PBXGroup;
 			children = (
+				531CD9152EEBAE7900FC22F7 /* ABTest */,
+				531CD9122EEBAE1A00FC22F7 /* MobileProjectDebug.entitlements */,
 				531CD8DE2EEAACF100FC22F7 /* generated */,
 				531CD8AA2EEAAA0400FC22F7 /* Other */,
 				531CD8722EEAA9BB00FC22F7 /* Main */,
@@ -366,6 +373,15 @@
 				531CD8FA2EEAAF6400FC22F7 /* AppIconHelper.swift */,
 			);
 			path = tool;
+			sourceTree = "<group>";
+		};
+		531CD9152EEBAE7900FC22F7 /* ABTest */ = {
+			isa = PBXGroup;
+			children = (
+				531CD9132EEBAE7900FC22F7 /* ABTestDebugConfigPage.swift */,
+				531CD9142EEBAE7900FC22F7 /* AppHelper.swift */,
+			);
+			path = ABTest;
 			sourceTree = "<group>";
 		};
 		92B7530C0A506F5CE9301584 /* Frameworks */ = {
@@ -576,6 +592,8 @@
 				531CD8E22EEAACF100FC22F7 /* MediaFiles.swift in Sources */,
 				531CD8E32EEAACF100FC22F7 /* Files.swift in Sources */,
 				531CD8E42EEAACF100FC22F7 /* Strings.swift in Sources */,
+				531CD9162EEBAE7900FC22F7 /* AppHelper.swift in Sources */,
+				531CD9172EEBAE7900FC22F7 /* ABTestDebugConfigPage.swift in Sources */,
 				388FB08D2DA17037006C52AC /* AppDelegate.swift in Sources */,
 				531CD9102EEBA17200FC22F7 /* MainTabBarController.swift in Sources */,
 				531CD9112EEBA17200FC22F7 /* CustomTabBar.swift in Sources */,
@@ -747,10 +765,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = MobileProject/MobileProject.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = MobileProject/MobileProjectDebug.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = NKTVSPZ2V9;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = V5QGDN3Y45;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MobileProject/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = WAlytics;
@@ -771,8 +791,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tayue.chatinfo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuehai.scanBills;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AdHoc com.yuehai.scanBills";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -792,9 +814,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = MobileProject/MobileProject.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = NKTVSPZ2V9;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MobileProject/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = WAlytics;
@@ -815,8 +837,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tayue.chatinfo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuehai.scanBills;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

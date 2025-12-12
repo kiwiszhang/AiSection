@@ -32,3 +32,5 @@
 "mb-buy-success" = "Purchase Successful!";
 "mb-buy-error" = "Purchase Error!";
 
+"not-connected-limited" = "The network is not connected or limited.";
+
