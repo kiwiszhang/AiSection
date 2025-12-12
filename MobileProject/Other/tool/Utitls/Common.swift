@@ -9,26 +9,33 @@
 import UIKit
 import Localize_Swift;
 // MARK: - APP 配置相关
-let kkMainColor = "#06D094"
-let kkMainTextColor = "#202124"
-let kkTextSubColor = "5B5F65"
-let kkLightColor = "E0E2E5"
+let kkMainTitleColor = "#202124"
+let kkMainTextColor = "#5B5F65;"
+let kkSubTitleColor = "#8B8E94"
+let kkSubTextColor = "#A4A9B1"
+let kkIconColor = "#B4BBC9"
 
-let kkSeparatorStr = "**.._&_&7=="
+let kkWhiteTabColor = "#EEF0F4"
+let kkWhiteSliceLineColor = "#ECECED"
+
+let kkHomeBgColor = "#F2F4F8"
+let kkRemindeColor = "#FECB32"
+let kkErrorColor = "#FF3639"
+let kkMainColor = "#2A78FE"
+
+
 
 // MARK: - 常用标记
 //本地存储
 let GuidVersion = "GuidVersion"
 
-let isShowPay = true
-
 var isPremiumUser: Bool {
     SubscriptionManager.shared.isValid
 }
 /// 营销消失按钮时间
-//var delayTime: Double {
-//    AppHelper.ABTest_delayTimeValue
-//}
+var delayTime: Double {
+    AppHelper.ABTest_delayTimeValue
+}
 
 func Localize_Swift_bridge(forKey:String,table:String,fallbackValue:String)->String {
     return forKey.localized(using: table);

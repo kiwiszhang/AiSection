@@ -42,15 +42,11 @@ extension UIWindow {
     }
     
     func showMainOrBuyWithPermium(){
-//        if isShowPay {
 //            if isPremiumUser {
                 showMainViewController()
 //            }else{
 //                showInitialViewController()
 //            }
-//        }else{
-//            showInitialViewController()
-//        }
     }
     
     /// 显示主界
