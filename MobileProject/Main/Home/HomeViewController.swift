@@ -8,10 +8,14 @@
 import UIKit
 
 struct RecordItemModel {
-    let noteName: String
-    let noteType: Int
-    let updateTime: Int64
-    let isFavorite: Bool
+    var noteName: String = ""
+    var noteType: Int = 0
+    var updateTime: Int64 = 0
+    var isFavorite: Bool = false
+    
+    var isDemo: Bool = false
+    var demoSubTitle: String = L10n.discoverAllFeatureswithThisNote
+    var demoTry: String = L10n.tryNow
 }
 
 class HomeViewController: SuperViewController {
@@ -20,7 +24,7 @@ class HomeViewController: SuperViewController {
     private lazy var tabView = TabView()
     private lazy var itemList:[RecordItemModel] = []
     private lazy var tableView = {
-        return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.clear).registerCells(RecordItemCell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeight(84.h).showsH(false)
+        return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.clear).registerCells(RecordItemCell.self).registerCells(RecordItemDemoCell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeight(84.h).showsH(false)
     }()
     
     override func viewDidLoad() {
@@ -45,20 +49,14 @@ class HomeViewController: SuperViewController {
         tableView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.top.equalTo(tabView.snp.bottom).offset(20.h)
-            make.bottom.equalToSuperview().offset(-kkTAB_BAR_TOTAL_HEIGHT - 30.h)
+            make.bottom.equalToSuperview().offset(-kkTAB_BAR_TOTAL_HEIGHT)
         }
+        
+        tabView.delegate = self
         
     }
     override func getData() {
-        
-        let model00 = RecordItemModel(noteName: "noteName00", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        let model01 = RecordItemModel(noteName: "noteName11", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: true)
-        let model02 = RecordItemModel(noteName: "noteName22", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        let model03 = RecordItemModel(noteName: "noteName33", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-
-        itemList = [model00,model01,model02,model03]
-        tableView.reloadData()
-        
+        tabClickItemIndex(0)
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -74,6 +72,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return itemList.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = itemList[indexPath.row]
+        if model.isDemo {
+            let cell = tableView.dequeueCell(RecordItemDemoCell.self, for: indexPath)
+            cell.selectionStyle = .none
+            cell.configure(with: itemList[indexPath.row])
+            return cell
+        }
         let cell = tableView.dequeueCell(RecordItemCell.self, for: indexPath)
         cell.selectionStyle = .none
         cell.configure(with: itemList[indexPath.row])
@@ -81,6 +86,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = itemList[indexPath.row]
+        if item.isDemo {
+            MyLog("Demo")
+        }else{
+            MyLog("Other")
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -187,3 +197,84 @@ class RecordItemCell: SuperTableViewCell {
     }
 }
 
+class RecordItemDemoCell: SuperTableViewCell {
+    private lazy var bgView = UIView().backgroundColor(.white).cornerRadius(14.w)
+    private lazy var iconImageV = UIImageView().image(Asset.homeNote.image).enable(true)
+    private lazy var titleL = UILabel().text("title").color(kkColorFromHex(kkMainTitleColor)).hnFont(size: 14.h, weight: .medium)
+    private lazy var dateL = UILabel().text("Apr 10,2025   11:30 am").hnFont(size: 12.h, weight: .regular).color(kkColorFromHex(kkSubTitleColor))
+    private lazy var tryL = UILabel().text(L10n.tryNow).hnFont(size: 10.h, weight: .medium).color(kkColorFromHex(kkMainColor)).cornerRadius(13.h).border(width: 1, color: kkColorFromHex(kkMainColor)).centerAligned()
+    override func setUpUI() {
+        self.backgroundColor(.clear)
+        contentView.addChildView([bgView])
+        contentView.backgroundColor(.clear)
+        bgView.addChildView([iconImageV,titleL,dateL,tryL])
+        
+        bgView.snp.makeConstraints { make in
+            make.width.equalTo(343.w)
+            make.height.equalTo(70.h)
+            make.center.equalToSuperview()
+        }
+        
+        iconImageV.snp.makeConstraints { make in
+            make.width.height.equalTo(36.h)
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(16.w)
+        }
+        
+        tryL.snp.makeConstraints { make in
+            make.width.equalTo(60.w)
+            make.height.equalTo(26.h)
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().offset(-12.w)
+        }
+        
+        titleL.snp.makeConstraints { make in
+            make.left.equalTo(iconImageV.snp.right).offset(10.w)
+            make.right.equalTo(tryL.snp.left).offset(-8.w)
+            make.top.equalToSuperview().offset(16.h)
+            make.height.equalTo(17.h)
+        }
+
+        dateL.snp.makeConstraints { make in
+            make.left.equalTo(titleL.snp.left)
+            make.right.equalTo(tryL.snp.left).offset(-4.w)
+            make.top.equalTo(titleL.snp.bottom).offset(4.h)
+            make.height.equalTo(15.h)
+        }
+        
+        bgView.addGradientBackground(colors: [kkColorFromHex("D4E4FF"),kkColorFromHex("BAD6FF")], direction: .bottomLeftToTopRight)
+
+    }
+    
+    func configure(with item: RecordItemModel) {
+        titleL.text(item.noteName)
+        dateL.text(item.demoSubTitle)
+        tryL.text(item.demoTry)
+    }
+
+    
+    
+}
+
+//MARK: ----------TableViewDelegateDataSource-----------
+extension HomeViewController:TabViewDelegate {
+    func tabClickItemIndex(_ index: Int) {
+        let model00 = RecordItemModel(noteName: "noteName00", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
+        let model01 = RecordItemModel(noteName: "noteName11", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: true)
+        let model02 = RecordItemModel(noteName: "noteName22", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
+        let model03 = RecordItemModel(noteName: "noteName33", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
+
+        let model = RecordItemModel(noteName: L10n.welcome, noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false,isDemo: true)
+
+        if index == 0 {
+            itemList = [model00,model01,model02,model03,model]
+            tableView.reloadData()
+        }else if index == 1 {
+            itemList = [model02,model03]
+            tableView.reloadData()
+        }else {
+            itemList = [model]
+            tableView.reloadData()
+        }
+    }
+}

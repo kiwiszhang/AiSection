@@ -7,7 +7,12 @@
 
 import UIKit
 
+@objc protocol TabViewDelegate: AnyObject {
+    func tabClickItemIndex(_ index: Int)
+}
+
 class TabView: SuperView {
+    weak var delegate: TabViewDelegate?
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal          // 横向
@@ -65,6 +70,7 @@ extension TabView: UICollectionViewDataSource, UICollectionViewDelegate {
         MyLog("点击了第 \(indexPath.item) 项")
         selectedIndex = indexPath
         collectionView.reloadData()
+        delegate?.tabClickItemIndex(indexPath.row)
     }
 }
 
