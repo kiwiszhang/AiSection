@@ -22,8 +22,8 @@ class MainTabBarController: UITabBarController {
         
         // 添加子控制器
         viewControllers = [
-            createNav(HomeViewController(), title: "Home", image: Asset.expendsUnselected.image, selectedImage: Asset.expends.image),
-            createNav(MeViewController(), title: "Me", image: Asset.reportUnselected.image, selectedImage: Asset.report.image),
+            createNav(HomeViewController(), title: "Home", image: Asset.homeUnSelected.image, selectedImage: Asset.homeSelected.image),
+            createNav(MeViewController(), title: "Me", image: Asset.meUnSelected.image, selectedImage: Asset.meSelected.image),
         ]
         
         // 中间按钮点击

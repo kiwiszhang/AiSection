@@ -51,18 +51,18 @@ public final class AppHelper {
 
     static func launch(with window: UIWindow?) {
         #if DEBUG
-            let abTextConfigVC = ABTestDebugConfigPage()
-            abTextConfigVC.dismissHandler = {
-                if AppHelper.isWaiting {
-//                    window?.rootViewController = LaunchViewController()
-                    checkNetworkAuthorization()
-                } else {
+//            let abTextConfigVC = ABTestDebugConfigPage()
+//            abTextConfigVC.dismissHandler = {
+//                if AppHelper.isWaiting {
+////                    window?.rootViewController = LaunchViewController()
+//                    checkNetworkAuthorization()
+//                } else {
                     AppHelper.getABTestConfig()
                     window?.showMainOrBuyWithPermium()
                     AppHelper.checkAppVersion()
-                }
-            }
-            window?.rootViewController = UINavigationController(rootViewController: abTextConfigVC)
+//                }
+//            }
+//            window?.rootViewController = UINavigationController(rootViewController: abTextConfigVC)
 //            window?.rootViewController = UINavigationController(rootViewController: ActionViewController())
 //        window?.rootViewController = ActionViewController()
         #else

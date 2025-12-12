@@ -10,6 +10,34 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  /// Add Folder
+  internal static let addFolder = L10n.tr("Localizable", "Add Folder", fallback: "Add Folder")
+  /// Add note
+  internal static let addNote = L10n.tr("Localizable", "Add note", fallback: "Add note")
+  /// Add to Favorites
+  internal static let addToFavorites = L10n.tr("Localizable", "Add to Favorites", fallback: "Add to Favorites")
+  /// All Notes
+  internal static let allNotes = L10n.tr("Localizable", "All Notes", fallback: "All Notes")
+  /// Audio Files
+  internal static let audioFiles = L10n.tr("Localizable", "Audio Files", fallback: "Audio Files")
+  /// Chat with this note
+  internal static let chatWithThisNote = L10n.tr("Localizable", "Chat with this note", fallback: "Chat with this note")
+  /// Confirm
+  internal static let confirm = L10n.tr("Localizable", "Confirm", fallback: "Confirm")
+  /// Delete
+  internal static let delete = L10n.tr("Localizable", "Delete", fallback: "Delete")
+  /// Discover all featureswith this note！
+  internal static let discoverAllFeatureswithThisNote = L10n.tr("Localizable", "Discover all featureswith this note", fallback: "Discover all featureswith this note！")
+  /// Edit Summary
+  internal static let editSummary = L10n.tr("Localizable", "Edit Summary", fallback: "Edit Summary")
+  /// Edit Transcript
+  internal static let editTranscript = L10n.tr("Localizable", "Edit Transcript", fallback: "Edit Transcript")
+  /// Favorites
+  internal static let favorites = L10n.tr("Localizable", "Favorites", fallback: "Favorites")
+  /// Folder
+  internal static let folder = L10n.tr("Localizable", "Folder", fallback: "Folder")
+  /// Home
+  internal static let home = L10n.tr("Localizable", "Home", fallback: "Home")
   /// Purchase Error!
   internal static let mbBuyError = L10n.tr("Localizable", "mb-buy-error", fallback: "Purchase Error!")
   /// Purchase Successful!
@@ -24,8 +52,56 @@ internal enum L10n {
   internal static let mbRestoreNone = L10n.tr("Localizable", "mb-restore-none", fallback: "No active subscriptions found")
   /// Subscription restored successfully
   internal static let mbRestoreSuccess = L10n.tr("Localizable", "mb-restore-success", fallback: "Subscription restored successfully")
+  /// Me
+  internal static let me = L10n.tr("Localizable", "Me", fallback: "Me")
+  /// More
+  internal static let more = L10n.tr("Localizable", "More", fallback: "More")
+  /// Move to folder
+  internal static let moveToFolder = L10n.tr("Localizable", "Move to folder", fallback: "Move to folder")
+  /// My Notes
+  internal static let myNotes = L10n.tr("Localizable", "My Notes", fallback: "My Notes")
+  /// New folder name
+  internal static let newFolderName = L10n.tr("Localizable", "New folder name", fallback: "New folder name")
+  /// New note
+  internal static let newNote = L10n.tr("Localizable", "New note", fallback: "New note")
   /// The network is not connected or limited.
   internal static let notConnectedLimited = L10n.tr("Localizable", "not-connected-limited", fallback: "The network is not connected or limited.")
+  /// Recording
+  internal static let recording = L10n.tr("Localizable", "Recording", fallback: "Recording")
+  /// Remove from Favorites
+  internal static let removeFromFavorites = L10n.tr("Localizable", "Remove from Favorites", fallback: "Remove from Favorites")
+  /// Rename
+  internal static let rename = L10n.tr("Localizable", "Rename", fallback: "Rename")
+  /// Reset
+  internal static let reset = L10n.tr("Localizable", "Reset", fallback: "Reset")
+  /// Save
+  internal static let save = L10n.tr("Localizable", "Save", fallback: "Save")
+  /// Search folders
+  internal static let searchFolders = L10n.tr("Localizable", "Search folders", fallback: "Search folders")
+  /// Search notes/folders
+  internal static let searchNotesFolders = L10n.tr("Localizable", "Search notes/folders", fallback: "Search notes/folders")
+  /// Share
+  internal static let share = L10n.tr("Localizable", "Share", fallback: "Share")
+  /// Share audio
+  internal static let shareAudio = L10n.tr("Localizable", "Share audio", fallback: "Share audio")
+  /// Share Summary in PDF
+  internal static let shareSummaryInPDF = L10n.tr("Localizable", "Share Summary in PDF", fallback: "Share Summary in PDF")
+  /// Share Summary in text
+  internal static let shareSummaryInText = L10n.tr("Localizable", "Share Summary in text", fallback: "Share Summary in text")
+  /// Share Transcript in PDF
+  internal static let shareTranscriptInPDF = L10n.tr("Localizable", "Share Transcript in PDF", fallback: "Share Transcript in PDF")
+  /// Share Transcript in text
+  internal static let shareTranscriptInText = L10n.tr("Localizable", "Share Transcript in text", fallback: "Share Transcript in text")
+  /// Summarize
+  internal static let summarize = L10n.tr("Localizable", "Summarize", fallback: "Summarize")
+  /// Transcription
+  internal static let transcription = L10n.tr("Localizable", "Transcription", fallback: "Transcription")
+  /// Translate
+  internal static let translate = L10n.tr("Localizable", "Translate", fallback: "Translate")
+  /// Try now
+  internal static let tryNow = L10n.tr("Localizable", "Try now", fallback: "Try now")
+  /// Welcome！
+  internal static let welcome = L10n.tr("Localizable", "Welcome", fallback: "Welcome！")
   internal enum Subscribe {
     /// %d days
     internal static func dDays(_ p1: Int) -> String {

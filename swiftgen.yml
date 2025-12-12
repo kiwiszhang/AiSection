@@ -14,15 +14,23 @@ strings:
     templateName: structured-swift5
     output: MobileProject/generated/Strings.swift
 
-# GIF,MP4
+
 files:
   inputs:
     - MobileProject/Other/source/gif
-#    - MobileProject/Other/source/mp4
-    - MobileProject/Other/source/font
+    - MobileProject/Other/source/videos
   outputs:
     templateName: structured-swift5
     output: MobileProject/generated/MediaFiles.swift
+    
+# 字体文件
+fonts:
+  inputs:
+    - MobileProject/Other/source/font
+  outputs:
+    templateName: swift5
+    output: MobileProject/generated/Fonts.swift
+
 
 
 # JSON 文件

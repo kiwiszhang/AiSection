@@ -20,10 +20,6 @@ internal typealias Font = FontConvertible.Font
 
 // swiftlint:disable identifier_name line_length type_body_length
 internal enum FontFamily {
-  internal enum ArchivoBlack {
-    internal static let regular = FontConvertible(name: "ArchivoBlack-Regular", family: "Archivo Black", path: "ArchivoBlack-Regular-2.ttf")
-    internal static let all: [FontConvertible] = [regular]
-  }
   internal enum Inter {
     internal static let bold = FontConvertible(name: "Inter-Bold", family: "Inter", path: "Inter-Bold-4.otf")
     internal static let lightBETA = FontConvertible(name: "Inter-LightBETA", family: "Inter", path: "Inter-Light-7.otf")
@@ -31,7 +27,7 @@ internal enum FontFamily {
     internal static let regular = FontConvertible(name: "Inter-Regular", family: "Inter", path: "Inter-Regular-9.otf")
     internal static let all: [FontConvertible] = [bold, lightBETA, medium, regular]
   }
-  internal static let allCustomFonts: [FontConvertible] = [ArchivoBlack.all, Inter.all].flatMap { $0 }
+  internal static let allCustomFonts: [FontConvertible] = [Inter.all].flatMap { $0 }
   internal static func registerAllCustomFonts() {
     allCustomFonts.forEach { $0.register() }
   }

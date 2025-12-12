@@ -49,6 +49,13 @@
 		531CD9112EEBA17200FC22F7 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD90E2EEBA17200FC22F7 /* CustomTabBar.swift */; };
 		531CD9162EEBAE7900FC22F7 /* AppHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD9142EEBAE7900FC22F7 /* AppHelper.swift */; };
 		531CD9172EEBAE7900FC22F7 /* ABTestDebugConfigPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD9132EEBAE7900FC22F7 /* ABTestDebugConfigPage.swift */; };
+		531CD91A2EEBBACA00FC22F7 /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD9192EEBBACA00FC22F7 /* TopView.swift */; };
+		531CD91C2EEBE15500FC22F7 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD91B2EEBE15500FC22F7 /* SearchView.swift */; };
+		531CD9232EEBE90C00FC22F7 /* Inter-Bold-4.otf in Resources */ = {isa = PBXBuildFile; fileRef = 531CD91F2EEBE90C00FC22F7 /* Inter-Bold-4.otf */; };
+		531CD9242EEBE90C00FC22F7 /* Inter-Medium-8.otf in Resources */ = {isa = PBXBuildFile; fileRef = 531CD9212EEBE90C00FC22F7 /* Inter-Medium-8.otf */; };
+		531CD9252EEBE90C00FC22F7 /* Inter-Regular-9.otf in Resources */ = {isa = PBXBuildFile; fileRef = 531CD9222EEBE90C00FC22F7 /* Inter-Regular-9.otf */; };
+		531CD9262EEBE90C00FC22F7 /* Inter-Light-7.otf in Resources */ = {isa = PBXBuildFile; fileRef = 531CD9202EEBE90C00FC22F7 /* Inter-Light-7.otf */; };
+		531CD9282EEBF0B900FC22F7 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD9272EEBF0B900FC22F7 /* TabView.swift */; };
 		533D12442E1BAB4300C97724 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 533D12432E1BAB4300C97724 /* LaunchScreen.storyboard */; };
 		539F2D432DA8B1190030DA8F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 539F2D412DA8B1190030DA8F /* InfoPlist.strings */; };
 		539F2D4C2DA921030030DA8F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F2D4B2DA921030030DA8F /* WebViewController.swift */; };
@@ -120,6 +127,13 @@
 		531CD9122EEBAE1A00FC22F7 /* MobileProjectDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProjectDebug.entitlements; sourceTree = "<group>"; };
 		531CD9132EEBAE7900FC22F7 /* ABTestDebugConfigPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABTestDebugConfigPage.swift; sourceTree = "<group>"; };
 		531CD9142EEBAE7900FC22F7 /* AppHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHelper.swift; sourceTree = "<group>"; };
+		531CD9192EEBBACA00FC22F7 /* TopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
+		531CD91B2EEBE15500FC22F7 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		531CD91F2EEBE90C00FC22F7 /* Inter-Bold-4.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold-4.otf"; sourceTree = "<group>"; };
+		531CD9202EEBE90C00FC22F7 /* Inter-Light-7.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Light-7.otf"; sourceTree = "<group>"; };
+		531CD9212EEBE90C00FC22F7 /* Inter-Medium-8.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium-8.otf"; sourceTree = "<group>"; };
+		531CD9222EEBE90C00FC22F7 /* Inter-Regular-9.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular-9.otf"; sourceTree = "<group>"; };
+		531CD9272EEBF0B900FC22F7 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		533D12432E1BAB4300C97724 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
 		539F2D422DA8B1190030DA8F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -194,6 +208,7 @@
 		531CD8722EEAA9BB00FC22F7 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				531CD9182EEBBA8A00FC22F7 /* View */,
 				531CD8742EEAA9DB00FC22F7 /* Me */,
 				531CD8732EEAA9C400FC22F7 /* Home */,
 			);
@@ -244,6 +259,10 @@
 		531CD88C2EEAAA0400FC22F7 /* font */ = {
 			isa = PBXGroup;
 			children = (
+				531CD91F2EEBE90C00FC22F7 /* Inter-Bold-4.otf */,
+				531CD9202EEBE90C00FC22F7 /* Inter-Light-7.otf */,
+				531CD9212EEBE90C00FC22F7 /* Inter-Medium-8.otf */,
+				531CD9222EEBE90C00FC22F7 /* Inter-Regular-9.otf */,
 			);
 			path = font;
 			sourceTree = "<group>";
@@ -384,6 +403,16 @@
 			path = ABTest;
 			sourceTree = "<group>";
 		};
+		531CD9182EEBBA8A00FC22F7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				531CD9192EEBBACA00FC22F7 /* TopView.swift */,
+				531CD91B2EEBE15500FC22F7 /* SearchView.swift */,
+				531CD9272EEBF0B900FC22F7 /* TabView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		92B7530C0A506F5CE9301584 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -472,6 +501,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				531CD9232EEBE90C00FC22F7 /* Inter-Bold-4.otf in Resources */,
+				531CD9242EEBE90C00FC22F7 /* Inter-Medium-8.otf in Resources */,
+				531CD9252EEBE90C00FC22F7 /* Inter-Regular-9.otf in Resources */,
+				531CD9262EEBE90C00FC22F7 /* Inter-Light-7.otf in Resources */,
 				539F2D432DA8B1190030DA8F /* InfoPlist.strings in Resources */,
 				531CD90B2EEAAF6400FC22F7 /* expensesSynced.storekit in Resources */,
 				531CD90C2EEAAF6400FC22F7 /* expenses.storekit in Resources */,
@@ -512,13 +545,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MobileProject/Pods-MobileProject-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MobileProject/Pods-MobileProject-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -555,13 +584,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MobileProject/Pods-MobileProject-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MobileProject/Pods-MobileProject-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -585,8 +610,10 @@
 				531CD8B82EEAAA0400FC22F7 /* BottomPushAnimator.swift in Sources */,
 				531CD8B92EEAAA0400FC22F7 /* UIColor+Extension.swift in Sources */,
 				531CD8BB2EEAAA0400FC22F7 /* MBProgressHUD.m in Sources */,
+				531CD9282EEBF0B900FC22F7 /* TabView.swift in Sources */,
 				531CD8BC2EEAAA0400FC22F7 /* UIButton+Extension.swift in Sources */,
 				531CD8DF2EEAACF100FC22F7 /* JSON.swift in Sources */,
+				531CD91A2EEBBACA00FC22F7 /* TopView.swift in Sources */,
 				531CD8E02EEAACF100FC22F7 /* Images.swift in Sources */,
 				531CD8E12EEAACF100FC22F7 /* Fonts.swift in Sources */,
 				531CD8E22EEAACF100FC22F7 /* MediaFiles.swift in Sources */,
@@ -594,6 +621,7 @@
 				531CD8E42EEAACF100FC22F7 /* Strings.swift in Sources */,
 				531CD9162EEBAE7900FC22F7 /* AppHelper.swift in Sources */,
 				531CD9172EEBAE7900FC22F7 /* ABTestDebugConfigPage.swift in Sources */,
+				531CD91C2EEBE15500FC22F7 /* SearchView.swift in Sources */,
 				388FB08D2DA17037006C52AC /* AppDelegate.swift in Sources */,
 				531CD9102EEBA17200FC22F7 /* MainTabBarController.swift in Sources */,
 				531CD9112EEBA17200FC22F7 /* CustomTabBar.swift in Sources */,

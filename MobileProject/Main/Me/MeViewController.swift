@@ -15,6 +15,11 @@ class MeViewController: SuperViewController {
         // Do any additional setup after loading the view.
     }
     
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
 
     /*
     // MARK: - Navigation

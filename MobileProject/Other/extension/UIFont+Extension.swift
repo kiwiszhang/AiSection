@@ -53,16 +53,16 @@ public extension UIFont {
 
     }
     
-    static func archivoBlackOner(size: CGFloat, weight: ArchivoBlackWeightOner = .regular) -> UIFont {
-        // 对应 SwiftGen fonts.yml 里生成的
-        let fontConvertible: FontConvertible
-        switch weight {
-            case .regular:
-            fontConvertible = FontFamily.ArchivoBlack.regular
-        }
-        let customFont = fontConvertible.font(size: size)
-        return customFont
-    }
+//    static func archivoBlackOner(size: CGFloat, weight: ArchivoBlackWeightOner = .regular) -> UIFont {
+//        // 对应 SwiftGen fonts.yml 里生成的
+//        let fontConvertible: FontConvertible
+//        switch weight {
+//            case .regular:
+////            fontConvertible = FontFamily.ArchivoBlack.regular
+//        }
+//        let customFont = fontConvertible.font(size: size)
+//        return customFont
+//    }
 
 }
 
@@ -74,11 +74,11 @@ public extension UILabel {
         return self
     }
     
-    @discardableResult
-    func abFont(size: CGFloat, weight: ArchivoBlackWeightOner = .regular) -> Self {
-        self.font = UIFont.archivoBlackOner(size: size, weight: weight)
-        return self
-    }
+//    @discardableResult
+//    func abFont(size: CGFloat, weight: ArchivoBlackWeightOner = .regular) -> Self {
+//        self.font = UIFont.archivoBlackOner(size: size, weight: weight)
+//        return self
+//    }
 
 }
 
