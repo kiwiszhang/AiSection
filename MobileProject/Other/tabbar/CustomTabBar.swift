@@ -60,4 +60,14 @@ class CustomTabBar: UITabBar {
             }
         }
     }
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if !isHidden {
+            let newPoint = centerButton.convert(point, from: self)
+            if centerButton.point(inside: newPoint, with: event) {
+                return centerButton
+            }
+        }
+        return super.hitTest(point, with: event)
+    }
 }

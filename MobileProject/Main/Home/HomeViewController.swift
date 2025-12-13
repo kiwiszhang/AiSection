@@ -112,13 +112,31 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 class RecordItemCell: SuperTableViewCell {
+    private var itemModel:RecordItemModel? = nil
     private lazy var bgView = UIView().backgroundColor(.white).cornerRadius(14.w)
     private lazy var iconImageV = UIImageView().image(Asset.homeNote.image).enable(true)
-    private lazy var moreImageV = UIImageView().image(Asset.moreRight.image).enable(true)
+    private lazy var moreImageV = UIImageView().image(Asset.moreRight.image).enable(true).onTap { [self] in
+        MyLog(itemModel?.noteName)
+        
+        if let model = itemModel {
+            var itemListData:[PopItemModel] = []
+            if model.isFavorite {
+                itemListData = HomeConfigData.getHomeMoreUnFavoriteData()
+            }else{
+                itemListData = HomeConfigData.getHomeMoreData()
+            }
+            let content = HomePopViewController(itemList: itemListData)
+            let popup = PopupContainerViewController(contentVC: content, height: 462.h)
+            content.dismissAction = {
+                popup.dismissSelf()
+            }
+            UIApplication.topViewController()?.present(popup, animated: false)
+        }
+    }
     private lazy var favoriteImageV = UIImageView().image(Asset.homeFavorite.image).enable(true)
     private lazy var titleL = UILabel().text("title").color(kkColorFromHex(kkMainTitleColor)).hnFont(size: 14.h, weight: .medium)
     private lazy var typeImageV = UIImageView().image(Asset.homeType00.image)
-    private lazy var dateL = UILabel().text("Apr 10,2025   11:30 am").hnFont(size: 12.h, weight: .regular).color(kkColorFromHex(kkSubTitleColor))
+    private lazy var dateL = UILabel().text("Apr 10,2025 11:30 am").hnFont(size: 12.h, weight: .regular).color(kkColorFromHex(kkSubTitleColor))
     override func setUpUI() {
         self.backgroundColor(.clear)
         contentView.addChildView([bgView,favoriteImageV])
@@ -172,6 +190,7 @@ class RecordItemCell: SuperTableViewCell {
     }
     
     func configure(with item: RecordItemModel) {
+        itemModel = item
         titleL.text(item.noteName)
         dateL.text(timestampToFormattedString(item.updateTime))
         if item.noteType == 0 {

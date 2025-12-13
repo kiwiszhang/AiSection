@@ -65,7 +65,7 @@ internal enum Asset {
   internal static let timeShow = ImageAsset(name: "timeShow")
   internal static let translate = ImageAsset(name: "translate")
   internal static let type00 = ImageAsset(name: "type_00")
-  internal static let type01Png = ImageAsset(name: "type_01.png")
+  internal static let type01 = ImageAsset(name: "type_01")
   internal static let unfavorite = ImageAsset(name: "unfavorite")
   internal static let vipIcon = ImageAsset(name: "vip_icon")
   internal static let addSelected = ImageAsset(name: "addSelected")

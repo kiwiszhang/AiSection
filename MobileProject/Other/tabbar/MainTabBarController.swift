@@ -60,7 +60,13 @@ class MainTabBarController: UITabBarController {
         }
     }
     @objc private func centerButtonTapped() {
-        print("中间按钮点击了")
+        MyLog("中间按钮点击了")
+        let content = CenterClickPopViewController()
+        let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight,isMiddle: true)
+        content.dismissAction = {
+            popup.dismissSelf()
+        }
+        present(popup, animated: false)
     }
 }
 

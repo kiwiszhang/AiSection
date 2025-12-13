@@ -56,6 +56,10 @@
 		531CD9252EEBE90C00FC22F7 /* Inter-Regular-9.otf in Resources */ = {isa = PBXBuildFile; fileRef = 531CD9222EEBE90C00FC22F7 /* Inter-Regular-9.otf */; };
 		531CD9262EEBE90C00FC22F7 /* Inter-Light-7.otf in Resources */ = {isa = PBXBuildFile; fileRef = 531CD9202EEBE90C00FC22F7 /* Inter-Light-7.otf */; };
 		531CD9282EEBF0B900FC22F7 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD9272EEBF0B900FC22F7 /* TabView.swift */; };
+		531CD92C2EEC10E900FC22F7 /* CenterClickPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD92B2EEC10E900FC22F7 /* CenterClickPopViewController.swift */; };
+		531CD92F2EECF8BC00FC22F7 /* PopTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD92E2EECF8BC00FC22F7 /* PopTopView.swift */; };
+		531CD9312EECFF2300FC22F7 /* HomePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD9302EECFF2300FC22F7 /* HomePopViewController.swift */; };
+		531CD9332EED075000FC22F7 /* HomeConfigData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD9322EED075000FC22F7 /* HomeConfigData.swift */; };
 		533D12442E1BAB4300C97724 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 533D12432E1BAB4300C97724 /* LaunchScreen.storyboard */; };
 		539F2D432DA8B1190030DA8F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 539F2D412DA8B1190030DA8F /* InfoPlist.strings */; };
 		539F2D4C2DA921030030DA8F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F2D4B2DA921030030DA8F /* WebViewController.swift */; };
@@ -134,6 +138,10 @@
 		531CD9212EEBE90C00FC22F7 /* Inter-Medium-8.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium-8.otf"; sourceTree = "<group>"; };
 		531CD9222EEBE90C00FC22F7 /* Inter-Regular-9.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular-9.otf"; sourceTree = "<group>"; };
 		531CD9272EEBF0B900FC22F7 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		531CD92B2EEC10E900FC22F7 /* CenterClickPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterClickPopViewController.swift; sourceTree = "<group>"; };
+		531CD92E2EECF8BC00FC22F7 /* PopTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopTopView.swift; sourceTree = "<group>"; };
+		531CD9302EECFF2300FC22F7 /* HomePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePopViewController.swift; sourceTree = "<group>"; };
+		531CD9322EED075000FC22F7 /* HomeConfigData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeConfigData.swift; sourceTree = "<group>"; };
 		533D12432E1BAB4300C97724 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
 		539F2D422DA8B1190030DA8F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -208,6 +216,7 @@
 		531CD8722EEAA9BB00FC22F7 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				531CD92D2EEC110F00FC22F7 /* Center */,
 				531CD9182EEBBA8A00FC22F7 /* View */,
 				531CD8742EEAA9DB00FC22F7 /* Me */,
 				531CD8732EEAA9C400FC22F7 /* Home */,
@@ -219,6 +228,8 @@
 			isa = PBXGroup;
 			children = (
 				531CD8D42EEAABB400FC22F7 /* HomeViewController.swift */,
+				531CD9302EECFF2300FC22F7 /* HomePopViewController.swift */,
+				531CD9322EED075000FC22F7 /* HomeConfigData.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -409,8 +420,17 @@
 				531CD9192EEBBACA00FC22F7 /* TopView.swift */,
 				531CD91B2EEBE15500FC22F7 /* SearchView.swift */,
 				531CD9272EEBF0B900FC22F7 /* TabView.swift */,
+				531CD92E2EECF8BC00FC22F7 /* PopTopView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		531CD92D2EEC110F00FC22F7 /* Center */ = {
+			isa = PBXGroup;
+			children = (
+				531CD92B2EEC10E900FC22F7 /* CenterClickPopViewController.swift */,
+			);
+			path = Center;
 			sourceTree = "<group>";
 		};
 		92B7530C0A506F5CE9301584 /* Frameworks */ = {
@@ -545,9 +565,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MobileProject/Pods-MobileProject-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MobileProject/Pods-MobileProject-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -584,9 +608,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MobileProject/Pods-MobileProject-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MobileProject/Pods-MobileProject-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -606,12 +634,15 @@
 				531CD8B02EEAAA0400FC22F7 /* CALayer+Extension.swift in Sources */,
 				531CD8B22EEAAA0400FC22F7 /* UIFont+Extension.swift in Sources */,
 				531CD8B32EEAAA0400FC22F7 /* UIButton+Create.swift in Sources */,
+				531CD9332EED075000FC22F7 /* HomeConfigData.swift in Sources */,
 				531CD8B62EEAAA0400FC22F7 /* MBProgressHUD+Extension.swift in Sources */,
 				531CD8B82EEAAA0400FC22F7 /* BottomPushAnimator.swift in Sources */,
 				531CD8B92EEAAA0400FC22F7 /* UIColor+Extension.swift in Sources */,
 				531CD8BB2EEAAA0400FC22F7 /* MBProgressHUD.m in Sources */,
+				531CD92C2EEC10E900FC22F7 /* CenterClickPopViewController.swift in Sources */,
 				531CD9282EEBF0B900FC22F7 /* TabView.swift in Sources */,
 				531CD8BC2EEAAA0400FC22F7 /* UIButton+Extension.swift in Sources */,
+				531CD9312EECFF2300FC22F7 /* HomePopViewController.swift in Sources */,
 				531CD8DF2EEAACF100FC22F7 /* JSON.swift in Sources */,
 				531CD91A2EEBBACA00FC22F7 /* TopView.swift in Sources */,
 				531CD8E02EEAACF100FC22F7 /* Images.swift in Sources */,
@@ -627,6 +658,7 @@
 				531CD9112EEBA17200FC22F7 /* CustomTabBar.swift in Sources */,
 				531CD8712EEAA97B00FC22F7 /* UIWindow+Extension.swift in Sources */,
 				531CD8D32EEAAB6E00FC22F7 /* GlobalImports.swift in Sources */,
+				531CD92F2EECF8BC00FC22F7 /* PopTopView.swift in Sources */,
 				531CD8FD2EEAAF6400FC22F7 /* NotificationCenterKeys.swift in Sources */,
 				531CD8FE2EEAAF6400FC22F7 /* EventReport.swift in Sources */,
 				531CD8FF2EEAAF6400FC22F7 /* UserDefaultsTools.swift in Sources */,
