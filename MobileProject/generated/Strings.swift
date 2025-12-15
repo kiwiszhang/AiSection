@@ -60,12 +60,16 @@ internal enum L10n {
   internal static let moveToFolder = L10n.tr("Localizable", "Move to folder", fallback: "Move to folder")
   /// My Notes
   internal static let myNotes = L10n.tr("Localizable", "My Notes", fallback: "My Notes")
+  /// New Folder
+  internal static let newFolder = L10n.tr("Localizable", "New Folder", fallback: "New Folder")
   /// New folder name
   internal static let newFolderName = L10n.tr("Localizable", "New folder name", fallback: "New folder name")
   /// New note
   internal static let newNote = L10n.tr("Localizable", "New note", fallback: "New note")
   /// The network is not connected or limited.
   internal static let notConnectedLimited = L10n.tr("Localizable", "not-connected-limited", fallback: "The network is not connected or limited.")
+  /// notes
+  internal static let notes = L10n.tr("Localizable", "Notes", fallback: "notes")
   /// Recording
   internal static let recording = L10n.tr("Localizable", "Recording", fallback: "Recording")
   /// Remove from Favorites

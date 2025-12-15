@@ -12,7 +12,7 @@ class UserDefaultsTools {
     
     enum UserDefaultsTypeKeys:String {
         case isFirstInstallApp = "UserDefaultsTypeKeys_isFirstInstallApp"
-        case isSingleReceipt = "UserDefaultsTypeKeys_isSingleReceipt"
+        case tabSelected = "UserDefaultsTypeKeys_tabSelected"
 
         case reportOtherName = "UserDefaultsTypeKeys_reportOtherName"
         
@@ -24,9 +24,9 @@ class UserDefaultsTools {
     @UserDefault(UserDefaultsTypeKeys.isFirstInstallApp.rawValue, defaultValue: true)
     static var isFirstInstallApp: Bool
     
-    /// 是点击单张还是多张
-    @UserDefault(UserDefaultsTypeKeys.isSingleReceipt.rawValue, defaultValue: 0)
-    static var isSingleReceipt: Int
+    /// 点击的Home顶部哪一个Tab
+    @UserDefault(UserDefaultsTypeKeys.tabSelected.rawValue, defaultValue: 0)
+    static var tabSelected: Int
     
     /// 报告页有的地方需要使用的别人名字
     @UserDefault(UserDefaultsTypeKeys.reportOtherName.rawValue, defaultValue: "")

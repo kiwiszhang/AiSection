@@ -35,6 +35,7 @@
 "not-connected-limited" = "The network is not connected or limited.";
 
 "My Notes" = "My Notes";
+"Notes" = "notes";
 "Search notes/folders" = "Search notes/folders";
 "All Notes" = "All Notes";
 "Folder" = "Folder";
@@ -45,6 +46,7 @@
 "Discover all featureswith this note" = "Discover all featureswith this note！";
 "Try now" = "Try now";
 "New note" = "New note";
+"New Folder" = "New Folder";
 "Recording" = "Recording";
 "Audio Files" = "Audio Files";
 "More" = "More";
