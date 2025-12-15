@@ -63,6 +63,7 @@
 		533D12442E1BAB4300C97724 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 533D12432E1BAB4300C97724 /* LaunchScreen.storyboard */; };
 		538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */; };
 		538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */; };
+		538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */; };
 		539F2D432DA8B1190030DA8F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 539F2D412DA8B1190030DA8F /* InfoPlist.strings */; };
 		539F2D4C2DA921030030DA8F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F2D4B2DA921030030DA8F /* WebViewController.swift */; };
 		53CEF9932DAE3BB20079AE9E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 53CEF9922DAE3BB20079AE9E /* GoogleService-Info.plist */; };
@@ -148,6 +149,7 @@
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
 		5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFloderPopViewController.swift; sourceTree = "<group>"; };
 		538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddNotePopViewController.swift; sourceTree = "<group>"; };
+		538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddFloderPopVC.swift; sourceTree = "<group>"; };
 		539F2D422DA8B1190030DA8F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		539F2D442DA8B1390030DA8F /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		539F2D452DA8B1390030DA8F /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				531CD9302EECFF2300FC22F7 /* HomePopViewController.swift */,
 				5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */,
 				538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */,
+				538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */,
 				531CD9322EED075000FC22F7 /* HomeConfigData.swift */,
 			);
 			path = Home;
@@ -665,6 +668,7 @@
 				531CD9102EEBA17200FC22F7 /* MainTabBarController.swift in Sources */,
 				531CD9112EEBA17200FC22F7 /* CustomTabBar.swift in Sources */,
 				531CD8712EEAA97B00FC22F7 /* UIWindow+Extension.swift in Sources */,
+				538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */,
 				531CD8D32EEAAB6E00FC22F7 /* GlobalImports.swift in Sources */,
 				531CD92F2EECF8BC00FC22F7 /* PopTopView.swift in Sources */,
 				531CD8FD2EEAAF6400FC22F7 /* NotificationCenterKeys.swift in Sources */,

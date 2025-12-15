@@ -98,6 +98,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }else{
             MyLog("Other")
         }
+        
+        if item.isAddFloder {
+            let content = HomeAddFloderPopVC()
+            let popup = PopupContainerViewController(contentVC: content, height: 259.h)
+            content.dismissAction = {
+                popup.dismissSelf()
+            }
+            UIApplication.topViewController()?.present(popup, animated: false)
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
