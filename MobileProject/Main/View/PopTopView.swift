@@ -9,6 +9,9 @@ import UIKit
 
 @objc protocol PopTopViewDelegate: AnyObject {
     func popTopViewClose()
+    
+    @objc optional
+    func clickSearch()
 }
 
 class PopTopView: SuperView{
@@ -18,15 +21,36 @@ class PopTopView: SuperView{
     private lazy var closeImage = UIImageView().image(Asset.cancel.image).enable(true).onTap {
         self.delegate?.popTopViewClose()
     }
+    private lazy var searchImageV = UIImageView().image(Asset.searchicon.image).enable(true).hidden(true).onTap { [self] in
+//        self.delegate?.clickSearch?()
+        searchV.hidden(false)
+    }
+
+    private lazy var searchV = SearchView().hidden(true).backgroundColor(.white).cornerRadius(17.h)
+    
     // MARK: -  =====================Intial Methods===================
     override func setUpUI() {
-        self.addChildView([titleLab,closeImage])
+        self.addChildView([titleLab,closeImage,searchImageV,searchV])
         
         closeImage.snp.makeConstraints { make in
             make.width.height.equalTo(34.h)
             make.top.equalToSuperview().offset(25.h)
             make.right.equalToSuperview().offset(-14.w)
         }
+        
+        searchImageV.snp.makeConstraints { make in
+            make.width.height.equalTo(34.h)
+            make.centerY.equalTo(closeImage)
+            make.right.equalTo(closeImage.snp.left).offset(-20.w)
+        }
+        
+        searchV.snp.makeConstraints { make in
+            make.right.equalTo(closeImage.snp.left).offset(-20.w)
+            make.centerY.equalTo(closeImage)
+            make.height.equalTo(34.h)
+            make.width.equalTo(202.w)
+        }
+        
         
         titleLab.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(14.w)
@@ -40,8 +64,12 @@ class PopTopView: SuperView{
     }
     
     // MARK: -  =======================actions========================
-    func updateData(title:String){
+    func updateData(title:String,isSearch:Bool = false){
         titleLab.text(title)
+        if isSearch {
+            searchImageV.hidden(false)
+//            searchV.hidden(false)
+        }
     }
     
 }

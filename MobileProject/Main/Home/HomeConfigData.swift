@@ -34,4 +34,11 @@ class HomeConfigData {
         let item04 = PopItemModel(itemName: L10n.shareAudio, itemIcon: Asset.shareAudio.image)
         return [item00,item01,item02,item03,item04]
     }
+    
+    static func getHomeFloderData() -> [PopItemModel] {
+        let item00 = PopItemModel(itemName: L10n.addNote, itemIcon: Asset.floderAdd.image)
+        let item01 = PopItemModel(itemName: L10n.rename, itemIcon: Asset.moreRename.image)
+        let item02 = PopItemModel(itemName: L10n.delete, itemIcon: Asset.moreDelete.image)
+        return [item00,item01,item02]
+    }
 }
