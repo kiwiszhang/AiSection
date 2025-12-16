@@ -59,6 +59,7 @@ class HomeViewController: SuperViewController {
             make.bottom.equalToSuperview().offset(-kkTAB_BAR_TOTAL_HEIGHT)
         }
         
+        topview.delegate = self
         tabView.delegate = self
         
     }
@@ -72,6 +73,16 @@ class HomeViewController: SuperViewController {
     }
 }
 
+
+// MARK: -  =======================TopViewDelegate========================
+extension HomeViewController:TopViewDelegate {
+    func refreshSearchData(updatedText: String) {
+        MyLog(updatedText)
+    }
+    func refreshSearchNoData(){
+        MyLog("refreshSearchNoData")
+    }
+}
 
 //MARK: ----------TableViewDelegateDataSource-----------
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -99,14 +110,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             MyLog("Other")
         }
         
-        if item.isAddFloder {
-            let content = HomeAddFloderPopVC()
-            let popup = PopupContainerViewController(contentVC: content, height: 259.h)
-            content.dismissAction = {
-                popup.dismissSelf()
+        if UserDefaultsTools.tabSelected == 1 {
+            if item.isAddFloder {
+                let content = HomeAddFloderPopVC()
+                let popup = PopupContainerViewController(contentVC: content, height: 259.h)
+                content.dismissAction = {
+                    popup.dismissSelf()
+                }
+                UIApplication.topViewController()?.present(popup, animated: false)
+            }else{
+                UserDefaultsTools.tabSelected = 0
+                let vc = HomeFloderViewController()
+                vc.model = item
+                self.navigationController?.pushViewController(vc, animated: true)
             }
-            UIApplication.topViewController()?.present(popup, animated: false)
         }
+
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

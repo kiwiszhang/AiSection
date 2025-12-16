@@ -7,8 +7,13 @@
 
 import UIKit
 
+@objc protocol TopViewDelegate: AnyObject {
+    func refreshSearchData(updatedText: String)
+    func refreshSearchNoData()
+}
+
 class TopView: SuperView{
-//    weak var delegate: FilterDateViewDelegate?
+    weak var delegate: TopViewDelegate?
     // MARK: -  =====================lazyload=========================
     private lazy var  titleLab = UILabel().text(L10n.myNotes).color(kkColorFromHex(kkMainTitleColor)).fontSize(26.h, weight: .bold)
     private lazy var vipImage = UIImageView().image(Asset.vipIcon.image).enable(true)
@@ -41,10 +46,21 @@ class TopView: SuperView{
     }
     override func getData() {
 //        startEndView.delegate = self
-        
+        searchView.delegate = self
         addGradientBackground(colors: [kkColorFromHex("E6EFFF"),kkColorFromHex("F2F4F8")], direction: .topToBottom)
     }
     // MARK: -  =======================actions========================
     
     
+}
+
+// MARK: -  =======================RefreshDataDelegate========================
+extension TopView:RefreshDataDelegate {
+    func refreshData(updatedText: String) {
+        delegate?.refreshSearchData(updatedText: updatedText)
+    }
+    
+    func refreshNoData() {
+        delegate?.refreshSearchNoData()
+    }
 }

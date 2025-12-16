@@ -97,6 +97,13 @@ extension HomeFloderPopViewController: UITableViewDelegate, UITableViewDataSourc
                 popup.dismissSelf()
             }
             UIApplication.topViewController()?.present(popup, animated: false)
+        }else if indexPath.row == 1 {
+            let content = HomeAddFloderPopVC()
+            let popup = PopupContainerViewController(contentVC: content, height: 259.h)
+            content.dismissAction = {
+                popup.dismissSelf()
+            }
+            UIApplication.topViewController()?.present(popup, animated: false)
         }
     }
     
