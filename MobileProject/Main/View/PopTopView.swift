@@ -68,8 +68,11 @@ class PopTopView: SuperView{
         titleLab.text(title)
         if isSearch {
             searchImageV.hidden(false)
-//            searchV.hidden(false)
         }
+    }
+    
+    func updateSearchData(title:String){
+        searchV.getTitleData(propTitle: title)
     }
     
 }

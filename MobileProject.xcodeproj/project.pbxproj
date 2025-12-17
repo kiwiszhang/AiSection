@@ -71,6 +71,7 @@
 		5382821E2EF13EC00097EAD0 /* DetailBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382821D2EF13EC00097EAD0 /* DetailBottomView.swift */; };
 		538282202EF14ED70097EAD0 /* DetailTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382821F2EF14ED70097EAD0 /* DetailTableHeaderView.swift */; };
 		538282242EF23C720097EAD0 /* DetailSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282232EF23C720097EAD0 /* DetailSegmentView.swift */; };
+		5382822A2EF27E4F0097EAD0 /* HomeAllNotePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282292EF27E4F0097EAD0 /* HomeAllNotePopVC.swift */; };
 		539F2D432DA8B1190030DA8F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 539F2D412DA8B1190030DA8F /* InfoPlist.strings */; };
 		539F2D4C2DA921030030DA8F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F2D4B2DA921030030DA8F /* WebViewController.swift */; };
 		53CEF9932DAE3BB20079AE9E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 53CEF9922DAE3BB20079AE9E /* GoogleService-Info.plist */; };
@@ -164,6 +165,7 @@
 		5382821D2EF13EC00097EAD0 /* DetailBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBottomView.swift; sourceTree = "<group>"; };
 		5382821F2EF14ED70097EAD0 /* DetailTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableHeaderView.swift; sourceTree = "<group>"; };
 		538282232EF23C720097EAD0 /* DetailSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSegmentView.swift; sourceTree = "<group>"; };
+		538282292EF27E4F0097EAD0 /* HomeAllNotePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAllNotePopVC.swift; sourceTree = "<group>"; };
 		539F2D422DA8B1190030DA8F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		539F2D442DA8B1390030DA8F /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		539F2D452DA8B1390030DA8F /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				538282152EF12DC50097EAD0 /* HomeFloderViewController.swift */,
 				538282192EF13A6F0097EAD0 /* HomeNoteDetailViewController.swift */,
 				531CD9302EECFF2300FC22F7 /* HomePopViewController.swift */,
+				538282292EF27E4F0097EAD0 /* HomeAllNotePopVC.swift */,
 				5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */,
 				538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */,
 				538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */,
@@ -669,6 +672,7 @@
 				531CD8B62EEAAA0400FC22F7 /* MBProgressHUD+Extension.swift in Sources */,
 				531CD8B82EEAAA0400FC22F7 /* BottomPushAnimator.swift in Sources */,
 				538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */,
+				5382822A2EF27E4F0097EAD0 /* HomeAllNotePopVC.swift in Sources */,
 				531CD8B92EEAAA0400FC22F7 /* UIColor+Extension.swift in Sources */,
 				531CD8BB2EEAAA0400FC22F7 /* MBProgressHUD.m in Sources */,
 				531CD92C2EEC10E900FC22F7 /* CenterClickPopViewController.swift in Sources */,

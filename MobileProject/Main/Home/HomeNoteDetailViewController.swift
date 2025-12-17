@@ -71,13 +71,6 @@ class HomeNoteDetailViewController: SuperViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        if tableView.tableHeaderView == nil {
-            let headerView = UIView()
-            headerView.backgroundColor = .lightGray
-            headerView.heightAnchor.constraint(equalToConstant: 200).isActive = true
-            tableView.setTableHeaderView(headerView)
-        }
     }
 
     
@@ -115,6 +108,12 @@ extension HomeNoteDetailViewController:DetailTableHeaderViewDelegate {
     }
     func allNoteClick(){
         MyLog("allNoteClick")
+        let content = HomeAllNotePopVC()
+        let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
+        content.dismissAction = {
+            popup.dismissSelf()
+        }
+        UIApplication.topViewController()?.present(popup, animated: false)
     }
     func tableHeaderPlayClick(){
         MyLog("tableHeaderPlayClick")
@@ -138,6 +137,19 @@ extension HomeNoteDetailViewController:DetailNavTopViewDelegate {
     }
     func moreClick(){
         MyLog("moreClick")
+        let menu = PopupMenu(
+            items: [
+                .init(title: L10n.editSummary, icon: Asset.editSummary.image),
+                .init(title: L10n.editTranscript, icon: Asset.editTranscript.image),
+                .init(title: L10n.translate, icon: Asset.translate.image),
+                .init(title: L10n.delete, icon: Asset.delete.image, isDestructive: true)
+            ]
+        )
+
+        menu.show(at: CGPoint(x: kkScreenWidth - 16.w, y: 88.h)) { index in
+            print("点击了第 \(index) 项")
+        }
+
     }
     func shareClick(){
         MyLog("shareClick")

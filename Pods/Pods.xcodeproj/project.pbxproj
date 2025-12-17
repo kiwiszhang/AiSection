@@ -314,6 +314,7 @@
 		5322A1087DB18AC46843157B4EF8E48F /* GDTCORMetricsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF24400B5F2B1CC8F70DDB586A280D9 /* GDTCORMetricsController.m */; };
 		532936244806B1173434716BAF708FA3 /* GULLoggerCodes.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB830E67F467ABB8186ABAEFB9F4288 /* GULLoggerCodes.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		538282222EF15A6D0097EAD0 /* CapsuleSegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282212EF15A6D0097EAD0 /* CapsuleSegmentedView.swift */; };
+		538282282EF251270097EAD0 /* PopupMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282272EF251270097EAD0 /* PopupMenu.swift */; };
 		53D4EF869DEEF81C17480FD8ECC7651E /* FBLPromise+Recover.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5CB3979AA0AA558C9C536D00C76158 /* FBLPromise+Recover.m */; };
 		53F04602C362D6F9065B7550061F6FCC /* FIRCLSDwarfUnwindRegisters.h in Headers */ = {isa = PBXBuildFile; fileRef = 5184A9C6028EDC00B6B5F5ACD315D51A /* FIRCLSDwarfUnwindRegisters.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		53F948F32EE5B2074CD9801797086CFC /* UtitlsTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A8243A5CC88EFCFF69E6A406B0D4C9 /* UtitlsTool.swift */; };
@@ -1863,6 +1864,7 @@
 		5305AD668238C5EC76F631E415D130DD /* ConstraintRelation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintRelation.swift; path = Sources/ConstraintRelation.swift; sourceTree = "<group>"; };
 		534322AB3E7D01B777149CB3A0266E68 /* FirebaseRemoteConfigValueDecoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FirebaseRemoteConfigValueDecoding.swift; path = FirebaseSharedSwift/Sources/FirebaseRemoteConfigValueDecoding.swift; sourceTree = "<group>"; };
 		538282212EF15A6D0097EAD0 /* CapsuleSegmentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleSegmentedView.swift; sourceTree = "<group>"; };
+		538282272EF251270097EAD0 /* PopupMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupMenu.swift; sourceTree = "<group>"; };
 		53E13B4BBE889C86B4607B2D20857C44 /* Pods-MobileProject.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MobileProject.modulemap"; sourceTree = "<group>"; };
 		53F215D015F5EF67FE833C5159D2D0D1 /* Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Sources/SQLite/Helpers.swift; sourceTree = "<group>"; };
 		53FCFD848C3FD0191737DDC6667330FB /* AggregateFunctions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AggregateFunctions.swift; path = Sources/SQLite/Typed/AggregateFunctions.swift; sourceTree = "<group>"; };
@@ -4425,6 +4427,7 @@
 				6B0F81801D05CF6341AFC204E6BFB9B9 /* PopupContainerViewController.swift */,
 				C0EA7363F6AAF423CC4B5806EF6135D5 /* VideoPlayerView.swift */,
 				538282212EF15A6D0097EAD0 /* CapsuleSegmentedView.swift */,
+				538282272EF251270097EAD0 /* PopupMenu.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6455,6 +6458,7 @@
 				45E0A0413C1C56E9B4C35C1C44DF9316 /* EmptyView.swift in Sources */,
 				19ED4DB9DABB2AB6513228826AB0577E /* GuidBannerView.swift in Sources */,
 				5404B7AB53024CF9AE3CFBB9B8330044 /* Int+Extension.swift in Sources */,
+				538282282EF251270097EAD0 /* PopupMenu.swift in Sources */,
 				F1B74902D54462B968CA24EABCAC4B08 /* KeyChainManager.swift in Sources */,
 				8983919F731013EC580D17CE567ACC5D /* KiwiPublicPod-dummy.m in Sources */,
 				84A4BD8F4086A68379A072D7A2E59C4B /* KiwiPublicPodResource.swift in Sources */,

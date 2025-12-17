@@ -82,6 +82,8 @@ internal enum L10n {
   internal static let save = L10n.tr("Localizable", "Save", fallback: "Save")
   /// Search folders
   internal static let searchFolders = L10n.tr("Localizable", "Search folders", fallback: "Search folders")
+  /// Search notes
+  internal static let searchNotes = L10n.tr("Localizable", "Search notes", fallback: "Search notes")
   /// Search notes/folders
   internal static let searchNotesFolders = L10n.tr("Localizable", "Search notes/folders", fallback: "Search notes/folders")
   /// Share

@@ -9,6 +9,7 @@ import UIKit
 
 class HomeAddNotePopViewController: SuperViewController {
     var dismissAction: (() -> Void)?
+    private var selectedIndex: IndexPath?
     private lazy var itemList:[RecordItemModel] = []
 //    itemList:[RecordItemModel]
     private lazy var barView = PopTopView()
@@ -75,6 +76,7 @@ class HomeAddNotePopViewController: SuperViewController {
         barView.delegate = self
         barView.addGradientBackground(colors: [kkColorFromHex("F0F5FB"),kkColorFromHex("E6EFFF")], direction: .bottomToTop)
         barView.updateData(title: L10n.addNote,isSearch: true)
+        barView.updateSearchData(title: L10n.searchNotes)
     }
     
 }
@@ -100,12 +102,18 @@ extension HomeAddNotePopViewController: UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueCell(RecordItemAddNoteCell.self, for: indexPath)
         cell.selectionStyle = .none
 //        let isLast = indexPath.row == itemList.count - 1
-        cell.configure(with: itemList[indexPath.row])
+        let isSelected = indexPath == selectedIndex
+        cell.configure(with: itemList[indexPath.row],isSelected:isSelected)
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = itemList[indexPath.row]
-
+        let previous = selectedIndex
+        selectedIndex = indexPath
+        var reloads = [indexPath]
+        if let previous, previous != indexPath {
+            reloads.append(previous)
+        }
+        tableView.reloadRows(at: reloads, with: .none)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -201,7 +209,7 @@ class RecordItemAddNoteCell: SuperTableViewCell {
 
     }
     
-    func configure(with item: RecordItemModel) {
+    func configure(with item: RecordItemModel,isSelected:Bool) {
         itemModel = item
                 
         titleL.text(item.noteName)
@@ -217,6 +225,12 @@ class RecordItemAddNoteCell: SuperTableViewCell {
             favoriteImageV.hidden(true)
         }
         iconImageV.image(Asset.homeNote.image)
+        
+        if isSelected {
+            checkImageV.image(Asset.addNoteCheck.image)
+        }else{
+            checkImageV.image(Asset.addNoteUnCheck.image)
+        }
         
     }
     
