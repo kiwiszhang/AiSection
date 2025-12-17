@@ -19,7 +19,7 @@ class HomeAllNotePopVC: SuperViewController {
     }()
     
     private lazy var bottomV = UIView().backgroundColor(.white).cornerRadius(26.h, corners: [.topLeft,.topRight])
-    private lazy var dashBgV = UIView().backgroundColor(.white).cornerRadius(14.h)
+    private lazy var dashBgV = DashedBorderView(cornerRadius: 14.h,lineWidth: 1,lineDashPattern: [4,2],strokeColor: kkColorFromHex(kkMainTextColor)).backgroundColor(.white)
     private lazy var iconImageV = UIImageView().image(Asset.floder.image).enable(true)
     private lazy var moreImageV = UIImageView().image(Asset.addFloders.image).enable(true)
     private lazy var titleL = UILabel().text(L10n.newFolder).color(kkColorFromHex(kkMainTitleColor)).hnFont(size: 14.h, weight: .medium)
@@ -31,7 +31,8 @@ class HomeAllNotePopVC: SuperViewController {
     }
 
     override func setUpUI() {
-        view.addChildView([barView,tableView,bottomV])
+        view.addChildView([barView,tableView])
+        view.addSubview(bottomV)
         barView.snp.makeConstraints { make in
             make.left.top.right.equalToSuperview()
             make.height.equalTo(80.h)
@@ -43,7 +44,7 @@ class HomeAllNotePopVC: SuperViewController {
             make.bottom.equalToSuperview().offset(-140.h)
         }
         
-        bottomV.addChildView([dashBgV])
+        bottomV.addSubview(dashBgV)
         bottomV.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
             make.height.equalTo(120.h)
@@ -75,9 +76,6 @@ class HomeAllNotePopVC: SuperViewController {
             make.centerY.equalToSuperview()
             make.height.equalTo(17.h)
         }
-        
-        
-        
     }
     
     override func getData() {

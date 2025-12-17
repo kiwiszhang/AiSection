@@ -155,7 +155,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
 class RecordItemCell: SuperTableViewCell {
     private var itemModel:RecordItemModel? = nil
-    private lazy var bgView = UIView().backgroundColor(.white).cornerRadius(14.w)
+    private lazy var bgView = DashedBorderView(cornerRadius: 14.h,lineWidth: 1,strokeColor: .white).backgroundColor(.white)
     private lazy var iconImageV = UIImageView().image(Asset.homeNote.image).enable(true)
     private lazy var moreImageV = UIImageView().image(Asset.moreRight.image).enable(true).onTap { [self] in
         MyLog(itemModel)
@@ -278,8 +278,6 @@ class RecordItemCell: SuperTableViewCell {
             noteNumberL.hidden(false)
             favoriteImageV.hidden(true)
             noteNumberL.text("\(item.noteNumbers)" + " " + L10n.notes)
-            
-            
         }
         
         if item.isAddFloder {
@@ -297,8 +295,10 @@ class RecordItemCell: SuperTableViewCell {
             
             noteNumberL.hidden(true)
             moreImageV.image(Asset.addFloders.image)
-            bgView.backgroundColor(kkColorFromHexWithAlpha("FFFFFF", 0.5))
-
+            bgView.cornerRadius = 14.h
+            bgView.lineWidth = 1
+            bgView.strokeColor = kkColorFromHex(kkMainTextColor)
+            bgView.backgroundColor = kkColorFromHexWithAlpha("FFFFFF", 0.5)
         }else{
             iconImageV.snp.makeConstraints { make in
                 make.width.height.equalTo(36.h)
@@ -312,22 +312,12 @@ class RecordItemCell: SuperTableViewCell {
                 make.right.equalToSuperview().offset(-16.w)
             }
             moreImageV.image(Asset.moreRight.image)
-            bgView.backgroundColor(kkColorFromHexWithAlpha("FFFFFF", 1))
-
+            bgView.cornerRadius = 14.h
+            bgView.lineWidth = 1
+            bgView.strokeColor = .white
+            bgView.backgroundColor = kkColorFromHexWithAlpha("FFFFFF", 1)
         }
-        
-//        bgView.border(width: 1, color: UIColor.systemBlue)
-        
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-//        if itemModel?.isAddFloder == true {
-//            bgView.layer.contentsScale = UIScreen.main.scale
-//            bgView.addRealDottedBorder(cornerRadius: 12)
-//        }else{
-//            
-//        }
+                
     }
 
     /// 时间戳转：Apr 10,2025 10:30 am这种格式的时间
@@ -428,252 +418,5 @@ extension HomeViewController:TabViewDelegate {
     }
 }
 
-extension UIView {
-
-    func addRealDottedBorder(
-        cornerRadius: CGFloat,
-        dotRadius: CGFloat = 1.5,
-        spacing: CGFloat = 6,
-        color: UIColor = .lightGray
-    ) {
-        guard bounds.width > 0 else { return }
-
-        layer.sublayers?
-            .filter { $0.name == "DottedBorderLayer" }
-            .forEach { $0.removeFromSuperlayer() }
-
-        let path = UIBezierPath(
-            roundedRect: bounds,
-            cornerRadius: cornerRadius
-        )
-
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.name = "DottedBorderLayer"
-        shapeLayer.frame = bounds
-        shapeLayer.fillColor = color.cgColor
-        shapeLayer.strokeColor = UIColor.clear.cgColor
-
-        let dottedPath = UIBezierPath()
-
-        let totalLength = path.cgPath.length
-        var current: CGFloat = 0
-
-        while current < totalLength {
-            let point = path.cgPath.point(at: current)
-            dottedPath.append(
-                UIBezierPath(
-                    ovalIn: CGRect(
-                        x: point.x - dotRadius,
-                        y: point.y - dotRadius,
-                        width: dotRadius * 2,
-                        height: dotRadius * 2
-                    )
-                )
-            )
-            current += spacing
-        }
-
-        shapeLayer.path = dottedPath.cgPath
-        layer.addSublayer(shapeLayer)
-    }
-
-}
-
-
-private let sampleSteps: Int = 50
-private extension CGPoint {
-    func distance(to p: CGPoint) -> CGFloat {
-        hypot(p.x - x, p.y - y)
-    }
-}
-
-extension CGPath {
-
-    /// 计算整条 path 的长度
-    var length: CGFloat {
-        var total: CGFloat = 0
-        var last: CGPoint = .zero
-
-        applyWithBlock { element in
-            let type = element.pointee.type
-            let points = element.pointee.points
-
-            switch type {
-            case .moveToPoint:
-                last = points[0]
-
-            case .addLineToPoint:
-                total += last.distance(to: points[0])
-                last = points[0]
-
-            case .addQuadCurveToPoint:
-                total += quadCurveLength(from: last,
-                                         control: points[0],
-                                         to: points[1])
-                last = points[1]
-
-            case .addCurveToPoint:
-                total += cubicCurveLength(from: last,
-                                          control1: points[0],
-                                          control2: points[1],
-                                          to: points[2])
-                last = points[2]
-
-            case .closeSubpath:
-                break
-
-            @unknown default:
-                break
-            }
-        }
-
-        return total
-    }
-
-    /// 按距离取点
-    func point(at distance: CGFloat) -> CGPoint {
-        var remaining = distance
-        var last: CGPoint = .zero
-        var result: CGPoint = .zero
-        var found = false
-
-        applyWithBlock { element in
-            guard !found else { return }
-
-            let type = element.pointee.type
-            let points = element.pointee.points
-
-            switch type {
-
-            case .moveToPoint:
-                last = points[0]
-
-            case .addLineToPoint:
-                let len = last.distance(to: points[0])
-                if remaining <= len {
-                    let t = remaining / len
-                    result = CGPoint(
-                        x: last.x + (points[0].x - last.x) * t,
-                        y: last.y + (points[0].y - last.y) * t
-                    )
-                    found = true
-                } else {
-                    remaining -= len
-                    last = points[0]
-                }
-
-            case .addQuadCurveToPoint:
-                let len = quadCurveLength(from: last,
-                                          control: points[0],
-                                          to: points[1])
-                if remaining <= len {
-                    result = quadCurvePoint(from: last,
-                                            control: points[0],
-                                            to: points[1],
-                                            t: remaining / len)
-                    found = true
-                } else {
-                    remaining -= len
-                    last = points[1]
-                }
-
-            case .addCurveToPoint:
-                let len = cubicCurveLength(from: last,
-                                           control1: points[0],
-                                           control2: points[1],
-                                           to: points[2])
-                if remaining <= len {
-                    result = cubicCurvePoint(from: last,
-                                             control1: points[0],
-                                             control2: points[1],
-                                             to: points[2],
-                                             t: remaining / len)
-                    found = true
-                } else {
-                    remaining -= len
-                    last = points[2]
-                }
-
-            case .closeSubpath:
-                break
-
-            @unknown default:
-                break
-            }
-        }
-
-        return result
-    }
-    
-
-    private func quadCurvePoint(
-        from p0: CGPoint,
-        control p1: CGPoint,
-        to p2: CGPoint,
-        t: CGFloat
-    ) -> CGPoint {
-        let mt = 1 - t
-        return CGPoint(
-            x: mt * mt * p0.x + 2 * mt * t * p1.x + t * t * p2.x,
-            y: mt * mt * p0.y + 2 * mt * t * p1.y + t * t * p2.y
-        )
-    }
-
-    private func cubicCurvePoint(
-        from p0: CGPoint,
-        control1 p1: CGPoint,
-        control2 p2: CGPoint,
-        to p3: CGPoint,
-        t: CGFloat
-    ) -> CGPoint {
-        let mt = 1 - t
-        return CGPoint(
-            x: mt * mt * mt * p0.x
-              + 3 * mt * mt * t * p1.x
-              + 3 * mt * t * t * p2.x
-              + t * t * t * p3.x,
-            y: mt * mt * mt * p0.y
-              + 3 * mt * mt * t * p1.y
-              + 3 * mt * t * t * p2.y
-              + t * t * t * p3.y
-        )
-    }
-
-    private func quadCurveLength(
-        from p0: CGPoint,
-        control p1: CGPoint,
-        to p2: CGPoint
-    ) -> CGFloat {
-        var length: CGFloat = 0
-        var prev = p0
-
-        for i in 1...sampleSteps {
-            let t = CGFloat(i) / CGFloat(sampleSteps)
-            let p = quadCurvePoint(from: p0, control: p1, to: p2, t: t)
-            length += prev.distance(to: p)
-            prev = p
-        }
-        return length
-    }
-
-    private func cubicCurveLength(
-        from p0: CGPoint,
-        control1 p1: CGPoint,
-        control2 p2: CGPoint,
-        to p3: CGPoint
-    ) -> CGFloat {
-        var length: CGFloat = 0
-        var prev = p0
-
-        for i in 1...sampleSteps {
-            let t = CGFloat(i) / CGFloat(sampleSteps)
-            let p = cubicCurvePoint(from: p0, control1: p1, control2: p2, to: p3, t: t)
-            length += prev.distance(to: p)
-            prev = p
-        }
-        return length
-    }
-
-}
 
 

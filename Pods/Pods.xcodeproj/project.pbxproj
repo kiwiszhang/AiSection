@@ -315,6 +315,7 @@
 		532936244806B1173434716BAF708FA3 /* GULLoggerCodes.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB830E67F467ABB8186ABAEFB9F4288 /* GULLoggerCodes.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		538282222EF15A6D0097EAD0 /* CapsuleSegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282212EF15A6D0097EAD0 /* CapsuleSegmentedView.swift */; };
 		538282282EF251270097EAD0 /* PopupMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282272EF251270097EAD0 /* PopupMenu.swift */; };
+		5382822C2EF2A6460097EAD0 /* DashedBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382822B2EF2A6460097EAD0 /* DashedBorderView.swift */; };
 		53D4EF869DEEF81C17480FD8ECC7651E /* FBLPromise+Recover.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5CB3979AA0AA558C9C536D00C76158 /* FBLPromise+Recover.m */; };
 		53F04602C362D6F9065B7550061F6FCC /* FIRCLSDwarfUnwindRegisters.h in Headers */ = {isa = PBXBuildFile; fileRef = 5184A9C6028EDC00B6B5F5ACD315D51A /* FIRCLSDwarfUnwindRegisters.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		53F948F32EE5B2074CD9801797086CFC /* UtitlsTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A8243A5CC88EFCFF69E6A406B0D4C9 /* UtitlsTool.swift */; };
@@ -1865,6 +1866,7 @@
 		534322AB3E7D01B777149CB3A0266E68 /* FirebaseRemoteConfigValueDecoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FirebaseRemoteConfigValueDecoding.swift; path = FirebaseSharedSwift/Sources/FirebaseRemoteConfigValueDecoding.swift; sourceTree = "<group>"; };
 		538282212EF15A6D0097EAD0 /* CapsuleSegmentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleSegmentedView.swift; sourceTree = "<group>"; };
 		538282272EF251270097EAD0 /* PopupMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupMenu.swift; sourceTree = "<group>"; };
+		5382822B2EF2A6460097EAD0 /* DashedBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedBorderView.swift; sourceTree = "<group>"; };
 		53E13B4BBE889C86B4607B2D20857C44 /* Pods-MobileProject.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MobileProject.modulemap"; sourceTree = "<group>"; };
 		53F215D015F5EF67FE833C5159D2D0D1 /* Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Sources/SQLite/Helpers.swift; sourceTree = "<group>"; };
 		53FCFD848C3FD0191737DDC6667330FB /* AggregateFunctions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AggregateFunctions.swift; path = Sources/SQLite/Typed/AggregateFunctions.swift; sourceTree = "<group>"; };
@@ -4428,6 +4430,7 @@
 				C0EA7363F6AAF423CC4B5806EF6135D5 /* VideoPlayerView.swift */,
 				538282212EF15A6D0097EAD0 /* CapsuleSegmentedView.swift */,
 				538282272EF251270097EAD0 /* PopupMenu.swift */,
+				5382822B2EF2A6460097EAD0 /* DashedBorderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6481,6 +6484,7 @@
 				B93E192FBD6663E713C800B185A8B075 /* SuperTableViewHeaderFooterView.swift in Sources */,
 				3D0D9014ADCC11499733064B246025E2 /* SuperView.swift in Sources */,
 				0972AEEBD4E8FE61F6C20E31AF187E6B /* SuperViewController.swift in Sources */,
+				5382822C2EF2A6460097EAD0 /* DashedBorderView.swift in Sources */,
 				D86E10032E360E679FBFC8BA7BE0F634 /* UIApplication+Extension.swift in Sources */,
 				21B12970FFE568EA1ED9997F122AD892 /* UIButton+Create.swift in Sources */,
 				B78DDFA590597A71AF8C7B7C7D44760E /* UICollectionView+Create.swift in Sources */,
