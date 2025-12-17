@@ -10,13 +10,16 @@ import UIKit
 @objc protocol TopViewDelegate: AnyObject {
     func refreshSearchData(updatedText: String)
     func refreshSearchNoData()
+    func clickVipImage()
 }
 
 class TopView: SuperView{
     weak var delegate: TopViewDelegate?
     // MARK: -  =====================lazyload=========================
     private lazy var  titleLab = UILabel().text(L10n.myNotes).color(kkColorFromHex(kkMainTitleColor)).fontSize(26.h, weight: .bold)
-    private lazy var vipImage = UIImageView().image(Asset.vipIcon.image).enable(true)
+    private lazy var vipImage = UIImageView().image(Asset.vipIcon.image).enable(true).onTap { [self] in
+        delegate?.clickVipImage()
+    }
     private lazy var searchView = SearchView().backgroundColor(.white).cornerRadius(20.h)
     // MARK: -  =====================Intial Methods===================
     override func setUpUI() {

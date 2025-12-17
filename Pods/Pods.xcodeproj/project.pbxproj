@@ -313,6 +313,7 @@
 		52C38179AE294613335AAD50B0735678 /* LocalOverrideSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19629E8C4D4145506AECF76FC74C0601 /* LocalOverrideSettings.swift */; };
 		5322A1087DB18AC46843157B4EF8E48F /* GDTCORMetricsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF24400B5F2B1CC8F70DDB586A280D9 /* GDTCORMetricsController.m */; };
 		532936244806B1173434716BAF708FA3 /* GULLoggerCodes.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB830E67F467ABB8186ABAEFB9F4288 /* GULLoggerCodes.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		538282222EF15A6D0097EAD0 /* CapsuleSegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282212EF15A6D0097EAD0 /* CapsuleSegmentedView.swift */; };
 		53D4EF869DEEF81C17480FD8ECC7651E /* FBLPromise+Recover.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5CB3979AA0AA558C9C536D00C76158 /* FBLPromise+Recover.m */; };
 		53F04602C362D6F9065B7550061F6FCC /* FIRCLSDwarfUnwindRegisters.h in Headers */ = {isa = PBXBuildFile; fileRef = 5184A9C6028EDC00B6B5F5ACD315D51A /* FIRCLSDwarfUnwindRegisters.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		53F948F32EE5B2074CD9801797086CFC /* UtitlsTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A8243A5CC88EFCFF69E6A406B0D4C9 /* UtitlsTool.swift */; };
@@ -1861,6 +1862,7 @@
 		52CEAAAFD67B7180A4118FBB23F4995C /* FIRCLSReportManager_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRCLSReportManager_Private.h; path = Crashlytics/Crashlytics/Controllers/FIRCLSReportManager_Private.h; sourceTree = "<group>"; };
 		5305AD668238C5EC76F631E415D130DD /* ConstraintRelation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintRelation.swift; path = Sources/ConstraintRelation.swift; sourceTree = "<group>"; };
 		534322AB3E7D01B777149CB3A0266E68 /* FirebaseRemoteConfigValueDecoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FirebaseRemoteConfigValueDecoding.swift; path = FirebaseSharedSwift/Sources/FirebaseRemoteConfigValueDecoding.swift; sourceTree = "<group>"; };
+		538282212EF15A6D0097EAD0 /* CapsuleSegmentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleSegmentedView.swift; sourceTree = "<group>"; };
 		53E13B4BBE889C86B4607B2D20857C44 /* Pods-MobileProject.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MobileProject.modulemap"; sourceTree = "<group>"; };
 		53F215D015F5EF67FE833C5159D2D0D1 /* Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Sources/SQLite/Helpers.swift; sourceTree = "<group>"; };
 		53FCFD848C3FD0191737DDC6667330FB /* AggregateFunctions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AggregateFunctions.swift; path = Sources/SQLite/Typed/AggregateFunctions.swift; sourceTree = "<group>"; };
@@ -4422,6 +4424,7 @@
 				4C8A70895A05794F84202F4350AA98B6 /* PageControlView.swift */,
 				6B0F81801D05CF6341AFC204E6BFB9B9 /* PopupContainerViewController.swift */,
 				C0EA7363F6AAF423CC4B5806EF6135D5 /* VideoPlayerView.swift */,
+				538282212EF15A6D0097EAD0 /* CapsuleSegmentedView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6485,6 +6488,7 @@
 				364CECFE13F71AA30251A317A12534E3 /* UIImageView+Extension.swift in Sources */,
 				0FE7A319AE57EDA526E6B2A23FB90155 /* UILabel+Create.swift in Sources */,
 				5C987CF144F3F5073EE151892BD61FBF /* UILable+Extension.swift in Sources */,
+				538282222EF15A6D0097EAD0 /* CapsuleSegmentedView.swift in Sources */,
 				82BCDE01C32AA9A71C93923919C44D4D /* UINavigationItem+Extension.swift in Sources */,
 				C058C2BB5CC83023C7F396480F9D90BC /* UIPageControl+Extension.swift in Sources */,
 				DE6959D95D0B01C9442703DFB6BBCE7F /* UIScrollerView+Create.swift in Sources */,

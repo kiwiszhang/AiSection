@@ -82,6 +82,9 @@ extension HomeViewController:TopViewDelegate {
     func refreshSearchNoData(){
         MyLog("refreshSearchNoData")
     }
+    func clickVipImage() {
+        MyLog("clickVipImage")
+    }
 }
 
 //MARK: ----------TableViewDelegateDataSource-----------
@@ -104,10 +107,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = itemList[indexPath.row]
-        if item.isDemo {
-            MyLog("Demo")
-        }else{
-            MyLog("Other")
+        
+        if UserDefaultsTools.tabSelected == 0 || UserDefaultsTools.tabSelected == 2 {
+            if item.isDemo {
+                MyLog("Demo")
+            }else{
+                let vc = HomeNoteDetailViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
         
         if UserDefaultsTools.tabSelected == 1 {

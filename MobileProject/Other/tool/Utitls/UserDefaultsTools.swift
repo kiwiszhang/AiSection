@@ -14,7 +14,7 @@ class UserDefaultsTools {
         case isFirstInstallApp = "UserDefaultsTypeKeys_isFirstInstallApp"
         case tabSelected = "UserDefaultsTypeKeys_tabSelected"
 
-        case reportOtherName = "UserDefaultsTypeKeys_reportOtherName"
+        case segmentIndex = "UserDefaultsTypeKeys_segmentIndex"
         
         case selectedIdentifiers = "UserDefaultsTypeKeys_selectedIdentifiers"
 
@@ -28,9 +28,9 @@ class UserDefaultsTools {
     @UserDefault(UserDefaultsTypeKeys.tabSelected.rawValue, defaultValue: 0)
     static var tabSelected: Int
     
-    /// 报告页有的地方需要使用的别人名字
-    @UserDefault(UserDefaultsTypeKeys.reportOtherName.rawValue, defaultValue: "")
-    static var reportOtherName: String
+    /// segment选中的Index
+    @UserDefault(UserDefaultsTypeKeys.segmentIndex.rawValue, defaultValue: 0)
+    static var segmentIndex: Int
     
     /// 照片选择标记
     @UserDefault(UserDefaultsTypeKeys.selectedIdentifiers.rawValue, defaultValue: [])
