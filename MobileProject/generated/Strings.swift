@@ -10,6 +10,8 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  /// Add a note
+  internal static let addANote = L10n.tr("Localizable", "Add a note", fallback: "Add a note")
   /// Add Folder
   internal static let addFolder = L10n.tr("Localizable", "Add Folder", fallback: "Add Folder")
   /// Add note
@@ -18,6 +20,8 @@ internal enum L10n {
   internal static let addToFavorites = L10n.tr("Localizable", "Add to Favorites", fallback: "Add to Favorites")
   /// All Notes
   internal static let allNotes = L10n.tr("Localizable", "All Notes", fallback: "All Notes")
+  /// All results are negative
+  internal static let allResultsAreNegative = L10n.tr("Localizable", "All results are negative", fallback: "All results are negative")
   /// Audio Files
   internal static let audioFiles = L10n.tr("Localizable", "Audio Files", fallback: "Audio Files")
   /// Chat with this note
@@ -66,6 +70,8 @@ internal enum L10n {
   internal static let newFolderName = L10n.tr("Localizable", "New folder name", fallback: "New folder name")
   /// New note
   internal static let newNote = L10n.tr("Localizable", "New note", fallback: "New note")
+  /// No items saved yet
+  internal static let noItemsSavedYet = L10n.tr("Localizable", "No items saved yet", fallback: "No items saved yet")
   /// The network is not connected or limited.
   internal static let notConnectedLimited = L10n.tr("Localizable", "not-connected-limited", fallback: "The network is not connected or limited.")
   /// notes

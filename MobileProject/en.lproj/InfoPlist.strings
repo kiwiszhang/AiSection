@@ -1,4 +1,6 @@
-NSCameraUsageDescription = "Allow camera access to capture photos and videos";
-NSMicrophoneUsageDescription = "Microphone permission is needed for audio recording";
-NSPhotoLibraryAddUsageDescription = "Allow saving media to your Photos";
-NSPhotoLibraryUsageDescription = "Allow photo library access to choose pictures";
+"NSCameraUsageDescription" = "Allow camera access to take receipt photos for smart recognition and archiving.";
+"NSMicrophoneUsageDescription" = "Microphone permission is needed for audio recording";
+"NSPhotoLibraryAddUsageDescription" = "Allow saving media to your photo album to store receipt images.";
+"NSPhotoLibraryUsageDescription" = "Allow album access to select your receipt photos for smart recognition and archiving.";
+"NSUserTrackingUsageDescription" = "We want to understand which ad led to your download, so we can provide you with more relevant content. You can choose whether to allow this.";
+"NSSpeechRecognitionUsageDescription" = "需要语音转文字";

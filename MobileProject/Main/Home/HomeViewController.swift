@@ -30,9 +30,11 @@ class HomeViewController: SuperViewController {
     private lazy var tabView = TabView()
     private lazy var itemList:[RecordItemModel] = []
     private lazy var tableView = {
-        return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.clear).registerCells(RecordItemCell.self).registerCells(RecordItemDemoCell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeight(84.h).showsH(false)
+        return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.clear).registerCells(RecordItemCell.self).registerCells(RecordSecendItemCell.self).registerCells(RecordItemDemoCell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeight(84.h).showsH(false)
     }()
-    
+    private lazy var emptyView = SectionEmptyView().hidden(true)
+    private lazy var emptyAddView = SectionEmptyAddView().hidden(true)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = kkColorFromHex(kkHomeBgColor)
@@ -41,7 +43,7 @@ class HomeViewController: SuperViewController {
     
     override func setUpUI() {
         UserDefaultsTools.tabSelected = 0
-        view.addChildView([topview,tabView,tableView])
+        view.addChildView([topview,tabView,tableView,emptyView,emptyAddView])
         topview.snp.makeConstraints { make in
             make.left.right.top.equalToSuperview()
             make.height.equalTo(142.h)
@@ -57,6 +59,20 @@ class HomeViewController: SuperViewController {
             make.left.right.equalToSuperview()
             make.top.equalTo(tabView.snp.bottom).offset(20.h)
             make.bottom.equalToSuperview().offset(-kkTAB_BAR_TOTAL_HEIGHT)
+        }
+        
+        emptyView.snp.makeConstraints { make in
+            make.width.equalTo(150.h)
+            make.height.equalTo(165.h)
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-20.h)
+        }
+        
+        emptyAddView.snp.makeConstraints { make in
+            make.width.equalTo(150.w)
+            make.height.equalTo(254.h)
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-20.h)
         }
         
         topview.delegate = self
@@ -94,12 +110,27 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = itemList[indexPath.row]
-        if model.isDemo {
-            let cell = tableView.dequeueCell(RecordItemDemoCell.self, for: indexPath)
+        
+        if UserDefaultsTools.tabSelected == 0 || UserDefaultsTools.tabSelected == 2 {
+            if model.isDemo {
+                let cell = tableView.dequeueCell(RecordItemDemoCell.self, for: indexPath)
+                cell.selectionStyle = .none
+                cell.configure(with: itemList[indexPath.row])
+                return cell
+            }
+            let cell = tableView.dequeueCell(RecordItemCell.self, for: indexPath)
             cell.selectionStyle = .none
             cell.configure(with: itemList[indexPath.row])
             return cell
         }
+        
+        if UserDefaultsTools.tabSelected == 1 {
+            let cell = tableView.dequeueCell(RecordSecendItemCell.self, for: indexPath)
+            cell.selectionStyle = .none
+            cell.configure(with: itemList[indexPath.row])
+            return cell
+        }
+        
         let cell = tableView.dequeueCell(RecordItemCell.self, for: indexPath)
         cell.selectionStyle = .none
         cell.configure(with: itemList[indexPath.row])
@@ -143,14 +174,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let foot = tableView.dequeueHeaderFooter(SuperTableViewHeaderFooterView.self)
         return foot
     }
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//        }
-//    }
-//    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
-//        for cell in tableView.visibleCells {
-//        }
-//    }
 }
 
 class RecordItemCell: SuperTableViewCell {
@@ -173,15 +196,6 @@ class RecordItemCell: SuperTableViewCell {
                     popup.dismissSelf()
                 }
                 UIApplication.topViewController()?.present(popup, animated: false)
-                
-            }else if UserDefaultsTools.tabSelected == 1 {
-                var itemListData:[PopItemModel] = HomeConfigData.getHomeFloderData()
-                let content = HomeFloderPopViewController(itemList: itemListData)
-                let popup = PopupContainerViewController(contentVC: content, height: 319.h)
-                content.dismissAction = {
-                    popup.dismissSelf()
-                }
-                UIApplication.topViewController()?.present(popup, animated: false)
             }
         }
     }
@@ -189,12 +203,11 @@ class RecordItemCell: SuperTableViewCell {
     private lazy var titleL = UILabel().text("title").color(kkColorFromHex(kkMainTitleColor)).hnFont(size: 14.h, weight: .medium)
     private lazy var typeImageV = UIImageView().image(Asset.homeType00.image)
     private lazy var dateL = UILabel().text("Apr 10,2025 11:30 am").hnFont(size: 12.h, weight: .regular).color(kkColorFromHex(kkSubTitleColor))
-    private lazy var noteNumberL = UILabel().text("0").hnFont(size: 12.h, weight: .regular).color(kkColorFromHex(kkSubTitleColor))
     override func setUpUI() {
         self.backgroundColor(.clear)
         contentView.addChildView([bgView,favoriteImageV])
         contentView.backgroundColor(.clear)
-        bgView.addChildView([iconImageV,moreImageV,titleL,typeImageV,dateL,noteNumberL])
+        bgView.addChildView([iconImageV,moreImageV,titleL,typeImageV,dateL])
         
         bgView.snp.makeConstraints { make in
             make.width.equalTo(343.w)
@@ -239,21 +252,11 @@ class RecordItemCell: SuperTableViewCell {
             make.top.equalTo(typeImageV)
             make.height.equalTo(15.h)
         }
-        
-        noteNumberL.snp.makeConstraints { make in
-            make.left.equalTo(titleL.snp.left).offset(0.w)
-            make.right.equalTo(titleL)
-            make.top.equalTo(titleL.snp.bottom).offset(5.h)
-            make.height.equalTo(15.h)
-        }
-
     }
     
     func configure(with item: RecordItemModel) {
         itemModel = item
-        
         if UserDefaultsTools.tabSelected == 0 || UserDefaultsTools.tabSelected == 2 {
-            
             titleL.text(item.noteName)
             dateL.text(timestampToFormattedString(item.updateTime))
             if item.noteType == 0 {
@@ -269,55 +272,7 @@ class RecordItemCell: SuperTableViewCell {
             typeImageV.hidden(false)
             dateL.hidden(false)
             iconImageV.image(Asset.homeNote.image)
-            noteNumberL.hidden(true)
-        }else if UserDefaultsTools.tabSelected == 1 {
-            typeImageV.hidden(true)
-            dateL.hidden(true)
-            titleL.text(item.floderName)
-            iconImageV.image(Asset.floder.image)
-            noteNumberL.hidden(false)
-            favoriteImageV.hidden(true)
-            noteNumberL.text("\(item.noteNumbers)" + " " + L10n.notes)
         }
-        
-        if item.isAddFloder {
-            moreImageV.snp.remakeConstraints { make in
-                make.width.height.equalTo(28.h)
-                make.centerY.equalToSuperview()
-                make.right.equalToSuperview().offset(-16.w)
-            }
-            titleL.snp.remakeConstraints { make in
-                make.left.equalTo(iconImageV.snp.right).offset(10.w)
-                make.right.equalTo(moreImageV.snp.left).offset(-8.w)
-                make.centerY.equalToSuperview()
-                make.height.equalTo(17.h)
-            }
-            
-            noteNumberL.hidden(true)
-            moreImageV.image(Asset.addFloders.image)
-            bgView.cornerRadius = 14.h
-            bgView.lineWidth = 1
-            bgView.strokeColor = kkColorFromHex(kkMainTextColor)
-            bgView.backgroundColor = kkColorFromHexWithAlpha("FFFFFF", 0.5)
-        }else{
-            iconImageV.snp.makeConstraints { make in
-                make.width.height.equalTo(36.h)
-                make.centerY.equalToSuperview()
-                make.left.equalToSuperview().offset(16.w)
-            }
-            
-            moreImageV.snp.makeConstraints { make in
-                make.width.height.equalTo(18.h)
-                make.centerY.equalToSuperview()
-                make.right.equalToSuperview().offset(-16.w)
-            }
-            moreImageV.image(Asset.moreRight.image)
-            bgView.cornerRadius = 14.h
-            bgView.lineWidth = 1
-            bgView.strokeColor = .white
-            bgView.backgroundColor = kkColorFromHexWithAlpha("FFFFFF", 1)
-        }
-                
     }
 
     /// 时间戳转：Apr 10,2025 10:30 am这种格式的时间
@@ -329,6 +284,115 @@ class RecordItemCell: SuperTableViewCell {
         return formatter.string(from: date).lowercased() // am/pm 变为小写
     }
 }
+
+class RecordSecendItemCell: SuperTableViewCell {
+    private var itemModel:RecordItemModel? = nil
+    private lazy var bgView = DashedBorderView(cornerRadius: 14.h,lineWidth: 1,strokeColor: .white).backgroundColor(.white)
+    private lazy var iconImageV = UIImageView().image(Asset.homeNote.image).enable(true)
+    private lazy var moreImageV = UIImageView().image(Asset.moreRight.image).enable(true).onTap { [self] in
+        MyLog(itemModel)
+        if let model = itemModel {
+            if UserDefaultsTools.tabSelected == 1 {
+                var itemListData:[PopItemModel] = HomeConfigData.getHomeFloderData()
+                let content = HomeFloderPopViewController(itemList: itemListData)
+                let popup = PopupContainerViewController(contentVC: content, height: 319.h)
+                content.dismissAction = {
+                    popup.dismissSelf()
+                }
+                UIApplication.topViewController()?.present(popup, animated: false)
+            }
+        }
+    }
+    private lazy var titleL = UILabel().text("title").color(kkColorFromHex(kkMainTitleColor)).hnFont(size: 14.h, weight: .medium)
+    private lazy var noteNumberL = UILabel().text("0").hnFont(size: 12.h, weight: .regular).color(kkColorFromHex(kkSubTitleColor))
+    override func setUpUI() {
+        self.backgroundColor(.clear)
+        contentView.addChildView([bgView])
+        contentView.backgroundColor(.clear)
+        bgView.addChildView([iconImageV,moreImageV,titleL,noteNumberL])
+        
+        bgView.snp.makeConstraints { make in
+            make.width.equalTo(343.w)
+            make.height.equalTo(70.h)
+            make.center.equalToSuperview()
+        }
+        
+        iconImageV.snp.makeConstraints { make in
+            make.width.height.equalTo(36.h)
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(16.w)
+        }
+        
+        moreImageV.snp.makeConstraints { make in
+            make.width.height.equalTo(18.h)
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().offset(-16.w)
+        }
+        
+        titleL.snp.makeConstraints { make in
+            make.left.equalTo(iconImageV.snp.right).offset(10.w)
+            make.right.equalTo(moreImageV.snp.left).offset(-8.w)
+            make.top.equalToSuperview().offset(16.h)
+            make.height.equalTo(17.h)
+        }
+        
+        noteNumberL.snp.makeConstraints { make in
+            make.left.equalTo(titleL.snp.left).offset(0.w)
+            make.right.equalTo(titleL)
+            make.top.equalTo(titleL.snp.bottom).offset(5.h)
+            make.height.equalTo(15.h)
+        }
+
+    }
+    
+    func configure(with item: RecordItemModel) {
+        itemModel = item
+        if UserDefaultsTools.tabSelected == 1 {
+            titleL.text(item.floderName)
+            iconImageV.image(Asset.floder.image)
+            noteNumberL.hidden(false)
+            noteNumberL.text("\(item.noteNumbers)" + " " + L10n.notes)
+            if item.isAddFloder {
+                titleL.snp.remakeConstraints { make in
+                    make.left.equalTo(iconImageV.snp.right).offset(10.w)
+                    make.right.equalTo(moreImageV.snp.left).offset(-8.w)
+                    make.centerY.equalToSuperview()
+                    make.height.equalTo(17.h)
+                }
+                moreImageV.snp.remakeConstraints { make in
+                    make.width.height.equalTo(28.h)
+                    make.centerY.equalToSuperview()
+                    make.right.equalToSuperview().offset(-16.w)
+                }
+                noteNumberL.hidden(true)
+                moreImageV.image(Asset.addFloders.image)
+                bgView.cornerRadius = 14.h
+                bgView.lineWidth = 1
+                bgView.strokeColor = kkColorFromHex(kkMainTextColor)
+                bgView.backgroundColor = kkColorFromHexWithAlpha("FFFFFF", 0.5)
+            }else{
+                titleL.snp.remakeConstraints { make in
+                    make.left.equalTo(iconImageV.snp.right).offset(10.w)
+                    make.right.equalTo(moreImageV.snp.left).offset(-8.w)
+                    make.top.equalToSuperview().offset(16.h)
+                    make.height.equalTo(17.h)
+                }
+                moreImageV.snp.remakeConstraints { make in
+                    make.width.height.equalTo(18.h)
+                    make.centerY.equalToSuperview()
+                    make.right.equalToSuperview().offset(-16.w)
+                }
+                moreImageV.image(Asset.moreRight.image)
+                bgView.cornerRadius = 14.h
+                bgView.lineWidth = 1
+                bgView.strokeColor = .white
+                bgView.backgroundColor = kkColorFromHexWithAlpha("FFFFFF", 1)
+            }
+        }
+                
+    }
+}
+
 
 class RecordItemDemoCell: SuperTableViewCell {
     private lazy var bgView = UIView().backgroundColor(.white).cornerRadius(14.w)
@@ -407,16 +471,59 @@ extension HomeViewController:TabViewDelegate {
         
         if index == 0 {
             itemList = [model00,model01,model02,model03,model]
-            tableView.reloadData()
+//            itemList = []
+            emptyView.refreshData(emptyImage: Asset.sectionEmpty.image, emptyStr: L10n.allResultsAreNegative)
         }else if index == 1 {
             itemList = [model10,model11,model12,model13,model14]
-            tableView.reloadData()
+//            itemList = []
+            emptyAddView.refreshData(emptyImage: Asset.sectionEmptyAdd.image, emptyStr: L10n.noItemsSavedYet)
+            emptyAddView.delegate = self
         }else {
             itemList = [model]
-            tableView.reloadData()
+//            itemList = []
+            emptyView.refreshData(emptyImage: Asset.sectionEmpty.image, emptyStr: L10n.allResultsAreNegative)
+        }
+        tableView.reloadData()
+        
+        if itemList.count == 0{
+            tableView.hidden(true)
+            if index == 1 {
+                emptyAddView.hidden(false)
+                emptyView.hidden(true)
+            }else{
+                emptyAddView.hidden(true)
+                emptyView.hidden(false)
+            }
+        }else{
+            tableView.hidden(false)
+            emptyView.hidden(true)
+            emptyAddView.hidden(true)
         }
     }
 }
 
+// MARK: -  =====================SectionEmptyAddViewDelegate=========================
+extension HomeViewController:SectionEmptyAddViewDelegate {
+    func addANoteClick(){
+        MyLog("addANoteClick")
+        let model00 = RecordItemModel(noteName: "Meeting minutes", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
+        let model01 = RecordItemModel(noteName: "Meeting Notice", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: true)
+        let model02 = RecordItemModel(noteName: "Work Summary", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
+        let model03 = RecordItemModel(noteName: "Annual Meeting Arrangements", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
+
+        let model04 = RecordItemModel(noteName: "Meeting minutes", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
+        let model05 = RecordItemModel(noteName: "Meeting Notice", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: true)
+        let model06 = RecordItemModel(noteName: "Work Summary", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
+        let model07 = RecordItemModel(noteName: "Annual Meeting Arrangements", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
+
+        
+        let content = HomeAddNotePopViewController(itemList: [model00,model01,model02,model03,model04,model05,model06,model07,model00,model01])
+        let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
+        content.dismissAction = {
+            popup.dismissSelf()
+        }
+        UIApplication.topViewController()?.present(popup, animated: false)
+    }
+}
 
 

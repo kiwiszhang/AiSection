@@ -72,6 +72,8 @@
 		538282202EF14ED70097EAD0 /* DetailTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382821F2EF14ED70097EAD0 /* DetailTableHeaderView.swift */; };
 		538282242EF23C720097EAD0 /* DetailSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282232EF23C720097EAD0 /* DetailSegmentView.swift */; };
 		5382822A2EF27E4F0097EAD0 /* HomeAllNotePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282292EF27E4F0097EAD0 /* HomeAllNotePopVC.swift */; };
+		5382822E2EF3FB3A0097EAD0 /* SectionEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382822D2EF3FB3A0097EAD0 /* SectionEmptyView.swift */; };
+		538282302EF407620097EAD0 /* SectionEmptyAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382822F2EF407620097EAD0 /* SectionEmptyAddView.swift */; };
 		539F2D432DA8B1190030DA8F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 539F2D412DA8B1190030DA8F /* InfoPlist.strings */; };
 		539F2D4C2DA921030030DA8F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F2D4B2DA921030030DA8F /* WebViewController.swift */; };
 		53CEF9932DAE3BB20079AE9E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 53CEF9922DAE3BB20079AE9E /* GoogleService-Info.plist */; };
@@ -166,6 +168,8 @@
 		5382821F2EF14ED70097EAD0 /* DetailTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableHeaderView.swift; sourceTree = "<group>"; };
 		538282232EF23C720097EAD0 /* DetailSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSegmentView.swift; sourceTree = "<group>"; };
 		538282292EF27E4F0097EAD0 /* HomeAllNotePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAllNotePopVC.swift; sourceTree = "<group>"; };
+		5382822D2EF3FB3A0097EAD0 /* SectionEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEmptyView.swift; sourceTree = "<group>"; };
+		5382822F2EF407620097EAD0 /* SectionEmptyAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEmptyAddView.swift; sourceTree = "<group>"; };
 		539F2D422DA8B1190030DA8F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		539F2D442DA8B1390030DA8F /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		539F2D452DA8B1390030DA8F /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -452,6 +456,8 @@
 				538282232EF23C720097EAD0 /* DetailSegmentView.swift */,
 				5382821F2EF14ED70097EAD0 /* DetailTableHeaderView.swift */,
 				531CD91B2EEBE15500FC22F7 /* SearchView.swift */,
+				5382822D2EF3FB3A0097EAD0 /* SectionEmptyView.swift */,
+				5382822F2EF407620097EAD0 /* SectionEmptyAddView.swift */,
 				531CD9272EEBF0B900FC22F7 /* TabView.swift */,
 				531CD92E2EECF8BC00FC22F7 /* PopTopView.swift */,
 			);
@@ -665,6 +671,7 @@
 				531CD8AD2EEAAA0400FC22F7 /* VersionTool.swift in Sources */,
 				531CD8D52EEAABB400FC22F7 /* HomeViewController.swift in Sources */,
 				531CD8B02EEAAA0400FC22F7 /* CALayer+Extension.swift in Sources */,
+				5382822E2EF3FB3A0097EAD0 /* SectionEmptyView.swift in Sources */,
 				538282202EF14ED70097EAD0 /* DetailTableHeaderView.swift in Sources */,
 				531CD8B22EEAAA0400FC22F7 /* UIFont+Extension.swift in Sources */,
 				531CD8B32EEAAA0400FC22F7 /* UIButton+Create.swift in Sources */,
@@ -688,6 +695,7 @@
 				531CD8E12EEAACF100FC22F7 /* Fonts.swift in Sources */,
 				531CD8E22EEAACF100FC22F7 /* MediaFiles.swift in Sources */,
 				531CD8E32EEAACF100FC22F7 /* Files.swift in Sources */,
+				538282302EF407620097EAD0 /* SectionEmptyAddView.swift in Sources */,
 				531CD8E42EEAACF100FC22F7 /* Strings.swift in Sources */,
 				531CD9162EEBAE7900FC22F7 /* AppHelper.swift in Sources */,
 				531CD9172EEBAE7900FC22F7 /* ABTestDebugConfigPage.swift in Sources */,

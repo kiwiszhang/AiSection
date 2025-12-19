@@ -17,6 +17,7 @@ class HomeAllNotePopVC: SuperViewController {
     private lazy var tableView = {
         return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.clear).registerCells(FloderItemCell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeight(84.h).showsH(false).showsV(false)
     }()
+    private lazy var emptyView = SectionEmptyView().hidden(true)
     
     private lazy var bottomV = UIView().backgroundColor(.white).cornerRadius(26.h, corners: [.topLeft,.topRight])
     private lazy var dashBgV = DashedBorderView(cornerRadius: 14.h,lineWidth: 1,lineDashPattern: [4,2],strokeColor: kkColorFromHex(kkMainTextColor)).backgroundColor(.white)
@@ -31,7 +32,7 @@ class HomeAllNotePopVC: SuperViewController {
     }
 
     override func setUpUI() {
-        view.addChildView([barView,tableView])
+        view.addChildView([barView,tableView,emptyView])
         view.addSubview(bottomV)
         barView.snp.makeConstraints { make in
             make.left.top.right.equalToSuperview()
@@ -42,6 +43,13 @@ class HomeAllNotePopVC: SuperViewController {
             make.left.right.equalToSuperview()
             make.top.equalTo(barView.snp.bottom)
             make.bottom.equalToSuperview().offset(-140.h)
+        }
+        
+        emptyView.snp.makeConstraints { make in
+            make.width.equalTo(150.h)
+            make.height.equalTo(165.h)
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-50.h)
         }
         
         bottomV.addSubview(dashBgV)
@@ -90,10 +98,18 @@ class HomeAllNotePopVC: SuperViewController {
         let model12 = RecordItemModel(floderName: "Equipment inspection",noteNumbers: 4562)
         let model13 = RecordItemModel(floderName: "Office Notes",noteNumbers: 3)
         let model14 = RecordItemModel(floderName: L10n.newFolder,noteNumbers: 3,isAddFloder:true)
-        
+//        itemList = []
         itemList = [model00,model10,model11,model12,model13,model14,model10,model11,model12,model13,model10,model11,model12,model13]
         tableView.reloadData()
         
+        emptyView.refreshData(emptyImage: Asset.sectionEmpty.image, emptyStr: L10n.allResultsAreNegative)
+        if itemList.count == 0 {
+            tableView.hidden(true)
+            emptyView.hidden(false)
+        }else{
+            tableView.hidden(false)
+            emptyView.hidden(true)
+        }
         
     }
 

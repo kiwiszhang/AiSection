@@ -58,6 +58,8 @@ internal enum Asset {
   internal static let pusac = ImageAsset(name: "pusac")
   internal static let searchPop = ImageAsset(name: "searchPop")
   internal static let searchicon = ImageAsset(name: "searchicon")
+  internal static let sectionEmpty = ImageAsset(name: "section_empty")
+  internal static let sectionEmptyAdd = ImageAsset(name: "section_emptyAdd")
   internal static let selected = ImageAsset(name: "selected")
   internal static let shareAudio = ImageAsset(name: "share_audio")
   internal static let shareSummaryPdf = ImageAsset(name: "share_summary_pdf")
