@@ -95,6 +95,25 @@
 "Got It" = "Got It";
 "Automatic" = "Automatic";
 "None" = "None";
+"Processing in progress, please do not leave" = "Processing in progress, please do not leave ";
+"Progress" = "Progress";
+"Processing Audio" = "Processing Audio";
+"Enhance audio for better accuracy" = "Enhance audio for better accuracy";
+"Speech to text with smart punctuation" = "Speech to text with smart punctuation";
+"Highlighting Key Points" = "Highlighting Key Points";
+"Wrapping Up" = "Wrapping Up";
+"Decisions, actions, and takeaways" = "Decisions, actions, and takeaways";
+"Deliver a share-ready summary" = "Deliver a share-ready summary";
+" Notify me when done" = " Notify me when done";
+"It is safe to leave" = "It is safe to leave. We’ll notify you when processing
+is complete (Aprox ~ 3 min).";
+"Your notes is ready" = "Your notes is ready!";
+"Your note processing failed" = "Your note processing failed!";
+"Summarize" = "Summarize";
+"Summarize" = "Summarize";
+"Summarize" = "Summarize";
+"Summarize" = "Summarize";
+"Summarize" = "Summarize";
 "Summarize" = "Summarize";
 "Summarize" = "Summarize";
 "Summarize" = "Summarize";

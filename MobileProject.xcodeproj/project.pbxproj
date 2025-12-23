@@ -30,7 +30,6 @@
 		531CD8E02EEAACF100FC22F7 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8DA2EEAACF100FC22F7 /* Images.swift */; };
 		531CD8E12EEAACF100FC22F7 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8D92EEAACF100FC22F7 /* Fonts.swift */; };
 		531CD8E22EEAACF100FC22F7 /* MediaFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8DC2EEAACF100FC22F7 /* MediaFiles.swift */; };
-		531CD8E32EEAACF100FC22F7 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8D82EEAACF100FC22F7 /* Files.swift */; };
 		531CD8E42EEAACF100FC22F7 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8DD2EEAACF100FC22F7 /* Strings.swift */; };
 		531CD8FD2EEAAF6400FC22F7 /* NotificationCenterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8F62EEAAF6400FC22F7 /* NotificationCenterKeys.swift */; };
 		531CD8FE2EEAAF6400FC22F7 /* EventReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8E52EEAAF6400FC22F7 /* EventReport.swift */; };
@@ -80,6 +79,10 @@
 		53CEF9932DAE3BB20079AE9E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 53CEF9922DAE3BB20079AE9E /* GoogleService-Info.plist */; };
 		53FFAEEE2EFA2D8400A0C1EF /* TitleFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */; };
 		53FFAEF02EFA365A00A0C1EF /* CenterLanguagePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */; };
+		53FFAEF32EFA3BD600A0C1EF /* record-bottom.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */; };
+		53FFAEF42EFA3BD600A0C1EF /* record-top.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 53FFAEF22EFA3BD600A0C1EF /* record-top.mp4 */; };
+		53FFAEF62EFA3C1200A0C1EF /* CenterRecordPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEF52EFA3C1200A0C1EF /* CenterRecordPopViewController.swift */; };
+		53FFAEF82EFA626A00A0C1EF /* CenterProcessingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEF72EFA626A00A0C1EF /* CenterProcessingVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -123,7 +126,6 @@
 		531CD8D22EEAAB6E00FC22F7 /* GlobalImports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalImports.swift; sourceTree = "<group>"; };
 		531CD8D42EEAABB400FC22F7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		531CD8D62EEAABD100FC22F7 /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
-		531CD8D82EEAACF100FC22F7 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		531CD8D92EEAACF100FC22F7 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		531CD8DA2EEAACF100FC22F7 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		531CD8DB2EEAACF100FC22F7 /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
@@ -182,6 +184,10 @@
 		53CEF9922DAE3BB20079AE9E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleFieldView.swift; sourceTree = "<group>"; };
 		53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterLanguagePopVC.swift; sourceTree = "<group>"; };
+		53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "record-bottom.mp4"; sourceTree = "<group>"; };
+		53FFAEF22EFA3BD600A0C1EF /* record-top.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "record-top.mp4"; sourceTree = "<group>"; };
+		53FFAEF52EFA3C1200A0C1EF /* CenterRecordPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterRecordPopViewController.swift; sourceTree = "<group>"; };
+		53FFAEF72EFA626A00A0C1EF /* CenterProcessingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterProcessingVC.swift; sourceTree = "<group>"; };
 		7041B3847FAF0D646FE4C66C /* Pods_ShareExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79A652786741A9805F07CCDE /* Pods-MobileProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileProject.debug.xcconfig"; path = "Target Support Files/Pods-MobileProject/Pods-MobileProject.debug.xcconfig"; sourceTree = "<group>"; };
 		7CE0E0A0E92D28AA1BF85F81 /* Pods-ShareExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareExtension.debug.xcconfig"; path = "Target Support Files/Pods-ShareExtension/Pods-ShareExtension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -333,6 +339,8 @@
 		531CD89A2EEAAA0400FC22F7 /* videos */ = {
 			isa = PBXGroup;
 			children = (
+				53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */,
+				53FFAEF22EFA3BD600A0C1EF /* record-top.mp4 */,
 			);
 			path = videos;
 			sourceTree = "<group>";
@@ -373,7 +381,6 @@
 		531CD8DE2EEAACF100FC22F7 /* generated */ = {
 			isa = PBXGroup;
 			children = (
-				531CD8D82EEAACF100FC22F7 /* Files.swift */,
 				531CD8D92EEAACF100FC22F7 /* Fonts.swift */,
 				531CD8DA2EEAACF100FC22F7 /* Images.swift */,
 				531CD8DB2EEAACF100FC22F7 /* JSON.swift */,
@@ -476,7 +483,9 @@
 			children = (
 				531CD92B2EEC10E900FC22F7 /* CenterClickPopViewController.swift */,
 				538282312EF4EAF50097EAD0 /* CenterAudioPopViewController.swift */,
+				53FFAEF52EFA3C1200A0C1EF /* CenterRecordPopViewController.swift */,
 				53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */,
+				53FFAEF72EFA626A00A0C1EF /* CenterProcessingVC.swift */,
 			);
 			path = Center;
 			sourceTree = "<group>";
@@ -577,6 +586,8 @@
 				531CD90B2EEAAF6400FC22F7 /* expensesSynced.storekit in Resources */,
 				531CD90C2EEAAF6400FC22F7 /* expenses.storekit in Resources */,
 				531CD90D2EEAAF6400FC22F7 /* StoreKitTestCertificate.cer in Resources */,
+				53FFAEF32EFA3BD600A0C1EF /* record-bottom.mp4 in Resources */,
+				53FFAEF42EFA3BD600A0C1EF /* record-top.mp4 in Resources */,
 				533D12442E1BAB4300C97724 /* LaunchScreen.storyboard in Resources */,
 				388FB0962DA17039006C52AC /* Assets.xcassets in Resources */,
 				53CEF9932DAE3BB20079AE9E /* GoogleService-Info.plist in Resources */,
@@ -705,7 +716,6 @@
 				531CD8E02EEAACF100FC22F7 /* Images.swift in Sources */,
 				531CD8E12EEAACF100FC22F7 /* Fonts.swift in Sources */,
 				531CD8E22EEAACF100FC22F7 /* MediaFiles.swift in Sources */,
-				531CD8E32EEAACF100FC22F7 /* Files.swift in Sources */,
 				538282302EF407620097EAD0 /* SectionEmptyAddView.swift in Sources */,
 				531CD8E42EEAACF100FC22F7 /* Strings.swift in Sources */,
 				531CD9162EEBAE7900FC22F7 /* AppHelper.swift in Sources */,
@@ -722,9 +732,11 @@
 				531CD92F2EECF8BC00FC22F7 /* PopTopView.swift in Sources */,
 				531CD8FD2EEAAF6400FC22F7 /* NotificationCenterKeys.swift in Sources */,
 				531CD8FE2EEAAF6400FC22F7 /* EventReport.swift in Sources */,
+				53FFAEF62EFA3C1200A0C1EF /* CenterRecordPopViewController.swift in Sources */,
 				531CD8FF2EEAAF6400FC22F7 /* UserDefaultsTools.swift in Sources */,
 				531CD9022EEAAF6400FC22F7 /* CoreDataICloud.xcdatamodeld in Sources */,
 				5382821C2EF13B200097EAD0 /* DetailNavTopView.swift in Sources */,
+				53FFAEF82EFA626A00A0C1EF /* CenterProcessingVC.swift in Sources */,
 				531CD9042EEAAF6400FC22F7 /* UtitilTools.swift in Sources */,
 				531CD9052EEAAF6400FC22F7 /* SubscriptionManager.swift in Sources */,
 				531CD9062EEAAF6400FC22F7 /* Common.swift in Sources */,

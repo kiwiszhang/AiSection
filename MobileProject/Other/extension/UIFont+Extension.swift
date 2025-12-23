@@ -69,7 +69,7 @@ public extension UIFont {
 public extension UILabel {
     //每个项目单独处理
     @discardableResult
-    func hnFont(size: CGFloat, weight: InterWeightOner = .regular) -> Self {
+    func hnFont(size: CGFloat, weight: InterWeightOner) -> Self {
         self.font = UIFont.interOner(size: size, weight: weight)
         return self
     }

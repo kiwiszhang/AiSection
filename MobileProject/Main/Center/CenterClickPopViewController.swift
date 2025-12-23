@@ -16,6 +16,12 @@ class CenterClickPopViewController: SuperViewController {
     private lazy var itemV0 = PopItemView().cornerRadius(14.h).backgroundColor(kkColorFromHex(kkWhiteTabColor)).onTap {
         MyLog("item00")
         
+        let content = CenterRecordPopViewController()
+        let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
+        content.dismissAction = {
+            popup.dismissSelf()
+        }
+        self.present(popup, animated: false)
         
     }
     private lazy var itemV1 = PopItemView().cornerRadius(14.h).backgroundColor(kkColorFromHex(kkWhiteTabColor)).onTap { [self] in
