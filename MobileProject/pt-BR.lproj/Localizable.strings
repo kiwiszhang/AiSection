@@ -1,1 +1,121 @@
+// MARK: - Subscribe
+"subscribe.getPremium" = "Get Premium";
+"subscribe.getPremiumTips" = "Save & share all you want";
+"subscribe.premiumTitle" = "Design & Create";
+"subscribe.premiumTips" = "Save your wonderful memories";
+"subscribe.restore" = "Restore";
+"subscribe.day" = "day";
+"subscribe.week" = "week";
+"subscribe.month" = "month";
+"subscribe.year" = "year";
+"subscribe.%d_days" = "%d days";
+"subscribe.%d_weeks" = "%d weeks";
+"subscribe.%d_months" = "%d months";
+"subscribe.%d_years" = "%d years";
+"subscribe.noRestorablePurchases" = "No restorable purchases found";
+"subscribe.productNotFound" = "Unable to obtain product information temporarily, please check the network and try again";
+"subscribe.product.tips" = "%@/%@, unlimited access to all features, cancel anytime";
+"subscribe.product.freeTips" = "First %d days free, then %@";
+"subscribe.%d_freeTrial" = "%d Days Free";
+"subscribe.desc" = "Unlock Export Features";
+"subscribe.feature1" = "Video";
+"subscribe.feature2" = "Audio";
+"subscribe.feature3" = "Image";
+"subscribe.feature4" = "Gif";
 
+//MARK: - 内购提示
+"mb-restore-success" = "Subscription restored successfully";
+"mb-restore-error" = "Failed to restore purchases";
+"mb-restore-expired" = "Your subscription has expired";
+"mb-restore-none" = "No active subscriptions found";
+"mb-enable-buy" = "You are currently a subscriber";
+"mb-buy-success" = "Purchase Successful!";
+"mb-buy-error" = "Purchase Error!";
+
+"not-connected-limited" = "The network is not connected or limited.";
+
+"My Notes" = "My Notes";
+"Notes" = "notes";
+"Search notes/folders" = "Search notes/folders";
+"All Notes" = "All Notes";
+"Folder" = "Folder";
+"Favorites" = "Favorites";
+"Home" = "Home";
+"Me" = "Me";
+"Welcome" = "Welcome！";
+"Discover all featureswith this note" = "Discover all featureswith this note！";
+"Try now" = "Try now";
+"New note" = "New note";
+"New Folder" = "New Folder";
+"Recording" = "Recording";
+"Audio Files" = "Audio Files";
+"More" = "More";
+"Share" = "Share";
+"Add to Favorites" = "Add to Favorites";
+"Move to folder" = "Move to folder";
+"Rename" = "Rename";
+"Delete" = "Delete";
+"Remove from Favorites" = "Remove from Favorites";
+"Share Summary in PDF" = "Share Summary in PDF";
+"Share Summary in text" = "Share Summary in text";
+"Share Transcript in PDF" = "Share Transcript in PDF";
+"Share Transcript in text" = "Share Transcript in text";
+"Share audio" = "Share audio";
+"Chat with this note" = "Chat with this note";
+"Summarize" = "Summarize";
+"Transcription" = "Transcription";
+"Edit Summary" = "Edit Summary";
+"Edit Transcript" = "Edit Transcript";
+"Translate" = "Translate";
+"Search folders" = "Search folders";
+"Reset" = "Reset";
+"Confirm" = "Confirm";
+"Add note" = "Add note";
+"Add Folder" = "Add Folder";
+"New folder name" = "New folder name";
+"Save" = "Save";
+"Search notes" = "Search notes";
+"All results are negative" = "All results are negative";
+"Add a note" = "Add a note";
+"No items saved yet" = "No items saved yet";
+"Upload video" = "Upload video";
+"File name" = "File name";
+"Language of Summary Transcript" = "Language of Summary & Transcript";
+"None" = "None";
+"Get Summary" = "Get Summary";
+"Language" = "Language";
+"Search language" = "Search language";
+"please record for at least 10 seconds" = "please record for at least 10 seconds";
+"Are sure you want to discard record" = "Are sure you want to discard record?";
+"All progress will be lost" = "All progress will be lost";
+"Cancel" = "Cancel";
+"Delete" = "Delete";
+"Short Recording Detected" = "Short Recording Detected";
+"Your recording is too brief for transcription" = "Your recording is too brief for transcription";
+"Got It" = "Got It";
+"Automatic" = "Automatic";
+"None" = "None";
+"Summarize" = "Summarize";
+"Summarize" = "Summarize";
+"Summarize" = "Summarize";
+"Summarize" = "Summarize";
+"Summarize" = "Summarize";
+"Summarize" = "Summarize";
+"Summarize" = "Summarize";
+
+
+
+
+
+//MARK: - 语言
+"English" = "English";
+"Portuguese" = "Portuguese (Brazil)";
+"Spanish" = "Spanish (Mexico)";
+"Turkish" = "Turkish";
+"French" = "French";
+"Italian" = "Italian";
+"Japanese" = "Japanese";
+"Arabic" = "Arabic";
+"Indonesian" = "Indonesian";
+"Traditional" = "Traditional";
+"Simplified" = "Simplified";

@@ -515,7 +515,7 @@ extension HomeViewController:SectionEmptyAddViewDelegate {
         let model05 = RecordItemModel(noteName: "Meeting Notice", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: true)
         let model06 = RecordItemModel(noteName: "Work Summary", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
         let model07 = RecordItemModel(noteName: "Annual Meeting Arrangements", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-
+        
         
         let content = HomeAddNotePopViewController(itemList: [model00,model01,model02,model03,model04,model05,model06,model07,model00,model01])
         let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
@@ -523,6 +523,13 @@ extension HomeViewController:SectionEmptyAddViewDelegate {
             popup.dismissSelf()
         }
         UIApplication.topViewController()?.present(popup, animated: false)
+        
+//        let content = CenterClickPopViewController()
+//        let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight,isMiddle: true)
+//        content.dismissAction = {
+//            popup.dismissSelf()
+//        }
+//        UIApplication.topViewController()?.present(popup, animated: false)
     }
 }
 

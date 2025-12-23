@@ -20,10 +20,20 @@ internal enum L10n {
   internal static let addToFavorites = L10n.tr("Localizable", "Add to Favorites", fallback: "Add to Favorites")
   /// All Notes
   internal static let allNotes = L10n.tr("Localizable", "All Notes", fallback: "All Notes")
+  /// All progress will be lost
+  internal static let allProgressWillBeLost = L10n.tr("Localizable", "All progress will be lost", fallback: "All progress will be lost")
   /// All results are negative
   internal static let allResultsAreNegative = L10n.tr("Localizable", "All results are negative", fallback: "All results are negative")
+  /// Arabic
+  internal static let arabic = L10n.tr("Localizable", "Arabic", fallback: "Arabic")
+  /// Are sure you want to discard record?
+  internal static let areSureYouWantToDiscardRecord = L10n.tr("Localizable", "Are sure you want to discard record", fallback: "Are sure you want to discard record?")
   /// Audio Files
   internal static let audioFiles = L10n.tr("Localizable", "Audio Files", fallback: "Audio Files")
+  /// Automatic
+  internal static let automatic = L10n.tr("Localizable", "Automatic", fallback: "Automatic")
+  /// Cancel
+  internal static let cancel = L10n.tr("Localizable", "Cancel", fallback: "Cancel")
   /// Chat with this note
   internal static let chatWithThisNote = L10n.tr("Localizable", "Chat with this note", fallback: "Chat with this note")
   /// Confirm
@@ -36,12 +46,32 @@ internal enum L10n {
   internal static let editSummary = L10n.tr("Localizable", "Edit Summary", fallback: "Edit Summary")
   /// Edit Transcript
   internal static let editTranscript = L10n.tr("Localizable", "Edit Transcript", fallback: "Edit Transcript")
+  /// English
+  internal static let english = L10n.tr("Localizable", "English", fallback: "English")
   /// Favorites
   internal static let favorites = L10n.tr("Localizable", "Favorites", fallback: "Favorites")
+  /// File name
+  internal static let fileName = L10n.tr("Localizable", "File name", fallback: "File name")
   /// Folder
   internal static let folder = L10n.tr("Localizable", "Folder", fallback: "Folder")
+  /// French
+  internal static let french = L10n.tr("Localizable", "French", fallback: "French")
+  /// Get Summary
+  internal static let getSummary = L10n.tr("Localizable", "Get Summary", fallback: "Get Summary")
+  /// Got It
+  internal static let gotIt = L10n.tr("Localizable", "Got It", fallback: "Got It")
   /// Home
   internal static let home = L10n.tr("Localizable", "Home", fallback: "Home")
+  /// Indonesian
+  internal static let indonesian = L10n.tr("Localizable", "Indonesian", fallback: "Indonesian")
+  /// Italian
+  internal static let italian = L10n.tr("Localizable", "Italian", fallback: "Italian")
+  /// Japanese
+  internal static let japanese = L10n.tr("Localizable", "Japanese", fallback: "Japanese")
+  /// Language
+  internal static let language = L10n.tr("Localizable", "Language", fallback: "Language")
+  /// Language of Summary & Transcript
+  internal static let languageOfSummaryTranscript = L10n.tr("Localizable", "Language of Summary Transcript", fallback: "Language of Summary & Transcript")
   /// Purchase Error!
   internal static let mbBuyError = L10n.tr("Localizable", "mb-buy-error", fallback: "Purchase Error!")
   /// Purchase Successful!
@@ -72,10 +102,16 @@ internal enum L10n {
   internal static let newNote = L10n.tr("Localizable", "New note", fallback: "New note")
   /// No items saved yet
   internal static let noItemsSavedYet = L10n.tr("Localizable", "No items saved yet", fallback: "No items saved yet")
+  /// None
+  internal static let `none` = L10n.tr("Localizable", "None", fallback: "None")
   /// The network is not connected or limited.
   internal static let notConnectedLimited = L10n.tr("Localizable", "not-connected-limited", fallback: "The network is not connected or limited.")
   /// notes
   internal static let notes = L10n.tr("Localizable", "Notes", fallback: "notes")
+  /// please record for at least 10 seconds
+  internal static let pleaseRecordForAtLeast10Seconds = L10n.tr("Localizable", "please record for at least 10 seconds", fallback: "please record for at least 10 seconds")
+  /// Portuguese (Brazil)
+  internal static let portuguese = L10n.tr("Localizable", "Portuguese", fallback: "Portuguese (Brazil)")
   /// Recording
   internal static let recording = L10n.tr("Localizable", "Recording", fallback: "Recording")
   /// Remove from Favorites
@@ -88,6 +124,8 @@ internal enum L10n {
   internal static let save = L10n.tr("Localizable", "Save", fallback: "Save")
   /// Search folders
   internal static let searchFolders = L10n.tr("Localizable", "Search folders", fallback: "Search folders")
+  /// Search language
+  internal static let searchLanguage = L10n.tr("Localizable", "Search language", fallback: "Search language")
   /// Search notes
   internal static let searchNotes = L10n.tr("Localizable", "Search notes", fallback: "Search notes")
   /// Search notes/folders
@@ -104,16 +142,30 @@ internal enum L10n {
   internal static let shareTranscriptInPDF = L10n.tr("Localizable", "Share Transcript in PDF", fallback: "Share Transcript in PDF")
   /// Share Transcript in text
   internal static let shareTranscriptInText = L10n.tr("Localizable", "Share Transcript in text", fallback: "Share Transcript in text")
+  /// Short Recording Detected
+  internal static let shortRecordingDetected = L10n.tr("Localizable", "Short Recording Detected", fallback: "Short Recording Detected")
+  /// Simplified
+  internal static let simplified = L10n.tr("Localizable", "Simplified", fallback: "Simplified")
+  /// Spanish (Mexico)
+  internal static let spanish = L10n.tr("Localizable", "Spanish", fallback: "Spanish (Mexico)")
   /// Summarize
   internal static let summarize = L10n.tr("Localizable", "Summarize", fallback: "Summarize")
+  /// Traditional
+  internal static let traditional = L10n.tr("Localizable", "Traditional", fallback: "Traditional")
   /// Transcription
   internal static let transcription = L10n.tr("Localizable", "Transcription", fallback: "Transcription")
   /// Translate
   internal static let translate = L10n.tr("Localizable", "Translate", fallback: "Translate")
   /// Try now
   internal static let tryNow = L10n.tr("Localizable", "Try now", fallback: "Try now")
+  /// Turkish
+  internal static let turkish = L10n.tr("Localizable", "Turkish", fallback: "Turkish")
+  /// Upload video
+  internal static let uploadVideo = L10n.tr("Localizable", "Upload video", fallback: "Upload video")
   /// Welcome！
   internal static let welcome = L10n.tr("Localizable", "Welcome", fallback: "Welcome！")
+  /// Your recording is too brief for transcription
+  internal static let yourRecordingIsTooBriefForTranscription = L10n.tr("Localizable", "Your recording is too brief for transcription", fallback: "Your recording is too brief for transcription")
   internal enum Subscribe {
     /// %d days
     internal static func dDays(_ p1: Int) -> String {

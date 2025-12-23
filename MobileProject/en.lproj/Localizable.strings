@@ -78,7 +78,44 @@
 "All results are negative" = "All results are negative";
 "Add a note" = "Add a note";
 "No items saved yet" = "No items saved yet";
-//"Summarize" = "Summarize";
-//"Summarize" = "Summarize";
-//"Summarize" = "Summarize";
+"Upload video" = "Upload video";
+"File name" = "File name";
+"Language of Summary Transcript" = "Language of Summary & Transcript";
+"None" = "None";
+"Get Summary" = "Get Summary";
+"Language" = "Language";
+"Search language" = "Search language";
+"please record for at least 10 seconds" = "please record for at least 10 seconds";
+"Are sure you want to discard record" = "Are sure you want to discard record?";
+"All progress will be lost" = "All progress will be lost";
+"Cancel" = "Cancel";
+"Delete" = "Delete";
+"Short Recording Detected" = "Short Recording Detected";
+"Your recording is too brief for transcription" = "Your recording is too brief for transcription";
+"Got It" = "Got It";
+"Automatic" = "Automatic";
+"None" = "None";
+"Summarize" = "Summarize";
+"Summarize" = "Summarize";
+"Summarize" = "Summarize";
+"Summarize" = "Summarize";
+"Summarize" = "Summarize";
+"Summarize" = "Summarize";
+"Summarize" = "Summarize";
 
+
+
+
+
+//MARK: - 语言
+"English" = "English";
+"Portuguese" = "Portuguese (Brazil)";
+"Spanish" = "Spanish (Mexico)";
+"Turkish" = "Turkish";
+"French" = "French";
+"Italian" = "Italian";
+"Japanese" = "Japanese";
+"Arabic" = "Arabic";
+"Indonesian" = "Indonesian";
+"Traditional" = "Traditional";
+"Simplified" = "Simplified";

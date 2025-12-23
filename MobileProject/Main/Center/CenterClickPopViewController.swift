@@ -15,9 +15,21 @@ class CenterClickPopViewController: SuperViewController {
     private lazy var barView = PopTopView()
     private lazy var itemV0 = PopItemView().cornerRadius(14.h).backgroundColor(kkColorFromHex(kkWhiteTabColor)).onTap {
         MyLog("item00")
+        
+        
     }
-    private lazy var itemV1 = PopItemView().cornerRadius(14.h).backgroundColor(kkColorFromHex(kkWhiteTabColor)).onTap {
+    private lazy var itemV1 = PopItemView().cornerRadius(14.h).backgroundColor(kkColorFromHex(kkWhiteTabColor)).onTap { [self] in
         MyLog("item11")
+        
+//        dismissAction?()
+        
+        let content = CenterAudioPopViewController()
+        let popup = PopupContainerViewController(contentVC: content, height: 488.h)
+        content.dismissAction = {
+            popup.dismissSelf()
+        }
+        self.present(popup, animated: false)
+        
     }
 
     override func viewDidLoad() {

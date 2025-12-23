@@ -74,9 +74,12 @@
 		5382822A2EF27E4F0097EAD0 /* HomeAllNotePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282292EF27E4F0097EAD0 /* HomeAllNotePopVC.swift */; };
 		5382822E2EF3FB3A0097EAD0 /* SectionEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382822D2EF3FB3A0097EAD0 /* SectionEmptyView.swift */; };
 		538282302EF407620097EAD0 /* SectionEmptyAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382822F2EF407620097EAD0 /* SectionEmptyAddView.swift */; };
+		538282322EF4EAF50097EAD0 /* CenterAudioPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282312EF4EAF50097EAD0 /* CenterAudioPopViewController.swift */; };
 		539F2D432DA8B1190030DA8F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 539F2D412DA8B1190030DA8F /* InfoPlist.strings */; };
 		539F2D4C2DA921030030DA8F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F2D4B2DA921030030DA8F /* WebViewController.swift */; };
 		53CEF9932DAE3BB20079AE9E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 53CEF9922DAE3BB20079AE9E /* GoogleService-Info.plist */; };
+		53FFAEEE2EFA2D8400A0C1EF /* TitleFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */; };
+		53FFAEF02EFA365A00A0C1EF /* CenterLanguagePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -170,12 +173,15 @@
 		538282292EF27E4F0097EAD0 /* HomeAllNotePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAllNotePopVC.swift; sourceTree = "<group>"; };
 		5382822D2EF3FB3A0097EAD0 /* SectionEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEmptyView.swift; sourceTree = "<group>"; };
 		5382822F2EF407620097EAD0 /* SectionEmptyAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEmptyAddView.swift; sourceTree = "<group>"; };
+		538282312EF4EAF50097EAD0 /* CenterAudioPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterAudioPopViewController.swift; sourceTree = "<group>"; };
 		539F2D422DA8B1190030DA8F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		539F2D442DA8B1390030DA8F /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		539F2D452DA8B1390030DA8F /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		539F2D462DA8B13A0030DA8F /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		539F2D4B2DA921030030DA8F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		53CEF9922DAE3BB20079AE9E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleFieldView.swift; sourceTree = "<group>"; };
+		53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterLanguagePopVC.swift; sourceTree = "<group>"; };
 		7041B3847FAF0D646FE4C66C /* Pods_ShareExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79A652786741A9805F07CCDE /* Pods-MobileProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileProject.debug.xcconfig"; path = "Target Support Files/Pods-MobileProject/Pods-MobileProject.debug.xcconfig"; sourceTree = "<group>"; };
 		7CE0E0A0E92D28AA1BF85F81 /* Pods-ShareExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareExtension.debug.xcconfig"; path = "Target Support Files/Pods-ShareExtension/Pods-ShareExtension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -459,6 +465,7 @@
 				5382822D2EF3FB3A0097EAD0 /* SectionEmptyView.swift */,
 				5382822F2EF407620097EAD0 /* SectionEmptyAddView.swift */,
 				531CD9272EEBF0B900FC22F7 /* TabView.swift */,
+				53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */,
 				531CD92E2EECF8BC00FC22F7 /* PopTopView.swift */,
 			);
 			path = View;
@@ -468,6 +475,8 @@
 			isa = PBXGroup;
 			children = (
 				531CD92B2EEC10E900FC22F7 /* CenterClickPopViewController.swift */,
+				538282312EF4EAF50097EAD0 /* CenterAudioPopViewController.swift */,
+				53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */,
 			);
 			path = Center;
 			sourceTree = "<group>";
@@ -685,8 +694,10 @@
 				531CD92C2EEC10E900FC22F7 /* CenterClickPopViewController.swift in Sources */,
 				531CD9282EEBF0B900FC22F7 /* TabView.swift in Sources */,
 				531CD8BC2EEAAA0400FC22F7 /* UIButton+Extension.swift in Sources */,
+				53FFAEEE2EFA2D8400A0C1EF /* TitleFieldView.swift in Sources */,
 				538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */,
 				531CD9312EECFF2300FC22F7 /* HomePopViewController.swift in Sources */,
+				538282322EF4EAF50097EAD0 /* CenterAudioPopViewController.swift in Sources */,
 				531CD8DF2EEAACF100FC22F7 /* JSON.swift in Sources */,
 				531CD91A2EEBBACA00FC22F7 /* TopView.swift in Sources */,
 				5382821E2EF13EC00097EAD0 /* DetailBottomView.swift in Sources */,
@@ -706,6 +717,7 @@
 				538282162EF12DC50097EAD0 /* HomeFloderViewController.swift in Sources */,
 				531CD8712EEAA97B00FC22F7 /* UIWindow+Extension.swift in Sources */,
 				538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */,
+				53FFAEF02EFA365A00A0C1EF /* CenterLanguagePopVC.swift in Sources */,
 				531CD8D32EEAAB6E00FC22F7 /* GlobalImports.swift in Sources */,
 				531CD92F2EECF8BC00FC22F7 /* PopTopView.swift in Sources */,
 				531CD8FD2EEAAF6400FC22F7 /* NotificationCenterKeys.swift in Sources */,
