@@ -6,15 +6,16 @@
 //
 
 import UIKit
+import AVFoundation
 
 class CenterRecordPopViewController: SuperViewController {
 
-    var isRecording:Bool = false
+    private var timer: Timer?
     var dismissAction: (() -> Void)?
     private lazy var dowmImg = UIImageView().image(Asset.recordDowm.image).enable(true).onTap { [self] in
         dismissAction?()
     }
-    private lazy var tipsLabe = UILabel().text(L10n.pleaseRecordForAtLeast10Seconds).hnFont(size: 14.h, weight: .medium).color(kkColorFromHex("9BF9F9")).centerAligned()
+    private lazy var tipsLabe = UILabel().text(L10n.pleaseRecordForAtLeast10Seconds).hnFont(size: 14.h, weight: .medium).color(kkColorFromHex("9BF9F9")).centerAligned().hidden(true)
 
     private lazy var animationTop = UIView()
     private lazy var pauseTop = UIImageView().image(Asset.recordAnimation.image).hidden(true)
@@ -28,9 +29,22 @@ class CenterRecordPopViewController: SuperViewController {
     
     private lazy var leftBtn = UIImageView().image(Asset.recordCancel.image).enable(true).onTap {
         MyLog("leftBtn")
-        showAlertView(title: L10n.areSureYouWantToDiscardRecord,message: L10n.allProgressWillBeLost, confirmButtonTitle:L10n.delete, cancelButtonTitle:L10n.cancel,confirmButtonColor: "#FF3B30") { confirmed in
+        showAlertView(title: L10n.areSureYouWantToDiscardRecord,message: L10n.allProgressWillBeLost, confirmButtonTitle:L10n.delete, cancelButtonTitle:L10n.cancel,confirmButtonColor: "#FF3B30") { [self] confirmed in
             if confirmed {
+                RecorderManager.shared.stop()
                 // 用户点击确认
+                let files = RecorderManager.shared.fetchAllRecordings()
+
+                // 删除单个
+                RecorderManager.shared.deleteRecording(at: files.last!)
+
+                // 删除多个
+//                RecorderManager.shared.deleteRecordings(selectedFiles)
+
+                pauseTop.hidden(false)
+                pauseBottom.hidden(false)
+                centerBtn.image(Asset.recordPuase.image)
+                
             } else {
                 // 用户点击取消
             }
@@ -38,41 +52,71 @@ class CenterRecordPopViewController: SuperViewController {
     }
     private lazy var rightBtn = UIImageView().image(Asset.recordCheck.image).enable(true).onTap { [self] in
         MyLog("rightBtn")
-        showAlertViewWithOutCancelButton(title: L10n.shortRecordingDetected,message: L10n.yourRecordingIsTooBriefForTranscription, confirmButtonTitle:L10n.gotIt) {confirmed in
-            
-            let vc = CenterProcessingVC()
-            vc.modalPresentationStyle = .overFullScreen
-            self.present(vc, animated: true)
-            
+        
+        let duration = RecorderManager.shared.recordingDuration()
+        if duration < 10 {
+            tipsLabe.hidden(false)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+                guard let self = self else {return}
+                self.tipsLabe.hidden(true)
+            }
+        }else{
+            showAlertViewWithOutCancelButton(title: L10n.shortRecordingDetected,message: L10n.yourRecordingIsTooBriefForTranscription, confirmButtonTitle:L10n.gotIt) { [self]confirmed in
+                
+                RecorderManager.shared.stop()
+
+                pauseTop.hidden(false)
+                pauseBottom.hidden(false)
+                centerBtn.image(Asset.recordPuase.image)
+
+                let vc = CenterProcessingVC()
+                vc.modalPresentationStyle = .overFullScreen
+                self.present(vc, animated: true)
+            }
         }
     }
     private lazy var centerBtn = UIImageView().image(Asset.recordPlay.image).enable(true).onTap { [self] in
         MyLog("centerBtn")
-        changeStatus()
+        changeRecordingStatus()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+            guard let self else { return }
+            updateRecordTime()
+        }
+        RunLoop.main.add(timer!, forMode: .common)
     }
     
-    func changeStatus(){
-        if isRecording {
-            pauseTop.hidden(true)
-            pauseBottom.hidden(true)
-            centerBtn.image(Asset.recordPlay.image)
-        }else{
+    func changeRecordingStatus(){
+        
+        let manager = RecorderManager.shared
+        if manager.isRecording {
+            // 显示“暂停”按钮
             pauseTop.hidden(false)
             pauseBottom.hidden(false)
             centerBtn.image(Asset.recordPuase.image)
+            manager.pause()
+        } else if manager.state == .paused {
+            // 显示“开始录音”按钮
+            pauseTop.hidden(true)
+            pauseBottom.hidden(true)
+            centerBtn.image(Asset.recordPlay.image)
+            manager.resume()
+        } else {
+            pauseTop.hidden(true)
+            pauseBottom.hidden(true)
+            centerBtn.image(Asset.recordPlay.image)
+            try? manager.startRecording()
         }
-        isRecording = !isRecording
-        
     }
     
-    
     override func getData() {
-
-        
+        RecorderManager.shared.requestPermission { granted in
+            guard granted else { return }
+            try? RecorderManager.shared.startRecording()
+        }
     }
     
     override func setUpUI() {
@@ -156,6 +200,17 @@ class CenterRecordPopViewController: SuperViewController {
             make.left.equalTo(centerBtn.snp.right).offset(54.w)
         }
         
+//        updateRecordTime()
+        timeL.text("00:00")
+
+    }
+    
+    func updateRecordTime(){
+        let duration = RecorderManager.shared.recordingDuration()
+        let text = String(format: "%02d:%02d",
+                          Int(duration) / 60,
+                          Int(duration) % 60)
+        timeL.text(text)
     }
 }
 

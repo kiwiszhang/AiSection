@@ -34,6 +34,7 @@ internal enum Asset {
   internal static let backArrow = ImageAsset(name: "backArrow")
   internal static let cancel = ImageAsset(name: "cancel")
   internal static let canlande = ImageAsset(name: "canlande")
+  internal static let centerRecording = ImageAsset(name: "center_recording")
   internal static let chatIcon = ImageAsset(name: "chatIcon")
   internal static let chatAudio = ImageAsset(name: "chat_audio")
   internal static let delete = ImageAsset(name: "delete")

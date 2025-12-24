@@ -12,12 +12,13 @@ import Localize_Swift
 
 
 class MainTabBarController: UITabBarController {
+    let customTabBar = CustomTabBar()
+    private var timer: Timer?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(updateLanguageUI), name: NSNotification.Name(LCLLanguageChangeNotification), object: nil)
         // 替换系统 TabBar
-        let customTabBar = CustomTabBar()
         setValue(customTabBar, forKey: "tabBar")
         
         // 添加子控制器
@@ -28,7 +29,10 @@ class MainTabBarController: UITabBarController {
         
         // 中间按钮点击
         if let customTabBar = tabBar as? CustomTabBar {
-            customTabBar.centerButton.addTarget(self, action: #selector(centerButtonTapped), for: .touchUpInside)
+//            customTabBar.centerButton.addTarget(self, action: #selector(centerButtonTapped), for: .touchUpInside)
+            customTabBar.centerView.onTap { [self] in
+                centerButtonTapped()
+            }
         }
     }
     
@@ -61,12 +65,58 @@ class MainTabBarController: UITabBarController {
     }
     @objc private func centerButtonTapped() {
         MyLog("中间按钮点击了")
-        let content = CenterClickPopViewController()
-        let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight,isMiddle: true)
-        content.dismissAction = {
-            popup.dismissSelf()
+        
+        let manager = RecorderManager.shared
+        if manager.isRecording {
+            
+            let content = CenterRecordPopViewController()
+            let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
+            content.dismissAction = { [self] in
+                popup.dismissSelf()
+                centerStatus()
+            }
+            self.present(popup, animated: false)
+            
+        } else {
+            
+            customTabBar.selectedImageV.hidden(true)
+            customTabBar.unSelectedImageV.hidden(false)
+            customTabBar.timeView.hidden(true)
+            
+            let content = CenterClickPopViewController()
+            let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight,isMiddle: true)
+            content.dismissAction = { [self] in
+                popup.dismissSelf()
+                centerStatus()
+            }
+            present(popup, animated: false)
         }
-        present(popup, animated: false)
+    }
+    
+    func centerStatus(){
+        if RecorderManager.shared.isRecording {
+            customTabBar.selectedImageV.hidden(true)
+            customTabBar.unSelectedImageV.hidden(true)
+            customTabBar.timeView.hidden(false)
+            
+            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+                guard let self else { return }
+
+                let duration = RecorderManager.shared.recordingDuration()
+                let text = String(format: "%02d:%02d",
+                                  Int(duration) / 60,
+                                  Int(duration) % 60)
+                
+                customTabBar.timeView.updateDate(timeStr: text)
+
+            }
+            RunLoop.main.add(timer!, forMode: .common)
+        }else{
+            customTabBar.selectedImageV.hidden(false)
+            customTabBar.unSelectedImageV.hidden(true)
+            customTabBar.timeView.hidden(true)
+        }
+    
     }
 }
 

@@ -83,6 +83,7 @@
 		53FFAEF42EFA3BD600A0C1EF /* record-top.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 53FFAEF22EFA3BD600A0C1EF /* record-top.mp4 */; };
 		53FFAEF62EFA3C1200A0C1EF /* CenterRecordPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEF52EFA3C1200A0C1EF /* CenterRecordPopViewController.swift */; };
 		53FFAEF82EFA626A00A0C1EF /* CenterProcessingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEF72EFA626A00A0C1EF /* CenterProcessingVC.swift */; };
+		53FFAF022EFA90B800A0C1EF /* RecorderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAF012EFA90B800A0C1EF /* RecorderManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -188,6 +189,7 @@
 		53FFAEF22EFA3BD600A0C1EF /* record-top.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "record-top.mp4"; sourceTree = "<group>"; };
 		53FFAEF52EFA3C1200A0C1EF /* CenterRecordPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterRecordPopViewController.swift; sourceTree = "<group>"; };
 		53FFAEF72EFA626A00A0C1EF /* CenterProcessingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterProcessingVC.swift; sourceTree = "<group>"; };
+		53FFAF012EFA90B800A0C1EF /* RecorderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderManager.swift; sourceTree = "<group>"; };
 		7041B3847FAF0D646FE4C66C /* Pods_ShareExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79A652786741A9805F07CCDE /* Pods-MobileProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileProject.debug.xcconfig"; path = "Target Support Files/Pods-MobileProject/Pods-MobileProject.debug.xcconfig"; sourceTree = "<group>"; };
 		7CE0E0A0E92D28AA1BF85F81 /* Pods-ShareExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareExtension.debug.xcconfig"; path = "Target Support Files/Pods-ShareExtension/Pods-ShareExtension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 		531CD8722EEAA9BB00FC22F7 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				53FFAF002EFA909E00A0C1EF /* Recording */,
 				531CD92D2EEC110F00FC22F7 /* Center */,
 				531CD9182EEBBA8A00FC22F7 /* View */,
 				531CD8742EEAA9DB00FC22F7 /* Me */,
@@ -488,6 +491,14 @@
 				53FFAEF72EFA626A00A0C1EF /* CenterProcessingVC.swift */,
 			);
 			path = Center;
+			sourceTree = "<group>";
+		};
+		53FFAF002EFA909E00A0C1EF /* Recording */ = {
+			isa = PBXGroup;
+			children = (
+				53FFAF012EFA90B800A0C1EF /* RecorderManager.swift */,
+			);
+			path = Recording;
 			sourceTree = "<group>";
 		};
 		92B7530C0A506F5CE9301584 /* Frameworks */ = {
@@ -731,6 +742,7 @@
 				531CD8D32EEAAB6E00FC22F7 /* GlobalImports.swift in Sources */,
 				531CD92F2EECF8BC00FC22F7 /* PopTopView.swift in Sources */,
 				531CD8FD2EEAAF6400FC22F7 /* NotificationCenterKeys.swift in Sources */,
+				53FFAF022EFA90B800A0C1EF /* RecorderManager.swift in Sources */,
 				531CD8FE2EEAAF6400FC22F7 /* EventReport.swift in Sources */,
 				53FFAEF62EFA3C1200A0C1EF /* CenterRecordPopViewController.swift in Sources */,
 				531CD8FF2EEAAF6400FC22F7 /* UserDefaultsTools.swift in Sources */,
@@ -902,7 +914,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = MobileProject/MobileProjectDebug.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -930,7 +942,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuehai.scanBills;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AdHoc com.yuehai.scanBills";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.yuehai.scanBills";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

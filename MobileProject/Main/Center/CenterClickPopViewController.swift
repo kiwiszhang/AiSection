@@ -52,7 +52,7 @@ class CenterClickPopViewController: SuperViewController {
             make.width.equalTo(361.w)
             make.height.equalTo(274.h)
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-104.h)
+            make.bottom.equalToSuperview().offset(-124.h)
         }
         
         topView.snp.makeConstraints { make in
