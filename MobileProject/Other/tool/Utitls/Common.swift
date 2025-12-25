@@ -24,8 +24,8 @@ let kkErrorColor = "#FF3639"
 let kkMainColor = "#2A78FE"
 
 
-let SecretAccessKey = "TWpVNU9HRXpPRGhpTldJMU5EVTBOVGhrTTJVellUZG1NRGd6TjJVMk5EYw=="
-let AccessKeyID = "AKLTYmQ4MWIyYmRhNzE3NDg5OGI0YTcxN2RjNWM0YmRlZDU"
+let SAKey = "TWpVNU9HRXpPRGhpTldJMU5EVTBOVGhrTTJVellUZG1NRGd6TjJVMk5EYw=="
+let AKeyID = "AKLTYmQ4MWIyYmRhNzE3NDg5OGI0YTcxN2RjNWM0YmRlZDU"
 let TOS_ENDPOINT = "tos-cn-beijing.volces.com"
 let TOS_REGION = "cn-beijing"
 let TOS_BUCKET = "aisection"

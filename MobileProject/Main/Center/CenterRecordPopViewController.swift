@@ -86,7 +86,7 @@ class CenterRecordPopViewController: SuperViewController {
                 }
                 
                 // 1. 初始化客户端
-                let credential = TOSCredential.init(accessKey: AccessKeyID, secretKey: SecretAccessKey)
+                let credential = TOSCredential.init(accessKey: AKeyID, secretKey: SAKey)
                 let tosEndpoint = TOSEndpoint(urlString: TOS_ENDPOINT, withRegion: TOS_REGION)
                 let config = TOSClientConfiguration(endpoint: tosEndpoint, credential: credential)
                 let client = TOSClient.init(configuration: config)
