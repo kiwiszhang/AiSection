@@ -38,11 +38,47 @@ final class RecorderManager: NSObject {
     
     // MARK: - 权限请求
     func requestPermission(_ completion: @escaping (Bool) -> Void) {
-        session.requestRecordPermission { granted in
-            DispatchQueue.main.async {
-                completion(granted)
+        let permission = session.recordPermission
+
+        switch permission {
+        case .granted:
+            completion(true)
+
+        case .undetermined:
+            session.requestRecordPermission { granted in
+                DispatchQueue.main.async {
+                    completion(granted)
+                }
             }
+
+        case .denied:
+            completion(false)
+        @unknown default:
+            completion(false)
         }
+    }
+
+    /// 判断当前麦克风权限状态
+    func microphonePermissionStatus() -> AVAudioSession.RecordPermission {
+        return AVAudioSession.sharedInstance().recordPermission
+    }
+
+    /// 设置中获取麦克风权限
+    func showMicPermissionAlert(vc:UIViewController) {
+        let alert = UIAlertController(
+            title: "无法使用麦克风",
+            message: "请在系统设置中开启麦克风权限，以便录音",
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel))
+        alert.addAction(UIAlertAction(title: "去设置", style: .default) { _ in
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url)
+            }
+        })
+
+        vc.present(alert, animated: true)
     }
 
     // MARK: - 开始录音
@@ -130,11 +166,13 @@ final class RecorderManager: NSObject {
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "yyyyMMdd_HHmmss_SSS"
 
-        let fileName = "record_\(formatter.string(from: Date())).m4a"
+        let timeString = formatter.string(from: Date())
+        let uuid = UUID().uuidString.prefix(4)
 
-        let recordingDir = recordingsDirectory()
-        return recordingDir.appendingPathComponent(fileName)
+        let fileName = "record_\(timeString)_\(uuid).m4a"
+        return recordingsDirectory().appendingPathComponent(fileName)
     }
+
 
 
     private func recordingsDirectory() -> URL {

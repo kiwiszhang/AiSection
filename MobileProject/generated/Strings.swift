@@ -68,6 +68,8 @@ internal enum L10n {
   internal static let getSummary = L10n.tr("Localizable", "Get Summary", fallback: "Get Summary")
   /// Got It
   internal static let gotIt = L10n.tr("Localizable", "Got It", fallback: "Got It")
+  /// 去设置
+  internal static let gotoSettings = L10n.tr("Localizable", "GotoSettings", fallback: "去设置")
   /// Highlighting Key Points
   internal static let highlightingKeyPoints = L10n.tr("Localizable", "Highlighting Key Points", fallback: "Highlighting Key Points")
   /// Home
@@ -101,6 +103,8 @@ internal enum L10n {
   internal static let mbRestoreSuccess = L10n.tr("Localizable", "mb-restore-success", fallback: "Subscription restored successfully")
   /// Me
   internal static let me = L10n.tr("Localizable", "Me", fallback: "Me")
+  /// 请在系统设置中开启麦克风权限，以便录音
+  internal static let microSettings = L10n.tr("Localizable", "MicroSettings", fallback: "请在系统设置中开启麦克风权限，以便录音")
   /// More
   internal static let more = L10n.tr("Localizable", "More", fallback: "More")
   /// Move to folder
@@ -117,6 +121,8 @@ internal enum L10n {
   internal static let noItemsSavedYet = L10n.tr("Localizable", "No items saved yet", fallback: "No items saved yet")
   /// None
   internal static let `none` = L10n.tr("Localizable", "None", fallback: "None")
+  /// 无法使用麦克风
+  internal static let noPermission = L10n.tr("Localizable", "NoPermission", fallback: "无法使用麦克风")
   /// The network is not connected or limited.
   internal static let notConnectedLimited = L10n.tr("Localizable", "not-connected-limited", fallback: "The network is not connected or limited.")
   /// notes

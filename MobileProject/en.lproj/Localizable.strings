@@ -109,9 +109,9 @@
 is complete (Aprox ~ 3 min).";
 "Your notes is ready" = "Your notes is ready!";
 "Your note processing failed" = "Your note processing failed!";
-"Summarize" = "Summarize";
-"Summarize" = "Summarize";
-"Summarize" = "Summarize";
+"NoPermission" = "无法使用麦克风";
+"MicroSettings" = "请在系统设置中开启麦克风权限，以便录音";
+"GotoSettings" = "去设置";
 "Summarize" = "Summarize";
 "Summarize" = "Summarize";
 "Summarize" = "Summarize";

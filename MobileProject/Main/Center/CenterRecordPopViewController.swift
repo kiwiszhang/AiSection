@@ -30,6 +30,15 @@ class CenterRecordPopViewController: SuperViewController {
     private lazy var leftBtn = UIImageView().image(Asset.recordCancel.image).enable(true).onTap {
         MyLog("leftBtn")
         showAlertView(title: L10n.areSureYouWantToDiscardRecord,message: L10n.allProgressWillBeLost, confirmButtonTitle:L10n.delete, cancelButtonTitle:L10n.cancel,confirmButtonColor: "#FF3B30") { [self] confirmed in
+            
+            if RecorderManager.shared.microphonePermissionStatus() != .granted {
+                pauseTop.hidden(false)
+                pauseBottom.hidden(false)
+                centerBtn.image(Asset.recordPuase.image)
+                RecorderManager.shared.stop()
+                return
+            }
+            
             if confirmed {
                 RecorderManager.shared.stop()
                 // 用户点击确认
@@ -131,8 +140,14 @@ class CenterRecordPopViewController: SuperViewController {
     }
     
     func changeRecordingStatus(){
-        
+            
         let manager = RecorderManager.shared
+        
+        if manager.microphonePermissionStatus() != .granted {
+            showMicPermissionAlert()
+            return
+        }
+        
         if manager.isRecording {
             // 显示“暂停”按钮
             pauseTop.hidden(false)
@@ -154,11 +169,34 @@ class CenterRecordPopViewController: SuperViewController {
     }
     
     override func getData() {
-        RecorderManager.shared.requestPermission { granted in
-            guard granted else { return }
-            try? RecorderManager.shared.startRecording()
+        RecorderManager.shared.requestPermission { [self] granted in
+            if granted {
+                try? RecorderManager.shared.startRecording()
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                    guard let self = self else {return}
+                    showMicPermissionAlert()
+                }
+            }
         }
     }
+    
+    func showMicPermissionAlert() {
+        showAlertView(title: L10n.noPermission,message: L10n.microSettings, confirmButtonTitle:L10n.gotoSettings, cancelButtonTitle:L10n.cancel,confirmButtonColor: "#FF3B30") { [self] confirmed in
+            if !confirmed {
+                pauseTop.hidden(false)
+                pauseBottom.hidden(false)
+                centerBtn.image(Asset.recordPuase.image)
+                RecorderManager.shared.stop()
+            } else {
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(url)
+                }
+            }
+        }
+    }
+    
+
     
     override func setUpUI() {
         view.backgroundColor(kkColorFromHex("000516"))

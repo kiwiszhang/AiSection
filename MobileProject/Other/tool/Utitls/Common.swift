@@ -24,6 +24,7 @@ let kkErrorColor = "#FF3639"
 let kkMainColor = "#2A78FE"
 
 
+/// TOS 对象存储
 let SAKey = "TWpVNU9HRXpPRGhpTldJMU5EVTBOVGhrTTJVellUZG1NRGd6TjJVMk5EYw=="
 let AKeyID01 = "g5OGI0YTcxN2RjNWM0YmRlZDU"
 let AKeyID02 = "AKLTYmQ4MWIyYmRhNzE3ND"
