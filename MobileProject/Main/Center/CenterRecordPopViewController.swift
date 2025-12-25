@@ -69,6 +69,47 @@ class CenterRecordPopViewController: SuperViewController {
                 pauseBottom.hidden(false)
                 centerBtn.image(Asset.recordPuase.image)
 
+                
+                let recordURL = RecorderManager.shared.recordURL
+                MyLog(recordURL)
+                guard let lastFile = recordURL,let fileURL = URL(string: lastFile.absoluteString) else {
+                    MyLog("上传失败：无可用文件或路径错误")
+                    return
+                }
+                
+                var tosKey = ""
+                if !kkStringIsEmpty(fileURL.path) {
+                    let result = fileURL.path.components(separatedBy: "/Documents/")
+                    if result.count == 2 {
+                        tosKey = result[1]
+                    }
+                }
+                
+                // 1. 初始化客户端
+                let credential = TOSCredential.init(accessKey: AccessKeyID, secretKey: SecretAccessKey)
+                let tosEndpoint = TOSEndpoint(urlString: TOS_ENDPOINT, withRegion: TOS_REGION)
+                let config = TOSClientConfiguration(endpoint: tosEndpoint, credential: credential)
+                let client = TOSClient.init(configuration: config)
+
+                // 2. 上传本地文件
+                let put = TOSPutObjectFromFileInput()
+                put.tosBucket = TOS_BUCKET
+                put.tosKey = tosKey
+                MyLog(fileURL.path)
+                put.tosFilePath = fileURL.path
+                let task = client.putObject(fromFile: put)
+
+                task.continueWith { t in
+                    if ((task.error == nil)) {
+                        MyLog("Put object from file success.");
+                        let output = task.result;
+                        MyLog(output)
+                    } else {
+                        MyLog("Put object from file failed, error: \(String(describing: task.error))");
+                    }
+                    return nil
+                }
+
                 let vc = CenterProcessingVC()
                 vc.modalPresentationStyle = .overFullScreen
                 self.present(vc, animated: true)

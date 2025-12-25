@@ -127,13 +127,15 @@ final class RecorderManager: NSObject {
     // MARK: - 文件路径
     private func generateFileURL() -> URL {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMdd_HHmmss"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyyMMdd_HHmmss_SSS"
 
         let fileName = "record_\(formatter.string(from: Date())).m4a"
 
         let recordingDir = recordingsDirectory()
         return recordingDir.appendingPathComponent(fileName)
     }
+
 
     private func recordingsDirectory() -> URL {
         let documents = FileManager.default.urls(

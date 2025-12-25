@@ -84,6 +84,7 @@
 		53FFAEF62EFA3C1200A0C1EF /* CenterRecordPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEF52EFA3C1200A0C1EF /* CenterRecordPopViewController.swift */; };
 		53FFAEF82EFA626A00A0C1EF /* CenterProcessingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEF72EFA626A00A0C1EF /* CenterProcessingVC.swift */; };
 		53FFAF022EFA90B800A0C1EF /* RecorderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAF012EFA90B800A0C1EF /* RecorderManager.swift */; };
+		53FFAF042EFBD41B00A0C1EF /* VeTOSiOSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53FFAF032EFBD41B00A0C1EF /* VeTOSiOSSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -190,6 +191,7 @@
 		53FFAEF52EFA3C1200A0C1EF /* CenterRecordPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterRecordPopViewController.swift; sourceTree = "<group>"; };
 		53FFAEF72EFA626A00A0C1EF /* CenterProcessingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterProcessingVC.swift; sourceTree = "<group>"; };
 		53FFAF012EFA90B800A0C1EF /* RecorderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderManager.swift; sourceTree = "<group>"; };
+		53FFAF032EFBD41B00A0C1EF /* VeTOSiOSSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VeTOSiOSSDK.framework; sourceTree = "<group>"; };
 		7041B3847FAF0D646FE4C66C /* Pods_ShareExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79A652786741A9805F07CCDE /* Pods-MobileProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileProject.debug.xcconfig"; path = "Target Support Files/Pods-MobileProject/Pods-MobileProject.debug.xcconfig"; sourceTree = "<group>"; };
 		7CE0E0A0E92D28AA1BF85F81 /* Pods-ShareExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareExtension.debug.xcconfig"; path = "Target Support Files/Pods-ShareExtension/Pods-ShareExtension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51AF4179CF536DCEB5636D5F /* Pods_MobileProject.framework in Frameworks */,
+				53FFAF042EFBD41B00A0C1EF /* VeTOSiOSSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +235,7 @@
 		388FB08B2DA17037006C52AC /* MobileProject */ = {
 			isa = PBXGroup;
 			children = (
+				53FFAF032EFBD41B00A0C1EF /* VeTOSiOSSDK.framework */,
 				531CD9152EEBAE7900FC22F7 /* ABTest */,
 				531CD9122EEBAE1A00FC22F7 /* MobileProjectDebug.entitlements */,
 				531CD8DE2EEAACF100FC22F7 /* generated */,
@@ -919,6 +923,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = V5QGDN3Y45;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MobileProject",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MobileProject/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = WAlytics;
@@ -965,6 +973,10 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MobileProject",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MobileProject/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = WAlytics;
