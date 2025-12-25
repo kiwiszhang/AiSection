@@ -25,7 +25,8 @@ let kkMainColor = "#2A78FE"
 
 
 let SAKey = "TWpVNU9HRXpPRGhpTldJMU5EVTBOVGhrTTJVellUZG1NRGd6TjJVMk5EYw=="
-let AKeyID = "AKLTYmQ4MWIyYmRhNzE3NDg5OGI0YTcxN2RjNWM0YmRlZDU"
+let AKeyID01 = "g5OGI0YTcxN2RjNWM0YmRlZDU"
+let AKeyID02 = "AKLTYmQ4MWIyYmRhNzE3ND"
 let TOS_ENDPOINT = "tos-cn-beijing.volces.com"
 let TOS_REGION = "cn-beijing"
 let TOS_BUCKET = "aisection"
