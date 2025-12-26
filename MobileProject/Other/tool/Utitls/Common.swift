@@ -24,13 +24,19 @@ let kkErrorColor = "#FF3639"
 let kkMainColor = "#2A78FE"
 
 
-/// TOS 对象存储
+// MARK: - TOS 对象存储
 let SAKey = "TWpVNU9HRXpPRGhpTldJMU5EVTBOVGhrTTJVellUZG1NRGd6TjJVMk5EYw=="
 let AKeyID01 = "g5OGI0YTcxN2RjNWM0YmRlZDU"
 let AKeyID02 = "AKLTYmQ4MWIyYmRhNzE3ND"
 let TOS_ENDPOINT = "tos-cn-beijing.volces.com"
 let TOS_REGION = "cn-beijing"
 let TOS_BUCKET = "aisection"
+
+
+// MARK: - 豆包语音
+let XApiAppKey = "1509259405"
+let XApiAccessKey = "igffrg1qHo-kFpureDQq6lhic-rINsDM"
+let XApiResourceId = "volc.lark.minutes"
 
 
 // MARK: - 常用标记

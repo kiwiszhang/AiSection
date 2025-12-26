@@ -39,6 +39,38 @@ class HomeViewController: SuperViewController {
         super.viewDidLoad()
         view.backgroundColor = kkColorFromHex(kkHomeBgColor)
         // Do any additional setup after loading the view.
+        
+        let client = ByteDanceOpenSpeechClient(
+            config: .init(
+                appKey: XApiAppKey,
+                accessKey: XApiAccessKey,
+                resourceId: XApiResourceId
+            )
+        )
+
+        client.submitOfflineAudio(
+            fileURL: "https://aisection.tos-cn-beijing.volces.com/Recording/123.m4a"
+        ) { result in
+            switch result {
+            case .success(let data):
+                MyLog("✅ Submit success:")
+                do {
+                    let decoder = JSONDecoder()
+                    let response = try decoder.decode(SubmitResponse.self, from: data)
+                    guard let taskID = response.Data?.TaskID, !taskID.isEmpty else {
+                        MyLog("❌ TaskID not found")
+                        return
+                    }
+                    MyLog("🎯 TaskID:\(taskID)")
+                } catch {
+                    MyLog("❌ Decode failed:\(error)")
+                }
+            case .failure(let error):
+                MyLog("❌ Submit failed: \(error)")
+            }
+        }
+
+        
     }
     
     override func setUpUI() {
