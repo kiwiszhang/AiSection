@@ -32,20 +32,19 @@ class CenterRecordPopViewController: SuperViewController {
         showAlertView(title: L10n.areSureYouWantToDiscardRecord,message: L10n.allProgressWillBeLost, confirmButtonTitle:L10n.delete, cancelButtonTitle:L10n.cancel,confirmButtonColor: "#FF3B30") { [self] confirmed in
             
             if RecorderManager.shared.microphonePermissionStatus() != .granted {
-                pauseTop.hidden(false)
-                pauseBottom.hidden(false)
-                centerBtn.image(Asset.recordPuase.image)
                 RecorderManager.shared.stop()
+                recordingUI()
                 return
             }
             
             if confirmed {
                 RecorderManager.shared.stop()
                 // 用户点击确认
-                let files = RecorderManager.shared.fetchAllRecordings()
-
-                // 删除单个
-                RecorderManager.shared.deleteRecording(at: files.last!)
+                if let file = RecorderManager.shared.recordURL {
+                    // 删除单个
+                    RecorderManager.shared.deleteRecording(at: file)
+                    MyLog("删除文件：\(file)")
+                }
 
                 // 删除多个
 //                RecorderManager.shared.deleteRecordings(selectedFiles)
@@ -73,14 +72,10 @@ class CenterRecordPopViewController: SuperViewController {
             showAlertViewWithOutCancelButton(title: L10n.shortRecordingDetected,message: L10n.yourRecordingIsTooBriefForTranscription, confirmButtonTitle:L10n.gotIt) { [self]confirmed in
                 
                 RecorderManager.shared.stop()
+                recordingUI()
 
-                pauseTop.hidden(false)
-                pauseBottom.hidden(false)
-                centerBtn.image(Asset.recordPuase.image)
-
-                
                 let recordURL = RecorderManager.shared.recordURL
-                MyLog(recordURL)
+                MyLog("上传文件：\(String(describing: recordURL))")
                 guard let lastFile = recordURL,let fileURL = URL(string: lastFile.absoluteString) else {
                     MyLog("上传失败：无可用文件或路径错误")
                     return
@@ -142,33 +137,31 @@ class CenterRecordPopViewController: SuperViewController {
     func changeRecordingStatus(){
             
         let manager = RecorderManager.shared
-        
         if manager.microphonePermissionStatus() != .granted {
             showMicPermissionAlert()
             return
         }
         
         if manager.isRecording {
-            // 显示“暂停”按钮
-            pauseTop.hidden(false)
-            pauseBottom.hidden(false)
-            centerBtn.image(Asset.recordPuase.image)
             manager.pause()
         } else if manager.state == .paused {
-            // 显示“开始录音”按钮
-            pauseTop.hidden(true)
-            pauseBottom.hidden(true)
-            centerBtn.image(Asset.recordPlay.image)
             manager.resume()
         } else {
-            pauseTop.hidden(true)
-            pauseBottom.hidden(true)
-            centerBtn.image(Asset.recordPlay.image)
             try? manager.startRecording()
         }
     }
     
     override func getData() {
+
+        RecorderManager.shared.onEvent = { [weak self] event in
+            self?.handleRecordingEvent(event)
+        }
+
+//        RecorderManager.shared.onStateChanged = { [weak self] state in
+//            MyLog("🎙 录音状态变为：\(state)")
+//            self?.updateUI(with: state)
+//        }
+
         RecorderManager.shared.requestPermission { [self] granted in
             if granted {
                 try? RecorderManager.shared.startRecording()
@@ -179,6 +172,50 @@ class CenterRecordPopViewController: SuperViewController {
                 }
             }
         }
+    }
+    
+    private func handleRecordingEvent(_ event: RecordingEvent) {
+        switch event {
+        case .stateChanged(let state):
+            MyLog("🎙 录音状态变为：\(state)")
+            updateUI(with: state)
+        case .interrupted(let reason):
+            MyLog("🎙 录音中断原因为：\(reason)")
+        }
+    }
+
+    private func updateUI(with state: RecordingState) {
+        switch state {
+        case .idle:
+            idleUI()
+        case .recording:
+            recordingUI()
+        case .paused:
+            pausedUI()
+        }
+    }
+
+    private func recordingUI(){
+        pauseTop.hidden(true)
+        pauseBottom.hidden(true)
+        centerBtn.image(Asset.recordPlay.image)
+//        RecorderManager.shared.pause()
+    }
+    private func pausedUI(){
+        pauseTop.hidden(false)
+        pauseBottom.hidden(false)
+        centerBtn.image(Asset.recordPuase.image)
+//        RecorderManager.shared.resume()
+    }
+    private func idleUI(){
+        pauseTop.hidden(false)
+        pauseBottom.hidden(false)
+        centerBtn.image(Asset.recordPuase.image)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) { [weak self] in
+//            guard let self = self else {return}
+//            updateRecordTime()
+//        }
+//        try? RecorderManager.shared.startRecording()
     }
     
     func showMicPermissionAlert() {

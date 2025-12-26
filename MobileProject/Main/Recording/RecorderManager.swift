@@ -7,40 +7,67 @@
 
 import AVFoundation
 
+// MARK: - 录音状态
 enum RecordingState {
     case idle        // 未录音
     case recording   // 正在录音
     case paused      // 已暂停
 }
 
+enum RecordingEvent {
+    case stateChanged(RecordingState)
+    case interrupted(reason: String)
+}
 
 final class RecorderManager: NSObject {
 
     static let shared = RecorderManager()
 
-    private var recorder: AVAudioRecorder?
+    // MARK: - Audio
     private let session = AVAudioSession.sharedInstance()
+    private var recorder: AVAudioRecorder?
+    // MARK: - State
+    private(set) var state: RecordingState = .idle {
+        didSet {
+            DispatchQueue.main.async {
+                self.onEvent?(.stateChanged(self.state))
+            }
+        }
+    }
 
-    private(set) var recordURL: URL?
 
-    /// 录音开始时间（用于 UI 统计）
+    /// 是否正在录音（你要的字段）
+    var isRecording: Bool {
+        state == .recording
+    }
+
+    // MARK: - Time
     private var timer: Timer?
     private(set) var currentDuration: TimeInterval = 0
 
-    /// 当前录音状态
-    private(set) var state: RecordingState = .idle
+    // MARK: - File
+    private(set) var recordURL: URL?
 
-    /// 是否正在录音
-    var isRecording: Bool {
-        return state == .recording
+    // MARK: - Callback
+//    var onStateChanged: ((RecordingState) -> Void)?
+
+    var onEvent: ((RecordingEvent) -> Void)?
+
+    // MARK: - Init
+    override init() {
+        super.init()
+        addObservers()
     }
 
-    
-    // MARK: - 权限请求
-    func requestPermission(_ completion: @escaping (Bool) -> Void) {
-        let permission = session.recordPermission
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+}
 
-        switch permission {
+// MARK: - 权限
+extension RecorderManager {
+    func requestPermission(_ completion: @escaping (Bool) -> Void) {
+        switch session.recordPermission {
         case .granted:
             completion(true)
 
@@ -53,38 +80,24 @@ final class RecorderManager: NSObject {
 
         case .denied:
             completion(false)
+
         @unknown default:
             completion(false)
         }
     }
-
+    
     /// 判断当前麦克风权限状态
     func microphonePermissionStatus() -> AVAudioSession.RecordPermission {
         return AVAudioSession.sharedInstance().recordPermission
     }
+}
 
-    /// 设置中获取麦克风权限
-    func showMicPermissionAlert(vc:UIViewController) {
-        let alert = UIAlertController(
-            title: "无法使用麦克风",
-            message: "请在系统设置中开启麦克风权限，以便录音",
-            preferredStyle: .alert
-        )
+// MARK: - Recording Control
+extension RecorderManager {
 
-        alert.addAction(UIAlertAction(title: "取消", style: .cancel))
-        alert.addAction(UIAlertAction(title: "去设置", style: .default) { _ in
-            if let url = URL(string: UIApplication.openSettingsURLString) {
-                UIApplication.shared.open(url)
-            }
-        })
-
-        vc.present(alert, animated: true)
-    }
-
-    // MARK: - 开始录音
     func startRecording() throws {
         guard state == .idle else { return }
-        
+
         try setupSession()
 
         let url = generateFileURL()
@@ -101,53 +114,47 @@ final class RecorderManager: NSObject {
         recorder?.isMeteringEnabled = true
         recorder?.prepareToRecord()
         recorder?.record()
-        
-        state = .recording
 
+        state = .recording
         startTimer()
     }
 
-    // MARK: - 暂停
     func pause() {
         guard state == .recording else { return }
 
         recorder?.pause()
-        
         state = .paused
-
         stopTimer()
     }
 
-    // MARK: - 继续
     func resume() {
         guard state == .paused else { return }
 
         recorder?.record()
-        
         state = .recording
-
         startTimer()
     }
 
-    // MARK: - 停止
     func stop() {
         guard state != .idle else { return }
 
         recorder?.stop()
         recorder = nil
-        
-        state = .idle
+        currentDuration = 0
 
         stopTimer()
+        state = .idle
     }
 
-    // MARK: - 当前录音时长
     func recordingDuration() -> TimeInterval {
-        return recorder?.currentTime ?? currentDuration
+        recorder?.currentTime ?? currentDuration
     }
+}
 
-    // MARK: - Session
-    private func setupSession() throws {
+// MARK: - Session
+private extension RecorderManager {
+
+    func setupSession() throws {
         try session.setCategory(
             .playAndRecord,
             mode: .default,
@@ -159,8 +166,53 @@ final class RecorderManager: NSObject {
         )
         try session.setActive(true)
     }
+}
 
-    // MARK: - 文件路径
+// MARK: - Timer
+private extension RecorderManager {
+    func startTimer() {
+        stopTimer()
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+            guard let self else { return }
+            self.currentDuration = self.recorder?.currentTime ?? 0
+        }
+        RunLoop.main.add(timer!, forMode: .common)
+    }
+
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+}
+
+// MARK: - File Management
+extension RecorderManager {
+
+    func fetchAllRecordings() -> [URL] {
+        let dir = recordingsDirectory()
+        let files = (try? FileManager.default.contentsOfDirectory(
+            at: dir,
+            includingPropertiesForKeys: nil
+        )) ?? []
+
+        return files.filter { $0.pathExtension == "m4a" }
+    }
+
+    func deleteRecording(at url: URL) {
+        if recordURL == url {
+            stop()
+        }
+        try? FileManager.default.removeItem(at: url)
+    }
+
+    func deleteRecordings(_ urls: [URL]) {
+        urls.forEach { deleteRecording(at: $0) }
+    }
+}
+
+// MARK: - File Path
+private extension RecorderManager {
+
     private func generateFileURL() -> URL {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -191,44 +243,84 @@ final class RecorderManager: NSObject {
         }
         return dir
     }
-
-    /// 获取所有录音文件
-    func fetchAllRecordings() -> [URL] {
-        let dir = recordingsDirectory()
-        let files = (try? FileManager.default.contentsOfDirectory(
-            at: dir,
-            includingPropertiesForKeys: nil
-        )) ?? []
-
-        return files.filter { $0.pathExtension == "m4a" }
-    }
-    /// 单个删除
-    func deleteRecording(at url: URL) {
-        try? FileManager.default.removeItem(at: url)
-    }
-
-    /// 批量删除
-    func deleteRecordings(_ urls: [URL]) {
-        urls.forEach {
-            try? FileManager.default.removeItem(at: $0)
-        }
-    }
-
 }
 
+// MARK: - System Interruption
 private extension RecorderManager {
 
-    func startTimer() {
-        stopTimer()
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-            guard let self else { return }
-            self.currentDuration = self.recorder?.currentTime ?? 0
-        }
-        RunLoop.main.add(timer!, forMode: .common)
+    func addObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleInterruption),
+            name: AVAudioSession.interruptionNotification,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleRouteChange),
+            name: AVAudioSession.routeChangeNotification,
+            object: nil
+        )
     }
 
-    func stopTimer() {
-        timer?.invalidate()
-        timer = nil
+    @objc func handleInterruption(_ notification: Notification) {
+        guard
+            let info = notification.userInfo,
+            let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
+            let type = AVAudioSession.InterruptionType(rawValue: typeValue)
+        else { return }
+
+        switch type {
+
+        case .began:
+            if state == .recording {
+                recorder?.pause()
+                state = .paused
+                stopTimer()
+                onEvent?(.interrupted(reason: "录音被系统中断（来电或 Siri）"))
+            }
+        case .ended:
+            let optionsValue =
+                info[AVAudioSessionInterruptionOptionKey] as? UInt
+            let options = AVAudioSession.InterruptionOptions(
+                rawValue: optionsValue ?? 0
+            )
+
+            if options.contains(.shouldResume), state == .paused {
+                try? session.setActive(true)
+//                recorder?.record()
+//                state = .recording
+                resume()
+             }else{
+                onEvent?(.interrupted(reason: "录音被其他音频应用占用，已停止"))
+//                stop()
+            }
+
+        @unknown default:
+            break
+        }
+    }
+
+    @objc func handleRouteChange(_ notification: Notification) {
+        guard
+            let info = notification.userInfo,
+            let reasonValue =
+                info[AVAudioSessionRouteChangeReasonKey] as? UInt,
+            let reason =
+                AVAudioSession.RouteChangeReason(rawValue: reasonValue)
+        else { return }
+
+        switch reason {
+        case .oldDeviceUnavailable:
+            if state == .recording {
+                recorder?.pause()
+                state = .paused
+                stopTimer()
+                onEvent?(.interrupted(reason: "录音设备断开，录音已暂停"))
+            }
+        default:
+            break
+        }
     }
 }
