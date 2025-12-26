@@ -47,30 +47,48 @@ class HomeViewController: SuperViewController {
                 resourceId: XApiResourceId
             )
         )
-
-        client.submitOfflineAudio(
-            fileURL: "https://aisection.tos-cn-beijing.volces.com/Recording/123.m4a"
-        ) { result in
-            switch result {
-            case .success(let data):
-                MyLog("✅ Submit success:")
-                do {
-                    let decoder = JSONDecoder()
-                    let response = try decoder.decode(SubmitResponse.self, from: data)
-                    guard let taskID = response.Data?.TaskID, !taskID.isEmpty else {
-                        MyLog("❌ TaskID not found")
-                        return
+        Task {
+            do {
+                let taskID = try await client.submitOfflineAudio(
+                    fileURL: "https://aisection.tos-cn-beijing.volces.com/Recording/123.m4a"
+                )
+                MyLog("✅ TaskID:\(taskID)")
+                
+                let finished = try await client.waitUntilFinished(taskID: taskID)
+                MyLog("📌 finished:\(finished)")
+                if let url = finished.Result?.AudioTranscriptionFile {
+                    let listData = try await client.fetchAudioTranscription(from: url)
+                    listData.forEach { item in
+                        MyLog("🧑 Speaker: \(item.speaker.name ?? "Speaker")")
+                        MyLog("content: \(item.content)")
                     }
-                    MyLog("🎯 TaskID:\(taskID)")
-                } catch {
-                    MyLog("❌ Decode failed:\(error)")
                 }
-            case .failure(let error):
-                MyLog("❌ Submit failed: \(error)")
+                
+                if let url = finished.Result?.ChapterFile {
+                    let listData = try await client.fetchChapterFile(from: url)
+                    MyLog(listData.chapterSummary)
+                }
+                
+                if let url = finished.Result?.InformationExtractionFile {
+                    let listData = try await client.fetchInformationExtractionFile(from: url)
+                    MyLog(listData.todoList)
+                }
+                
+                if let url = finished.Result?.SummarizationFile {
+                    let itemData = try await client.fetchSummarizationFile(from: url)
+                    MyLog(itemData.title)
+                    MyLog(itemData.paragraph)
+                }
+                
+                if let url = finished.Result?.TranslationFile {
+                    let listData = try await client.fetchTranslationFile(from: url)
+                    MyLog(listData)
+                }
+                
+            } catch {
+                MyLog("❌ Error: \(error.localizedDescription)")
             }
         }
-
-        
     }
     
     override func setUpUI() {
