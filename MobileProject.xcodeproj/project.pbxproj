@@ -86,6 +86,7 @@
 		53FFAF022EFA90B800A0C1EF /* RecorderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAF012EFA90B800A0C1EF /* RecorderManager.swift */; };
 		53FFAF042EFBD41B00A0C1EF /* VeTOSiOSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53FFAF032EFBD41B00A0C1EF /* VeTOSiOSSDK.framework */; };
 		53FFAF062EFE21D200A0C1EF /* ByteDanceOpenSpeechClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAF052EFE21D200A0C1EF /* ByteDanceOpenSpeechClient.swift */; };
+		53FFAF082EFE6D5200A0C1EF /* UploadRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAF072EFE6D5200A0C1EF /* UploadRecord.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -194,6 +195,7 @@
 		53FFAF012EFA90B800A0C1EF /* RecorderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderManager.swift; sourceTree = "<group>"; };
 		53FFAF032EFBD41B00A0C1EF /* VeTOSiOSSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VeTOSiOSSDK.framework; sourceTree = "<group>"; };
 		53FFAF052EFE21D200A0C1EF /* ByteDanceOpenSpeechClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByteDanceOpenSpeechClient.swift; sourceTree = "<group>"; };
+		53FFAF072EFE6D5200A0C1EF /* UploadRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadRecord.swift; sourceTree = "<group>"; };
 		7041B3847FAF0D646FE4C66C /* Pods_ShareExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79A652786741A9805F07CCDE /* Pods-MobileProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileProject.debug.xcconfig"; path = "Target Support Files/Pods-MobileProject/Pods-MobileProject.debug.xcconfig"; sourceTree = "<group>"; };
 		7CE0E0A0E92D28AA1BF85F81 /* Pods-ShareExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareExtension.debug.xcconfig"; path = "Target Support Files/Pods-ShareExtension/Pods-ShareExtension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -503,6 +505,7 @@
 			isa = PBXGroup;
 			children = (
 				53FFAF012EFA90B800A0C1EF /* RecorderManager.swift */,
+				53FFAF072EFE6D5200A0C1EF /* UploadRecord.swift */,
 				53FFAF052EFE21D200A0C1EF /* ByteDanceOpenSpeechClient.swift */,
 			);
 			path = Recording;
@@ -731,6 +734,7 @@
 				531CD91A2EEBBACA00FC22F7 /* TopView.swift in Sources */,
 				5382821E2EF13EC00097EAD0 /* DetailBottomView.swift in Sources */,
 				5382821A2EF13A6F0097EAD0 /* HomeNoteDetailViewController.swift in Sources */,
+				53FFAF082EFE6D5200A0C1EF /* UploadRecord.swift in Sources */,
 				531CD8E02EEAACF100FC22F7 /* Images.swift in Sources */,
 				531CD8E12EEAACF100FC22F7 /* Fonts.swift in Sources */,
 				531CD8E22EEAACF100FC22F7 /* MediaFiles.swift in Sources */,

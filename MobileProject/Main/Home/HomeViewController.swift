@@ -39,56 +39,6 @@ class HomeViewController: SuperViewController {
         super.viewDidLoad()
         view.backgroundColor = kkColorFromHex(kkHomeBgColor)
         // Do any additional setup after loading the view.
-        
-        let client = ByteDanceOpenSpeechClient(
-            config: .init(
-                appKey: XApiAppKey,
-                accessKey: XApiAccessKey,
-                resourceId: XApiResourceId
-            )
-        )
-        Task {
-            do {
-                let taskID = try await client.submitOfflineAudio(
-                    fileURL: "https://aisection.tos-cn-beijing.volces.com/Recording/123.m4a"
-                )
-                MyLog("✅ TaskID:\(taskID)")
-                
-                let finished = try await client.waitUntilFinished(taskID: taskID)
-                MyLog("📌 finished:\(finished)")
-                if let url = finished.Result?.AudioTranscriptionFile {
-                    let listData = try await client.fetchAudioTranscription(from: url)
-                    listData.forEach { item in
-                        MyLog("🧑 Speaker: \(item.speaker.name ?? "Speaker")")
-                        MyLog("content: \(item.content)")
-                    }
-                }
-                
-                if let url = finished.Result?.ChapterFile {
-                    let listData = try await client.fetchChapterFile(from: url)
-                    MyLog(listData.chapterSummary)
-                }
-                
-                if let url = finished.Result?.InformationExtractionFile {
-                    let listData = try await client.fetchInformationExtractionFile(from: url)
-                    MyLog(listData.todoList)
-                }
-                
-                if let url = finished.Result?.SummarizationFile {
-                    let itemData = try await client.fetchSummarizationFile(from: url)
-                    MyLog(itemData.title)
-                    MyLog(itemData.paragraph)
-                }
-                
-                if let url = finished.Result?.TranslationFile {
-                    let listData = try await client.fetchTranslationFile(from: url)
-                    MyLog(listData)
-                }
-                
-            } catch {
-                MyLog("❌ Error: \(error.localizedDescription)")
-            }
-        }
     }
     
     override func setUpUI() {

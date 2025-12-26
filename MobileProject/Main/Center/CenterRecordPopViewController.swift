@@ -74,50 +74,66 @@ class CenterRecordPopViewController: SuperViewController {
                 RecorderManager.shared.stop()
                 recordingUI()
 
-                let recordURL = RecorderManager.shared.recordURL
-                MyLog("上传文件：\(String(describing: recordURL))")
-                guard let lastFile = recordURL,let fileURL = URL(string: lastFile.absoluteString) else {
-                    MyLog("上传失败：无可用文件或路径错误")
-                    return
-                }
-                
-                var tosKey = ""
-                if !kkStringIsEmpty(fileURL.path) {
-                    let result = fileURL.path.components(separatedBy: "/Documents/")
-                    if result.count == 2 {
-                        tosKey = result[1]
-                    }
-                }
-                
-                // 1. 初始化客户端
-                let credential = TOSCredential.init(accessKey: AKeyID02 + AKeyID01, secretKey: SAKey)
-                let tosEndpoint = TOSEndpoint(urlString: TOS_ENDPOINT, withRegion: TOS_REGION)
-                let config = TOSClientConfiguration(endpoint: tosEndpoint, credential: credential)
-                let client = TOSClient.init(configuration: config)
-
-                // 2. 上传本地文件
-                let put = TOSPutObjectFromFileInput()
-                put.tosBucket = TOS_BUCKET
-                put.tosKey = tosKey
-                MyLog(fileURL.path)
-                put.tosFilePath = fileURL.path
-                let task = client.putObject(fromFile: put)
-
-                task.continueWith { t in
+                var fileName = getFileName()
+                UploadRecord.shared.uploadFile(fileName: fileName) { task in
                     if ((task.error == nil)) {
                         MyLog("Put object from file success.");
                         let output = task.result;
                         MyLog(output)
+                        
+                        let client = ByteDanceOpenSpeechClient(
+                            config: .init(
+                                appKey: XApiAppKey,
+                                accessKey: XApiAccessKey,
+                                resourceId: XApiResourceId
+                            )
+                        )
+                        
+                        fileName = "Recording/123.m4a"
+                        SubmitAndQueryHandle.shared.handleRecord(fileName: fileName,client: client) { queryData in
+                            if queryData.ErrCode == 0 && queryData.Status == "success"{
+                                if let url = queryData.Result?.AudioTranscriptionFile {
+                                    do {
+                                        let listData = try await client.fetchAudioTranscription(from: url)
+                                        listData.forEach { item in
+                                            MyLog("🧑 Speaker: \(item.speaker.name ?? "Speaker")")
+                                            MyLog("content: \(item.content)")
+                                        }
+                                    } catch {
+                                        MyLog("❌ Error: \(error.localizedDescription)")
+                                    }
+                                
+                                }
+                            }
+                        }
+                        
                     } else {
                         MyLog("Put object from file failed, error: \(String(describing: task.error))");
                     }
-                    return nil
                 }
-
+                
                 let vc = CenterProcessingVC()
                 vc.modalPresentationStyle = .overFullScreen
                 self.present(vc, animated: true)
             }
+        }
+        
+        func getFileName() -> String {
+            let recordURL = RecorderManager.shared.recordURL
+            MyLog("本地文件名：\(String(describing: recordURL))")
+            guard let lastFile = recordURL,let fileURL = URL(string: lastFile.absoluteString) else {
+                MyLog("无可用文件或路径错误")
+                return ""
+            }
+            
+            var fileName = ""
+            if !kkStringIsEmpty(fileURL.path) {
+                let result = fileURL.path.components(separatedBy: "/Documents/")
+                if result.count == 2 {
+                    fileName = result[1]
+                }
+            }
+            return fileName
         }
     }
     private lazy var centerBtn = UIImageView().image(Asset.recordPlay.image).enable(true).onTap { [self] in
