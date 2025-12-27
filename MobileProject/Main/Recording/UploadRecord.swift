@@ -10,22 +10,7 @@ import AVFoundation
 final class UploadRecord: NSObject {
     static let shared = UploadRecord()
 
-    func uploadFile(fileName:String,completion: @escaping (_ task:TOSTask<AnyObject>) -> Void){
-        let recordURL = RecorderManager.shared.recordURL
-        MyLog("上传文件：\(String(describing: recordURL))")
-        guard let lastFile = recordURL,let fileURL = URL(string: lastFile.absoluteString) else {
-            MyLog("上传失败：无可用文件或路径错误")
-            return
-        }
-        
-        var tosKey = ""
-        if !kkStringIsEmpty(fileURL.path) {
-            let result = fileURL.path.components(separatedBy: "/Documents/")
-            if result.count == 2 {
-                tosKey = result[1]
-            }
-        }
-        
+    func uploadFile(fileName:String,fileURL:URL,completion: @escaping (_ task:TOSTask<AnyObject>) -> Void){
         // 1. 初始化客户端
         let credential = TOSCredential.init(accessKey: AKeyID02 + AKeyID01, secretKey: SAKey)
         let tosEndpoint = TOSEndpoint(urlString: TOS_ENDPOINT, withRegion: TOS_REGION)
@@ -35,7 +20,7 @@ final class UploadRecord: NSObject {
         // 2. 上传本地文件
         let put = TOSPutObjectFromFileInput()
         put.tosBucket = TOS_BUCKET
-        put.tosKey = tosKey
+        put.tosKey = fileName
         MyLog(fileURL.path)
         put.tosFilePath = fileURL.path
         let task = client.putObject(fromFile: put)

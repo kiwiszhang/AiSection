@@ -75,7 +75,7 @@ class CenterRecordPopViewController: SuperViewController {
                 recordingUI()
 
                 var fileName = getFileName()
-                UploadRecord.shared.uploadFile(fileName: fileName) { task in
+                UploadRecord.shared.uploadFile(fileName: fileName,fileURL:URL(string: RecorderManager.shared.recordURL!.absoluteString)!) { task in
                     if ((task.error == nil)) {
                         MyLog("Put object from file success.");
                         let output = task.result;
