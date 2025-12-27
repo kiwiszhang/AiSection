@@ -6,7 +6,9 @@
 //
 
 
-let iCloudContainerID = "iCloud.com.yuehai.scanBills"
+
+
+let iCloudContainerID = "iCloud.com.yuehai.coredata"
 
 import CoreData
 

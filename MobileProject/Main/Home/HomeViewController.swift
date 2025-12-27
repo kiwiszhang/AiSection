@@ -28,9 +28,11 @@ struct RecordItemModel {
 class HomeViewController: SuperViewController {
     private lazy var topview = TopView()
     private lazy var tabView = TabView()
-    private lazy var itemList:[RecordItemModel] = []
+//    private lazy var itemList:[RecordItemModel] = []
+    private lazy var itemList:[RecordingItem] = []
+    private lazy var itemFolderList:[FolderItem] = []
     private lazy var tableView = {
-        return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.clear).registerCells(RecordItemCell.self).registerCells(RecordSecendItemCell.self).registerCells(RecordItemDemoCell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeight(84.h).showsH(false)
+        return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.clear).registerCells(RecordItemCell.self).registerCells(RecordSecendItemCell.self).registerCells(RecordItemDemoCell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeight(84.h).showsH(false).showsV(false)
     }()
     private lazy var emptyView = SectionEmptyView().hidden(true)
     private lazy var emptyAddView = SectionEmptyAddView().hidden(true)
@@ -39,7 +41,39 @@ class HomeViewController: SuperViewController {
         super.viewDidLoad()
         view.backgroundColor = kkColorFromHex(kkHomeBgColor)
         // Do any additional setup after loading the view.
+        
+//        addNoteData()
+//        addFolderData()
     }
+    
+    func addNoteData(){
+        let item00 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, recordPath: "234.m4a", recordName: "test-Record-Name012", recordFolder: "Note00", recordFolderId: 1, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970))
+        let item01 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 0, recordPath: "234.m4a", recordName: "test-Record-Name123", recordFolder: "Note01", recordFolderId: 2, isFavorite: true, createTime: Int64(Date().timeIntervalSince1970))
+        let item02 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, recordPath: "234.m4a", recordName: "test-Record-Name234", recordFolder: "Note00", recordFolderId: 1, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970))
+        let item03 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 0, recordPath: "234.m4a", recordName: "test-Record-Name345", recordFolder: "Note01", recordFolderId: 2, isFavorite: true, createTime: Int64(Date().timeIntervalSince1970))
+
+        do{
+            try! RecordingItemStore.shared.addRecordingItem(item00)
+            try! RecordingItemStore.shared.addRecordingItem(item01)
+            try! RecordingItemStore.shared.addRecordingItem(item02)
+            try! RecordingItemStore.shared.addRecordingItem(item03)
+        }
+    }
+    
+    func addFolderData(){
+        let item00 = FolderItemRequest(folderName: "Note012", recordFolderId: 1, createTime: Int64(Date().timeIntervalSince1970))
+        let item01 = FolderItemRequest(folderName: "Note123", recordFolderId: 2, createTime: Int64(Date().timeIntervalSince1970))
+        let item02 = FolderItemRequest(folderName: "Note234", recordFolderId: 3, createTime: Int64(Date().timeIntervalSince1970))
+        let item03 = FolderItemRequest(folderName: "Note345", recordFolderId: 4, createTime: Int64(Date().timeIntervalSince1970))
+
+        do{
+            try! FolderItemStore.shared.addFolderItem(item00)
+            try! FolderItemStore.shared.addFolderItem(item01)
+            try! FolderItemStore.shared.addFolderItem(item02)
+            try! FolderItemStore.shared.addFolderItem(item03)
+        }
+    }
+    
     
     override func setUpUI() {
         UserDefaultsTools.tabSelected = 0
@@ -94,9 +128,41 @@ class HomeViewController: SuperViewController {
 extension HomeViewController:TopViewDelegate {
     func refreshSearchData(updatedText: String) {
         MyLog(updatedText)
+        if UserDefaultsTools.tabSelected == 0 {
+            let listData = try! RecordingItemStore.shared.searchByKeyword(updatedText)
+            itemList = listData
+            
+        }
+        if UserDefaultsTools.tabSelected == 2 {
+            let listData = try! RecordingItemStore.shared.searchByKeyword(updatedText,in: true)
+            itemList = listData
+            
+        }
+        if UserDefaultsTools.tabSelected == 1 {
+            let listData = try! FolderItemStore.shared.searchByKeyword(updatedText)
+            itemFolderList = listData
+        }
+        tableView.reloadData()
+        listDataisEmpty()
     }
     func refreshSearchNoData(){
         MyLog("refreshSearchNoData")
+        if UserDefaultsTools.tabSelected == 0 {
+            let listData = try! RecordingItemStore.shared.fetchAllRecordingItem()
+            itemList = listData
+            
+        }
+        if UserDefaultsTools.tabSelected == 2 {
+            let listData = try! RecordingItemStore.shared.fetchAllRecordingItem(isFavorite: true)
+            itemList = listData
+            
+        }
+        if UserDefaultsTools.tabSelected == 1 {
+            let listData = try! FolderItemStore.shared.fetchAllFolderItem()
+            itemFolderList = listData
+        }
+        tableView.reloadData()
+        listDataisEmpty()
     }
     func clickVipImage() {
         MyLog("clickVipImage")
@@ -106,28 +172,34 @@ extension HomeViewController:TopViewDelegate {
 //MARK: ----------TableViewDelegateDataSource-----------
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemList.count
+        if UserDefaultsTools.tabSelected == 0 || UserDefaultsTools.tabSelected == 2 {
+            return itemList.count
+        }
+        if UserDefaultsTools.tabSelected == 1 {
+            return itemFolderList.count
+        }
+        return 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = itemList[indexPath.row]
-        
         if UserDefaultsTools.tabSelected == 0 || UserDefaultsTools.tabSelected == 2 {
-            if model.isDemo {
+            let model = itemList[indexPath.row]
+            if isDemoData(model: model) {
                 let cell = tableView.dequeueCell(RecordItemDemoCell.self, for: indexPath)
                 cell.selectionStyle = .none
-                cell.configure(with: itemList[indexPath.row])
+                cell.configure(with: model)
                 return cell
             }
             let cell = tableView.dequeueCell(RecordItemCell.self, for: indexPath)
             cell.selectionStyle = .none
-            cell.configure(with: itemList[indexPath.row])
+            cell.configure(with: model)
             return cell
         }
         
         if UserDefaultsTools.tabSelected == 1 {
+            let model = itemFolderList[indexPath.row]
             let cell = tableView.dequeueCell(RecordSecendItemCell.self, for: indexPath)
             cell.selectionStyle = .none
-            cell.configure(with: itemList[indexPath.row])
+            cell.configure(with: model)
             return cell
         }
         
@@ -137,10 +209,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = itemList[indexPath.row]
-        
         if UserDefaultsTools.tabSelected == 0 || UserDefaultsTools.tabSelected == 2 {
-            if item.isDemo {
+            let item = itemList[indexPath.row]
+            if isDemoData(model: item) {
                 MyLog("Demo")
             }else{
                 let vc = HomeNoteDetailViewController()
@@ -149,7 +220,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         if UserDefaultsTools.tabSelected == 1 {
-            if item.isAddFloder {
+            let item = itemFolderList[indexPath.row]
+            if isAddFolderData(model: item) {
                 let content = HomeAddFloderPopVC()
                 let popup = PopupContainerViewController(contentVC: content, height: 259.h)
                 content.dismissAction = {
@@ -159,7 +231,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             }else{
                 UserDefaultsTools.tabSelected = 0
                 let vc = HomeFloderViewController()
-                vc.model = item
+//                vc.model = item
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -174,10 +246,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let foot = tableView.dequeueHeaderFooter(SuperTableViewHeaderFooterView.self)
         return foot
     }
+    
+    func isDemoData(model:RecordingItem) -> Bool {
+        return model.recordName == "isDemo" && model.updateTime == Int64.min && model.recordFolder == "isDemo" && model.createTime == Int64.min
+    }
+    func isAddFolderData(model:FolderItem) -> Bool {
+        return model.folderName == "isDemo" && model.recordFolderId == -1 && model.createTime == Int64.min
+    }
 }
 
 class RecordItemCell: SuperTableViewCell {
-    private var itemModel:RecordItemModel? = nil
+    private var itemModel:RecordingItem? = nil
     private lazy var bgView = DashedBorderView(cornerRadius: 14.h,lineWidth: 1,strokeColor: .white).backgroundColor(.white)
     private lazy var iconImageV = UIImageView().image(Asset.homeNote.image).enable(true)
     private lazy var moreImageV = UIImageView().image(Asset.moreRight.image).enable(true).onTap { [self] in
@@ -254,12 +333,12 @@ class RecordItemCell: SuperTableViewCell {
         }
     }
     
-    func configure(with item: RecordItemModel) {
+    func configure(with item: RecordingItem) {
         itemModel = item
         if UserDefaultsTools.tabSelected == 0 || UserDefaultsTools.tabSelected == 2 {
-            titleL.text(item.noteName)
+            titleL.text(item.recordName)
             dateL.text(timestampToFormattedString(item.updateTime))
-            if item.noteType == 0 {
+            if item.recordType == 0 {
                 typeImageV.image(Asset.homeType00.image)
             }else{
                 typeImageV.image(Asset.homeType01.image)
@@ -286,7 +365,7 @@ class RecordItemCell: SuperTableViewCell {
 }
 
 class RecordSecendItemCell: SuperTableViewCell {
-    private var itemModel:RecordItemModel? = nil
+    private var itemModel:FolderItem? = nil
     private lazy var bgView = DashedBorderView(cornerRadius: 14.h,lineWidth: 1,strokeColor: .white).backgroundColor(.white)
     private lazy var iconImageV = UIImageView().image(Asset.homeNote.image).enable(true)
     private lazy var moreImageV = UIImageView().image(Asset.moreRight.image).enable(true).onTap { [self] in
@@ -345,14 +424,14 @@ class RecordSecendItemCell: SuperTableViewCell {
 
     }
     
-    func configure(with item: RecordItemModel) {
+    func configure(with item: FolderItem) {
         itemModel = item
         if UserDefaultsTools.tabSelected == 1 {
-            titleL.text(item.floderName)
             iconImageV.image(Asset.floder.image)
             noteNumberL.hidden(false)
-            noteNumberL.text("\(item.noteNumbers)" + " " + L10n.notes)
-            if item.isAddFloder {
+            let fileCount = RecordingItemStore.shared.fileCount(in: item.recordFolderId)
+            noteNumberL.text("\(fileCount)" + " " + L10n.notes)
+            if isAddFolderData(model: item) {
                 titleL.snp.remakeConstraints { make in
                     make.left.equalTo(iconImageV.snp.right).offset(10.w)
                     make.right.equalTo(moreImageV.snp.left).offset(-8.w)
@@ -364,6 +443,7 @@ class RecordSecendItemCell: SuperTableViewCell {
                     make.centerY.equalToSuperview()
                     make.right.equalToSuperview().offset(-16.w)
                 }
+                titleL.text(L10n.newFolder)
                 noteNumberL.hidden(true)
                 moreImageV.image(Asset.addFloders.image)
                 bgView.cornerRadius = 14.h
@@ -382,6 +462,7 @@ class RecordSecendItemCell: SuperTableViewCell {
                     make.centerY.equalToSuperview()
                     make.right.equalToSuperview().offset(-16.w)
                 }
+                titleL.text(item.folderName)
                 moreImageV.image(Asset.moreRight.image)
                 bgView.cornerRadius = 14.h
                 bgView.lineWidth = 1
@@ -389,7 +470,9 @@ class RecordSecendItemCell: SuperTableViewCell {
                 bgView.backgroundColor = kkColorFromHexWithAlpha("FFFFFF", 1)
             }
         }
-                
+    }
+    func isAddFolderData(model:FolderItem) -> Bool {
+        return model.folderName == "isDemo" && model.recordFolderId == -1 && model.createTime == Int64.min
     }
 }
 
@@ -443,10 +526,10 @@ class RecordItemDemoCell: SuperTableViewCell {
 
     }
     
-    func configure(with item: RecordItemModel) {
-        titleL.text(item.noteName)
-        dateL.text(item.demoSubTitle)
-        tryL.text(item.demoTry)
+    func configure(with item: RecordingItem) {
+        titleL.text(L10n.welcome)
+        dateL.text(L10n.discoverAllFeatureswithThisNote)
+        tryL.text(L10n.tryNow)
     }
 }
 
@@ -455,51 +538,60 @@ class RecordItemDemoCell: SuperTableViewCell {
 //MARK: ----------TableViewDelegateDataSource-----------
 extension HomeViewController:TabViewDelegate {
     func tabClickItemIndex(_ index: Int) {
+        topview.updateData(searchText: "")
         UserDefaultsTools.tabSelected = index
-        let model00 = RecordItemModel(noteName: "Meeting minutes", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        let model01 = RecordItemModel(noteName: "Meeting Notice", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: true)
-        let model02 = RecordItemModel(noteName: "Work Summary", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        let model03 = RecordItemModel(noteName: "Annual Meeting Arrangements", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        let model = RecordItemModel(noteName: L10n.welcome, noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false,isDemo: true)
-
-        
-        let model10 = RecordItemModel(floderName: "On business trip",noteNumbers: 123)
-        let model11 = RecordItemModel(floderName: "Annual meeting",noteNumbers: 2)
-        let model12 = RecordItemModel(floderName: "Equipment inspection",noteNumbers: 4562)
-        let model13 = RecordItemModel(floderName: "Office Notes",noteNumbers: 3)
-        let model14 = RecordItemModel(floderName: L10n.newFolder,noteNumbers: 3,isAddFloder:true)
-        
         if index == 0 {
-            itemList = [model00,model01,model02,model03,model]
-//            itemList = []
+            let items = try! RecordingItemStore.shared.fetchAllRecordingItem()
+            itemList = items
             emptyView.refreshData(emptyImage: Asset.sectionEmpty.image, emptyStr: L10n.allResultsAreNegative)
         }else if index == 1 {
-            itemList = [model10,model11,model12,model13,model14]
-//            itemList = []
+            let items = try! FolderItemStore.shared.fetchAllFolderItem()
+            itemFolderList = items
             emptyAddView.refreshData(emptyImage: Asset.sectionEmptyAdd.image, emptyStr: L10n.noItemsSavedYet)
             emptyAddView.delegate = self
         }else {
-            itemList = [model]
-//            itemList = []
+            let items = try! RecordingItemStore.shared.fetchAllRecordingItem(isFavorite: true)
+            itemList = items
             emptyView.refreshData(emptyImage: Asset.sectionEmpty.image, emptyStr: L10n.allResultsAreNegative)
         }
         tableView.reloadData()
-        
-        if itemList.count == 0{
-            tableView.hidden(true)
-            if index == 1 {
+        listDataisEmpty()
+    }
+    
+    func listDataisEmpty(){
+        if UserDefaultsTools.tabSelected == 0 {
+            if itemList.count == 0{
+                tableView.hidden(true)
+                emptyAddView.hidden(true)
+                emptyView.hidden(false)
+            }else{
+                tableView.hidden(false)
+                emptyView.hidden(true)
+                emptyAddView.hidden(true)
+            }
+        }else if UserDefaultsTools.tabSelected == 1 {
+            if itemFolderList.count == 0{
+                tableView.hidden(true)
                 emptyAddView.hidden(false)
                 emptyView.hidden(true)
             }else{
+                tableView.hidden(false)
+                emptyView.hidden(true)
+                emptyAddView.hidden(true)
+            }
+        }else {
+            if itemList.count == 0{
+                tableView.hidden(true)
                 emptyAddView.hidden(true)
                 emptyView.hidden(false)
+            }else{
+                tableView.hidden(false)
+                emptyView.hidden(true)
+                emptyAddView.hidden(true)
             }
-        }else{
-            tableView.hidden(false)
-            emptyView.hidden(true)
-            emptyAddView.hidden(true)
         }
     }
+    
 }
 
 // MARK: -  =====================SectionEmptyAddViewDelegate=========================

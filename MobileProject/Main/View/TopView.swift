@@ -53,7 +53,9 @@ class TopView: SuperView{
         addGradientBackground(colors: [kkColorFromHex("E6EFFF"),kkColorFromHex("F2F4F8")], direction: .topToBottom)
     }
     // MARK: -  =======================actions========================
-    
+    func updateData(searchText:String){
+        searchView.prompTextField.text(searchText)
+    }
     
 }
 

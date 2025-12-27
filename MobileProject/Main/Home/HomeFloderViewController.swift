@@ -109,7 +109,7 @@ extension HomeFloderViewController: UITableViewDelegate, UITableViewDataSource {
         let model = itemList[indexPath.row]
         let cell = tableView.dequeueCell(RecordItemCell.self, for: indexPath)
         cell.selectionStyle = .none
-        cell.configure(with: itemList[indexPath.row])
+//        cell.configure(with: itemList[indexPath.row])
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

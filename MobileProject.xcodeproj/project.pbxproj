@@ -34,7 +34,6 @@
 		531CD8FD2EEAAF6400FC22F7 /* NotificationCenterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8F62EEAAF6400FC22F7 /* NotificationCenterKeys.swift */; };
 		531CD8FE2EEAAF6400FC22F7 /* EventReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8E52EEAAF6400FC22F7 /* EventReport.swift */; };
 		531CD8FF2EEAAF6400FC22F7 /* UserDefaultsTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8F72EEAAF6400FC22F7 /* UserDefaultsTools.swift */; };
-		531CD9022EEAAF6400FC22F7 /* AISectionCoreDataICloud.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8E82EEAAF6400FC22F7 /* AISectionCoreDataICloud.xcdatamodeld */; };
 		531CD9042EEAAF6400FC22F7 /* UtitilTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8F82EEAAF6400FC22F7 /* UtitilTools.swift */; };
 		531CD9052EEAAF6400FC22F7 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8F32EEAAF6400FC22F7 /* SubscriptionManager.swift */; };
 		531CD9062EEAAF6400FC22F7 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8F52EEAAF6400FC22F7 /* Common.swift */; };
@@ -77,6 +76,9 @@
 		539F2D432DA8B1190030DA8F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 539F2D412DA8B1190030DA8F /* InfoPlist.strings */; };
 		539F2D4C2DA921030030DA8F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F2D4B2DA921030030DA8F /* WebViewController.swift */; };
 		53CEF9932DAE3BB20079AE9E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 53CEF9922DAE3BB20079AE9E /* GoogleService-Info.plist */; };
+		53F68D8C2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D8A2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodeld */; };
+		53F68D972EFFB2B10051FFE6 /* RecordingItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D962EFFB2B10051FFE6 /* RecordingItemStore.swift */; };
+		53F68D992EFFCACA0051FFE6 /* FolderItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D982EFFCACA0051FFE6 /* FolderItemStore.swift */; };
 		53FFAEEE2EFA2D8400A0C1EF /* TitleFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */; };
 		53FFAEF02EFA365A00A0C1EF /* CenterLanguagePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */; };
 		53FFAEF32EFA3BD600A0C1EF /* record-bottom.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */; };
@@ -147,7 +149,6 @@
 		531CD8F72EEAAF6400FC22F7 /* UserDefaultsTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsTools.swift; sourceTree = "<group>"; };
 		531CD8F82EEAAF6400FC22F7 /* UtitilTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtitilTools.swift; sourceTree = "<group>"; };
 		531CD8FA2EEAAF6400FC22F7 /* AppIconHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconHelper.swift; sourceTree = "<group>"; };
-		531CD8FC2EEAAF6400FC22F7 /* AISectionCoreDataICloud.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AISectionCoreDataICloud.xcdatamodel; sourceTree = "<group>"; };
 		531CD90E2EEBA17200FC22F7 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		531CD90F2EEBA17200FC22F7 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		531CD9122EEBAE1A00FC22F7 /* MobileProjectDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProjectDebug.entitlements; sourceTree = "<group>"; };
@@ -186,6 +187,9 @@
 		539F2D462DA8B13A0030DA8F /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		539F2D4B2DA921030030DA8F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		53CEF9922DAE3BB20079AE9E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		53F68D8B2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AISectionCoreDataICloud.xcdatamodel; sourceTree = "<group>"; };
+		53F68D962EFFB2B10051FFE6 /* RecordingItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingItemStore.swift; sourceTree = "<group>"; };
+		53F68D982EFFCACA0051FFE6 /* FolderItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderItemStore.swift; sourceTree = "<group>"; };
 		53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleFieldView.swift; sourceTree = "<group>"; };
 		53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterLanguagePopVC.swift; sourceTree = "<group>"; };
 		53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "record-bottom.mp4"; sourceTree = "<group>"; };
@@ -412,8 +416,10 @@
 		531CD8ED2EEAAF6400FC22F7 /* CoreDataiCloud */ = {
 			isa = PBXGroup;
 			children = (
-				531CD8E82EEAAF6400FC22F7 /* AISectionCoreDataICloud.xcdatamodeld */,
 				531CD8EB2EEAAF6400FC22F7 /* PersistenceController.swift */,
+				53F68D8A2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodeld */,
+				53F68D962EFFB2B10051FFE6 /* RecordingItemStore.swift */,
+				53F68D982EFFCACA0051FFE6 /* FolderItemStore.swift */,
 			);
 			path = CoreDataiCloud;
 			sourceTree = "<group>";
@@ -720,6 +726,7 @@
 				531CD8B62EEAAA0400FC22F7 /* MBProgressHUD+Extension.swift in Sources */,
 				531CD8B82EEAAA0400FC22F7 /* BottomPushAnimator.swift in Sources */,
 				538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */,
+				53F68D992EFFCACA0051FFE6 /* FolderItemStore.swift in Sources */,
 				5382822A2EF27E4F0097EAD0 /* HomeAllNotePopVC.swift in Sources */,
 				531CD8B92EEAAA0400FC22F7 /* UIColor+Extension.swift in Sources */,
 				531CD8BB2EEAAA0400FC22F7 /* MBProgressHUD.m in Sources */,
@@ -733,12 +740,14 @@
 				531CD8DF2EEAACF100FC22F7 /* JSON.swift in Sources */,
 				531CD91A2EEBBACA00FC22F7 /* TopView.swift in Sources */,
 				5382821E2EF13EC00097EAD0 /* DetailBottomView.swift in Sources */,
+				53F68D972EFFB2B10051FFE6 /* RecordingItemStore.swift in Sources */,
 				5382821A2EF13A6F0097EAD0 /* HomeNoteDetailViewController.swift in Sources */,
 				53FFAF082EFE6D5200A0C1EF /* UploadRecord.swift in Sources */,
 				531CD8E02EEAACF100FC22F7 /* Images.swift in Sources */,
 				531CD8E12EEAACF100FC22F7 /* Fonts.swift in Sources */,
 				531CD8E22EEAACF100FC22F7 /* MediaFiles.swift in Sources */,
 				538282302EF407620097EAD0 /* SectionEmptyAddView.swift in Sources */,
+				53F68D8C2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodeld in Sources */,
 				531CD8E42EEAACF100FC22F7 /* Strings.swift in Sources */,
 				531CD9162EEBAE7900FC22F7 /* AppHelper.swift in Sources */,
 				531CD9172EEBAE7900FC22F7 /* ABTestDebugConfigPage.swift in Sources */,
@@ -758,7 +767,6 @@
 				531CD8FE2EEAAF6400FC22F7 /* EventReport.swift in Sources */,
 				53FFAEF62EFA3C1200A0C1EF /* CenterRecordPopViewController.swift in Sources */,
 				531CD8FF2EEAAF6400FC22F7 /* UserDefaultsTools.swift in Sources */,
-				531CD9022EEAAF6400FC22F7 /* AISectionCoreDataICloud.xcdatamodeld in Sources */,
 				5382821C2EF13B200097EAD0 /* DetailNavTopView.swift in Sources */,
 				53FFAEF82EFA626A00A0C1EF /* CenterProcessingVC.swift in Sources */,
 				531CD9042EEAAF6400FC22F7 /* UtitilTools.swift in Sources */,
@@ -926,11 +934,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = MobileProject/MobileProjectDebug.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = V5QGDN3Y45;
+				DEVELOPMENT_TEAM = NKTVSPZ2V9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MobileProject",
@@ -955,10 +962,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuehai.scanBills;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuehai.coredata;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.yuehai.scanBills";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1043,12 +1049,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		531CD8E82EEAAF6400FC22F7 /* AISectionCoreDataICloud.xcdatamodeld */ = {
+		53F68D8A2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				531CD8FC2EEAAF6400FC22F7 /* AISectionCoreDataICloud.xcdatamodel */,
+				53F68D8B2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodel */,
 			);
-			currentVersion = 531CD8FC2EEAAF6400FC22F7 /* AISectionCoreDataICloud.xcdatamodel */;
+			currentVersion = 53F68D8B2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodel */;
 			path = AISectionCoreDataICloud.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
