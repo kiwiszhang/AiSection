@@ -34,7 +34,7 @@
 		531CD8FD2EEAAF6400FC22F7 /* NotificationCenterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8F62EEAAF6400FC22F7 /* NotificationCenterKeys.swift */; };
 		531CD8FE2EEAAF6400FC22F7 /* EventReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8E52EEAAF6400FC22F7 /* EventReport.swift */; };
 		531CD8FF2EEAAF6400FC22F7 /* UserDefaultsTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8F72EEAAF6400FC22F7 /* UserDefaultsTools.swift */; };
-		531CD9022EEAAF6400FC22F7 /* CoreDataICloud.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8E82EEAAF6400FC22F7 /* CoreDataICloud.xcdatamodeld */; };
+		531CD9022EEAAF6400FC22F7 /* AISectionCoreDataICloud.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8E82EEAAF6400FC22F7 /* AISectionCoreDataICloud.xcdatamodeld */; };
 		531CD9042EEAAF6400FC22F7 /* UtitilTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8F82EEAAF6400FC22F7 /* UtitilTools.swift */; };
 		531CD9052EEAAF6400FC22F7 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8F32EEAAF6400FC22F7 /* SubscriptionManager.swift */; };
 		531CD9062EEAAF6400FC22F7 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD8F52EEAAF6400FC22F7 /* Common.swift */; };
@@ -147,7 +147,7 @@
 		531CD8F72EEAAF6400FC22F7 /* UserDefaultsTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsTools.swift; sourceTree = "<group>"; };
 		531CD8F82EEAAF6400FC22F7 /* UtitilTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtitilTools.swift; sourceTree = "<group>"; };
 		531CD8FA2EEAAF6400FC22F7 /* AppIconHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconHelper.swift; sourceTree = "<group>"; };
-		531CD8FC2EEAAF6400FC22F7 /* CoreDataICloud.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataICloud.xcdatamodel; sourceTree = "<group>"; };
+		531CD8FC2EEAAF6400FC22F7 /* AISectionCoreDataICloud.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AISectionCoreDataICloud.xcdatamodel; sourceTree = "<group>"; };
 		531CD90E2EEBA17200FC22F7 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		531CD90F2EEBA17200FC22F7 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		531CD9122EEBAE1A00FC22F7 /* MobileProjectDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProjectDebug.entitlements; sourceTree = "<group>"; };
@@ -412,7 +412,7 @@
 		531CD8ED2EEAAF6400FC22F7 /* CoreDataiCloud */ = {
 			isa = PBXGroup;
 			children = (
-				531CD8E82EEAAF6400FC22F7 /* CoreDataICloud.xcdatamodeld */,
+				531CD8E82EEAAF6400FC22F7 /* AISectionCoreDataICloud.xcdatamodeld */,
 				531CD8EB2EEAAF6400FC22F7 /* PersistenceController.swift */,
 			);
 			path = CoreDataiCloud;
@@ -758,7 +758,7 @@
 				531CD8FE2EEAAF6400FC22F7 /* EventReport.swift in Sources */,
 				53FFAEF62EFA3C1200A0C1EF /* CenterRecordPopViewController.swift in Sources */,
 				531CD8FF2EEAAF6400FC22F7 /* UserDefaultsTools.swift in Sources */,
-				531CD9022EEAAF6400FC22F7 /* CoreDataICloud.xcdatamodeld in Sources */,
+				531CD9022EEAAF6400FC22F7 /* AISectionCoreDataICloud.xcdatamodeld in Sources */,
 				5382821C2EF13B200097EAD0 /* DetailNavTopView.swift in Sources */,
 				53FFAEF82EFA626A00A0C1EF /* CenterProcessingVC.swift in Sources */,
 				531CD9042EEAAF6400FC22F7 /* UtitilTools.swift in Sources */,
@@ -1043,13 +1043,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		531CD8E82EEAAF6400FC22F7 /* CoreDataICloud.xcdatamodeld */ = {
+		531CD8E82EEAAF6400FC22F7 /* AISectionCoreDataICloud.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				531CD8FC2EEAAF6400FC22F7 /* CoreDataICloud.xcdatamodel */,
+				531CD8FC2EEAAF6400FC22F7 /* AISectionCoreDataICloud.xcdatamodel */,
 			);
-			currentVersion = 531CD8FC2EEAAF6400FC22F7 /* CoreDataICloud.xcdatamodel */;
-			path = CoreDataICloud.xcdatamodeld;
+			currentVersion = 531CD8FC2EEAAF6400FC22F7 /* AISectionCoreDataICloud.xcdatamodel */;
+			path = AISectionCoreDataICloud.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

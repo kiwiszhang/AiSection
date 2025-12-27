@@ -89,7 +89,7 @@ class CenterRecordPopViewController: SuperViewController {
                             )
                         )
                         
-                        fileName = "Recording/123.m4a"
+                        fileName = "Recording/234.m4a"
                         SubmitAndQueryHandle.shared.handleRecord(fileName: fileName,client: client) { queryData in
                             if queryData.ErrCode == 0 && queryData.Status == "success"{
                                 if let url = queryData.Result?.AudioTranscriptionFile {
@@ -102,7 +102,42 @@ class CenterRecordPopViewController: SuperViewController {
                                     } catch {
                                         MyLog("❌ Error: \(error.localizedDescription)")
                                     }
+                                }
+                                if let url = queryData.Result?.ChapterFile {
+                                    do {
+                                        let listData = try await client.fetchChapterFile(from: url)
+                                        MyLog(listData.chapterSummary)
+                                    } catch {
+                                        MyLog("❌ Error: \(error.localizedDescription)")
+                                    }
+                                }
                                 
+                                if let url = queryData.Result?.InformationExtractionFile {
+                                    do {
+                                        let listData = try await client.fetchInformationExtractionFile(from: url)
+                                        MyLog(listData.todoList)
+                                    } catch {
+                                        MyLog("❌ Error: \(error.localizedDescription)")
+                                    }
+                                }
+                                
+                                if let url = queryData.Result?.SummarizationFile {
+                                    do {
+                                        let itemData = try await client.fetchSummarizationFile(from: url)
+                                        MyLog(itemData.title)
+                                        MyLog(itemData.paragraph)
+                                    } catch {
+                                        MyLog("❌ Error: \(error.localizedDescription)")
+                                    }
+                                }
+                                
+                                if let url = queryData.Result?.TranslationFile {
+                                    do {
+                                        let listData = try await client.fetchTranslationFile(from: url)
+                                        MyLog(listData)
+                                    } catch {
+                                        MyLog("❌ Error: \(error.localizedDescription)")
+                                    }
                                 }
                             }
                         }

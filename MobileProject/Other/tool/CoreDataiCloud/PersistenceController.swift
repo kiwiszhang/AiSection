@@ -16,7 +16,7 @@ final class PersistenceController {
     let container: NSPersistentCloudKitContainer
 
     init(inMemory: Bool = false) {
-        container = NSPersistentCloudKitContainer(name: "CoreDataICloud") // 与 .xcdatamodeld 名称一致
+        container = NSPersistentCloudKitContainer(name: "AISectionCoreDataICloud") // 与 .xcdatamodeld 名称一致
 
         guard let desc = container.persistentStoreDescriptions.first else {
             fatalError("No persistent store description found.")
