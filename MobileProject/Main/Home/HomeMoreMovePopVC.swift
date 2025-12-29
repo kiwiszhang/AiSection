@@ -8,12 +8,13 @@
 import UIKit
 
 
-class HomeAllNotePopVC: SuperViewController {
+class HomeMoreMovePopVC: SuperViewController {
 
     var dismissAction: (() -> Void)?
     private var selectedIndex: IndexPath = IndexPath(row: 0, section: 0)
     private lazy var itemList:[FolderItem] = []
-    private lazy var recordingItem:RecordingItem? = nil
+    private lazy var recordingList:[RecordingItem] = []
+    private lazy var folderItem:FolderItem? = nil
     private lazy var barView = PopTopView()
     private lazy var tableView = {
         return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.clear).registerCells(FloderItemCell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeight(84.h).showsH(false).showsV(false)
@@ -34,9 +35,10 @@ class HomeAllNotePopVC: SuperViewController {
     private lazy var moreImageV = UIImageView().image(Asset.addFloders.image).enable(true)
     private lazy var titleL = UILabel().text(L10n.newFolder).color(kkColorFromHex(kkMainTitleColor)).hnFont(size: 14.h, weight: .medium)
 
-    init(recordingItem:RecordingItem) {
+    init(recordingList:[RecordingItem],folderItem:FolderItem) {
         super.init(nibName: nil, bundle: nil)
-        self.recordingItem = recordingItem
+        self.recordingList = recordingList
+        self.folderItem = folderItem
     }
 
     @MainActor required init?(coder: NSCoder) {
@@ -111,6 +113,11 @@ class HomeAllNotePopVC: SuperViewController {
         barView.delegate = self
         
         let listData = try! FolderItemStore.shared.fetchAllFolderItem()
+        if let index = listData.firstIndex(where: { $0.id == folderItem!.id }) {
+            selectedIndex = IndexPath(row: index, section: 0)
+        } else {
+            
+        }
         itemList = listData
         itemList.removeLast()
         tableView.reloadData()
@@ -128,9 +135,8 @@ class HomeAllNotePopVC: SuperViewController {
 
 }
 
-
 // MARK: -  =======================HomeAddFloderPopVCDelegate========================
-extension HomeAllNotePopVC:HomeAddFloderPopVCDelegate {
+extension HomeMoreMovePopVC:HomeAddFloderPopVCDelegate {
     func addFloderSave(Floder:String) {
         let item00 = FolderItemRequest(folderName: Floder, recordFolderId: UUID().uuidString, createTime: Int64(Date().timeIntervalSince1970))
         do{
@@ -141,7 +147,7 @@ extension HomeAllNotePopVC:HomeAddFloderPopVCDelegate {
 }
 
 // MARK: -  =======================PopTopViewDelegate========================
-extension HomeAllNotePopVC:PopTopViewDelegate {
+extension HomeMoreMovePopVC:PopTopViewDelegate {
     func popTopViewClose() {
         dismissAction?()
     }
@@ -160,7 +166,7 @@ extension HomeAllNotePopVC:PopTopViewDelegate {
 }
 
 //MARK: ----------TableViewDelegateDataSource-----------
-extension HomeAllNotePopVC: UITableViewDelegate, UITableViewDataSource {
+extension HomeMoreMovePopVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemList.count
     }
@@ -173,6 +179,7 @@ extension HomeAllNotePopVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let folderSelectedModel = itemList[indexPath.row]
         let previous = selectedIndex
         selectedIndex = indexPath
         var reloads = [indexPath]
@@ -181,11 +188,11 @@ extension HomeAllNotePopVC: UITableViewDelegate, UITableViewDataSource {
         }
         tableView.reloadRows(at: reloads, with: .none)
         
-        let model = itemList[indexPath.row]
-        recordingItem?.recordFolder = model.folderName
-        recordingItem?.recordFolderId = model.recordFolderId
-        try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
-        
+        for model in recordingList {
+            model.recordFolder = folderSelectedModel.folderName
+            model.recordFolderId = folderSelectedModel.recordFolderId
+            try! RecordingItemStore.shared.updateRecordingItem(model)
+        }
         dismissAction?()
     }
     
@@ -199,86 +206,86 @@ extension HomeAllNotePopVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-class FloderItemCell: SuperTableViewCell {
-    private lazy var bgView = UIView().backgroundColor(.white).cornerRadius(14.w)
-    private lazy var iconImageV = UIImageView().image(Asset.homeNote.image).enable(true)
-    private lazy var moreImageV = UIImageView().image(Asset.moreRight.image).enable(true).onTap { [self] in
-    }
-    private lazy var titleL = UILabel().text("title").color(kkColorFromHex(kkMainTitleColor)).hnFont(size: 14.h, weight: .medium)
-    private lazy var noteNumberL = UILabel().text("0").hnFont(size: 12.h, weight: .regular).color(kkColorFromHex(kkSubTitleColor))
-    override func setUpUI() {
-        self.backgroundColor(.clear)
-        contentView.addChildView([bgView])
-        contentView.backgroundColor(.clear)
-        bgView.addChildView([iconImageV,moreImageV,titleL,noteNumberL])
-        
-        bgView.snp.makeConstraints { make in
-            make.width.equalTo(343.w)
-            make.height.equalTo(70.h)
-            make.center.equalToSuperview()
-        }
-        
-        iconImageV.snp.makeConstraints { make in
-            make.width.height.equalTo(36.h)
-            make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(16.w)
-        }
-        
-        moreImageV.snp.makeConstraints { make in
-            make.width.height.equalTo(18.h)
-            make.centerY.equalToSuperview()
-            make.right.equalToSuperview().offset(-16.w)
-        }
-        
-        titleL.snp.makeConstraints { make in
-            make.left.equalTo(iconImageV.snp.right).offset(10.w)
-            make.right.equalTo(moreImageV.snp.left).offset(-8.w)
-            make.top.equalToSuperview().offset(16.h)
-            make.height.equalTo(17.h)
-        }
-        
-        noteNumberL.snp.makeConstraints { make in
-            make.left.equalTo(titleL.snp.left).offset(0.w)
-            make.right.equalTo(titleL)
-            make.top.equalTo(titleL.snp.bottom).offset(5.h)
-            make.height.equalTo(15.h)
-        }
-
-    }
-    
-    func configure(with item: FolderItem,isLast:Bool,indexPath:IndexPath,isSelected: Bool) {
-        if indexPath.row == 0 {
-            bgView.backgroundColor(kkColorFromHex("DEEAFF"))
-            titleL.text(item.folderName)
-            iconImageV.image(Asset.allNote.image)
-            noteNumberL.hidden(true)
-            moreImageV.hidden(true)
-            titleL.snp.remakeConstraints { make in
-                make.left.equalTo(iconImageV.snp.right).offset(10.w)
-                make.right.equalTo(moreImageV.snp.left).offset(-8.w)
-                make.centerY.equalTo(iconImageV)
-                make.height.equalTo(17.h)
-            }
-        }else{
-            bgView.backgroundColor(kkColorFromHex("FFFFFF"))
-            titleL.text(item.folderName)
-            iconImageV.image(Asset.floder.image)
-            noteNumberL.hidden(false)
-            moreImageV.hidden(false)
-            let fileCount = RecordingItemStore.shared.fileCount(in: item.recordFolderId!)
-            noteNumberL.text("\(fileCount)" + " " + L10n.notes)
-            titleL.snp.remakeConstraints { make in
-                make.left.equalTo(iconImageV.snp.right).offset(10.w)
-                make.right.equalTo(moreImageV.snp.left).offset(-8.w)
-                make.top.equalToSuperview().offset(16.h)
-                make.height.equalTo(17.h)
-            }
-        }
-        
-        if isSelected {
-            bgView.border(width: 1, color: kkColorFromHex(kkMainColor))
-        }else{
-            bgView.border(width: 0, color: .clear)
-        }
-    }
-}
+//class FloderItemCell: SuperTableViewCell {
+//    private lazy var bgView = UIView().backgroundColor(.white).cornerRadius(14.w)
+//    private lazy var iconImageV = UIImageView().image(Asset.homeNote.image).enable(true)
+//    private lazy var moreImageV = UIImageView().image(Asset.moreRight.image).enable(true).onTap { [self] in
+//    }
+//    private lazy var titleL = UILabel().text("title").color(kkColorFromHex(kkMainTitleColor)).hnFont(size: 14.h, weight: .medium)
+//    private lazy var noteNumberL = UILabel().text("0").hnFont(size: 12.h, weight: .regular).color(kkColorFromHex(kkSubTitleColor))
+//    override func setUpUI() {
+//        self.backgroundColor(.clear)
+//        contentView.addChildView([bgView])
+//        contentView.backgroundColor(.clear)
+//        bgView.addChildView([iconImageV,moreImageV,titleL,noteNumberL])
+//        
+//        bgView.snp.makeConstraints { make in
+//            make.width.equalTo(343.w)
+//            make.height.equalTo(70.h)
+//            make.center.equalToSuperview()
+//        }
+//        
+//        iconImageV.snp.makeConstraints { make in
+//            make.width.height.equalTo(36.h)
+//            make.centerY.equalToSuperview()
+//            make.left.equalToSuperview().offset(16.w)
+//        }
+//        
+//        moreImageV.snp.makeConstraints { make in
+//            make.width.height.equalTo(18.h)
+//            make.centerY.equalToSuperview()
+//            make.right.equalToSuperview().offset(-16.w)
+//        }
+//        
+//        titleL.snp.makeConstraints { make in
+//            make.left.equalTo(iconImageV.snp.right).offset(10.w)
+//            make.right.equalTo(moreImageV.snp.left).offset(-8.w)
+//            make.top.equalToSuperview().offset(16.h)
+//            make.height.equalTo(17.h)
+//        }
+//        
+//        noteNumberL.snp.makeConstraints { make in
+//            make.left.equalTo(titleL.snp.left).offset(0.w)
+//            make.right.equalTo(titleL)
+//            make.top.equalTo(titleL.snp.bottom).offset(5.h)
+//            make.height.equalTo(15.h)
+//        }
+//
+//    }
+//    
+//    func configure(with item: FolderItem,isLast:Bool,indexPath:IndexPath,isSelected: Bool) {
+//        if indexPath.row == 0 {
+//            bgView.backgroundColor(kkColorFromHex("DEEAFF"))
+//            titleL.text(item.folderName)
+//            iconImageV.image(Asset.allNote.image)
+//            noteNumberL.hidden(true)
+//            moreImageV.hidden(true)
+//            titleL.snp.remakeConstraints { make in
+//                make.left.equalTo(iconImageV.snp.right).offset(10.w)
+//                make.right.equalTo(moreImageV.snp.left).offset(-8.w)
+//                make.centerY.equalTo(iconImageV)
+//                make.height.equalTo(17.h)
+//            }
+//        }else{
+//            bgView.backgroundColor(kkColorFromHex("FFFFFF"))
+//            titleL.text(item.folderName)
+//            iconImageV.image(Asset.floder.image)
+//            noteNumberL.hidden(false)
+//            moreImageV.hidden(false)
+//            let fileCount = RecordingItemStore.shared.fileCount(in: item.recordFolderId!)
+//            noteNumberL.text("\(fileCount)" + " " + L10n.notes)
+//            titleL.snp.remakeConstraints { make in
+//                make.left.equalTo(iconImageV.snp.right).offset(10.w)
+//                make.right.equalTo(moreImageV.snp.left).offset(-8.w)
+//                make.top.equalToSuperview().offset(16.h)
+//                make.height.equalTo(17.h)
+//            }
+//        }
+//        
+//        if isSelected {
+//            bgView.border(width: 1, color: kkColorFromHex(kkMainColor))
+//        }else{
+//            bgView.border(width: 0, color: .clear)
+//        }
+//    }
+//}

@@ -50,7 +50,7 @@ class HomeAddNotePopViewController: SuperViewController {
     init(model:FolderItem?,searchText:String = "") {
         super.init(nibName: nil, bundle: nil)
         self.model = model
-        
+        self.searchText = searchText
     }
 
     @MainActor required init?(coder: NSCoder) {
@@ -107,8 +107,13 @@ class HomeAddNotePopViewController: SuperViewController {
         
         bottomV.enable(false).alpha(0.4)
         
-        let iLists = try! RecordingItemStore.shared.fetchAllRecordingItem()
-        itemList = iLists
+        if kkStringIsEmpty(searchText) {
+            let iLists = try! RecordingItemStore.shared.fetchAllRecordingItem()
+            itemList = iLists
+        }else{
+            let iLists = try! RecordingItemStore.shared.searchByKeywordWithOutFavorite(searchText)
+            itemList = iLists
+        }
         tableView.reloadData()
         
     }

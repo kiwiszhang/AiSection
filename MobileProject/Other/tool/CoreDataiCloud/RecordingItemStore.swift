@@ -168,6 +168,30 @@ final class RecordingItemStore {
         ]
         return try context.fetch(req)
     }
+    
+    /// recordName字段模糊查询
+    func searchByKeywordWithOutFavorite(_ keyword: String) throws -> [RecordingItem] {
+        let req: NSFetchRequest<RecordingItem> = RecordingItem.fetchRequest()
+        var predicates: [NSPredicate] = []
+        
+        predicates.append(
+            NSPredicate(format: "isFavorite != %@",  NSNumber(value: true))
+        )
+        predicates.append(
+            NSPredicate(format: "recordName CONTAINS[cd] %@", keyword)
+        )
+        
+        // 🔥 排除条件
+        predicates.append(
+            NSPredicate(format: "recordName != %@", "isDemo")
+        )
+        
+        req.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        req.sortDescriptors = [
+            NSSortDescriptor(key: "updateTime", ascending: false)
+        ]
+        return try context.fetch(req)
+    }
 
     
     

@@ -95,6 +95,18 @@ extension HomeFloderViewController:NavTopViewDelegate {
     }
     func moreClick(){
         MyLog("moreClick")
+        let itemListData:[PopItemModel] = HomeConfigData.getFloderMoreData()
+        let content = HomeFolderMorePopVC(itemList: itemListData,folderItem: model!)
+        let popup = PopupContainerViewController(contentVC: content, height: 392.h)
+        content.dismissAction = { [self] folderName in
+            popup.dismissSelf()
+            if !kkStringIsEmpty(folderName){
+                navTopView.updateTitle(title: folderName)
+            }else{
+                
+            }
+        }
+        UIApplication.topViewController()?.present(popup, animated: false)
     }
     func refreshSearchData(updatedText: String) {
         MyLog(updatedText)
@@ -128,7 +140,7 @@ extension HomeFloderViewController: UITableViewDelegate, UITableViewDataSource {
         if UtitilTools.isDemoData(model: item) {
             MyLog("Demo")
         }else{
-            let vc = HomeNoteDetailViewController()
+            let vc = HomeNoteDetailViewController(recordingItem: item)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

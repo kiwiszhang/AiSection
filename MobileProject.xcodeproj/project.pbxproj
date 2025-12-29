@@ -79,6 +79,8 @@
 		53F68D8C2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D8A2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodeld */; };
 		53F68D972EFFB2B10051FFE6 /* RecordingItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D962EFFB2B10051FFE6 /* RecordingItemStore.swift */; };
 		53F68D992EFFCACA0051FFE6 /* FolderItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D982EFFCACA0051FFE6 /* FolderItemStore.swift */; };
+		53F68D9B2F0273520051FFE6 /* HomeFolderMorePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D9A2F0273520051FFE6 /* HomeFolderMorePopVC.swift */; };
+		53F68D9D2F027A590051FFE6 /* HomeMoreMovePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D9C2F027A590051FFE6 /* HomeMoreMovePopVC.swift */; };
 		53FFAEEE2EFA2D8400A0C1EF /* TitleFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */; };
 		53FFAEF02EFA365A00A0C1EF /* CenterLanguagePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */; };
 		53FFAEF32EFA3BD600A0C1EF /* record-bottom.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */; };
@@ -190,6 +192,8 @@
 		53F68D8B2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AISectionCoreDataICloud.xcdatamodel; sourceTree = "<group>"; };
 		53F68D962EFFB2B10051FFE6 /* RecordingItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingItemStore.swift; sourceTree = "<group>"; };
 		53F68D982EFFCACA0051FFE6 /* FolderItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderItemStore.swift; sourceTree = "<group>"; };
+		53F68D9A2F0273520051FFE6 /* HomeFolderMorePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFolderMorePopVC.swift; sourceTree = "<group>"; };
+		53F68D9C2F027A590051FFE6 /* HomeMoreMovePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMoreMovePopVC.swift; sourceTree = "<group>"; };
 		53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleFieldView.swift; sourceTree = "<group>"; };
 		53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterLanguagePopVC.swift; sourceTree = "<group>"; };
 		53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "record-bottom.mp4"; sourceTree = "<group>"; };
@@ -285,7 +289,9 @@
 				538282192EF13A6F0097EAD0 /* HomeNoteDetailViewController.swift */,
 				531CD9302EECFF2300FC22F7 /* HomePopViewController.swift */,
 				538282292EF27E4F0097EAD0 /* HomeAllNotePopVC.swift */,
+				53F68D9C2F027A590051FFE6 /* HomeMoreMovePopVC.swift */,
 				5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */,
+				53F68D9A2F0273520051FFE6 /* HomeFolderMorePopVC.swift */,
 				538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */,
 				538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */,
 				531CD9322EED075000FC22F7 /* HomeConfigData.swift */,
@@ -651,9 +657,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MobileProject/Pods-MobileProject-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MobileProject/Pods-MobileProject-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -690,9 +700,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MobileProject/Pods-MobileProject-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MobileProject/Pods-MobileProject-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -741,6 +755,7 @@
 				538282302EF407620097EAD0 /* SectionEmptyAddView.swift in Sources */,
 				53F68D8C2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodeld in Sources */,
 				531CD8E42EEAACF100FC22F7 /* Strings.swift in Sources */,
+				53F68D9D2F027A590051FFE6 /* HomeMoreMovePopVC.swift in Sources */,
 				531CD9162EEBAE7900FC22F7 /* AppHelper.swift in Sources */,
 				531CD9172EEBAE7900FC22F7 /* ABTestDebugConfigPage.swift in Sources */,
 				531CD91C2EEBE15500FC22F7 /* SearchView.swift in Sources */,
@@ -757,6 +772,7 @@
 				531CD8FD2EEAAF6400FC22F7 /* NotificationCenterKeys.swift in Sources */,
 				53FFAF022EFA90B800A0C1EF /* RecorderManager.swift in Sources */,
 				531CD8FE2EEAAF6400FC22F7 /* EventReport.swift in Sources */,
+				53F68D9B2F0273520051FFE6 /* HomeFolderMorePopVC.swift in Sources */,
 				53FFAEF62EFA3C1200A0C1EF /* CenterRecordPopViewController.swift in Sources */,
 				531CD8FF2EEAAF6400FC22F7 /* UserDefaultsTools.swift in Sources */,
 				5382821C2EF13B200097EAD0 /* DetailNavTopView.swift in Sources */,

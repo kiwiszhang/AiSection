@@ -15,6 +15,7 @@ struct DetailNoteItemModel {
 class HomeNoteDetailViewController: SuperViewController {
     private lazy var itemList:[DetailNoteItemModel] = []
     var model:DetailNoteItemModel? = nil
+    private lazy var recordingItem:RecordingItem? = nil
     private lazy var tableView = {
         return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.white).registerCells(DetailNoteItemCell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeight(184.h).showsH(false).showsV(false)
     }()
@@ -26,6 +27,15 @@ class HomeNoteDetailViewController: SuperViewController {
     private let showThreshold: CGFloat = 162.h + 4.h
     private var isControlVisible = false
 
+    init(recordingItem:RecordingItem) {
+        super.init(nibName: nil, bundle: nil)
+        self.recordingItem = recordingItem
+    }
+
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -108,7 +118,7 @@ extension HomeNoteDetailViewController:DetailTableHeaderViewDelegate {
     }
     func allNoteClick(){
         MyLog("allNoteClick")
-        let content = HomeAllNotePopVC()
+        let content = HomeAllNotePopVC(recordingItem: recordingItem!)
         let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
         content.dismissAction = {
             popup.dismissSelf()

@@ -51,6 +51,7 @@ internal enum Asset {
   internal static let moreDelete = ImageAsset(name: "more_delete")
   internal static let moreFavorite = ImageAsset(name: "more_favorite")
   internal static let moreMoveFloder = ImageAsset(name: "more_move_floder")
+  internal static let moreNewFolder = ImageAsset(name: "more_newFolder")
   internal static let moreRename = ImageAsset(name: "more_rename")
   internal static let moreRight = ImageAsset(name: "more_right")
   internal static let moreShare = ImageAsset(name: "more_share")

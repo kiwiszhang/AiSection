@@ -40,7 +40,7 @@ class HomeFloderPopViewController: SuperViewController {
         
         tableView.snp.makeConstraints { make in
             make.width.equalTo(335.w)
-            make.height.equalTo(212.h)
+            make.height.equalTo((itemList.count * 71).h)
             make.centerX.equalToSuperview()
             make.top.equalTo(barView.snp.bottom).offset(-13.h)
         }

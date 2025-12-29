@@ -216,7 +216,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             if UtitilTools.isDemoData(model: item) {
                 MyLog("Demo")
             }else{
-                let vc = HomeNoteDetailViewController()
+                let vc = HomeNoteDetailViewController(recordingItem: item)
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -254,7 +254,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: -  =======================HomeAddFloderPopVCDelegate========================
 extension HomeViewController:HomeAddFloderPopVCDelegate {
     func addFloderSave(Floder:String) {
-        
         let item00 = FolderItemRequest(folderName: Floder, recordFolderId: UUID().uuidString, createTime: Int64(Date().timeIntervalSince1970))
         do{
             try! FolderItemStore.shared.addFolderItem(item00)
@@ -645,15 +644,18 @@ extension HomeViewController:SectionEmptyAddViewDelegate {
         if iLists.isEmpty {
             let content = CenterClickPopViewController()
             let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight,isMiddle: true)
-            content.dismissAction = {
+            content.dismissAction = { [self] in
                 popup.dismissSelf()
+                searchText = ""
             }
             UIApplication.topViewController()?.present(popup, animated: false)
         }else{
-            let content = HomeAddNotePopViewController(model: nil)
+            let content = HomeAddNotePopViewController(model: nil,searchText: searchText)
             let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
-            content.dismissAction = {
+            content.dismissAction = { [self] in
                 popup.dismissSelf()
+                searchText = ""
+                tabClickItemIndex(UserDefaultsTools.tabSelected)
             }
             UIApplication.topViewController()?.present(popup, animated: false)
         }

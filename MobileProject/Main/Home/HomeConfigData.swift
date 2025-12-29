@@ -41,4 +41,12 @@ class HomeConfigData {
         let item02 = PopItemModel(itemName: L10n.delete, itemIcon: Asset.moreDelete.image)
         return [item00,item01,item02]
     }
+    
+    static func getFloderMoreData() -> [PopItemModel] {
+        let item00 = PopItemModel(itemName: L10n.newFolder, itemIcon: Asset.moreNewFolder.image)
+        let item01 = PopItemModel(itemName: L10n.moveToFolder, itemIcon: Asset.moreMoveFloder.image)
+        let item02 = PopItemModel(itemName: L10n.rename, itemIcon: Asset.moreRename.image)
+        let item03 = PopItemModel(itemName: L10n.delete, itemIcon: Asset.moreDelete.image)
+        return [item00,item01,item02,item03]
+    }
 }
