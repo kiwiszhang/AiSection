@@ -8,14 +8,24 @@
 import UIKit
 
 class HomeFloderViewController: SuperViewController {
-    private lazy var itemList:[RecordItemModel] = []
-    var model:RecordItemModel? = nil
+    private lazy var itemList:[RecordingItem] = []
+    var model:FolderItem? = nil
     private lazy var tableView = {
         return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.clear).registerCells(RecordItemCell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeight(84.h).showsH(false)
     }()
     private lazy var emptyAddView = SectionEmptyAddView().hidden(true)
 
     private lazy var navTopView = NavTopView()
+    
+    init(model:FolderItem) {
+        super.init(nibName: nil, bundle: nil)
+        self.model = model
+    }
+
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = kkColorFromHex(kkHomeBgColor)
@@ -42,20 +52,22 @@ class HomeFloderViewController: SuperViewController {
         }
     }
     override func getData() {
-
-        let model00 = RecordItemModel(noteName: "Meeting minutes", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        let model01 = RecordItemModel(noteName: "Meeting Notice", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: true)
-        let model02 = RecordItemModel(noteName: "Work Summary", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        let model03 = RecordItemModel(noteName: "Annual Meeting Arrangements", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        
-        itemList = [model00,model01,model02,model03]
-        itemList = []
-
+        itemList = try! RecordingItemStore.shared.fetchByFolderId(model!.recordFolderId!)
         emptyAddView.refreshData(emptyImage: Asset.sectionEmptyAdd.image, emptyStr: L10n.noItemsSavedYet)
         emptyAddView.delegate = self
+        navTopView.delegate = self
+        navTopView.updateData(title: L10n.searchNotes)
         
+        if let data = model {
+            navTopView.updateTitle(title: data.folderName!)
+            navTopView.updateData(title: L10n.searchFolders)
+        }
+        
+        listDataIsEmpty()
+    }
+    
+    func listDataIsEmpty() {
         tableView.reloadData()
-        
         if itemList.count == 0{
             tableView.hidden(true)
             emptyAddView.hidden(false)
@@ -63,14 +75,7 @@ class HomeFloderViewController: SuperViewController {
             tableView.hidden(false)
             emptyAddView.hidden(true)
         }
-        navTopView.delegate = self
-        
-        if let data = model {
-            navTopView.updateTitle(title: data.floderName)
-            navTopView.updateData(title: L10n.searchFolders)
-        }
     }
-    
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -93,9 +98,15 @@ extension HomeFloderViewController:NavTopViewDelegate {
     }
     func refreshSearchData(updatedText: String) {
         MyLog(updatedText)
+        let listData = try! RecordingItemStore.shared.searchByKeyword(updatedText)
+        itemList = listData
+        listDataIsEmpty()
     }
     func refreshSearchNoData(){
         MyLog("refreshSearchNoData")
+        let listData = try! RecordingItemStore.shared.fetchByFolderId(model!.recordFolderId!)
+        itemList = listData
+        listDataIsEmpty()
     }
 }
 
@@ -109,15 +120,16 @@ extension HomeFloderViewController: UITableViewDelegate, UITableViewDataSource {
         let model = itemList[indexPath.row]
         let cell = tableView.dequeueCell(RecordItemCell.self, for: indexPath)
         cell.selectionStyle = .none
-//        cell.configure(with: itemList[indexPath.row])
+        cell.configure(with: model)
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = itemList[indexPath.row]
-        if item.isDemo {
+        if UtitilTools.isDemoData(model: item) {
             MyLog("Demo")
         }else{
-            MyLog("Other")
+            let vc = HomeNoteDetailViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
@@ -143,21 +155,11 @@ extension HomeFloderViewController: UITableViewDelegate, UITableViewDataSource {
 extension HomeFloderViewController:SectionEmptyAddViewDelegate {
     func addANoteClick(){
         MyLog("addANoteClick")
-        let model00 = RecordItemModel(noteName: "Meeting minutes", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        let model01 = RecordItemModel(noteName: "Meeting Notice", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: true)
-        let model02 = RecordItemModel(noteName: "Work Summary", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        let model03 = RecordItemModel(noteName: "Annual Meeting Arrangements", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-
-        let model04 = RecordItemModel(noteName: "Meeting minutes", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        let model05 = RecordItemModel(noteName: "Meeting Notice", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: true)
-        let model06 = RecordItemModel(noteName: "Work Summary", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        let model07 = RecordItemModel(noteName: "Annual Meeting Arrangements", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-
-        
-        let content = HomeAddNotePopViewController(itemList: [model00,model01,model02,model03,model04,model05,model06,model07,model00,model01])
+        let content = HomeAddNotePopViewController(model: model!)
         let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
-        content.dismissAction = {
+        content.dismissAction = { [self] in
             popup.dismissSelf()
+            getData()
         }
         UIApplication.topViewController()?.present(popup, animated: false)
     }

@@ -36,7 +36,7 @@ class HomeViewController: SuperViewController {
     }()
     private lazy var emptyView = SectionEmptyView().hidden(true)
     private lazy var emptyAddView = SectionEmptyAddView().hidden(true)
-
+    private lazy var searchText = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = kkColorFromHex(kkHomeBgColor)
@@ -47,10 +47,10 @@ class HomeViewController: SuperViewController {
     }
     
     func addNoteData(){
-        let item00 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, recordPath: "234.m4a", recordName: "test-Record-Name012", recordFolder: "Note00", recordFolderId: 1, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970))
-        let item01 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 0, recordPath: "234.m4a", recordName: "test-Record-Name123", recordFolder: "Note01", recordFolderId: 2, isFavorite: true, createTime: Int64(Date().timeIntervalSince1970))
-        let item02 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, recordPath: "234.m4a", recordName: "test-Record-Name234", recordFolder: "Note00", recordFolderId: 1, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970))
-        let item03 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 0, recordPath: "234.m4a", recordName: "test-Record-Name345", recordFolder: "Note01", recordFolderId: 2, isFavorite: true, createTime: Int64(Date().timeIntervalSince1970))
+        let item00 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, recordPath: "234.m4a", recordName: "test-Record-Name567", recordFolder: "Note00", recordFolderId: UUID().uuidString, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970))
+        let item01 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 0, recordPath: "234.m4a", recordName: "test-Record-Name678", recordFolder: "Note01", recordFolderId: UUID().uuidString, isFavorite: true, createTime: Int64(Date().timeIntervalSince1970))
+        let item02 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, recordPath: "234.m4a", recordName: "test-Record-Name789", recordFolder: "Note00", recordFolderId: UUID().uuidString, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970))
+        let item03 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 0, recordPath: "234.m4a", recordName: "test-Record-Name890", recordFolder: "Note01", recordFolderId: UUID().uuidString, isFavorite: true, createTime: Int64(Date().timeIntervalSince1970))
 
         do{
             try! RecordingItemStore.shared.addRecordingItem(item00)
@@ -61,10 +61,10 @@ class HomeViewController: SuperViewController {
     }
     
     func addFolderData(){
-        let item00 = FolderItemRequest(folderName: "Note012", recordFolderId: 1, createTime: Int64(Date().timeIntervalSince1970))
-        let item01 = FolderItemRequest(folderName: "Note123", recordFolderId: 2, createTime: Int64(Date().timeIntervalSince1970))
-        let item02 = FolderItemRequest(folderName: "Note234", recordFolderId: 3, createTime: Int64(Date().timeIntervalSince1970))
-        let item03 = FolderItemRequest(folderName: "Note345", recordFolderId: 4, createTime: Int64(Date().timeIntervalSince1970))
+        let item00 = FolderItemRequest(folderName: "Note012", recordFolderId: UUID().uuidString, createTime: Int64(Date().timeIntervalSince1970))
+        let item01 = FolderItemRequest(folderName: "Note123", recordFolderId: UUID().uuidString, createTime: Int64(Date().timeIntervalSince1970))
+        let item02 = FolderItemRequest(folderName: "Note234", recordFolderId: UUID().uuidString, createTime: Int64(Date().timeIntervalSince1970))
+        let item03 = FolderItemRequest(folderName: "Note345", recordFolderId: UUID().uuidString, createTime: Int64(Date().timeIntervalSince1970))
 
         do{
             try! FolderItemStore.shared.addFolderItem(item00)
@@ -120,6 +120,7 @@ class HomeViewController: SuperViewController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        tabClickItemIndex(UserDefaultsTools.tabSelected)
     }
 }
 
@@ -128,15 +129,14 @@ class HomeViewController: SuperViewController {
 extension HomeViewController:TopViewDelegate {
     func refreshSearchData(updatedText: String) {
         MyLog(updatedText)
+        searchText = updatedText
         if UserDefaultsTools.tabSelected == 0 {
             let listData = try! RecordingItemStore.shared.searchByKeyword(updatedText)
             itemList = listData
-            
         }
         if UserDefaultsTools.tabSelected == 2 {
             let listData = try! RecordingItemStore.shared.searchByKeyword(updatedText,in: true)
             itemList = listData
-            
         }
         if UserDefaultsTools.tabSelected == 1 {
             let listData = try! FolderItemStore.shared.searchByKeyword(updatedText)
@@ -147,15 +147,14 @@ extension HomeViewController:TopViewDelegate {
     }
     func refreshSearchNoData(){
         MyLog("refreshSearchNoData")
+        searchText = ""
         if UserDefaultsTools.tabSelected == 0 {
             let listData = try! RecordingItemStore.shared.fetchAllRecordingItem()
             itemList = listData
-            
         }
         if UserDefaultsTools.tabSelected == 2 {
             let listData = try! RecordingItemStore.shared.fetchAllRecordingItem(isFavorite: true)
             itemList = listData
-            
         }
         if UserDefaultsTools.tabSelected == 1 {
             let listData = try! FolderItemStore.shared.fetchAllFolderItem()
@@ -183,7 +182,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if UserDefaultsTools.tabSelected == 0 || UserDefaultsTools.tabSelected == 2 {
             let model = itemList[indexPath.row]
-            if isDemoData(model: model) {
+            if UtitilTools.isDemoData(model: model) {
                 let cell = tableView.dequeueCell(RecordItemDemoCell.self, for: indexPath)
                 cell.selectionStyle = .none
                 cell.configure(with: model)
@@ -191,6 +190,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             }
             let cell = tableView.dequeueCell(RecordItemCell.self, for: indexPath)
             cell.selectionStyle = .none
+            cell.delegate = self
             cell.configure(with: model)
             return cell
         }
@@ -199,19 +199,21 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             let model = itemFolderList[indexPath.row]
             let cell = tableView.dequeueCell(RecordSecendItemCell.self, for: indexPath)
             cell.selectionStyle = .none
+            cell.delegate = self
             cell.configure(with: model)
             return cell
         }
         
         let cell = tableView.dequeueCell(RecordItemCell.self, for: indexPath)
         cell.selectionStyle = .none
+        cell.delegate = self
         cell.configure(with: itemList[indexPath.row])
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if UserDefaultsTools.tabSelected == 0 || UserDefaultsTools.tabSelected == 2 {
             let item = itemList[indexPath.row]
-            if isDemoData(model: item) {
+            if UtitilTools.isDemoData(model: item) {
                 MyLog("Demo")
             }else{
                 let vc = HomeNoteDetailViewController()
@@ -221,8 +223,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         if UserDefaultsTools.tabSelected == 1 {
             let item = itemFolderList[indexPath.row]
-            if isAddFolderData(model: item) {
+            if UtitilTools.isAddFolderData(model: item) {
                 let content = HomeAddFloderPopVC()
+                content.delegate = self
                 let popup = PopupContainerViewController(contentVC: content, height: 259.h)
                 content.dismissAction = {
                     popup.dismissSelf()
@@ -230,8 +233,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 UIApplication.topViewController()?.present(popup, animated: false)
             }else{
                 UserDefaultsTools.tabSelected = 0
-                let vc = HomeFloderViewController()
-//                vc.model = item
+                let vc = HomeFloderViewController(model: item)
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -246,18 +248,43 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let foot = tableView.dequeueHeaderFooter(SuperTableViewHeaderFooterView.self)
         return foot
     }
-    
-    func isDemoData(model:RecordingItem) -> Bool {
-        return model.recordName == "isDemo" && model.updateTime == Int64.min && model.recordFolder == "isDemo" && model.createTime == Int64.min
-    }
-    func isAddFolderData(model:FolderItem) -> Bool {
-        return model.folderName == "isDemo" && model.recordFolderId == -1 && model.createTime == Int64.min
+}
+
+
+// MARK: -  =======================HomeAddFloderPopVCDelegate========================
+extension HomeViewController:HomeAddFloderPopVCDelegate {
+    func addFloderSave(Floder:String) {
+        
+        let item00 = FolderItemRequest(folderName: Floder, recordFolderId: UUID().uuidString, createTime: Int64(Date().timeIntervalSince1970))
+        do{
+            try! FolderItemStore.shared.addFolderItem(item00)
+        }
     }
 }
 
+//MARK: ----------RecordItemCellDelegate-----------
+extension HomeViewController: RecordItemCellDelegate {
+    func reloadTableData(){
+        tabClickItemIndex(UserDefaultsTools.tabSelected)
+    }
+}
+
+//MARK: ----------RecordSecendItemCellDelegate-----------
+extension HomeViewController: RecordSecendItemCellDelegate {
+    func reloadSecendTableData(){
+        tabClickItemIndex(UserDefaultsTools.tabSelected)
+    }
+}
+
+@objc protocol RecordItemCellDelegate: AnyObject {
+    func reloadTableData()
+}
+
 class RecordItemCell: SuperTableViewCell {
+    weak var delegate: RecordItemCellDelegate?
     private var itemModel:RecordingItem? = nil
     private lazy var bgView = DashedBorderView(cornerRadius: 14.h,lineWidth: 1,strokeColor: .white).backgroundColor(.white)
+    var hitTestInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
     private lazy var iconImageV = UIImageView().image(Asset.homeNote.image).enable(true)
     private lazy var moreImageV = UIImageView().image(Asset.moreRight.image).enable(true).onTap { [self] in
         MyLog(itemModel)
@@ -269,10 +296,11 @@ class RecordItemCell: SuperTableViewCell {
                 }else{
                     itemListData = HomeConfigData.getHomeMoreData()
                 }
-                let content = HomePopViewController(itemList: itemListData)
+                let content = HomePopViewController(itemList: itemListData,recordingItem: itemModel!)
                 let popup = PopupContainerViewController(contentVC: content, height: 462.h)
-                content.dismissAction = {
+                content.dismissAction = { [self] in
                     popup.dismissSelf()
+                    delegate?.reloadTableData()
                 }
                 UIApplication.topViewController()?.present(popup, animated: false)
             }
@@ -282,6 +310,12 @@ class RecordItemCell: SuperTableViewCell {
     private lazy var titleL = UILabel().text("title").color(kkColorFromHex(kkMainTitleColor)).hnFont(size: 14.h, weight: .medium)
     private lazy var typeImageV = UIImageView().image(Asset.homeType00.image)
     private lazy var dateL = UILabel().text("Apr 10,2025 11:30 am").hnFont(size: 12.h, weight: .regular).color(kkColorFromHex(kkSubTitleColor))
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let largerBounds = bounds.inset(by: hitTestInsets)
+        return largerBounds.contains(point)
+    }
+    
     override func setUpUI() {
         self.backgroundColor(.clear)
         contentView.addChildView([bgView,favoriteImageV])
@@ -364,7 +398,12 @@ class RecordItemCell: SuperTableViewCell {
     }
 }
 
+@objc protocol RecordSecendItemCellDelegate: AnyObject {
+    func reloadSecendTableData()
+}
 class RecordSecendItemCell: SuperTableViewCell {
+    var hitTestInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
+    weak var delegate: RecordSecendItemCellDelegate?
     private var itemModel:FolderItem? = nil
     private lazy var bgView = DashedBorderView(cornerRadius: 14.h,lineWidth: 1,strokeColor: .white).backgroundColor(.white)
     private lazy var iconImageV = UIImageView().image(Asset.homeNote.image).enable(true)
@@ -373,10 +412,11 @@ class RecordSecendItemCell: SuperTableViewCell {
         if let model = itemModel {
             if UserDefaultsTools.tabSelected == 1 {
                 var itemListData:[PopItemModel] = HomeConfigData.getHomeFloderData()
-                let content = HomeFloderPopViewController(itemList: itemListData)
+                let content = HomeFloderPopViewController(itemList: itemListData,folderItem: model)
                 let popup = PopupContainerViewController(contentVC: content, height: 319.h)
-                content.dismissAction = {
+                content.dismissAction = { [self] in
                     popup.dismissSelf()
+                    delegate?.reloadSecendTableData()
                 }
                 UIApplication.topViewController()?.present(popup, animated: false)
             }
@@ -384,6 +424,12 @@ class RecordSecendItemCell: SuperTableViewCell {
     }
     private lazy var titleL = UILabel().text("title").color(kkColorFromHex(kkMainTitleColor)).hnFont(size: 14.h, weight: .medium)
     private lazy var noteNumberL = UILabel().text("0").hnFont(size: 12.h, weight: .regular).color(kkColorFromHex(kkSubTitleColor))
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let largerBounds = bounds.inset(by: hitTestInsets)
+        return largerBounds.contains(point)
+    }
+    
     override func setUpUI() {
         self.backgroundColor(.clear)
         contentView.addChildView([bgView])
@@ -429,9 +475,9 @@ class RecordSecendItemCell: SuperTableViewCell {
         if UserDefaultsTools.tabSelected == 1 {
             iconImageV.image(Asset.floder.image)
             noteNumberL.hidden(false)
-            let fileCount = RecordingItemStore.shared.fileCount(in: item.recordFolderId)
+            let fileCount = RecordingItemStore.shared.fileCount(in: item.recordFolderId!)
             noteNumberL.text("\(fileCount)" + " " + L10n.notes)
-            if isAddFolderData(model: item) {
+            if UtitilTools.isAddFolderData(model: item) {
                 titleL.snp.remakeConstraints { make in
                     make.left.equalTo(iconImageV.snp.right).offset(10.w)
                     make.right.equalTo(moreImageV.snp.left).offset(-8.w)
@@ -470,9 +516,6 @@ class RecordSecendItemCell: SuperTableViewCell {
                 bgView.backgroundColor = kkColorFromHexWithAlpha("FFFFFF", 1)
             }
         }
-    }
-    func isAddFolderData(model:FolderItem) -> Bool {
-        return model.folderName == "isDemo" && model.recordFolderId == -1 && model.createTime == Int64.min
     }
 }
 
@@ -547,12 +590,13 @@ extension HomeViewController:TabViewDelegate {
         }else if index == 1 {
             let items = try! FolderItemStore.shared.fetchAllFolderItem()
             itemFolderList = items
-            emptyAddView.refreshData(emptyImage: Asset.sectionEmptyAdd.image, emptyStr: L10n.noItemsSavedYet)
-            emptyAddView.delegate = self
-        }else {
+            emptyView.refreshData(emptyImage: Asset.sectionEmpty.image, emptyStr: L10n.allResultsAreNegative)
+        }else if index == 2 {
             let items = try! RecordingItemStore.shared.fetchAllRecordingItem(isFavorite: true)
             itemList = items
-            emptyView.refreshData(emptyImage: Asset.sectionEmpty.image, emptyStr: L10n.allResultsAreNegative)
+            emptyAddView.refreshData(emptyImage: Asset.sectionEmptyAdd.image, emptyStr: L10n.noItemsSavedYet)
+            emptyAddView.delegate = self
+
         }
         tableView.reloadData()
         listDataisEmpty()
@@ -572,8 +616,8 @@ extension HomeViewController:TabViewDelegate {
         }else if UserDefaultsTools.tabSelected == 1 {
             if itemFolderList.count == 0{
                 tableView.hidden(true)
-                emptyAddView.hidden(false)
-                emptyView.hidden(true)
+                emptyAddView.hidden(true)
+                emptyView.hidden(false)
             }else{
                 tableView.hidden(false)
                 emptyView.hidden(true)
@@ -582,8 +626,8 @@ extension HomeViewController:TabViewDelegate {
         }else {
             if itemList.count == 0{
                 tableView.hidden(true)
-                emptyAddView.hidden(true)
-                emptyView.hidden(false)
+                emptyAddView.hidden(false)
+                emptyView.hidden(true)
             }else{
                 tableView.hidden(false)
                 emptyView.hidden(true)
@@ -591,37 +635,28 @@ extension HomeViewController:TabViewDelegate {
             }
         }
     }
-    
 }
 
 // MARK: -  =====================SectionEmptyAddViewDelegate=========================
 extension HomeViewController:SectionEmptyAddViewDelegate {
     func addANoteClick(){
         MyLog("addANoteClick")
-        let model00 = RecordItemModel(noteName: "Meeting minutes", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        let model01 = RecordItemModel(noteName: "Meeting Notice", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: true)
-        let model02 = RecordItemModel(noteName: "Work Summary", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        let model03 = RecordItemModel(noteName: "Annual Meeting Arrangements", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-
-        let model04 = RecordItemModel(noteName: "Meeting minutes", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        let model05 = RecordItemModel(noteName: "Meeting Notice", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: true)
-        let model06 = RecordItemModel(noteName: "Work Summary", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        let model07 = RecordItemModel(noteName: "Annual Meeting Arrangements", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-        
-        
-        let content = HomeAddNotePopViewController(itemList: [model00,model01,model02,model03,model04,model05,model06,model07,model00,model01])
-        let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
-        content.dismissAction = {
-            popup.dismissSelf()
+        let iLists = try! RecordingItemStore.shared.searchByKeyword(searchText)
+        if iLists.isEmpty {
+            let content = CenterClickPopViewController()
+            let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight,isMiddle: true)
+            content.dismissAction = {
+                popup.dismissSelf()
+            }
+            UIApplication.topViewController()?.present(popup, animated: false)
+        }else{
+            let content = HomeAddNotePopViewController(model: nil)
+            let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
+            content.dismissAction = {
+                popup.dismissSelf()
+            }
+            UIApplication.topViewController()?.present(popup, animated: false)
         }
-        UIApplication.topViewController()?.present(popup, animated: false)
-        
-//        let content = CenterClickPopViewController()
-//        let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight,isMiddle: true)
-//        content.dismissAction = {
-//            popup.dismissSelf()
-//        }
-//        UIApplication.topViewController()?.present(popup, animated: false)
     }
 }
 

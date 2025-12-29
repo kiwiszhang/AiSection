@@ -11,6 +11,10 @@ import UIKit
     func popTopViewClose()
     
     @objc optional
+    func refreshSearchDataPop(updatedText: String)
+    @objc optional
+    func refreshSearchNoDataPop()
+    @objc optional
     func clickSearch()
 }
 
@@ -61,6 +65,7 @@ class PopTopView: SuperView{
     }
     override func getData() {
         addGradientBackground(colors: [kkColorFromHex("FFFFFF"),kkColorFromHex("E6EFFF")], direction: .bottomToTop)
+        searchV.delegate = self
     }
     
     // MARK: -  =======================actions========================
@@ -75,4 +80,14 @@ class PopTopView: SuperView{
         searchV.getTitleData(propTitle: title)
     }
     
+}
+
+// MARK: -  =======================RefreshDataDelegate========================
+extension PopTopView:RefreshDataDelegate {
+    func refreshData(updatedText:String){
+        delegate!.refreshSearchDataPop!(updatedText: updatedText)
+    }
+    func refreshNoData(){
+        delegate!.refreshSearchNoDataPop!()
+    }
 }

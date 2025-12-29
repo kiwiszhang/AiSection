@@ -10,7 +10,7 @@ import CoreData
 
 struct FolderItemRequest {
     let folderName:String?
-    let recordFolderId:Int16?
+    let recordFolderId:String?
     let createTime:Int64?
 }
 

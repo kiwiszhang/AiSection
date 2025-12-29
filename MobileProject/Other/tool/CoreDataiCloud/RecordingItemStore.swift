@@ -14,7 +14,7 @@ struct RecordingItemRequest {
     let recordPath:String?
     let recordName:String?
     let recordFolder:String?
-    let recordFolderId:Int16?
+    let recordFolderId:String?
     let isFavorite:Bool?
     let createTime:Int64?
 }
@@ -102,21 +102,26 @@ final class RecordingItemStore {
     /// 查询所有 RecordingItem
     func fetchAllRecordingItem(isFavorite: Bool = false) throws -> [RecordingItem] {
         let fetchRequest: NSFetchRequest<RecordingItem> = RecordingItem.fetchRequest()
+        var predicates: [NSPredicate] = []
         if isFavorite {
-            fetchRequest.predicate = NSPredicate(
-                    format: "isFavorite == %@",
-                    NSNumber(value: isFavorite)
-                )
+            predicates.append(
+                NSPredicate(format: "isFavorite == %@", NSNumber(value: isFavorite))
+            )
         }
+        // 🔥 排除条件
+        predicates.append(
+            NSPredicate(format: "recordName != %@", "isDemo")
+        )
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createTime", ascending: false)] // 可选日期倒序
         return try context.fetch(fetchRequest)
     }
     
     /// 根据recordFolderId查询有多少个文件
-    func fileCount(in recordFolderId: Int16) -> Int {
+    func fileCount(in recordFolderId: String) -> Int {
         let request: NSFetchRequest<RecordingItem> = RecordingItem.fetchRequest()
         request.predicate = NSPredicate(
-            format: "recordFolderId == %d",
+            format: "recordFolderId == %@",
             recordFolderId
         )
         do {
@@ -125,6 +130,20 @@ final class RecordingItemStore {
             return 0
         }
     }
+    
+    /// 根据recordFolderId查询
+    func fetchByFolderId(_ folderId: String) throws -> [RecordingItem] {
+        let req: NSFetchRequest<RecordingItem> = RecordingItem.fetchRequest()
+        req.predicate = NSPredicate(
+            format: "recordFolderId == %@",
+            folderId
+        )
+        req.sortDescriptors = [
+            NSSortDescriptor(key: "updateTime", ascending: false)
+        ]
+        return try context.fetch(req)
+    }
+
     /// recordName字段模糊查询
     func searchByKeyword(_ keyword: String,in isFavorite: Bool = false) throws -> [RecordingItem] {
         let req: NSFetchRequest<RecordingItem> = RecordingItem.fetchRequest()

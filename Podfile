@@ -12,6 +12,9 @@ target 'MobileProject' do
   # 开发环境专用
   pod 'SwiftGen', '~> 6.6.3', :configurations => ['Debug']
     
+  # 键盘处理
+  pod 'IQKeyboardManagerSwift', '8.0.0'
+
   # 数据存储
   pod 'SQLite.swift', '~> 0.13.0'
   

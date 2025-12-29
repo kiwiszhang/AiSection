@@ -4,14 +4,14 @@
         <attribute name="createTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="folderName" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="recordFolderId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="recordFolderId" optional="YES" attributeType="String"/>
     </entity>
     <entity name="RecordingItem" representedClassName="RecordingItem" syncable="YES" codeGenerationType="class">
         <attribute name="createTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="recordFolder" optional="YES" attributeType="String"/>
-        <attribute name="recordFolderId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="recordFolderId" optional="YES" attributeType="String"/>
         <attribute name="recordName" optional="YES" attributeType="String"/>
         <attribute name="recordPath" optional="YES" attributeType="String"/>
         <attribute name="recordType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>

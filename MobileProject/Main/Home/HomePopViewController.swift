@@ -16,14 +16,16 @@ class HomePopViewController: SuperViewController {
 
     var dismissAction: (() -> Void)?
     private lazy var itemList:[PopItemModel] = []
+    private lazy var recordingItem:RecordingItem? = nil
     private lazy var barView = PopTopView()
     private lazy var tableView = {
         return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.white).registerCells(PopItemCell.self).scrollEnable(false).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeight(71.h).showsH(false).showsV(false)
     }()
     
-    init(itemList:[PopItemModel]) {
+    init(itemList:[PopItemModel],recordingItem:RecordingItem) {
         super.init(nibName: nil, bundle: nil)
         self.itemList = itemList
+        self.recordingItem = recordingItem
     }
 
     @MainActor required init?(coder: NSCoder) {
@@ -66,6 +68,17 @@ extension HomePopViewController:PopTopViewDelegate {
     }
 }
 
+// MARK: -  =======================HomeAddFloderPopVCDelegate========================
+extension HomePopViewController:HomeAddFloderPopVCDelegate {
+    func addFloderSave(Floder:String) {
+        dismissAction?()
+        recordingItem?.recordName = Floder
+        try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
+        tableView.reloadData()
+    }
+}
+
+
 //MARK: ----------TableViewDelegateDataSource-----------
 extension HomePopViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -82,12 +95,27 @@ extension HomePopViewController: UITableViewDelegate, UITableViewDataSource {
         let item = itemList[indexPath.row]
         MyLog(item.itemName)
         if indexPath.row == 0 {
-            let content = HomePopViewController(itemList: HomeConfigData.getHomeMoreShareData())
+            let content = HomePopViewController(itemList: HomeConfigData.getHomeMoreShareData(), recordingItem: recordingItem!)
             let popup = PopupContainerViewController(contentVC: content, height: 462.h)
             content.dismissAction = {
                 popup.dismissSelf()
             }
             UIApplication.topViewController()?.present(popup, animated: false)
+        }else if indexPath.row == 1 {
+            recordingItem?.isFavorite = !recordingItem!.isFavorite
+            try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
+            dismissAction?()
+        }else if indexPath.row == 3 {
+            let content = HomeAddFloderPopVC(topTitle: L10n.rename)
+            content.delegate = self
+            let popup = PopupContainerViewController(contentVC: content, height: 259.h)
+            content.dismissAction = {
+                popup.dismissSelf()
+            }
+            UIApplication.topViewController()?.present(popup, animated: false)
+        }else if indexPath.row == 4 {
+            try! RecordingItemStore.shared.delete(recordingItem!)
+            dismissAction?()
         }
     }
     

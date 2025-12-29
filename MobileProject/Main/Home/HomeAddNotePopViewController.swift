@@ -7,23 +7,50 @@
 
 import UIKit
 
+@objc protocol HomeAddNotePopViewControllerDelegate: AnyObject {
+    func selectedItemLists(selectedItemList:[RecordingItem])
+}
+
 class HomeAddNotePopViewController: SuperViewController {
+    weak var delegate: HomeAddNotePopViewControllerDelegate?
     var dismissAction: (() -> Void)?
-    private var selectedIndex: IndexPath?
-    private lazy var itemList:[RecordItemModel] = []
-//    itemList:[RecordItemModel]
+    var model:FolderItem? = nil
+    var searchText = ""
+    private lazy var itemList:[RecordingItem] = []
+    private var selectedItemList:[RecordingItem] = []
     private lazy var barView = PopTopView()
     private lazy var tableView = {
         return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.clear).registerCells(RecordItemAddNoteCell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeight(84.h).showsH(false).showsV(false)
     }()
     private lazy var bottomV = UIView().backgroundColor(.white).cornerRadius(20.h, corners: [.topLeft,.topRight])
-    private lazy var bottomLeft = UILabel().text(L10n.reset).hnFont(size: 18.h, weight: .medium).color(kkColorFromHex(kkMainColor)).centerAligned().cornerRadius(12.h).border(width: 1, color: kkColorFromHex(kkIconColor)).backgroundColor(.white)
-    private lazy var bottomRight = UILabel().text(L10n.confirm).hnFont(size: 18.h, weight: .medium).color(.white).centerAligned().cornerRadius(12.h).backgroundColor(kkColorFromHex(kkMainColor))
+    private lazy var bottomLeft = UILabel().text(L10n.reset).hnFont(size: 18.h, weight: .medium).color(kkColorFromHex(kkMainColor)).centerAligned().cornerRadius(12.h).border(width: 1, color: kkColorFromHex(kkIconColor)).backgroundColor(.white).onTap { [self] in
+        selectedItemList.removeAll()
+        bottomV.enable(false).alpha(0.4)
+        tableView.reloadData()
+    }
+    private lazy var bottomRight = UILabel().text(L10n.confirm).hnFont(size: 18.h, weight: .medium).color(.white).centerAligned().cornerRadius(12.h).backgroundColor(kkColorFromHex(kkMainColor)).onTap { [self] in
+        
+        if let folderModel = model {
+            for item in selectedItemList {
+                item.recordFolderId = folderModel.recordFolderId
+                item.recordFolder = folderModel.folderName
+                try! RecordingItemStore.shared.updateRecordingItem(item)
+            }
+            delegate?.selectedItemLists(selectedItemList: selectedItemList)
+        }else{
+            for item in selectedItemList {
+                item.isFavorite = true
+                try! RecordingItemStore.shared.updateRecordingItem(item)
+            }
+        }
+        dismissAction?()
+    }
 
     
-    init(itemList:[RecordItemModel]) {
+    init(model:FolderItem?,searchText:String = "") {
         super.init(nibName: nil, bundle: nil)
-        self.itemList = itemList
+        self.model = model
+        
     }
 
     @MainActor required init?(coder: NSCoder) {
@@ -77,6 +104,13 @@ class HomeAddNotePopViewController: SuperViewController {
         barView.addGradientBackground(colors: [kkColorFromHex("F0F5FB"),kkColorFromHex("E6EFFF")], direction: .bottomToTop)
         barView.updateData(title: L10n.addNote,isSearch: true)
         barView.updateSearchData(title: L10n.searchNotes)
+        
+        bottomV.enable(false).alpha(0.4)
+        
+        let iLists = try! RecordingItemStore.shared.fetchAllRecordingItem()
+        itemList = iLists
+        tableView.reloadData()
+        
     }
     
 }
@@ -86,6 +120,18 @@ class HomeAddNotePopViewController: SuperViewController {
 extension HomeAddNotePopViewController:PopTopViewDelegate {
     func popTopViewClose() {
         dismissAction?()
+    }
+    
+    func refreshSearchDataPop(updatedText: String){
+        let listData = try! RecordingItemStore.shared.searchByKeyword(updatedText)
+        itemList = listData
+        tableView.reloadData()
+    }
+    
+    func refreshSearchNoDataPop(){
+        let listData = try! RecordingItemStore.shared.fetchAllRecordingItem()
+        itemList = listData
+        tableView.reloadData()
     }
     
     func clickSearch() {
@@ -99,21 +145,26 @@ extension HomeAddNotePopViewController: UITableViewDelegate, UITableViewDataSour
         return itemList.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = itemList[indexPath.row]
         let cell = tableView.dequeueCell(RecordItemAddNoteCell.self, for: indexPath)
         cell.selectionStyle = .none
-//        let isLast = indexPath.row == itemList.count - 1
-        let isSelected = indexPath == selectedIndex
-        cell.configure(with: itemList[indexPath.row],isSelected:isSelected)
+        let isSelected = selectedItemList.contains { $0.objectID == item.objectID }
+        cell.configure(with: item,isSelected:isSelected)
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let previous = selectedIndex
-        selectedIndex = indexPath
-        var reloads = [indexPath]
-        if let previous, previous != indexPath {
-            reloads.append(previous)
+        let item = itemList[indexPath.row]
+        if let index = selectedItemList.firstIndex(of: item) {
+            selectedItemList.remove(at: index)
+        } else {
+            selectedItemList.append(item)
         }
-        tableView.reloadRows(at: reloads, with: .none)
+        if selectedItemList.isEmpty {
+            bottomV.enable(false).alpha(0.4)
+        }else{
+            bottomV.enable(true).alpha(1)
+        }
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -135,7 +186,7 @@ extension HomeAddNotePopViewController: UITableViewDelegate, UITableViewDataSour
 }
 
 class RecordItemAddNoteCell: SuperTableViewCell {
-    private var itemModel:RecordItemModel? = nil
+    private var itemModel:RecordingItem? = nil
     private lazy var bgView = UIView().backgroundColor(.white).cornerRadius(14.w)
     private lazy var iconImageV = UIImageView().image(Asset.homeNote.image).enable(true)
     private lazy var moreImageV = UIImageView().image(Asset.moreRight.image).enable(true).onTap { [self] in
@@ -209,12 +260,12 @@ class RecordItemAddNoteCell: SuperTableViewCell {
 
     }
     
-    func configure(with item: RecordItemModel,isSelected:Bool) {
+    func configure(with item: RecordingItem,isSelected:Bool) {
         itemModel = item
                 
-        titleL.text(item.noteName)
+        titleL.text(item.recordName)
         dateL.text(timestampToFormattedString(item.updateTime))
-        if item.noteType == 0 {
+        if item.recordType == 0 {
             typeImageV.image(Asset.homeType00.image)
         }else{
             typeImageV.image(Asset.homeType01.image)

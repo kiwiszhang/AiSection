@@ -9,6 +9,15 @@ import UIKit
 import Localize_Swift
 
 class UtitilTools{
+    
+    /// 判断是否为isDemo数据
+    static func isDemoData(model:RecordingItem) -> Bool {
+        return model.recordName == "isDemo" && model.updateTime == Int64.min && model.recordFolder == "isDemo" && model.createTime == Int64.min
+    }
+    static func isAddFolderData(model:FolderItem) -> Bool {
+        return model.folderName == "isDemo" && model.createTime == Int64.min
+    }
+    
     /// Date转String 本地化转
     static func dateToString(_ date: Date, format: String = "MMM dd,yyyy") -> String {
         let formatter = DateFormatter()

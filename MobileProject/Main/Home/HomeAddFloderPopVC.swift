@@ -16,6 +16,7 @@ class HomeAddFloderPopVC: SuperViewController {
     var flodreNameStr = ""
     weak var delegate: HomeAddFloderPopVCDelegate?
     var dismissAction: (() -> Void)?
+    private lazy var topTitle: String = L10n.addFolder
     private lazy var barView = PopTopView()
     private lazy var textFiled = AddCategoryFieldView().enable(true)
     private lazy var saveBtn = UILabel().text(L10n.save).hnFont(size: 18.h, weight: .medium).backgroundColor(kkColorFromHexWithAlpha(kkMainColor, 0.3)).color(.white).centerAligned().cornerRadius(12.h).enable(false).onTap { [self] in
@@ -25,6 +26,14 @@ class HomeAddFloderPopVC: SuperViewController {
         }
     }
 
+    init(topTitle:String = L10n.addFolder) {
+        super.init(nibName: nil, bundle: nil)
+        self.topTitle = topTitle
+    }
+
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -54,7 +63,7 @@ class HomeAddFloderPopVC: SuperViewController {
     override func getData() {
         barView.delegate = self
         barView.addGradientBackground(colors: [kkColorFromHex("FFFFFF"),kkColorFromHex("E6EFFF")], direction: .bottomToTop)
-        barView.updateData(title: L10n.addFolder)
+        barView.updateData(title: topTitle)
         
         textFiled.delegate = self
         textFiled.addField.becomeFirstResponder()
@@ -82,6 +91,7 @@ extension HomeAddFloderPopVC:AddCategoryFieldViewDelegate {
         saveBtn.backgroundColor(kkColorFromHex(kkMainColor)).enable(true)
     }
     @objc func noUpdatedText(_ sender: AddCategoryFieldView){
+        flodreNameStr = ""
         saveBtn.backgroundColor(kkColorFromHexWithAlpha(kkMainColor, 0.3)).enable(false)
     }
     @objc func becomeFirstResponder(_ sender: AddCategoryFieldView){

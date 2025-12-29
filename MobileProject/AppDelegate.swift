@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseCore
 import FirebaseRemoteConfig
+import IQKeyboardManagerSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //应用分析
         startAppInfo()
 
+        IQKeyboardManagerAction()
+        
         //内购代码
 //        loadUserInfo()
         
@@ -40,18 +43,31 @@ extension AppDelegate {
     private func startAppInfo() {
 
         if UserDefaultsTools.isFirstInstallApp {
-            let item00 = RecordingItemRequest(updateTime: Int64.min, recordType: 0, recordPath: "isDemo.m4a", recordName: "isDemo", recordFolder: "isDemo", recordFolderId: -1, isFavorite: false, createTime: Int64.min)
+            let item00 = RecordingItemRequest(updateTime: Int64.min, recordType: 0, recordPath: "isDemo.m4a", recordName: "isDemo", recordFolder: "isDemo", recordFolderId:UUID().uuidString, isFavorite: false, createTime: Int64.min)
             do{
                 try! RecordingItemStore.shared.addRecordingItem(item00)
             }
             
-            let itemFolder00 = FolderItemRequest(folderName: "isDemo", recordFolderId: -1, createTime: Int64.min)
+            let itemFolder00 = FolderItemRequest(folderName: "isDemo", recordFolderId: UUID().uuidString, createTime: Int64.min)
             do{
                 try! FolderItemStore.shared.addFolderItem(itemFolder00)
             }
 
             UserDefaultsTools.isFirstInstallApp = false
         }
+    }
+    
+    func IQKeyboardManagerAction(){
+        IQKeyboardManager.shared.isEnabled = true
+        IQKeyboardManager.shared.enableAutoToolbar = true
+        IQKeyboardManager.shared.resignOnTouchOutside = true
+
+        // 关键配置：确保能处理所有窗口
+        IQKeyboardManager.shared.keyboardDistance = 20
+        IQKeyboardManager.shared.layoutIfNeededOnUpdate = true
         
+        // 允许处理所有类型的视图
+        IQKeyboardManager.shared.playInputClicks = true
+        IQKeyboardManager.shared.toolbarConfiguration.placeholderConfiguration.showPlaceholder = true
     }
 }

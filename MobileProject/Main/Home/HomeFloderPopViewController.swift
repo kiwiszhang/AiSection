@@ -10,14 +10,16 @@ import UIKit
 class HomeFloderPopViewController: SuperViewController {
     var dismissAction: (() -> Void)?
     private lazy var itemList:[PopItemModel] = []
+    private lazy var folderItem:FolderItem? = nil
     private lazy var barView = PopTopView()
     private lazy var tableView = {
         return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.white).registerCells(PopItemCell.self).scrollEnable(false).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeight(71.h).showsH(false).showsV(false)
     }()
     
-    init(itemList:[PopItemModel]) {
+    init(itemList:[PopItemModel],folderItem:FolderItem) {
         super.init(nibName: nil, bundle: nil)
         self.itemList = itemList
+        self.folderItem = folderItem
     }
 
     @MainActor required init?(coder: NSCoder) {
@@ -79,31 +81,24 @@ extension HomeFloderPopViewController: UITableViewDelegate, UITableViewDataSourc
         let item = itemList[indexPath.row]
         MyLog(item.itemName)
         if indexPath.row == 0 {
-            
-            let model00 = RecordItemModel(noteName: "Meeting minutes", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-            let model01 = RecordItemModel(noteName: "Meeting Notice", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: true)
-            let model02 = RecordItemModel(noteName: "Work Summary", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-            let model03 = RecordItemModel(noteName: "Annual Meeting Arrangements", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-
-            let model04 = RecordItemModel(noteName: "Meeting minutes", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-            let model05 = RecordItemModel(noteName: "Meeting Notice", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: true)
-            let model06 = RecordItemModel(noteName: "Work Summary", noteType: 0, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-            let model07 = RecordItemModel(noteName: "Annual Meeting Arrangements", noteType: 1, updateTime: Int64(Date().timeIntervalSince1970), isFavorite: false)
-
-            
-            let content = HomeAddNotePopViewController(itemList: [model00,model01,model02,model03,model04,model05,model06,model07,model00,model01])
+            let content = HomeAddNotePopViewController(model: folderItem!)
             let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
-            content.dismissAction = {
+            content.dismissAction = { [self] in
                 popup.dismissSelf()
+                dismissAction?()
             }
             UIApplication.topViewController()?.present(popup, animated: false)
         }else if indexPath.row == 1 {
             let content = HomeAddFloderPopVC()
+            content.delegate = self
             let popup = PopupContainerViewController(contentVC: content, height: 259.h)
             content.dismissAction = {
                 popup.dismissSelf()
             }
             UIApplication.topViewController()?.present(popup, animated: false)
+        }else if indexPath.row == 2 {
+            try! FolderItemStore.shared.delete(folderItem!)
+            dismissAction?()
         }
     }
     
@@ -123,4 +118,13 @@ extension HomeFloderPopViewController: UITableViewDelegate, UITableViewDataSourc
 //        for cell in tableView.visibleCells {
 //        }
 //    }
+}
+
+// MARK: -  =======================HomeAddFloderPopVCDelegate========================
+extension HomeFloderPopViewController:HomeAddFloderPopVCDelegate {
+    func addFloderSave(Floder:String) {
+        dismissAction?()
+        folderItem!.folderName = Floder
+        try! FolderItemStore.shared.updateFolderItem(folderItem!)
+    }
 }
