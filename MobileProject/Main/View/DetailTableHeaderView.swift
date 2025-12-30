@@ -25,7 +25,8 @@ class DetailTableHeaderView: SuperView{
     }
     private lazy var dateV = DetailItemView()
     private lazy var timeV = DetailItemView()
-    private lazy var recordV = DetailRecordView().backgroundColor(.white).cornerRadius(22.h)
+//    private lazy var recordV = DetailRecordView().backgroundColor(.white).cornerRadius(22.h)
+    private lazy var recordV = AudioPlayerView().backgroundColor(.white).cornerRadius(22.h)
     lazy var segmentV = DetailSegmentView()
     // MARK: -  =====================Intial Methods===================
     override func setUpUI() {
@@ -79,10 +80,20 @@ class DetailTableHeaderView: SuperView{
             make.height.equalTo(44.h)
             make.top.equalTo(allNote.snp.bottom).offset(14.h)
         }
-        recordV.delegate = self
+//        recordV.delegate = self
         
         segmentV.segmentedView.setSelectedIndex(UserDefaultsTools.segmentIndex, animated: false)
 
+
+        let directory = RecorderManager.shared.recordingsDirectory()
+        let urlFile = URL(string:"\(directory.absoluteString)" + "567.m4a")!
+        guard let fileURL = URL(string: urlFile.absoluteString) else {
+            MyLog("无可用文件或路径错误")
+            return
+        }
+        MyLog(urlFile)
+        MyLog(fileURL)
+        recordV.loadAudio(url: fileURL)
     }
     override func getData() {
         dateV.updateData(icon: Asset.canlande.image, title: "Apr 10,2025")
@@ -90,6 +101,9 @@ class DetailTableHeaderView: SuperView{
     }
     
     // MARK: -  =======================actions========================
+    func stopAudios(){
+        AudioPlaybackManager.shared.stop(recordV)
+    }
     func updataNoteTitle(title:String){
         allNote.text(title)
     }

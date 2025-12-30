@@ -211,9 +211,9 @@ extension RecorderManager {
 }
 
 // MARK: - File Path
-private extension RecorderManager {
+extension RecorderManager {
 
-    private func generateFileURL() -> URL {
+    public func generateFileURL() -> URL {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "yyyyMMdd_HHmmss_SSS"
@@ -227,7 +227,7 @@ private extension RecorderManager {
 
 
 
-    private func recordingsDirectory() -> URL {
+    public func recordingsDirectory() -> URL {
         let documents = FileManager.default.urls(
             for: .documentDirectory,
             in: .userDomainMask

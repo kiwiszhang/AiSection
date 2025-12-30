@@ -83,6 +83,11 @@
 		53F68D9D2F027A590051FFE6 /* HomeMoreMovePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D9C2F027A590051FFE6 /* HomeMoreMovePopVC.swift */; };
 		53F68D9F2F0288420051FFE6 /* HomeMoveoutPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D9E2F0288420051FFE6 /* HomeMoveoutPopVC.swift */; };
 		53F68DA12F036FED0051FFE6 /* HomeNoAllNotePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DA02F036FED0051FFE6 /* HomeNoAllNotePopVC.swift */; };
+		53F68DA32F03A1A40051FFE6 /* AudioWavePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DA22F03A1A40051FFE6 /* AudioWavePlayerView.swift */; };
+		53F68DA62F03A7470051FFE6 /* DSWaveformImage in Frameworks */ = {isa = PBXBuildFile; productRef = 53F68DA52F03A7470051FFE6 /* DSWaveformImage */; };
+		53F68DA82F03A7470051FFE6 /* DSWaveformImageViews in Frameworks */ = {isa = PBXBuildFile; productRef = 53F68DA72F03A7470051FFE6 /* DSWaveformImageViews */; };
+		53F68DAA2F03B2210051FFE6 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */; };
+		53F68DAC2F03BEDD0051FFE6 /* AudioPlaybackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DAB2F03BEDD0051FFE6 /* AudioPlaybackManager.swift */; };
 		53FFAEEE2EFA2D8400A0C1EF /* TitleFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */; };
 		53FFAEF02EFA365A00A0C1EF /* CenterLanguagePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */; };
 		53FFAEF32EFA3BD600A0C1EF /* record-bottom.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */; };
@@ -198,6 +203,9 @@
 		53F68D9C2F027A590051FFE6 /* HomeMoreMovePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMoreMovePopVC.swift; sourceTree = "<group>"; };
 		53F68D9E2F0288420051FFE6 /* HomeMoveoutPopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMoveoutPopVC.swift; sourceTree = "<group>"; };
 		53F68DA02F036FED0051FFE6 /* HomeNoAllNotePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNoAllNotePopVC.swift; sourceTree = "<group>"; };
+		53F68DA22F03A1A40051FFE6 /* AudioWavePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioWavePlayerView.swift; sourceTree = "<group>"; };
+		53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
+		53F68DAB2F03BEDD0051FFE6 /* AudioPlaybackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlaybackManager.swift; sourceTree = "<group>"; };
 		53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleFieldView.swift; sourceTree = "<group>"; };
 		53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterLanguagePopVC.swift; sourceTree = "<group>"; };
 		53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "record-bottom.mp4"; sourceTree = "<group>"; };
@@ -223,7 +231,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				51AF4179CF536DCEB5636D5F /* Pods_MobileProject.framework in Frameworks */,
+				53F68DA62F03A7470051FFE6 /* DSWaveformImage in Frameworks */,
 				53FFAF042EFBD41B00A0C1EF /* VeTOSiOSSDK.framework in Frameworks */,
+				53F68DA82F03A7470051FFE6 /* DSWaveformImageViews in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +533,9 @@
 			isa = PBXGroup;
 			children = (
 				53FFAF012EFA90B800A0C1EF /* RecorderManager.swift */,
+				53F68DA22F03A1A40051FFE6 /* AudioWavePlayerView.swift */,
+				53F68DAB2F03BEDD0051FFE6 /* AudioPlaybackManager.swift */,
+				53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */,
 				53FFAF072EFE6D5200A0C1EF /* UploadRecord.swift */,
 				53FFAF052EFE21D200A0C1EF /* ByteDanceOpenSpeechClient.swift */,
 			);
@@ -603,6 +616,9 @@
 				tr,
 			);
 			mainGroup = 388FB0802DA17037006C52AC;
+			packageReferences = (
+				53F68DA42F03A7470051FFE6 /* XCRemoteSwiftPackageReference "DSWaveformImage" */,
+			);
 			productRefGroup = 388FB08A2DA17037006C52AC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -729,6 +745,7 @@
 				531CD8D72EEAABD100FC22F7 /* MeViewController.swift in Sources */,
 				531CD8AD2EEAAA0400FC22F7 /* VersionTool.swift in Sources */,
 				531CD8D52EEAABB400FC22F7 /* HomeViewController.swift in Sources */,
+				53F68DAA2F03B2210051FFE6 /* AudioPlayerView.swift in Sources */,
 				531CD8B02EEAAA0400FC22F7 /* CALayer+Extension.swift in Sources */,
 				5382822E2EF3FB3A0097EAD0 /* SectionEmptyView.swift in Sources */,
 				538282202EF14ED70097EAD0 /* DetailTableHeaderView.swift in Sources */,
@@ -786,7 +803,9 @@
 				5382821C2EF13B200097EAD0 /* DetailNavTopView.swift in Sources */,
 				53FFAEF82EFA626A00A0C1EF /* CenterProcessingVC.swift in Sources */,
 				531CD9042EEAAF6400FC22F7 /* UtitilTools.swift in Sources */,
+				53F68DAC2F03BEDD0051FFE6 /* AudioPlaybackManager.swift in Sources */,
 				531CD9052EEAAF6400FC22F7 /* SubscriptionManager.swift in Sources */,
+				53F68DA32F03A1A40051FFE6 /* AudioWavePlayerView.swift in Sources */,
 				531CD9062EEAAF6400FC22F7 /* Common.swift in Sources */,
 				538282182EF131F70097EAD0 /* NavTopView.swift in Sources */,
 				531CD9072EEAAF6400FC22F7 /* PersistenceController.swift in Sources */,
@@ -1063,6 +1082,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		53F68DA42F03A7470051FFE6 /* XCRemoteSwiftPackageReference "DSWaveformImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmrschmidt/DSWaveformImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.2.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		53F68DA52F03A7470051FFE6 /* DSWaveformImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53F68DA42F03A7470051FFE6 /* XCRemoteSwiftPackageReference "DSWaveformImage" */;
+			productName = DSWaveformImage;
+		};
+		53F68DA72F03A7470051FFE6 /* DSWaveformImageViews */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53F68DA42F03A7470051FFE6 /* XCRemoteSwiftPackageReference "DSWaveformImage" */;
+			productName = DSWaveformImageViews;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		53F68D8A2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodeld */ = {

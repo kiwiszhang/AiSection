@@ -146,6 +146,7 @@ extension HomeNoteDetailViewController:DetailSegmentViewDelegate {
 extension HomeNoteDetailViewController:DetailNavTopViewDelegate {
     func backClick(){
         MyLog("backClick")
+        tableHeaderView.stopAudios()
         self.navigationController?.popViewController(animated: true)
     }
     func moreClick(){
