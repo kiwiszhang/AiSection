@@ -11,7 +11,7 @@ import UIKit
 class HomeAllNotePopVC: SuperViewController {
 
     var dismissAction: (() -> Void)?
-    private var selectedIndex: IndexPath = IndexPath(row: 0, section: 0)
+    private var selectedIndexPath: IndexPath = IndexPath(row: 0, section: 0)
     private lazy var itemList:[FolderItem] = []
     private lazy var recordingItem:RecordingItem? = nil
     private lazy var barView = PopTopView()
@@ -112,7 +112,13 @@ class HomeAllNotePopVC: SuperViewController {
         
         let listData = try! FolderItemStore.shared.fetchAllFolderItem()
         itemList = listData
-        itemList.removeLast()
+        guard let targetId = recordingItem?.recordFolderId else { return }
+        if let index = itemList.firstIndex(where: { $0.recordFolderId == targetId }) {
+            selectedIndexPath = IndexPath(row: index, section: 0)
+        } else {
+            selectedIndexPath = IndexPath(row: 0, section: 0)
+        }
+        
         tableView.reloadData()
         
         emptyView.refreshData(emptyImage: Asset.sectionEmpty.image, emptyStr: L10n.allResultsAreNegative)
@@ -154,7 +160,6 @@ extension HomeAllNotePopVC:PopTopViewDelegate {
     func refreshSearchNoDataPop(){
         let listData = try! FolderItemStore.shared.fetchAllFolderItem()
         itemList = listData
-        itemList.removeLast()
         tableView.reloadData()
     }
 }
@@ -167,14 +172,14 @@ extension HomeAllNotePopVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(FloderItemCell.self, for: indexPath)
         cell.selectionStyle = .none
-        let isSelected = indexPath == selectedIndex
+        let isSelected = indexPath == selectedIndexPath
         let isLast = indexPath.row == itemList.count - 1
-        cell.configure(with: itemList[indexPath.row],isLast: isLast,indexPath:indexPath,isSelected: isSelected)
+        cell.configure(with: itemList[indexPath.row],isLast: isLast,indexPath:indexPath,isSelected: isSelected,isAllNote: true)
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let previous = selectedIndex
-        selectedIndex = indexPath
+        let previous = selectedIndexPath
+        selectedIndexPath = indexPath
         var reloads = [indexPath]
         if previous != indexPath {
             reloads.append(previous)
@@ -246,8 +251,8 @@ class FloderItemCell: SuperTableViewCell {
 
     }
     
-    func configure(with item: FolderItem,isLast:Bool,indexPath:IndexPath,isSelected: Bool) {
-        if indexPath.row == 0 {
+    func configure(with item: FolderItem,isLast:Bool,indexPath:IndexPath,isSelected: Bool,isAllNote:Bool = false) {
+        if indexPath.row == 0 && isAllNote == true {
             bgView.backgroundColor(kkColorFromHex("DEEAFF"))
             titleL.text(item.folderName)
             iconImageV.image(Asset.allNote.image)

@@ -89,9 +89,35 @@ class DetailTableHeaderView: SuperView{
         timeV.updateData(icon: Asset.timeShow.image, title: "11:30 am")
     }
     
-    
     // MARK: -  =======================actions========================
-    
+    func updataNoteTitle(title:String){
+        allNote.text(title)
+    }
+    func updateData(timeStamp:Int64){
+        let result = formatTimestamp(timeStamp)
+        dateV.updateData(icon: Asset.canlande.image, title: result.date)
+        timeV.updateData(icon: Asset.timeShow.image, title: result.time)
+    }
+    func formatTimestamp(_ timestamp: Int64) -> (date: String, time: String) {
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+        let locale = Locale(identifier: "en_US_POSIX")
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = locale
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+
+        let timeFormatter = DateFormatter()
+        timeFormatter.locale = locale
+        timeFormatter.dateFormat = "h:mm a"
+
+        let dateText = dateFormatter.string(from: date)
+        let timeText = timeFormatter.string(from: date)
+            .replacingOccurrences(of: "AM", with: "am")
+            .replacingOccurrences(of: "PM", with: "pm")
+
+        return (dateText, timeText)
+    }
+
     
 }
 

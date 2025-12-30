@@ -82,6 +82,7 @@
 		53F68D9B2F0273520051FFE6 /* HomeFolderMorePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D9A2F0273520051FFE6 /* HomeFolderMorePopVC.swift */; };
 		53F68D9D2F027A590051FFE6 /* HomeMoreMovePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D9C2F027A590051FFE6 /* HomeMoreMovePopVC.swift */; };
 		53F68D9F2F0288420051FFE6 /* HomeMoveoutPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D9E2F0288420051FFE6 /* HomeMoveoutPopVC.swift */; };
+		53F68DA12F036FED0051FFE6 /* HomeNoAllNotePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DA02F036FED0051FFE6 /* HomeNoAllNotePopVC.swift */; };
 		53FFAEEE2EFA2D8400A0C1EF /* TitleFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */; };
 		53FFAEF02EFA365A00A0C1EF /* CenterLanguagePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */; };
 		53FFAEF32EFA3BD600A0C1EF /* record-bottom.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */; };
@@ -196,6 +197,7 @@
 		53F68D9A2F0273520051FFE6 /* HomeFolderMorePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFolderMorePopVC.swift; sourceTree = "<group>"; };
 		53F68D9C2F027A590051FFE6 /* HomeMoreMovePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMoreMovePopVC.swift; sourceTree = "<group>"; };
 		53F68D9E2F0288420051FFE6 /* HomeMoveoutPopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMoveoutPopVC.swift; sourceTree = "<group>"; };
+		53F68DA02F036FED0051FFE6 /* HomeNoAllNotePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNoAllNotePopVC.swift; sourceTree = "<group>"; };
 		53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleFieldView.swift; sourceTree = "<group>"; };
 		53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterLanguagePopVC.swift; sourceTree = "<group>"; };
 		53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "record-bottom.mp4"; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				531CD9302EECFF2300FC22F7 /* HomePopViewController.swift */,
 				53F68D9E2F0288420051FFE6 /* HomeMoveoutPopVC.swift */,
 				538282292EF27E4F0097EAD0 /* HomeAllNotePopVC.swift */,
+				53F68DA02F036FED0051FFE6 /* HomeNoAllNotePopVC.swift */,
 				53F68D9C2F027A590051FFE6 /* HomeMoreMovePopVC.swift */,
 				5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */,
 				53F68D9A2F0273520051FFE6 /* HomeFolderMorePopVC.swift */,
@@ -733,6 +736,7 @@
 				531CD8B32EEAAA0400FC22F7 /* UIButton+Create.swift in Sources */,
 				531CD9332EED075000FC22F7 /* HomeConfigData.swift in Sources */,
 				531CD8B62EEAAA0400FC22F7 /* MBProgressHUD+Extension.swift in Sources */,
+				53F68DA12F036FED0051FFE6 /* HomeNoAllNotePopVC.swift in Sources */,
 				531CD8B82EEAAA0400FC22F7 /* BottomPushAnimator.swift in Sources */,
 				538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */,
 				53F68D992EFFCACA0051FFE6 /* FolderItemStore.swift in Sources */,

@@ -106,7 +106,7 @@ extension HomePopViewController: UITableViewDelegate, UITableViewDataSource {
             try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
             dismissAction?()
         }else if indexPath.row == 2 {
-            let content = HomeAllNotePopVC(recordingItem: recordingItem!)
+            let content = HomeNoAllNotePopVC(recordingItem: recordingItem!)
             let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
             content.dismissAction = {
                 popup.dismissSelf()

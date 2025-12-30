@@ -81,6 +81,28 @@ final class FolderItemStore {
     /// 查询所有 FolderItem
     func fetchAllFolderItem() throws -> [FolderItem] {
         let fetchRequest: NSFetchRequest<FolderItem> = FolderItem.fetchRequest()
+        var predicates: [NSPredicate] = []
+        predicates.append(
+            NSPredicate(format: "createTime != %@", NSNumber(value: Int64.min))
+        )
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createTime", ascending: false)] // 可选日期倒序
+        return try context.fetch(fetchRequest)
+    }
+    
+    /// 查询所有 FolderItem
+    func fetchAllFolderOutAllNotesItem(isContainerLast:Bool = false) throws -> [FolderItem] {
+        let fetchRequest: NSFetchRequest<FolderItem> = FolderItem.fetchRequest()
+        var predicates: [NSPredicate] = []
+        predicates.append(
+            NSPredicate(format: "createTime != %@", NSNumber(value: Int64.max))
+        )
+        if !isContainerLast {
+            predicates.append(
+                NSPredicate(format: "createTime != %@", NSNumber(value: Int64.min))
+            )
+        }
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createTime", ascending: false)] // 可选日期倒序
         return try context.fetch(fetchRequest)
     }
@@ -94,8 +116,13 @@ final class FolderItemStore {
         )
         // 🔥 排除条件
         predicates.append(
-            NSPredicate(format: "folderName != %@", "isDemo")
+            NSPredicate(format: "createTime != %@", NSNumber(value: Int64.min))
         )
+        
+        predicates.append(
+            NSPredicate(format: "createTime != %@", NSNumber(value: Int64.max))
+        )
+        
         req.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         req.sortDescriptors = [
             NSSortDescriptor(key: "createTime", ascending: false)

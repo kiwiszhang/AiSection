@@ -77,6 +77,14 @@ class DetailNavTopView: SuperView{
         recordV.updateData()
     }
     
+    func updateFavorite(isFavorite:Bool){
+        if isFavorite {
+            favoriteImage.image(Asset.favoriteTop.image)
+        }else{
+            favoriteImage.image(Asset.unfavorite.image)
+        }
+    }
+    
     // MARK: -  =======================actions========================
     
     

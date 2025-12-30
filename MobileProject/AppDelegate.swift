@@ -49,8 +49,10 @@ extension AppDelegate {
             }
             
             let itemFolder00 = FolderItemRequest(folderName: "isDemo", recordFolderId: UUID().uuidString, createTime: Int64.min)
+            let itemFolder01 = FolderItemRequest(folderName: L10n.allNotes, recordFolderId: UUID().uuidString, createTime: Int64.max)
             do{
                 try! FolderItemStore.shared.addFolderItem(itemFolder00)
+                try! FolderItemStore.shared.addFolderItem(itemFolder01)
             }
 
             UserDefaultsTools.isFirstInstallApp = false

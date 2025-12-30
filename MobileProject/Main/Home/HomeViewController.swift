@@ -157,7 +157,7 @@ extension HomeViewController:TopViewDelegate {
             itemList = listData
         }
         if UserDefaultsTools.tabSelected == 1 {
-            let listData = try! FolderItemStore.shared.fetchAllFolderItem()
+            let listData = try! FolderItemStore.shared.fetchAllFolderOutAllNotesItem(isContainerLast: true)
             itemFolderList = listData
         }
         tableView.reloadData()
@@ -635,7 +635,7 @@ extension HomeViewController:TabViewDelegate {
             itemList = items
             emptyView.refreshData(emptyImage: Asset.sectionEmpty.image, emptyStr: L10n.allResultsAreNegative)
         }else if index == 1 {
-            let items = try! FolderItemStore.shared.fetchAllFolderItem()
+            let items = try! FolderItemStore.shared.fetchAllFolderOutAllNotesItem(isContainerLast: true)
             itemFolderList = items
             emptyView.refreshData(emptyImage: Asset.sectionEmpty.image, emptyStr: L10n.allResultsAreNegative)
         }else if index == 2 {

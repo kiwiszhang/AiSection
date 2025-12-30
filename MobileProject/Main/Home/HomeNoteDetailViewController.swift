@@ -97,6 +97,9 @@ class HomeNoteDetailViewController: SuperViewController {
         itemList = [model00,model01,model02,model03]
         tableView.reloadData()
         
+        navTopView.updateFavorite(isFavorite: recordingItem!.isFavorite)
+        tableHeaderView.updateData(timeStamp: recordingItem!.updateTime)
+        tableHeaderView.updataNoteTitle(title: recordingItem!.recordFolder!)
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -166,6 +169,9 @@ extension HomeNoteDetailViewController:DetailNavTopViewDelegate {
     }
     func favoriteClick(){
         MyLog("favoriteClick")
+        recordingItem?.isFavorite = !recordingItem!.isFavorite
+        try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
+        navTopView.updateFavorite(isFavorite: recordingItem!.isFavorite)
     }
 }
 
