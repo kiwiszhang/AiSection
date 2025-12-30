@@ -261,6 +261,13 @@ extension HomeViewController:HomeAddFloderPopVCDelegate {
     }
 }
 
+//MARK: ----------HomeMoveoutPopVCDelegate-----------
+extension RecordItemCell: HomeMoveoutPopVCDelegate {
+    func updateTableViewData(){
+        delegate?.reloadTableData()
+    }
+}
+
 //MARK: ----------RecordItemCellDelegate-----------
 extension HomeViewController: RecordItemCellDelegate {
     func reloadTableData(){
@@ -282,6 +289,7 @@ extension HomeViewController: RecordSecendItemCellDelegate {
 class RecordItemCell: SuperTableViewCell {
     weak var delegate: RecordItemCellDelegate?
     private var itemModel:RecordingItem? = nil
+    private var isInFolder:Bool = false
     private lazy var bgView = DashedBorderView(cornerRadius: 14.h,lineWidth: 1,strokeColor: .white).backgroundColor(.white)
     var hitTestInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
     private lazy var iconImageV = UIImageView().image(Asset.homeNote.image).enable(true)
@@ -289,19 +297,37 @@ class RecordItemCell: SuperTableViewCell {
         MyLog(itemModel)
         if let model = itemModel {
             if UserDefaultsTools.tabSelected == 0 || UserDefaultsTools.tabSelected == 2 {
-                var itemListData:[PopItemModel] = []
-                if model.isFavorite {
-                    itemListData = HomeConfigData.getHomeMoreUnFavoriteData()
+                if isInFolder {
+                    
+                    var itemListData:[PopItemModel] = []
+                    if model.isFavorite {
+                        itemListData = HomeConfigData.getMoveOutFolderUnFavoriteData()
+                    }else{
+                        itemListData = HomeConfigData.getMoveOutFolderData()
+                    }
+                    let content = HomeMoveoutPopVC(itemList: itemListData,recordingItem: itemModel!)
+                    content.delegate = self
+                    let popup = PopupContainerViewController(contentVC: content, height: 564.h)
+                    content.dismissAction = { [self] in
+                        popup.dismissSelf()
+                        delegate?.reloadTableData()
+                    }
+                    UIApplication.topViewController()?.present(popup, animated: false)
                 }else{
-                    itemListData = HomeConfigData.getHomeMoreData()
+                    var itemListData:[PopItemModel] = []
+                    if model.isFavorite {
+                        itemListData = HomeConfigData.getHomeMoreUnFavoriteData()
+                    }else{
+                        itemListData = HomeConfigData.getHomeMoreData()
+                    }
+                    let content = HomePopViewController(itemList: itemListData,recordingItem: itemModel!)
+                    let popup = PopupContainerViewController(contentVC: content, height: 462.h)
+                    content.dismissAction = { [self] in
+                        popup.dismissSelf()
+                        delegate?.reloadTableData()
+                    }
+                    UIApplication.topViewController()?.present(popup, animated: false)
                 }
-                let content = HomePopViewController(itemList: itemListData,recordingItem: itemModel!)
-                let popup = PopupContainerViewController(contentVC: content, height: 462.h)
-                content.dismissAction = { [self] in
-                    popup.dismissSelf()
-                    delegate?.reloadTableData()
-                }
-                UIApplication.topViewController()?.present(popup, animated: false)
             }
         }
     }
@@ -368,6 +394,28 @@ class RecordItemCell: SuperTableViewCell {
     
     func configure(with item: RecordingItem) {
         itemModel = item
+        if UserDefaultsTools.tabSelected == 0 || UserDefaultsTools.tabSelected == 2 {
+            titleL.text(item.recordName)
+            dateL.text(timestampToFormattedString(item.updateTime))
+            if item.recordType == 0 {
+                typeImageV.image(Asset.homeType00.image)
+            }else{
+                typeImageV.image(Asset.homeType01.image)
+            }
+            if item.isFavorite {
+                favoriteImageV.hidden(false)
+            }else{
+                favoriteImageV.hidden(true)
+            }
+            typeImageV.hidden(false)
+            dateL.hidden(false)
+            iconImageV.image(Asset.homeNote.image)
+        }
+    }
+    
+    func configure(with item: RecordingItem,isInFolder:Bool) {
+        itemModel = item
+        self.isInFolder = isInFolder
         if UserDefaultsTools.tabSelected == 0 || UserDefaultsTools.tabSelected == 2 {
             titleL.text(item.recordName)
             dateL.text(timestampToFormattedString(item.updateTime))

@@ -81,6 +81,7 @@
 		53F68D992EFFCACA0051FFE6 /* FolderItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D982EFFCACA0051FFE6 /* FolderItemStore.swift */; };
 		53F68D9B2F0273520051FFE6 /* HomeFolderMorePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D9A2F0273520051FFE6 /* HomeFolderMorePopVC.swift */; };
 		53F68D9D2F027A590051FFE6 /* HomeMoreMovePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D9C2F027A590051FFE6 /* HomeMoreMovePopVC.swift */; };
+		53F68D9F2F0288420051FFE6 /* HomeMoveoutPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D9E2F0288420051FFE6 /* HomeMoveoutPopVC.swift */; };
 		53FFAEEE2EFA2D8400A0C1EF /* TitleFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */; };
 		53FFAEF02EFA365A00A0C1EF /* CenterLanguagePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */; };
 		53FFAEF32EFA3BD600A0C1EF /* record-bottom.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */; };
@@ -194,6 +195,7 @@
 		53F68D982EFFCACA0051FFE6 /* FolderItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderItemStore.swift; sourceTree = "<group>"; };
 		53F68D9A2F0273520051FFE6 /* HomeFolderMorePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFolderMorePopVC.swift; sourceTree = "<group>"; };
 		53F68D9C2F027A590051FFE6 /* HomeMoreMovePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMoreMovePopVC.swift; sourceTree = "<group>"; };
+		53F68D9E2F0288420051FFE6 /* HomeMoveoutPopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMoveoutPopVC.swift; sourceTree = "<group>"; };
 		53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleFieldView.swift; sourceTree = "<group>"; };
 		53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterLanguagePopVC.swift; sourceTree = "<group>"; };
 		53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "record-bottom.mp4"; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				538282152EF12DC50097EAD0 /* HomeFloderViewController.swift */,
 				538282192EF13A6F0097EAD0 /* HomeNoteDetailViewController.swift */,
 				531CD9302EECFF2300FC22F7 /* HomePopViewController.swift */,
+				53F68D9E2F0288420051FFE6 /* HomeMoveoutPopVC.swift */,
 				538282292EF27E4F0097EAD0 /* HomeAllNotePopVC.swift */,
 				53F68D9C2F027A590051FFE6 /* HomeMoreMovePopVC.swift */,
 				5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */,
@@ -765,6 +768,7 @@
 				538282162EF12DC50097EAD0 /* HomeFloderViewController.swift in Sources */,
 				531CD8712EEAA97B00FC22F7 /* UIWindow+Extension.swift in Sources */,
 				538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */,
+				53F68D9F2F0288420051FFE6 /* HomeMoveoutPopVC.swift in Sources */,
 				53FFAEF02EFA365A00A0C1EF /* CenterLanguagePopVC.swift in Sources */,
 				53FFAF062EFE21D200A0C1EF /* ByteDanceOpenSpeechClient.swift in Sources */,
 				531CD8D32EEAAB6E00FC22F7 /* GlobalImports.swift in Sources */,

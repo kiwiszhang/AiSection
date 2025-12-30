@@ -7,9 +7,12 @@
 
 import UIKit
 
+@objc protocol HomeMoreMovePopVCDelegate: AnyObject {
+    func updateMoreData(folderItem:FolderItem)
+}
 
 class HomeMoreMovePopVC: SuperViewController {
-
+    weak var delegate: HomeMoreMovePopVCDelegate?
     var dismissAction: (() -> Void)?
     private var selectedIndex: IndexPath = IndexPath(row: 0, section: 0)
     private lazy var itemList:[FolderItem] = []
@@ -193,6 +196,8 @@ extension HomeMoreMovePopVC: UITableViewDelegate, UITableViewDataSource {
             model.recordFolderId = folderSelectedModel.recordFolderId
             try! RecordingItemStore.shared.updateRecordingItem(model)
         }
+        
+        delegate?.updateMoreData(folderItem: folderSelectedModel)
         dismissAction?()
     }
     

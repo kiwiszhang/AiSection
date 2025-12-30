@@ -88,6 +88,14 @@ class HomeFloderViewController: SuperViewController {
 
 }
 
+// MARK: -  =======================HomeFolderMorePopVCDelegate========================
+extension HomeFloderViewController:HomeFolderMorePopVCDelegate {
+    func updateMoreData(folderItem:FolderItem) {
+        model = folderItem
+        getData()
+    }
+}
+
 // MARK: -  =======================NavTopViewDelegate========================
 extension HomeFloderViewController:NavTopViewDelegate {
     func backClick(){
@@ -97,6 +105,7 @@ extension HomeFloderViewController:NavTopViewDelegate {
         MyLog("moreClick")
         let itemListData:[PopItemModel] = HomeConfigData.getFloderMoreData()
         let content = HomeFolderMorePopVC(itemList: itemListData,folderItem: model!)
+        content.delegate = self
         let popup = PopupContainerViewController(contentVC: content, height: 392.h)
         content.dismissAction = { [self] folderName in
             popup.dismissSelf()
@@ -122,6 +131,12 @@ extension HomeFloderViewController:NavTopViewDelegate {
     }
 }
 
+//MARK: ----------RecordItemCellDelegate-----------
+extension HomeFloderViewController: RecordItemCellDelegate {
+    func reloadTableData(){
+        getData()
+    }
+}
 
 //MARK: ----------TableViewDelegateDataSource-----------
 extension HomeFloderViewController: UITableViewDelegate, UITableViewDataSource {
@@ -132,7 +147,8 @@ extension HomeFloderViewController: UITableViewDelegate, UITableViewDataSource {
         let model = itemList[indexPath.row]
         let cell = tableView.dequeueCell(RecordItemCell.self, for: indexPath)
         cell.selectionStyle = .none
-        cell.configure(with: model)
+        cell.delegate = self
+        cell.configure(with: model,isInFolder: true)
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -139,6 +139,8 @@ internal enum L10n {
   internal static let progress = L10n.tr("Localizable", "Progress", fallback: "Progress")
   /// Recording
   internal static let recording = L10n.tr("Localizable", "Recording", fallback: "Recording")
+  /// Remove folder
+  internal static let removeFolder = L10n.tr("Localizable", "Remove folder", fallback: "Remove folder")
   /// Remove from Favorites
   internal static let removeFromFavorites = L10n.tr("Localizable", "Remove from Favorites", fallback: "Remove from Favorites")
   /// Rename

@@ -26,6 +26,7 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 internal enum Asset {
   internal static let accentColor = ColorAsset(name: "AccentColor")
   internal static let floderDown = ImageAsset(name: "Floder_down")
+  internal static let removeFolder = ImageAsset(name: "Remove_folder")
   internal static let addFloders = ImageAsset(name: "add_floders")
   internal static let addNoteCheck = ImageAsset(name: "add_note_check")
   internal static let addNoteUnCheck = ImageAsset(name: "add_note_unCheck")
