@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 @objc protocol DetailTableHeaderViewDelegate: AnyObject {
     func segmentTableHeaderViewClickIndex(index:Int)
@@ -93,8 +94,16 @@ class DetailTableHeaderView: SuperView{
         }
         MyLog(urlFile)
         MyLog(fileURL)
-        recordV.loadAudio(url: fileURL)
+//        recordV.loadAudio(url: fileURL)
+        recordV.configure(url: fileURL, duration: audioDuration(url: fileURL))
+
     }
+    
+    func audioDuration(url: URL) -> TimeInterval {
+        let asset = AVURLAsset(url: url)
+        return CMTimeGetSeconds(asset.duration)
+    }
+    
     override func getData() {
         dateV.updateData(icon: Asset.canlande.image, title: "Apr 10,2025")
         timeV.updateData(icon: Asset.timeShow.image, title: "11:30 am")

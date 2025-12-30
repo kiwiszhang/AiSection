@@ -7,6 +7,8 @@
 
 import UIKit
 import AVFoundation
+import MediaPlayer
+import Accelerate
 
 final class WaveformView: UIView {
 
@@ -44,75 +46,121 @@ final class WaveformView: UIView {
     }
 }
 
+enum AudioWaveformExtractor {
 
-final class AudioWaveformExtractor {
-
-    static func extractSamples(
+    /// 工业级波形提取
+    /// - Parameters:
+    ///   - url: 本地音频文件 URL
+    ///   - sampleCount: 最终需要的波形点数量（UI 宽度级别，推荐 60~120）
+    static func extract(
         url: URL,
-        sampleCount: Int = 100
+        sampleCount: Int
     ) throws -> [CGFloat] {
 
-        let asset = AVAsset(url: url)
-        let track = asset.tracks(withMediaType: .audio).first!
+        let asset = AVURLAsset(url: url)
+        guard let track = asset.tracks(withMediaType: .audio).first else {
+            return []
+        }
 
         let reader = try AVAssetReader(asset: asset)
 
         let settings: [String: Any] = [
             AVFormatIDKey: kAudioFormatLinearPCM,
-            AVLinearPCMIsBigEndianKey: false,
+            AVLinearPCMBitDepthKey: 16,
             AVLinearPCMIsFloatKey: false,
-            AVLinearPCMBitDepthKey: 16
+            AVLinearPCMIsBigEndianKey: false,
+            AVLinearPCMIsNonInterleaved: false
         ]
 
-        let output = AVAssetReaderTrackOutput(track: track, outputSettings: settings)
+        let output = AVAssetReaderTrackOutput(
+            track: track,
+            outputSettings: settings
+        )
+
         reader.add(output)
         reader.startReading()
 
-        var samples: [CGFloat] = []
+        let samplesPerPixel = max(1, 1024)
+        let targetCount = sampleCount
+
+        
+        var waveform: [CGFloat] = []
+        waveform.reserveCapacity(sampleCount)
+
+        var peak: Float = 0
+        var accumulated = 0
 
         while let buffer = output.copyNextSampleBuffer(),
               let block = CMSampleBufferGetDataBuffer(buffer) {
 
             let length = CMBlockBufferGetDataLength(block)
-            var data = Data(count: length)
-            data.withUnsafeMutableBytes {
-                CMBlockBufferCopyDataBytes(block, atOffset: 0, dataLength: length, destination: $0.baseAddress!)
-            }
+            let sampleCount = length / MemoryLayout<Int16>.size
 
-            let values = data.withUnsafeBytes {
-                Array(UnsafeBufferPointer<Int16>(
-                    start: $0.bindMemory(to: Int16.self).baseAddress!,
-                    count: length / 2
-                ))
-            }
+            var samples = [Int16](repeating: 0, count: sampleCount)
+            CMBlockBufferCopyDataBytes(
+                block,
+                atOffset: 0,
+                dataLength: length,
+                destination: &samples
+            )
 
-            samples.append(contentsOf: values.map { abs(CGFloat($0)) })
+            for s in samples {
+                let v = abs(Float(s))
+                peak = max(peak, v)
+                accumulated += 1
+
+                if accumulated >= samplesPerPixel {
+                    waveform.append(min(CGFloat(peak / 32768), 1))
+                    peak = 0
+                    accumulated = 0
+
+                    if waveform.count >= targetCount {
+                        reader.cancelReading()
+                        return waveform
+                    }
+                }
+            }
         }
 
-        let step = max(1, samples.count / sampleCount)
-        return stride(from: 0, to: samples.count, by: step)
-            .prefix(sampleCount)
-            .map { min(samples[$0] / 32768, 1) }
+        return waveform
     }
 }
 
 final class AudioPlayerView: UIView {
 
-    private let waveformView = WaveformView()
-    private lazy var playButton = UIImageView().image(Asset.pusac.image).onTap { [self] in
-        togglePlay()
-    }
-    private lazy var timeLabel = UILabel().text("3:32").hnFont(size: 10.h, weight: .medium).backgroundColor(.clear).color(kkColorFromHex(kkMainColor)).centerAligned()
+    private var hasLoadedWaveform = false
 
-    private var player: AVAudioPlayer?
-    private var timer: CADisplayLink?
+    private let waveformView = WaveformView()
+    private lazy var playButton = UIImageView()
+        .image(Asset.pusac.image)
+        .onTap { [weak self] in self?.togglePlay() }
+
+    private let timeLabel = UILabel()
+        .hnFont(size: 10.h, weight: .medium)
+        .color(kkColorFromHex(kkMainColor))
+    private var audioURL: URL?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        setupGesture()
     }
-
     required init?(coder: NSCoder) { fatalError() }
+
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+
+        if window != nil {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(onPlaybackUpdate(_:)),
+                name: .audioPlaybackDidUpdate,
+                object: nil
+            )
+        } else {
+            NotificationCenter.default.removeObserver(self)
+        }
+    }
 
     private func setupUI() {
         waveformView.backgroundColor = .clear
@@ -141,111 +189,114 @@ final class AudioPlayerView: UIView {
             make.left.equalTo(playButton.snp.right).offset(8.w)
             make.right.equalTo(timeLabel.snp.left).offset(-4.w)
         }
+
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    private func setupGesture() {
+        let pan = UIPanGestureRecognizer(
+            target: self,
+            action: #selector(handleWaveformPan(_:))
+        )
+        waveformView.addGestureRecognizer(pan)
     }
 
-    private func setupAudioSession() {
-        let session = AVAudioSession.sharedInstance()
-        do {
-            try session.setCategory(
-                .playback,
-                mode: .spokenAudio,
-                options: [.duckOthers]
-            )
-            try session.setActive(true)
-        } catch {
-            print("AudioSession error:", error)
+    @objc private func onPlaybackUpdate(_ n: Notification) {
+        guard let state = n.object as? AudioPlaybackState else { return }
+        guard state.url == audioURL else { return }
+
+        onPlayStateChanged(isPlaying: state.isPlaying)
+        onProgress(state.progress, remain: state.remain)
+    }
+
+    
+    @objc private func handleWaveformPan(_ g: UIPanGestureRecognizer) {
+        let x = g.location(in: waveformView).x
+        let progress = min(max(x / waveformView.bounds.width, 0), 1)
+        AudioPlaybackManager.shared.seek(progress: progress)
+    }
+
+    
+    func configure(url: URL, duration: TimeInterval) {
+        self.audioURL = url
+        timeLabel.text = format(duration)
+        waveformView.progress = 0
+        loadWaveform(url: url)
+    }
+    
+    private func loadWaveform(url: URL) {
+
+        if let cached = WaveformCache.shared.waveform(for: url) {
+            waveformView.samples = cached
+            return
         }
-    }
 
-    func loadAudio(url: URL) {
-        setupAudioSession()
-        do {
-            player = try AVAudioPlayer(contentsOf: url)
-            player?.prepareToPlay()
-            player?.volume = 1.0   // 明确设置音量
-            player?.delegate = self
+        DispatchQueue.global(qos: .utility).async {
+            let waveform = (try? AudioWaveformExtractor.extract(
+                url: url,
+                sampleCount: 70
+            )) ?? []
 
-            DispatchQueue.global(qos: .userInitiated).async {
-                let samples = try? AudioWaveformExtractor.extractSamples(
-                    url: url,
-                    sampleCount: 70   // 👈 控制数量
-                )
-
-                DispatchQueue.main.async {
-                    self.waveformView.samples = samples ?? []
-                }
+            DispatchQueue.main.async {
+                WaveformCache.shared.store(waveform, for: url)
+                self.waveformView.samples = waveform
             }
-            timeLabel.text = format(player?.duration ?? 0)
-
-        } catch {
-            print("Audio load failed:", error)
         }
     }
 
-    @objc private func togglePlay() {
-        guard let player = player else { return }
-        if player.isPlaying {
-//            player.pause()
-//            timer?.invalidate()
-//            playButton.image(Asset.pusac.image)
-            AudioPlaybackManager.shared.stop(self)
+
+    // MARK: - UI Update (由 Manager 调用)
+
+    func onPlayStateChanged(isPlaying: Bool) {
+        playButton.image(isPlaying ? Asset.playIcon.image : Asset.pusac.image)
+    }
+
+    func onProgress(_ progress: CGFloat, remain: TimeInterval) {
+        waveformView.progress = progress
+        timeLabel.text = format(remain)
+    }
+
+    func onPlayFinished() {
+        waveformView.progress = 1
+        playButton.image(Asset.pusac.image)
+    }
+    // MARK: - Actions
+    private func togglePlay() {
+        guard let url = audioURL else { return }
+        let manager = AudioPlaybackManager.shared
+
+        if manager.player?.isPlaying == true {
+            manager.pause(self)
         } else {
-//            player.play()
-//            startTimer()
-//            playButton.image(Asset.playIcon.image)
-            AudioPlaybackManager.shared.play(self)
+            manager.play(self, url: url)
         }
     }
-
-    private func startTimer() {
-        timer = CADisplayLink(target: self, selector: #selector(updateProgress))
-        timer?.add(to: .main, forMode: .common)
-    }
-
-    @objc private func updateProgress() {
-        guard let player = player else { return }
-
-        waveformView.progress = CGFloat(player.currentTime / player.duration)
-        timeLabel.text = format(player.duration - player.currentTime)
-
-        if !player.isPlaying {
-            timer?.invalidate()
-        }
-    }
-
+    
     private func format(_ t: TimeInterval) -> String {
+        guard t.isFinite, t >= 0 else { return "00:00" }
         let m = Int(t) / 60
         let s = Int(t) % 60
         return String(format: "%02d:%02d", m, s)
     }
-}
 
-extension AudioPlayerView {
-    func play() {
-        guard let player = player, !player.isPlaying else { return }
-        player.play()
-        startTimer()
-        playButton.image(Asset.playIcon.image)
+}
+final class WaveformCache {
+
+    static let shared = WaveformCache()
+    private init() {}
+
+    private var memory: [URL: [CGFloat]] = [:]
+
+    func waveform(for url: URL) -> [CGFloat]? {
+        memory[url]
     }
 
-    func forcePause() {
-        guard let player = player else { return }
-        player.pause()
-        timer?.invalidate()
-        waveformView.progress = 0
-        playButton.image(Asset.pusac.image)
+    func store(_ waveform: [CGFloat], for url: URL) {
+        memory[url] = waveform
     }
 }
 
-extension AudioPlayerView: AVAudioPlayerDelegate {
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        AudioPlaybackManager.shared.stop(self)
-    }
-}
+
+
 
 
 

@@ -36,6 +36,16 @@ class HomeNoteDetailViewController: SuperViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        becomeFirstResponder()
+        UIApplication.shared.beginReceivingRemoteControlEvents()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

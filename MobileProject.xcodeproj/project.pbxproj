@@ -83,7 +83,6 @@
 		53F68D9D2F027A590051FFE6 /* HomeMoreMovePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D9C2F027A590051FFE6 /* HomeMoreMovePopVC.swift */; };
 		53F68D9F2F0288420051FFE6 /* HomeMoveoutPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D9E2F0288420051FFE6 /* HomeMoveoutPopVC.swift */; };
 		53F68DA12F036FED0051FFE6 /* HomeNoAllNotePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DA02F036FED0051FFE6 /* HomeNoAllNotePopVC.swift */; };
-		53F68DA32F03A1A40051FFE6 /* AudioWavePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DA22F03A1A40051FFE6 /* AudioWavePlayerView.swift */; };
 		53F68DA62F03A7470051FFE6 /* DSWaveformImage in Frameworks */ = {isa = PBXBuildFile; productRef = 53F68DA52F03A7470051FFE6 /* DSWaveformImage */; };
 		53F68DA82F03A7470051FFE6 /* DSWaveformImageViews in Frameworks */ = {isa = PBXBuildFile; productRef = 53F68DA72F03A7470051FFE6 /* DSWaveformImageViews */; };
 		53F68DAA2F03B2210051FFE6 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */; };
@@ -203,7 +202,6 @@
 		53F68D9C2F027A590051FFE6 /* HomeMoreMovePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMoreMovePopVC.swift; sourceTree = "<group>"; };
 		53F68D9E2F0288420051FFE6 /* HomeMoveoutPopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMoveoutPopVC.swift; sourceTree = "<group>"; };
 		53F68DA02F036FED0051FFE6 /* HomeNoAllNotePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNoAllNotePopVC.swift; sourceTree = "<group>"; };
-		53F68DA22F03A1A40051FFE6 /* AudioWavePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioWavePlayerView.swift; sourceTree = "<group>"; };
 		53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		53F68DAB2F03BEDD0051FFE6 /* AudioPlaybackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlaybackManager.swift; sourceTree = "<group>"; };
 		53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleFieldView.swift; sourceTree = "<group>"; };
@@ -533,7 +531,6 @@
 			isa = PBXGroup;
 			children = (
 				53FFAF012EFA90B800A0C1EF /* RecorderManager.swift */,
-				53F68DA22F03A1A40051FFE6 /* AudioWavePlayerView.swift */,
 				53F68DAB2F03BEDD0051FFE6 /* AudioPlaybackManager.swift */,
 				53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */,
 				53FFAF072EFE6D5200A0C1EF /* UploadRecord.swift */,
@@ -805,7 +802,6 @@
 				531CD9042EEAAF6400FC22F7 /* UtitilTools.swift in Sources */,
 				53F68DAC2F03BEDD0051FFE6 /* AudioPlaybackManager.swift in Sources */,
 				531CD9052EEAAF6400FC22F7 /* SubscriptionManager.swift in Sources */,
-				53F68DA32F03A1A40051FFE6 /* AudioWavePlayerView.swift in Sources */,
 				531CD9062EEAAF6400FC22F7 /* Common.swift in Sources */,
 				538282182EF131F70097EAD0 /* NavTopView.swift in Sources */,
 				531CD9072EEAAF6400FC22F7 /* PersistenceController.swift in Sources */,

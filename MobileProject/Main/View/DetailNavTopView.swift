@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 @objc protocol DetailNavTopViewDelegate: AnyObject {
     func backClick()
@@ -34,7 +35,7 @@ class DetailNavTopView: SuperView{
         delegate?.backClick()
     }
     
-    lazy var recordV = DetailRecordView().backgroundColor(kkColorFromHex("E6EFFF")).cornerRadius(18.h).hidden(true)
+    lazy var recordV = AudioPlayerView().backgroundColor(kkColorFromHex("E6EFFF")).cornerRadius(18.h).hidden(true)
 
     // MARK: -  =====================Intial Methods===================
     override func setUpUI() {
@@ -72,9 +73,26 @@ class DetailNavTopView: SuperView{
             make.height.equalTo(36.h)
         }
         
+        let directory = RecorderManager.shared.recordingsDirectory()
+        let urlFile = URL(string:"\(directory.absoluteString)" + "567.m4a")!
+        guard let fileURL = URL(string: urlFile.absoluteString) else {
+            MyLog("无可用文件或路径错误")
+            return
+        }
+        MyLog(urlFile)
+        MyLog(fileURL)
+//        recordV.loadAudio(url: fileURL)
+        recordV.configure(url: fileURL, duration: audioDuration(url: fileURL))
+
+        
     }
+    func audioDuration(url: URL) -> TimeInterval {
+        let asset = AVURLAsset(url: url)
+        return CMTimeGetSeconds(asset.duration)
+    }
+
     override func getData() {
-        recordV.updateData()
+//        recordV.updateData()
     }
     
     func updateFavorite(isFavorite:Bool){
