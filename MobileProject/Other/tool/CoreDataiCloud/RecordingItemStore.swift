@@ -50,6 +50,14 @@ final class RecordingItemStore {
     
     /// 删除RecordingItem
     func delete(_ item: RecordingItem) throws {
+        UtitilTools.deleteRecording(relativePath: "Recording/\(item.recordPath!)")
+        UtitilTools.deleteTOSObject(fileName: "Recording/\(item.recordPath!)") { task in
+            if ((task.error == nil)) {
+                MyLog("Delete object success.");
+            } else {
+                MyLog("Delete object failed, error: \(String(describing: task.error))");
+            }
+        }
         context.delete(item)
         try context.save()
     }

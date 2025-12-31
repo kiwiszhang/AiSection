@@ -33,6 +33,49 @@ class UtitilTools{
         return relative
     }
     
+    /// 根据相对路径构建Documents  URL
+    static func documentsURL(for relativePath: String) -> URL? {
+        let fm = FileManager.default
+        guard let docs = fm.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+        return docs.appendingPathComponent(relativePath)
+    }
+
+    /// 删除相对路径构建Documents  URL
+    static func deleteRecording(relativePath: String) {
+        guard let fileURL = documentsURL(for: relativePath) else { return }
+        let fm = FileManager.default
+        guard fm.fileExists(atPath: fileURL.path) else {
+            MyLog("文件不存在: \(fileURL)")
+            return
+        }
+        do {
+            try fm.removeItem(at: fileURL)
+            MyLog("已删除: \(fileURL.lastPathComponent)")
+        } catch {
+            MyLog("删除失败: \(error)")
+        }
+    }
+
+    /// 删除TOS上面的数据
+    static func deleteTOSObject(fileName:String,completion: @escaping (_ task:TOSTask<AnyObject>) -> Void){
+        let credential = TOSCredential.init(accessKey: AKeyID02 + AKeyID01, secretKey: SAKey)
+        let tosEndpoint = TOSEndpoint(urlString: TOS_ENDPOINT, withRegion: TOS_REGION)
+        let config = TOSClientConfiguration(endpoint: tosEndpoint, credential: credential)
+        let client = TOSClient.init(configuration: config)
+
+        let input = TOSDeleteObjectInput()
+        input.tosBucket = TOS_BUCKET
+        input.tosKey = fileName
+        let task = client.deleteObject(input)
+        task.continueWith { t in
+            completion(t)
+            return nil
+        }
+    }
+    
+    
     /// Date转String 本地化转
     static func dateToString(_ date: Date, format: String = "MMM dd,yyyy") -> String {
         let formatter = DateFormatter()
