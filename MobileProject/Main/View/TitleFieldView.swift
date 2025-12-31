@@ -16,11 +16,11 @@ import UIKit
 class TitleFieldView: SuperView {
     weak var delegate: TitleFieldViewDelegate?
     private lazy var titleL = UILabel().text(L10n.audioFiles).hnFont(size: 14.h, weight: .medium).color(kkColorFromHex(kkSubTitleColor))
-    private lazy var bgView = UIView().backgroundColor(kkColorFromHex(kkWhiteTabColor)).cornerRadius(14.h)
-    lazy var prompTextField = UITextField().holder(L10n.fileName).delegate(self).backgroundColor(kkColorFromHex(kkWhiteTabColor))
-    private lazy var downImg = UIImageView().image(Asset.floderDown.image).hidden(true).enable(true).onTap { [self] in
+    private lazy var bgView = UIView().backgroundColor(kkColorFromHex(kkWhiteTabColor)).cornerRadius(14.h).onTap { [self] in
         delegate?.clickDowm(selfView: self)
     }
+    lazy var prompTextField = UITextField().holder(L10n.fileName).delegate(self).backgroundColor(kkColorFromHex(kkWhiteTabColor)).enable(false)
+    private lazy var downImg = UIImageView().image(Asset.floderDown.image).hidden(true).enable(true)
     override func setUpUI() {
         self.addChildView([titleL,bgView])
         titleL.snp.makeConstraints { make in
@@ -50,6 +50,10 @@ class TitleFieldView: SuperView {
         titleL.text(title)
         prompTextField.holder(prompTitle)
         downImg.hidden(!isShowDowm)
+    }
+    
+    func updateContent(content:String){
+        prompTextField.text(content)
     }
     
 }

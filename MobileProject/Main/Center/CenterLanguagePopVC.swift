@@ -8,15 +8,25 @@
 import UIKit
 import Localize_Swift
 
-struct LangItem {
-    let title: String
-    let subTitle: String
-    let localize: String
-    var isSelected: Bool
+@objc class LangItem:NSObject {
+    var title: String = ""
+    var subTitle: String = ""
+    var localize: String = ""
+    var isSelected: Bool = false
+    init(title: String,subTitle: String,localize: String,isSelected: Bool) {
+        self.title = title
+        self.subTitle = subTitle
+        self.localize = localize
+        self.isSelected = isSelected
+    }
+}
+
+@objc protocol CenterLanguagePopVCDelegate:AnyObject {
+    func selectedLangitem(seletedItem: LangItem)
 }
 
 class CenterLanguagePopVC: SuperViewController {
-
+    weak var delegate: CenterLanguagePopVCDelegate?
     var itemList:[LangItem] = []
     var selecedRow = 0
 
@@ -27,8 +37,11 @@ class CenterLanguagePopVC: SuperViewController {
         return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.clear).registerCells(SetLangPopCell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeight(60.h).showsH(false)
     }()
     
-    private lazy var saveBtn = UILabel().text(L10n.save).hnFont(size: 18.h, weight: .medium).color(.white).backgroundColor(kkColorFromHex(kkMainColor)).centerAligned().cornerRadius(14.h).onTap {
+    private lazy var saveBtn = UILabel().text(L10n.save).hnFont(size: 18.h, weight: .medium).color(.white).backgroundColor(kkColorFromHex(kkMainColor)).centerAligned().cornerRadius(14.h).onTap { [self] in
         MyLog("saveBtn")
+        let selectedItem = itemList[selecedRow]
+        delegate?.selectedLangitem(seletedItem: selectedItem)
+        dismissAction?()
     }
 
     
@@ -65,7 +78,7 @@ class CenterLanguagePopVC: SuperViewController {
         barView.updateSearchData(title: L10n.searchLanguage)
 
         let language = Localize.currentLanguage()
-        let item00 = LangItem(title: "English", subTitle: L10n.english, localize: "en", isSelected: false)
+        let item00 = LangItem(title: "English", subTitle: L10n.english, localize: "en_us", isSelected: false)
         let item01 = LangItem(title: "Português (Brasil)", subTitle: L10n.portuguese, localize: "pt-BR", isSelected: false)
 //        let item02 = LangItem(title: "Español (México)", subTitle: L10n.spanish, localize: "es-MX", isSelected: false)
 //        let item03 = LangItem(title: "Türkçe", subTitle: L10n.turkish, localize: "tr", isSelected: false)
@@ -83,11 +96,7 @@ class CenterLanguagePopVC: SuperViewController {
             mutableItem.isSelected = (item.localize == language)
             return mutableItem
         }
-
-        
     }
-    
-
 }
 
 
@@ -119,7 +128,6 @@ extension CenterLanguagePopVC: UITableViewDelegate, UITableViewDataSource {
         let selectedItem = itemList[selecedRow]
         Localize.setCurrentLanguage(selectedItem.localize)
         tableView.reloadData()
-
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

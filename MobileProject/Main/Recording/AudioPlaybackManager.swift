@@ -52,7 +52,9 @@ final class AudioPlaybackManager: NSObject {
     }
 
     func stop(_ view: AudioPlayerView?) {
+        guard let p = player else { return }
         player?.stop()
+        p.currentTime = 0
         stopTimer()
         currentView = nil
         broadcast()

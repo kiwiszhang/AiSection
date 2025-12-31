@@ -23,8 +23,8 @@ class MainTabBarController: UITabBarController {
         
         // 添加子控制器
         viewControllers = [
-            createNav(HomeViewController(), title: "Home", image: Asset.homeUnSelected.image, selectedImage: Asset.homeSelected.image),
-            createNav(MeViewController(), title: "Me", image: Asset.meUnSelected.image, selectedImage: Asset.meSelected.image),
+            createNav(HomeViewController(), title: L10n.home, image: Asset.homeUnSelected.image, selectedImage: Asset.homeSelected.image),
+            createNav(MeViewController(), title: L10n.me, image: Asset.meUnSelected.image, selectedImage: Asset.meSelected.image),
         ]
         
         // 中间按钮点击
@@ -48,9 +48,9 @@ class MainTabBarController: UITabBarController {
         for (index, item) in (self.tabBar.items ?? []).enumerated() {
             switch index {
             case 0:
-                item.title = "Home"  // 这里用你本地化的字符串
+                item.title = L10n.home
             case 1:
-                item.title = "Me"
+                item.title = L10n.me
             default:
                 break
             }
@@ -74,6 +74,7 @@ class MainTabBarController: UITabBarController {
             content.dismissAction = { [self] in
                 popup.dismissSelf()
                 centerStatus()
+                kkNotification_post(name: NotificationCenterKeys.kUpdateTableViewData.rawValue, object: nil)
             }
             self.present(popup, animated: false)
             
@@ -88,6 +89,7 @@ class MainTabBarController: UITabBarController {
             content.dismissAction = { [self] in
                 popup.dismissSelf()
                 centerStatus()
+                kkNotification_post(name: NotificationCenterKeys.kUpdateTableViewData.rawValue, object: nil)
             }
             present(popup, animated: false)
         }

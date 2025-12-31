@@ -74,7 +74,22 @@ class CenterRecordPopViewController: SuperViewController {
                 RecorderManager.shared.stop()
                 recordingUI()
 
-                var fileName = getFileName()
+                guard let fileName = UtitilTools.relativePathFromDocuments(for: RecorderManager.shared.recordURL!) else { return }
+                
+                var folderName00 = ""
+                var recordFolderId00 = ""
+//                if let selectedFolderModel = selectedFolderItem {
+//                    folderName00 = selectedFolderModel.folderName!
+//                    recordFolderId00 = selectedFolderModel.recordFolderId!
+//                }else{
+                    folderName00 = ""
+                    recordFolderId00 = UUID().uuidString
+//                }
+                let item00 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, recordPath: RecorderManager.shared.recordURL!.lastPathComponent, recordName: RecorderManager.shared.recordURL!.deletingPathExtension().lastPathComponent, recordFolder: folderName00, recordFolderId: recordFolderId00, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970))
+                
+                try! RecordingItemStore.shared.addRecordingItem(item00)
+                
+                
                 UploadRecord.shared.uploadFile(fileName: fileName,fileURL:URL(string: RecorderManager.shared.recordURL!.absoluteString)!) { task in
                     if ((task.error == nil)) {
                         MyLog("Put object from file success.");
@@ -89,8 +104,9 @@ class CenterRecordPopViewController: SuperViewController {
                             )
                         )
                         
-                        fileName = "Recording/567.m4a"
-                        SubmitAndQueryHandle.shared.handleRecord(fileName: fileName,client: client) { queryData in
+//                        let HandlerfileName = "Recording/1234.m4a"
+                        let HandlerfileName = fileName
+                        SubmitAndQueryHandle.shared.handleRecord(fileName: HandlerfileName,client: client) { queryData in
                             if queryData.ErrCode == 0 && queryData.Status == "success"{
                                 if let url = queryData.Result?.AudioTranscriptionFile {
                                     do {
@@ -151,24 +167,6 @@ class CenterRecordPopViewController: SuperViewController {
                 vc.modalPresentationStyle = .overFullScreen
                 self.present(vc, animated: true)
             }
-        }
-        
-        func getFileName() -> String {
-            let recordURL = RecorderManager.shared.recordURL
-            MyLog("本地文件名：\(String(describing: recordURL))")
-            guard let lastFile = recordURL,let fileURL = URL(string: lastFile.absoluteString) else {
-                MyLog("无可用文件或路径错误")
-                return ""
-            }
-            
-            var fileName = ""
-            if !kkStringIsEmpty(fileURL.path) {
-                let result = fileURL.path.components(separatedBy: "/Documents/")
-                if result.count == 2 {
-                    fileName = result[1]
-                }
-            }
-            return fileName
         }
     }
     private lazy var centerBtn = UIImageView().image(Asset.recordPlay.image).enable(true).onTap { [self] in

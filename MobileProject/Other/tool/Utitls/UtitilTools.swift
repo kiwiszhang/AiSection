@@ -18,6 +18,21 @@ class UtitilTools{
         return model.folderName == "isDemo" && model.createTime == Int64.min
     }
     
+    /// 获取Recording/aaaa.m4a这种路径文件名
+    static func relativePathFromDocuments(for fileURL: URL) -> String? {
+        let fm = FileManager.default
+        guard let documentsURL = fm.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+
+        let docPath = documentsURL.standardizedFileURL.path
+        let filePath = fileURL.standardizedFileURL.path
+
+        guard filePath.hasPrefix(docPath) else { return nil }
+        let relative = String(filePath.dropFirst(docPath.count + 1))
+        return relative
+    }
+    
     /// Date转String 本地化转
     static func dateToString(_ date: Date, format: String = "MMM dd,yyyy") -> String {
         let formatter = DateFormatter()

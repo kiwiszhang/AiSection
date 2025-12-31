@@ -8,8 +8,8 @@
 import UIKit
 
 enum NotificationCenterKeys:String {
-    // 导入聊天后天后刷新页面
-    case kCreatNewWrappedReloadView = "NotificationCenterKeys_kCreatNewWrappedReloadView"
+    // 刷新首页数据
+    case kUpdateTableViewData = "NotificationCenterKeys_kUpdateTableViewData"
     
 }
 

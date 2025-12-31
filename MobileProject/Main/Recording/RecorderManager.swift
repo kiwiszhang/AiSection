@@ -221,7 +221,7 @@ extension RecorderManager {
         let timeString = formatter.string(from: Date())
         let uuid = UUID().uuidString.prefix(4)
 
-        let fileName = "record_\(timeString)_\(uuid).m4a"
+        let fileName = "\(timeString)_\(uuid).m4a"
         return recordingsDirectory().appendingPathComponent(fileName)
     }
 

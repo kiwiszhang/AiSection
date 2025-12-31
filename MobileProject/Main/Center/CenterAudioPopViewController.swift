@@ -6,16 +6,113 @@
 //
 
 import UIKit
+import UniformTypeIdentifiers
 
 class CenterAudioPopViewController: SuperViewController {
 
     var dismissAction: (() -> Void)?
+    private var fDestURL:URL?
+    private var destLang:String = "en_us"
+    private var selectedFolderItem:FolderItem? = nil
     private lazy var barView = PopTopView()
     private lazy var audioView = TitleFieldView()
     private lazy var languageView = TitleFieldView()
     private lazy var floderView = TitleFieldView()
-    private lazy var getBtn = UILabel().text(L10n.getSummary).hnFont(size: 18.h, weight: .medium).color(.white).backgroundColor(kkColorFromHex(kkMainColor)).centerAligned().cornerRadius(14.h).onTap {
+    private lazy var getBtn = UILabel().text(L10n.getSummary).hnFont(size: 18.h, weight: .medium).color(.white).backgroundColor(kkColorFromHex(kkMainColor)).centerAligned().cornerRadius(14.h).onTap { [self] in
         MyLog("getBtn")
+
+        guard let destURL = fDestURL else {return}
+        guard let fileName = UtitilTools.relativePathFromDocuments(for: destURL) else { return }
+
+        var folderName00 = ""
+        var recordFolderId00 = ""
+        if let selectedFolderModel = selectedFolderItem {
+            folderName00 = selectedFolderModel.folderName!
+            recordFolderId00 = selectedFolderModel.recordFolderId!
+        }else{
+            folderName00 = ""
+            recordFolderId00 = UUID().uuidString
+        }
+        let item00 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 0, recordPath: destURL.lastPathComponent, recordName: destURL.deletingPathExtension().lastPathComponent, recordFolder: folderName00, recordFolderId: recordFolderId00, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970))
+        
+        try! RecordingItemStore.shared.addRecordingItem(item00)
+        
+        UploadRecord.shared.uploadFile(fileName: fileName,fileURL:URL(string: destURL.absoluteString)!) { task in
+            if ((task.error == nil)) {
+                MyLog("Put object from file success.");
+                let output = task.result;
+                MyLog(output)
+                
+                let client = ByteDanceOpenSpeechClient(
+                    config: .init(
+                        appKey: XApiAppKey,
+                        accessKey: XApiAccessKey,
+                        resourceId: XApiResourceId
+                    )
+                )
+                
+                SubmitAndQueryHandle.shared.handleRecord(fileName: fileName,client: client,targetLang: self.destLang) { queryData in
+                    if queryData.ErrCode == 0 && queryData.Status == "success"{
+                        if let url = queryData.Result?.AudioTranscriptionFile {
+                            do {
+                                let listData = try await client.fetchAudioTranscription(from: url)
+                                listData.forEach { item in
+                                    MyLog("🧑 Speaker: \(item.speaker.name ?? "Speaker")")
+                                    MyLog("content: \(item.content)")
+                                }
+                            } catch {
+                                MyLog("❌ Error: \(error.localizedDescription)")
+                            }
+                        }
+                        if let url = queryData.Result?.ChapterFile {
+                            do {
+                                let listData = try await client.fetchChapterFile(from: url)
+                                MyLog(listData.chapterSummary)
+                            } catch {
+                                MyLog("❌ Error: \(error.localizedDescription)")
+                            }
+                        }
+                        
+                        if let url = queryData.Result?.InformationExtractionFile {
+                            do {
+                                let listData = try await client.fetchInformationExtractionFile(from: url)
+                                MyLog(listData.todoList)
+                            } catch {
+                                MyLog("❌ Error: \(error.localizedDescription)")
+                            }
+                        }
+                        
+                        if let url = queryData.Result?.SummarizationFile {
+                            do {
+                                let itemData = try await client.fetchSummarizationFile(from: url)
+                                MyLog(itemData.title)
+                                MyLog(itemData.paragraph)
+                            } catch {
+                                MyLog("❌ Error: \(error.localizedDescription)")
+                            }
+                        }
+                        
+                        if let url = queryData.Result?.TranslationFile {
+                            do {
+                                let listData = try await client.fetchTranslationFile(from: url)
+                                MyLog(listData)
+                            } catch {
+                                MyLog("❌ Error: \(error.localizedDescription)")
+                            }
+                        }
+                    }
+                }
+                
+            } else {
+                MyLog("Put object from file failed, error: \(String(describing: task.error))");
+            }
+        }
+        
+        let vc = CenterProcessingVC()
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true)
+
+        
     }
 
     override func viewDidLoad() {
@@ -62,7 +159,7 @@ class CenterAudioPopViewController: SuperViewController {
         barView.updateData(title: L10n.uploadVideo)
         
         audioView.delegate = self
-        audioView.updateData(title: L10n.audioFiles, prompTitle: L10n.fileName)
+        audioView.updateData(title: L10n.audioFiles, prompTitle: L10n.fileName,isShowDowm: true)
         
         languageView.delegate = self
         languageView.updateData(title: L10n.languageOfSummaryTranscript, prompTitle: L10n.automatic,isShowDowm: true)
@@ -107,10 +204,11 @@ extension CenterAudioPopViewController:TitleFieldViewDelegate {
     func clickDowm(selfView:TitleFieldView){
         if selfView == audioView {
             MyLog("clickDowm---audioView")
+            presentAudioPicker(from: self)
         }else if selfView == languageView {
             MyLog("clickDowm---languageView")
-            
             let content = CenterLanguagePopVC()
+            content.delegate = self
             let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
             content.dismissAction = {
                 popup.dismissSelf()
@@ -119,6 +217,115 @@ extension CenterAudioPopViewController:TitleFieldViewDelegate {
             
         }else if selfView == floderView {
             MyLog("clickDowm---floderView")
+            let content = HomeNoAllNotePopVC(recordingItem: nil)
+            content.delegate = self
+            let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
+            content.dismissAction = {
+                popup.dismissSelf()
+            }
+            UIApplication.topViewController()?.present(popup, animated: false)
         }
     }
+    
+    func presentAudioPicker(from vc: UIViewController) {
+        let picker = UIDocumentPickerViewController(
+            forOpeningContentTypes: [.audio],
+            asCopy: true
+        )
+        picker.delegate = self
+        picker.allowsMultipleSelection = false
+        vc.present(picker, animated: true)
+    }
+}
+
+// MARK: -  =======================HomeNoAllNotePopVCDelegate========================
+extension CenterAudioPopViewController:HomeNoAllNotePopVCDelegate {
+    func selectedFolderItem(folderItem: FolderItem){
+        MyLog("selectedFolderItem")
+        floderView.updateContent(content: folderItem.folderName!)
+        selectedFolderItem = folderItem
+    }
+}
+
+// MARK: -  =======================CenterLanguagePopVCDelegate========================
+extension CenterAudioPopViewController:CenterLanguagePopVCDelegate {
+    func selectedLangitem(seletedItem: LangItem){
+        MyLog("selectedLangitem")
+        MyLog(seletedItem)
+        languageView.updateContent(content: seletedItem.subTitle)
+        destLang = seletedItem.localize
+    }
+}
+
+// MARK: -  =======================UIDocumentPickerDelegate========================
+extension CenterAudioPopViewController: UIDocumentPickerDelegate {
+    func documentPicker(
+        _ controller: UIDocumentPickerViewController,
+        didPickDocumentsAt urls: [URL]
+    ) {
+        guard let url = urls.first else { return }
+        let access = url.startAccessingSecurityScopedResource()
+        defer {
+            if access {
+                url.stopAccessingSecurityScopedResource()
+            }
+        }
+        MyLog("选中的音频文件:\(url)")
+        
+        let fileName = url.lastPathComponent
+        audioView.updateContent(content: fileName)
+
+        // 拷贝到 App 沙盒
+        saveToSandboxIfNeeded(url)
+    }
+
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        MyLog("用户取消选择")
+    }
+    
+    func saveToSandboxIfNeeded(_ url: URL) {
+        let fileManager = FileManager.default
+
+        // Documents 目录
+        let documentsURL = fileManager
+            .urls(for: .documentDirectory, in: .userDomainMask)[0]
+
+        // Documents/Recording
+        let recordingDir = documentsURL.appendingPathComponent("Recording", isDirectory: true)
+
+        // 确保 Recording 目录存在
+        if !fileManager.fileExists(atPath: recordingDir.path) {
+            do {
+                try fileManager.createDirectory(
+                    at: recordingDir,
+                    withIntermediateDirectories: true,
+                    attributes: nil
+                )
+            } catch {
+                MyLog("创建 Recording 目录失败:\(error)")
+                return
+            }
+        }
+
+        // 最终文件路径
+        let destURL = recordingDir.appendingPathComponent(url.lastPathComponent)
+        fDestURL = destURL
+        // 已存在直接返回
+        if fileManager.fileExists(atPath: destURL.path) {
+            MyLog("文件已存在:\(destURL)")
+            return
+        }
+
+        // 拷贝文件
+        do {
+            try fileManager.copyItem(at: url, to: destURL)
+            MyLog("已保存到 Documents/Recording:\(destURL)")
+            fDestURL = destURL
+        } catch {
+            MyLog("拷贝失败:\(error)")
+            fDestURL = nil
+        }
+    }
+
+
 }

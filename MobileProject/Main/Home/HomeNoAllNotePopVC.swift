@@ -7,9 +7,12 @@
 
 import UIKit
 
+@objc protocol HomeNoAllNotePopVCDelegate: AnyObject {
+    func selectedFolderItem(folderItem: FolderItem)
+}
 
 class HomeNoAllNotePopVC: SuperViewController {
-
+    weak var delegate: HomeNoAllNotePopVCDelegate?
     var dismissAction: (() -> Void)?
     private var selectedIndexPath: IndexPath?
     private lazy var itemList:[FolderItem] = []
@@ -34,7 +37,7 @@ class HomeNoAllNotePopVC: SuperViewController {
     private lazy var moreImageV = UIImageView().image(Asset.addFloders.image).enable(true)
     private lazy var titleL = UILabel().text(L10n.newFolder).color(kkColorFromHex(kkMainTitleColor)).hnFont(size: 14.h, weight: .medium)
 
-    init(recordingItem:RecordingItem) {
+    init(recordingItem:RecordingItem?) {
         super.init(nibName: nil, bundle: nil)
         self.recordingItem = recordingItem
     }
@@ -112,13 +115,17 @@ class HomeNoAllNotePopVC: SuperViewController {
         
         let listData = try! FolderItemStore.shared.fetchAllFolderOutAllNotesItem()
         itemList = listData
-        guard let targetId = recordingItem?.recordFolderId else { return }
-        if let index = itemList.firstIndex(where: { $0.recordFolderId == targetId }) {
-            selectedIndexPath = IndexPath(row: index, section: 0)
-        } else {
+        if let model = recordingItem {
+            guard let targetId = model.recordFolderId else { return }
+            if let index = itemList.firstIndex(where: { $0.recordFolderId == targetId }) {
+                selectedIndexPath = IndexPath(row: index, section: 0)
+            } else {
+                selectedIndexPath = nil
+            }
+        }else{
             selectedIndexPath = nil
         }
-        
+
         tableView.reloadData()
         
         emptyView.refreshData(emptyImage: Asset.sectionEmpty.image, emptyStr: L10n.allResultsAreNegative)
@@ -189,10 +196,15 @@ extension HomeNoAllNotePopVC: UITableViewDelegate, UITableViewDataSource {
         }
         selectedIndexPath = indexPath
         
-        let model = itemList[indexPath.row]
-        recordingItem?.recordFolder = model.folderName
-        recordingItem?.recordFolderId = model.recordFolderId
-        try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
+        if let recordModel = recordingItem {
+            let model = itemList[indexPath.row]
+            recordingItem?.recordFolder = model.folderName
+            recordingItem?.recordFolderId = model.recordFolderId
+            try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
+        }else{
+            delegate?.selectedFolderItem(folderItem: itemList[indexPath.row])
+        }
+        
         
 //        tableView.reloadData()
 

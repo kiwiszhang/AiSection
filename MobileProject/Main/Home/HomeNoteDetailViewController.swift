@@ -171,8 +171,21 @@ extension HomeNoteDetailViewController:DetailNavTopViewDelegate {
             ]
         )
 
-        menu.show(at: CGPoint(x: kkScreenWidth - 16.w, y: 88.h)) { index in
-            print("点击了第 \(index) 项")
+        menu.show(at: CGPoint(x: kkScreenWidth - 16.w, y: 88.h)) { [self] index in
+            MyLog("点击了第 \(index) 项")
+            if index == 2 {
+                let content = CenterLanguagePopVC()
+                content.delegate = self
+                let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
+                content.dismissAction = {
+                    popup.dismissSelf()
+                }
+                self.present(popup, animated: false)
+            }
+            if index == 3 {
+                try! RecordingItemStore.shared.delete(recordingItem!)
+                self.navigationController?.popViewController(animated: true)
+            }
         }
 
     }
@@ -184,6 +197,14 @@ extension HomeNoteDetailViewController:DetailNavTopViewDelegate {
         recordingItem?.isFavorite = !recordingItem!.isFavorite
         try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
         navTopView.updateFavorite(isFavorite: recordingItem!.isFavorite)
+    }
+}
+
+// MARK: -  =======================CenterLanguagePopVCDelegate========================
+extension HomeNoteDetailViewController:CenterLanguagePopVCDelegate {
+    func selectedLangitem(seletedItem: LangItem){
+        MyLog("selectedLangitem")
+        MyLog(seletedItem)
     }
 }
 

@@ -120,6 +120,11 @@ class HomeViewController: SuperViewController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        kkNotification_add(observer: self, selector: #selector(updateTableView), name: NotificationCenterKeys.kUpdateTableViewData.rawValue)
+        tabClickItemIndex(UserDefaultsTools.tabSelected)
+    }
+    
+    @objc func updateTableView(){
         tabClickItemIndex(UserDefaultsTools.tabSelected)
     }
 }

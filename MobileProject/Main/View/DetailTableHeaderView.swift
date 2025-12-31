@@ -114,7 +114,11 @@ class DetailTableHeaderView: SuperView{
         AudioPlaybackManager.shared.stop(recordV)
     }
     func updataNoteTitle(title:String){
-        allNote.text(title)
+        if kkStringIsEmpty(title) {
+            allNote.text(L10n.allNotes)
+        }else{
+            allNote.text(title)
+        }
     }
     func updateData(timeStamp:Int64){
         let result = formatTimestamp(timeStamp)

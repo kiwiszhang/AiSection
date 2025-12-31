@@ -9,6 +9,7 @@ import UIKit
 import AVFoundation
 import MediaPlayer
 import Accelerate
+import CoreMedia
 
 final class WaveformView: UIView {
 

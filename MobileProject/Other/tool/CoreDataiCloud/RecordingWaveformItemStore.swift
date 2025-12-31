@@ -94,20 +94,21 @@ final class RecordingWaveformItemStore {
 
 extension Array where Element == Float {
     func toData() -> Data {
-        return withUnsafeBufferPointer { buffer in
-            Data(buffer: buffer)
-        }
+        withUnsafeBufferPointer { Data(buffer: $0) }
     }
 }
 
 extension Data {
     func toFloatArray() -> [Float] {
-        let count = self.count / MemoryLayout<Float>.size
-        return self.withUnsafeBytes {
-            Array(UnsafeBufferPointer<Float>(
-                start: $0.bindMemory(to: Float.self).baseAddress!,
-                count: count
-            ))
+        let count = count / MemoryLayout<Float>.size
+        return withUnsafeBytes {
+            Array(
+                UnsafeBufferPointer<Float>(
+                    start: $0.bindMemory(to: Float.self).baseAddress!,
+                    count: count
+                )
+            )
         }
     }
 }
+

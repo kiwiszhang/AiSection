@@ -37,13 +37,14 @@ final class UploadRecord: NSObject {
 final class SubmitAndQueryHandle: NSObject {
     static let shared = SubmitAndQueryHandle()
 
-    func handleRecord(fileName:String,client:ByteDanceOpenSpeechClient,completion: @escaping (_ queryData:QueryData) async -> Void){
+    func handleRecord(fileName:String,client:ByteDanceOpenSpeechClient,sourceLang: String = "zh_cn",targetLang: String = "en_us",completion: @escaping (_ queryData:QueryData) async -> Void){
 
         Task {
             do {
                 let taskID = try await client.submitOfflineAudio(
-                    fileURL: "https://aisection.tos-cn-beijing.volces.com/" + fileName
+                    fileURL: "https://aisection.tos-cn-beijing.volces.com/" + fileName,sourceLang:sourceLang,targetLang:targetLang
                 )
+                MyLog("https://aisection.tos-cn-beijing.volces.com/" + fileName)
                 MyLog("✅ TaskID:\(taskID)")
 
                 let finished = try await client.waitUntilFinished(taskID: taskID)
