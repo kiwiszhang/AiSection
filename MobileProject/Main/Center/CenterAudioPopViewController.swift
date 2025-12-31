@@ -8,6 +8,11 @@
 import UIKit
 import UniformTypeIdentifiers
 
+struct HandleRecordingState {
+    let handleStatus: Int
+    let handleContent: String
+}
+
 class CenterAudioPopViewController: SuperViewController {
 
     var dismissAction: (() -> Void)?
@@ -37,8 +42,9 @@ class CenterAudioPopViewController: SuperViewController {
         
         try! RecordingItemStore.shared.addRecordingItem(item00)
         
-        UploadRecord.shared.uploadFile(fileName: fileName,fileURL:URL(string: destURL.absoluteString)!) { task in
+        UploadRecord.shared.uploadFile(fileName: fileName,fileURL:URL(string: destURL.absoluteString)!) { [self] task in
             if ((task.error == nil)) {
+                broadcast(handleStatus: 2, handleContent: "开始处理录音，录音文件上传成功")
                 MyLog("Put object from file success.");
                 let output = task.result;
                 MyLog(output)
@@ -51,8 +57,9 @@ class CenterAudioPopViewController: SuperViewController {
                     )
                 )
                 
-                SubmitAndQueryHandle.shared.handleRecord(fileName: fileName,client: client,targetLang: self.destLang) { queryData in
+                SubmitAndQueryHandle.shared.handleRecord(fileName: fileName,client: client,targetLang: self.destLang) { [self] queryData in
                     if queryData.ErrCode == 0 && queryData.Status == "success"{
+                        broadcast(handleStatus: 3, handleContent: "开始处理录音，录音文件转写成功")
                         if let url = queryData.Result?.AudioTranscriptionFile {
                             do {
                                 let listData = try await client.fetchAudioTranscription(from: url)
@@ -87,6 +94,7 @@ class CenterAudioPopViewController: SuperViewController {
                                 let itemData = try await client.fetchSummarizationFile(from: url)
                                 MyLog(itemData.title)
                                 MyLog(itemData.paragraph)
+                                broadcast(handleStatus: 4, handleContent: "处理录音，录音文件总结处理完成")
                             } catch {
                                 MyLog("❌ Error: \(error.localizedDescription)")
                             }
@@ -104,10 +112,11 @@ class CenterAudioPopViewController: SuperViewController {
                 }
                 
             } else {
+                broadcast(handleStatus: 0, handleContent: "录音处理失败")
                 MyLog("Put object from file failed, error: \(String(describing: task.error))");
             }
         }
-        
+        broadcast(handleStatus: 1, handleContent: "开始处理录音，上传录音文件")
         let vc = CenterProcessingVC()
         vc.modalPresentationStyle = .overFullScreen
         self.present(vc, animated: true)
@@ -167,8 +176,13 @@ class CenterAudioPopViewController: SuperViewController {
         floderView.delegate = self
         floderView.updateData(title: L10n.folder, prompTitle: L10n.none,isShowDowm: true)
         
+        getBtn.enable(false).alpha(0.4)
     }
     
+    private func broadcast(handleStatus: Int,handleContent: String) {
+        let state = HandleRecordingState(handleStatus: handleStatus, handleContent: handleContent)
+        kkNotification_post(name: NotificationCenterKeys.kHandleRecordingState.rawValue, object: state)
+    }
 
 }
 
@@ -275,6 +289,7 @@ extension CenterAudioPopViewController: UIDocumentPickerDelegate {
         let fileName = url.lastPathComponent
         audioView.updateContent(content: fileName)
 
+        getBtn.enable(true).alpha(1)
         // 拷贝到 App 沙盒
         saveToSandboxIfNeeded(url)
     }

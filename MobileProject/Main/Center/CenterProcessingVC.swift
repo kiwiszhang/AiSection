@@ -11,7 +11,7 @@ struct ProcessItem {
     let title: String
     let subTitle: String
     let leftImage:UIImage
-//    let rightImage:UIImage
+    let rightImage:UIImage
 }
 
 
@@ -39,6 +39,60 @@ class CenterProcessingVC: SuperViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        kkNotification_add(observer: self, selector: #selector(updateProcessingUI(_:)), name: NotificationCenterKeys.kHandleRecordingState.rawValue)
+    }
+    
+    @objc func updateProcessingUI(_ notification: Notification){
+        DispatchQueue.main.async { [self] in
+            bottomBtn.enable(true).alpha(1.0)
+            guard let state = notification.object as? HandleRecordingState else { return }
+            if state.handleStatus == 1 {
+                progressView.updateData(title: "", present: 0.25)
+                bottomBtn.enable(false).alpha(0.4)
+                remainView.updateData(title: L10n.processingInProgressPleaseDoNotLeave)
+                
+                let model00 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.enhanceAudioForBetterAccuracy, leftImage: Asset.processingAudio00.image,rightImage: Asset.processingLoading.image)
+                let model01 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.speechToTextWithSmartPunctuation, leftImage: Asset.processingAudio01.image,rightImage: Asset.processingLoadingLight.image)
+                let model02 = ProcessItem(title: L10n.highlightingKeyPoints, subTitle: L10n.decisionsActionsAndTakeaways, leftImage: Asset.processingPoints.image,rightImage: Asset.processingLoadingLight.image)
+                let model03 = ProcessItem(title: L10n.wrappingUp, subTitle: L10n.deliverAShareReadySummary, leftImage: Asset.processingWrapping.image,rightImage: Asset.processingLoadingLight.image)
+                itemList = [model00,model01,model02,model03]
+            }
+            if state.handleStatus == 2 {
+                progressView.updateData(title: "", present: 0.5)
+                remainView.updateData(title: L10n.itIsSafeToLeave)
+                
+                let model00 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.enhanceAudioForBetterAccuracy, leftImage: Asset.processingAudio00.image,rightImage: Asset.addNoteCheck.image)
+                let model01 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.speechToTextWithSmartPunctuation, leftImage: Asset.processingAudio01.image,rightImage: Asset.processingLoading.image)
+                let model02 = ProcessItem(title: L10n.highlightingKeyPoints, subTitle: L10n.decisionsActionsAndTakeaways, leftImage: Asset.processingPoints.image,rightImage: Asset.processingLoadingLight.image)
+                let model03 = ProcessItem(title: L10n.wrappingUp, subTitle: L10n.deliverAShareReadySummary, leftImage: Asset.processingWrapping.image,rightImage: Asset.processingLoadingLight.image)
+                itemList = [model00,model01,model02,model03]
+            }
+            
+            if state.handleStatus == 3 {
+                progressView.updateData(title: "", present: 0.75)
+                let model00 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.enhanceAudioForBetterAccuracy, leftImage: Asset.processingAudio00.image,rightImage: Asset.addNoteCheck.image)
+                let model01 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.speechToTextWithSmartPunctuation, leftImage: Asset.processingAudio01.image,rightImage: Asset.addNoteCheck.image)
+                let model02 = ProcessItem(title: L10n.highlightingKeyPoints, subTitle: L10n.decisionsActionsAndTakeaways, leftImage: Asset.processingPoints.image,rightImage: Asset.processingLoading.image)
+                let model03 = ProcessItem(title: L10n.wrappingUp, subTitle: L10n.deliverAShareReadySummary, leftImage: Asset.processingWrapping.image,rightImage: Asset.processingLoadingLight.image)
+                itemList = [model00,model01,model02,model03]
+            }
+            
+            if state.handleStatus == 4 {
+                progressView.updateData(title: "", present: 1.0)
+                
+                let model00 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.enhanceAudioForBetterAccuracy, leftImage: Asset.processingAudio00.image,rightImage: Asset.addNoteCheck.image)
+                let model01 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.speechToTextWithSmartPunctuation, leftImage: Asset.processingAudio01.image,rightImage: Asset.addNoteCheck.image)
+                let model02 = ProcessItem(title: L10n.highlightingKeyPoints, subTitle: L10n.decisionsActionsAndTakeaways, leftImage: Asset.processingPoints.image,rightImage: Asset.addNoteCheck.image)
+                let model03 = ProcessItem(title: L10n.wrappingUp, subTitle: L10n.deliverAShareReadySummary, leftImage: Asset.processingWrapping.image,rightImage: Asset.addNoteCheck.image)
+                itemList = [model00,model01,model02,model03]
+            }
+            
+            tableView.reloadData()
+        }
     }
     
     override func setUpUI() {
@@ -91,19 +145,19 @@ class CenterProcessingVC: SuperViewController {
             make.top.equalTo(topBgView.snp.bottom).offset(24.h)
             make.bottom.equalTo(bottomBtn.snp.top).offset(-75.h)
         }
-        
     }
 
     override func getData() {
         
         progressView.addGradientBackground(colors: [kkColorFromHex("D4E4FF"),kkColorFromHex("D9EDFF"),kkColorFromHex("BAD6FF")], direction: .bottomLeftToTopRight)
-        progressView.updateData(title: "", present: 0.33)
+        progressView.updateData(title: "", present: 0.0)
         
-        let model00 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.enhanceAudioForBetterAccuracy, leftImage: Asset.processingAudio00.image)
-        let model01 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.speechToTextWithSmartPunctuation, leftImage: Asset.processingAudio01.image)
-        let model02 = ProcessItem(title: L10n.highlightingKeyPoints, subTitle: L10n.decisionsActionsAndTakeaways, leftImage: Asset.processingPoints.image)
-        let model03 = ProcessItem(title: L10n.wrappingUp, subTitle: L10n.deliverAShareReadySummary, leftImage: Asset.processingWrapping.image)
+        let model00 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.enhanceAudioForBetterAccuracy, leftImage: Asset.processingAudio00.image,rightImage: Asset.processingLoading.image)
+        let model01 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.speechToTextWithSmartPunctuation, leftImage: Asset.processingAudio01.image,rightImage: Asset.processingLoadingLight.image)
+        let model02 = ProcessItem(title: L10n.highlightingKeyPoints, subTitle: L10n.decisionsActionsAndTakeaways, leftImage: Asset.processingPoints.image,rightImage: Asset.processingLoadingLight.image)
+        let model03 = ProcessItem(title: L10n.wrappingUp, subTitle: L10n.deliverAShareReadySummary, leftImage: Asset.processingWrapping.image,rightImage: Asset.processingLoadingLight.image)
         itemList = [model00,model01,model02,model03]
+        
         tableView.reloadData()
     }
     
@@ -181,6 +235,7 @@ class ProcessCell: SuperTableViewCell {
         titleLab.text = item.title
         subTitleLab.text = item.subTitle
         leftImg.image(item.leftImage)
+        rightImg.image(item.rightImage)
     }
 }
 

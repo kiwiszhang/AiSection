@@ -10,6 +10,9 @@ import UIKit
 enum NotificationCenterKeys:String {
     // 刷新首页数据
     case kUpdateTableViewData = "NotificationCenterKeys_kUpdateTableViewData"
-    
+
+    // 录音处理也状态更改
+    case kHandleRecordingState = "NotificationCenterKeys_kHandleRecordingState"
+
 }
 
