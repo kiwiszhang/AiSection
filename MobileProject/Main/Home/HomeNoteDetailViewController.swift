@@ -119,6 +119,7 @@ class HomeNoteDetailViewController: SuperViewController {
     
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        tableHeaderView.stopAudios()
     }
 
 }

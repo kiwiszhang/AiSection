@@ -137,7 +137,7 @@ final class AudioPlayerView: UIView {
 
     private let timeLabel = UILabel()
         .hnFont(size: 10.h, weight: .medium)
-        .color(kkColorFromHex(kkMainColor))
+        .color(kkColorFromHex(kkMainColor)).backgroundColor(.clear).centerAligned()
     private var audioURL: URL?
 
     override init(frame: CGRect) {
@@ -170,7 +170,8 @@ final class AudioPlayerView: UIView {
         addSubview(timeLabel)
         
         playButton.snp.makeConstraints { make in
-            make.width.height.equalTo(38.h)
+            make.height.equalToSuperview().offset(-4)
+            make.width.equalTo(playButton.snp.height)
             make.left.equalToSuperview().offset(3.w)
             make.centerY.equalToSuperview()
         }
@@ -233,7 +234,7 @@ final class AudioPlayerView: UIView {
         DispatchQueue.global(qos: .utility).async {
             let waveform = (try? AudioWaveformExtractor.extract(
                 url: url,
-                sampleCount: 70
+                sampleCount: 100
             )) ?? []
 
             DispatchQueue.main.async {

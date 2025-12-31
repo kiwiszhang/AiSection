@@ -87,6 +87,7 @@
 		53F68DA82F03A7470051FFE6 /* DSWaveformImageViews in Frameworks */ = {isa = PBXBuildFile; productRef = 53F68DA72F03A7470051FFE6 /* DSWaveformImageViews */; };
 		53F68DAA2F03B2210051FFE6 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */; };
 		53F68DAC2F03BEDD0051FFE6 /* AudioPlaybackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DAB2F03BEDD0051FFE6 /* AudioPlaybackManager.swift */; };
+		53F68DAE2F04B3700051FFE6 /* RecordingWaveformItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DAD2F04B3700051FFE6 /* RecordingWaveformItemStore.swift */; };
 		53FFAEEE2EFA2D8400A0C1EF /* TitleFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */; };
 		53FFAEF02EFA365A00A0C1EF /* CenterLanguagePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */; };
 		53FFAEF32EFA3BD600A0C1EF /* record-bottom.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */; };
@@ -204,6 +205,7 @@
 		53F68DA02F036FED0051FFE6 /* HomeNoAllNotePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNoAllNotePopVC.swift; sourceTree = "<group>"; };
 		53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		53F68DAB2F03BEDD0051FFE6 /* AudioPlaybackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlaybackManager.swift; sourceTree = "<group>"; };
+		53F68DAD2F04B3700051FFE6 /* RecordingWaveformItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingWaveformItemStore.swift; sourceTree = "<group>"; };
 		53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleFieldView.swift; sourceTree = "<group>"; };
 		53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterLanguagePopVC.swift; sourceTree = "<group>"; };
 		53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "record-bottom.mp4"; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				531CD8EB2EEAAF6400FC22F7 /* PersistenceController.swift */,
 				53F68D8A2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodeld */,
 				53F68D962EFFB2B10051FFE6 /* RecordingItemStore.swift */,
+				53F68DAD2F04B3700051FFE6 /* RecordingWaveformItemStore.swift */,
 				53F68D982EFFCACA0051FFE6 /* FolderItemStore.swift */,
 			);
 			path = CoreDataiCloud;
@@ -763,6 +766,7 @@
 				53FFAEEE2EFA2D8400A0C1EF /* TitleFieldView.swift in Sources */,
 				538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */,
 				531CD9312EECFF2300FC22F7 /* HomePopViewController.swift in Sources */,
+				53F68DAE2F04B3700051FFE6 /* RecordingWaveformItemStore.swift in Sources */,
 				538282322EF4EAF50097EAD0 /* CenterAudioPopViewController.swift in Sources */,
 				531CD8DF2EEAACF100FC22F7 /* JSON.swift in Sources */,
 				531CD91A2EEBBACA00FC22F7 /* TopView.swift in Sources */,
