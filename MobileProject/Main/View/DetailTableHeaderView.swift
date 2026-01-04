@@ -17,7 +17,16 @@ import AVFoundation
 
 class DetailTableHeaderView: SuperView{
     weak var delegate: DetailTableHeaderViewDelegate?
+    var recordingItem:RecordingItem? = nil
     // MARK: -  =====================lazyload=========================
+//    init(recordingItem:RecordingItem) {
+//        super.init(frame: .zero)
+//        self.recordingItem = recordingItem
+//    }
+//    @MainActor required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//    
     private lazy var topView = UIView().backgroundColor(kkColorFromHexWithAlpha("317DFF", 0.16)).cornerRadius(25.h, corners: [.bottomLeft,.bottomRight])
 
     private lazy var titleL = UILabel().text("Welcome to the App! Discover all features").hnFont(size: 20.h, weight: .medium).color(kkColorFromHex(kkMainTextColor)).lines(2)
@@ -26,7 +35,6 @@ class DetailTableHeaderView: SuperView{
     }
     private lazy var dateV = DetailItemView()
     private lazy var timeV = DetailItemView()
-//    private lazy var recordV = DetailRecordView().backgroundColor(.white).cornerRadius(22.h)
     private lazy var recordV = AudioPlayerView().backgroundColor(.white).cornerRadius(22.h)
     lazy var segmentV = DetailSegmentView()
     // MARK: -  =====================Intial Methods===================
@@ -84,19 +92,6 @@ class DetailTableHeaderView: SuperView{
 //        recordV.delegate = self
         
         segmentV.segmentedView.setSelectedIndex(UserDefaultsTools.segmentIndex, animated: false)
-
-
-        let directory = RecorderManager.shared.recordingsDirectory()
-        let urlFile = URL(string:"\(directory.absoluteString)" + "567.m4a")!
-        guard let fileURL = URL(string: urlFile.absoluteString) else {
-            MyLog("无可用文件或路径错误")
-            return
-        }
-        MyLog(urlFile)
-        MyLog(fileURL)
-//        recordV.loadAudio(url: fileURL)
-        recordV.configure(url: fileURL, duration: audioDuration(url: fileURL))
-
     }
     
     func audioDuration(url: URL) -> TimeInterval {
@@ -110,6 +105,18 @@ class DetailTableHeaderView: SuperView{
     }
     
     // MARK: -  =======================actions========================
+    func setUpPlay(){
+        let directory = RecorderManager.shared.recordingsDirectory()
+        let urlFile = URL(string:"\(directory.absoluteString)" + (recordingItem?.recordPath)!)!
+        guard let fileURL = URL(string: urlFile.absoluteString) else {
+            MyLog("无可用文件或路径错误")
+            return
+        }
+        MyLog(urlFile)
+        MyLog(fileURL)
+//        recordV.loadAudio(url: fileURL)
+        recordV.configure(url: fileURL, duration: audioDuration(url: fileURL))
+    }
     func stopAudios(){
         AudioPlaybackManager.shared.stop(recordV)
     }

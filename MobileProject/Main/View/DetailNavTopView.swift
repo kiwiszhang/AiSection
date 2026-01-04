@@ -18,7 +18,15 @@ import AVFoundation
 
 class DetailNavTopView: SuperView{
     weak var delegate: DetailNavTopViewDelegate?
+    var recordingItem:RecordingItem? = nil
     // MARK: -  =====================lazyload=========================
+//    init(recordingItem:RecordingItem) {
+//        super.init(frame: .zero)
+//        self.recordingItem = recordingItem
+//    }
+//    @MainActor required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     private lazy var moreImage = UIImageView().image(Asset.moreAction.image).enable(true).onTap { [self] in
         delegate?.moreClick()
     }
@@ -72,19 +80,6 @@ class DetailNavTopView: SuperView{
             make.right.equalTo(favoriteImage.snp.left).offset(-19.w)
             make.height.equalTo(36.h)
         }
-        
-        let directory = RecorderManager.shared.recordingsDirectory()
-        let urlFile = URL(string:"\(directory.absoluteString)" + "567.m4a")!
-        guard let fileURL = URL(string: urlFile.absoluteString) else {
-            MyLog("无可用文件或路径错误")
-            return
-        }
-        MyLog(urlFile)
-        MyLog(fileURL)
-//        recordV.loadAudio(url: fileURL)
-        recordV.configure(url: fileURL, duration: audioDuration(url: fileURL))
-
-        
     }
     func audioDuration(url: URL) -> TimeInterval {
         let asset = AVURLAsset(url: url)
@@ -101,6 +96,19 @@ class DetailNavTopView: SuperView{
         }else{
             favoriteImage.image(Asset.unfavorite.image)
         }
+    }
+    
+    func setUpPlay(){
+        let directory = RecorderManager.shared.recordingsDirectory()
+        let urlFile = URL(string:"\(directory.absoluteString)" + (recordingItem?.recordPath)!)!
+        guard let fileURL = URL(string: urlFile.absoluteString) else {
+            MyLog("无可用文件或路径错误")
+            return
+        }
+        MyLog(urlFile)
+        MyLog(fileURL)
+//        recordV.loadAudio(url: fileURL)
+        recordV.configure(url: fileURL, duration: audioDuration(url: fileURL))
     }
     
     // MARK: -  =======================actions========================

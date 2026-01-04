@@ -30,6 +30,8 @@ class HomeNoteDetailViewController: SuperViewController {
     init(recordingItem:RecordingItem) {
         super.init(nibName: nil, bundle: nil)
         self.recordingItem = recordingItem
+        navTopView.recordingItem = recordingItem
+        tableHeaderView.recordingItem = recordingItem
     }
 
     @MainActor required init?(coder: NSCoder) {
@@ -110,6 +112,8 @@ class HomeNoteDetailViewController: SuperViewController {
         navTopView.updateFavorite(isFavorite: recordingItem!.isFavorite)
         tableHeaderView.updateData(timeStamp: recordingItem!.updateTime)
         tableHeaderView.updataNoteTitle(title: recordingItem!.recordFolder!)
+        navTopView.setUpPlay()
+        tableHeaderView.setUpPlay()
     }
     
     open override func viewWillAppear(_ animated: Bool) {
