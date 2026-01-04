@@ -123,10 +123,14 @@ internal enum L10n {
   internal static let `none` = L10n.tr("Localizable", "None", fallback: "None")
   /// 无法使用麦克风
   internal static let noPermission = L10n.tr("Localizable", "NoPermission", fallback: "无法使用麦克风")
+  /// 没有总结
+  internal static let noSummarization = L10n.tr("Localizable", "noSummarization", fallback: "没有总结")
   /// The network is not connected or limited.
   internal static let notConnectedLimited = L10n.tr("Localizable", "not-connected-limited", fallback: "The network is not connected or limited.")
   /// notes
   internal static let notes = L10n.tr("Localizable", "Notes", fallback: "notes")
+  /// 没有转写
+  internal static let noTranscription = L10n.tr("Localizable", "noTranscription", fallback: "没有转写")
   /// please record for at least 10 seconds
   internal static let pleaseRecordForAtLeast10Seconds = L10n.tr("Localizable", "please record for at least 10 seconds", fallback: "please record for at least 10 seconds")
   /// Portuguese (Brazil)

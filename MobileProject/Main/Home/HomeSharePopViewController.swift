@@ -7,12 +7,7 @@
 
 import UIKit
 
-struct PopItemModel {
-    var itemName: String = ""
-    var itemIcon: UIImage
-}
-
-class HomePopViewController: SuperViewController {
+class HomeSharePopViewController: SuperViewController {
 
     var dismissAction: (() -> Void)?
     private lazy var itemList:[PopItemModel] = []
@@ -66,14 +61,14 @@ class HomePopViewController: SuperViewController {
 }
 
 // MARK: -  =======================PopTopViewDelegate========================
-extension HomePopViewController:PopTopViewDelegate {
+extension HomeSharePopViewController:PopTopViewDelegate {
     func popTopViewClose() {
         dismissAction?()
     }
 }
 
 // MARK: -  =======================HomeAddFloderPopVCDelegate========================
-extension HomePopViewController:HomeAddFloderPopVCDelegate {
+extension HomeSharePopViewController:HomeAddFloderPopVCDelegate {
     func addFloderSave(Floder:String) {
         dismissAction?()
         recordingItem?.recordName = Floder
@@ -84,7 +79,7 @@ extension HomePopViewController:HomeAddFloderPopVCDelegate {
 
 
 //MARK: ----------TableViewDelegateDataSource-----------
-extension HomePopViewController: UITableViewDelegate, UITableViewDataSource {
+extension HomeSharePopViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemList.count
     }
@@ -99,35 +94,82 @@ extension HomePopViewController: UITableViewDelegate, UITableViewDataSource {
         let item = itemList[indexPath.row]
         MyLog(item.itemName)
         if indexPath.row == 0 {
-            let content = HomeSharePopViewController(itemList: HomeConfigData.getHomeMoreShareData(), recordingItem: recordingItem!)
-            content.updateTitle(title: L10n.share)
-            let popup = PopupContainerViewController(contentVC: content, height: 462.h)
-            content.dismissAction = {
-                popup.dismissSelf()
+            do {
+                let data = recordingItem?.summarizationData
+                let decoder = JSONDecoder()
+                let sentences = try decoder.decode(Summarization.self, from: data!)
+                MyLog(sentences)
+                if let pdfURL = ShareHandlePDFTEXT.shared.generateTextPDF(title: sentences.title,pdfTitle:(recordingItem?.recordName)! + " " + L10n.summarize, body: sentences.paragraph) {
+                    MyLog("✅ PDF summarizationData 导出成功: \(String(describing: pdfURL))")
+                    let activityVC = UIActivityViewController(activityItems: [pdfURL as Any], applicationActivities: nil)
+                    present(activityVC, animated: true)
+                }
+            } catch {
+                MyLog("❌ Error: \(error.localizedDescription)")
+                MBProgressHUD.showHUD(L10n.noSummarization)
             }
-            UIApplication.topViewController()?.present(popup, animated: false)
+            
         }else if indexPath.row == 1 {
-            recordingItem?.isFavorite = !recordingItem!.isFavorite
-            try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
-            dismissAction?()
+            do {
+                let data = recordingItem?.summarizationData
+                let decoder = JSONDecoder()
+                let sentences = try decoder.decode(Summarization.self, from: data!)
+                MyLog(sentences)
+                let content = sentences.title + sentences.paragraph
+                UIPasteboard.general.string = content
+                showAlertViewWithOutCancelButton(title: "",message: "已复制到剪贴板", confirmButtonTitle:"OK") { [self] confirmed in
+                    dismissAction?()
+                }
+            } catch {
+                MyLog("❌ Error: \(error.localizedDescription)")
+                MBProgressHUD.showHUD(L10n.noSummarization)
+            }
         }else if indexPath.row == 2 {
-            let content = HomeNoAllNotePopVC(recordingItem: recordingItem!)
-            let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
-            content.dismissAction = {
-                popup.dismissSelf()
+            do {
+                let data = recordingItem?.transcriptionData
+                let decoder = JSONDecoder()
+                let sentences = try decoder.decode([AudioSentenceRaw].self, from: data!)
+                MyLog(sentences)
+                
+                var content = ""
+                for sentItem in sentences {
+                    let speaker = sentItem.speaker.name ?? ""
+                    content += speaker + ": " + sentItem.content + "\n"
+                }
+                
+                if let pdfURL = ShareHandlePDFTEXT.shared.generateTextPDF(title: L10n.transcription,pdfTitle:(recordingItem?.recordName)! + " " + L10n.transcription, body: content) {
+                    MyLog("✅ PDF Transcription 导出成功: \(String(describing: pdfURL))")
+                    let activityVC = UIActivityViewController(activityItems: [pdfURL as Any], applicationActivities: nil)
+                    present(activityVC, animated: true)
+                }
+            } catch {
+                MyLog("❌ Error: \(error.localizedDescription)")
+                MBProgressHUD.showHUD(L10n.noTranscription)
             }
-            UIApplication.topViewController()?.present(popup, animated: false)
         }else if indexPath.row == 3 {
-            let content = HomeAddFloderPopVC(topTitle: L10n.rename)
-            content.delegate = self
-            let popup = PopupContainerViewController(contentVC: content, height: 259.h)
-            content.dismissAction = {
-                popup.dismissSelf()
+            do {
+                let data = recordingItem?.transcriptionData
+                let decoder = JSONDecoder()
+                let sentences = try decoder.decode([AudioSentenceRaw].self, from: data!)
+                MyLog(sentences)
+                
+                var content = ""
+                for sentItem in sentences {
+                    let speaker = sentItem.speaker.name ?? ""
+                    content += speaker + ": " + sentItem.content + "\n"
+                }
+                UIPasteboard.general.string = content
+                showAlertViewWithOutCancelButton(title: "",message: "已复制到剪贴板", confirmButtonTitle:"OK") { [self] confirmed in
+                    dismissAction?()
+                }
+            } catch {
+                MyLog("❌ Error: \(error.localizedDescription)")
+                MBProgressHUD.showHUD(L10n.noTranscription)
             }
-            UIApplication.topViewController()?.present(popup, animated: false)
         }else if indexPath.row == 4 {
-            try! RecordingItemStore.shared.delete(recordingItem!)
-            dismissAction?()
+            if let urlPath = UtitilTools.documentsURL(for: "Recording/" + (recordingItem?.recordPath!)!) {
+                ShareManager.shared.shareURL(urlPath,title: recordingItem?.recordName)
+            }
         }
     }
     
@@ -147,40 +189,4 @@ extension HomePopViewController: UITableViewDelegate, UITableViewDataSource {
 //        for cell in tableView.visibleCells {
 //        }
 //    }
-}
-
-class PopItemCell: SuperTableViewCell {
-    private lazy var iconImageV = UIImageView().image(Asset.homeNote.image).enable(true)
-    private lazy var titleL = UILabel().text("title").color(kkColorFromHex(kkMainTitleColor)).hnFont(size: 14.h, weight: .medium)
-    private lazy var line = UIView().backgroundColor(kkColorFromHex(kkWhiteSliceLineColor))
-    override func setUpUI() {
-        self.backgroundColor(.clear)
-        contentView.addChildView([iconImageV,titleL,line])
-        contentView.backgroundColor(.clear)
-        iconImageV.snp.makeConstraints { make in
-            make.width.height.equalTo(38.h)
-            make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(16.w)
-        }
-
-        titleL.snp.makeConstraints { make in
-            make.left.equalTo(iconImageV.snp.right).offset(10.w)
-            make.right.equalToSuperview().offset(-10.w)
-            make.centerY.equalToSuperview()
-            make.height.equalTo(20.h)
-        }
-        
-        line.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.height.equalTo(1)
-            make.bottom.equalToSuperview().offset(-1)
-        }
-    }
-    
-    func configure(with item: PopItemModel,isLast:Bool) {
-        titleL.text(item.itemName)
-        iconImageV.image(item.itemIcon)
-        line.hidden(isLast)
-    }
-
 }

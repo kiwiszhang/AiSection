@@ -17,6 +17,11 @@ struct RecordingItemRequest {
     let recordFolderId:String?
     let isFavorite:Bool?
     let createTime:Int64?
+    var transcriptionData:Data?
+    var translationData:Data?
+    var summarizationData:Data?
+    var informationData:Data?
+    var chapterSummaryData:Data?
 }
 
 final class RecordingItemStore {
@@ -38,6 +43,11 @@ final class RecordingItemStore {
         item.recordFolderId = req.recordFolderId!
         item.isFavorite = req.isFavorite!
         item.recordName = req.recordName
+        item.transcriptionData = req.transcriptionData
+        item.chapterSummaryData = req.chapterSummaryData
+        item.informationData = req.informationData
+        item.summarizationData = req.summarizationData
+        item.translationData = req.translationData
         try context.save()
     }
     
@@ -98,6 +108,21 @@ final class RecordingItemStore {
             }
             if let isFavorite = req.isFavorite {
                 item.isFavorite = isFavorite
+            }
+            if let transcriptionData = req.transcriptionData {
+                item.transcriptionData = transcriptionData
+            }
+            if let chapterSummaryData = req.chapterSummaryData {
+                item.chapterSummaryData = chapterSummaryData
+            }
+            if let informationData = req.informationData {
+                item.informationData = informationData
+            }
+            if let summarizationData = req.summarizationData {
+                item.summarizationData = summarizationData
+            }
+            if let translationData = req.translationData {
+                item.translationData = translationData
             }
             try context.save()
         } else {

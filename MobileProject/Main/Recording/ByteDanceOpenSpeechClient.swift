@@ -135,6 +135,19 @@ public extension ByteDanceOpenSpeechClient {
         let sentences = try decoder.decode([AudioSentenceRaw].self, from: data)
         return sentences
     }
+    // MARK: - 请求 AudioTranscriptionFileData
+    func fetchAudioTranscriptionData(from url: String) async throws -> Data {
+        guard let url = URL(string: url) else {
+            throw OpenSpeechError.invalidResponse
+        }
+        let (data, _) = try await URLSession.shared.data(from: url)
+        // 🔍 建议保留，方便排查线上问题
+        MyLog("📄 AudioTranscriptionFile raw:\n\(String(data: data, encoding: .utf8) ?? "")")
+        return data
+//        let decoder = JSONDecoder()
+//        let sentences = try decoder.decode([AudioSentenceRaw].self, from: data)
+//        return sentences
+    }
     
     // MARK: - 请求 ChapterFile
     func fetchChapterFile(from url: String) async throws -> ChapterResponse {
@@ -147,6 +160,19 @@ public extension ByteDanceOpenSpeechClient {
         let decoder = JSONDecoder()
         let sentences = try decoder.decode(ChapterResponse.self, from: data)
         return sentences
+    }
+    // MARK: - 请求 ChapterFileData
+    func fetchChapterFileData(from url: String) async throws -> Data {
+        guard let url = URL(string: url) else {
+            throw OpenSpeechError.invalidResponse
+        }
+        let (data, _) = try await URLSession.shared.data(from: url)
+        // 🔍 建议保留，方便排查线上问题
+        MyLog("📄 ChapterFile raw:\n\(String(data: data, encoding: .utf8) ?? "")")
+        return data
+//        let decoder = JSONDecoder()
+//        let sentences = try decoder.decode(ChapterResponse.self, from: data)
+//        return sentences
     }
     
     // MARK: - 请求 InformationExtractionFile
@@ -162,6 +188,20 @@ public extension ByteDanceOpenSpeechClient {
         return sentences
     }
     
+    // MARK: - 请求 InformationExtractionFileData
+    func fetchInformationExtractionFileData(from url: String) async throws -> Data {
+        guard let url = URL(string: url) else {
+            throw OpenSpeechError.invalidResponse
+        }
+        let (data, _) = try await URLSession.shared.data(from: url)
+        // 🔍 建议保留，方便排查线上问题
+        MyLog("📄 InformationExtraction raw:\n\(String(data: data, encoding: .utf8) ?? "")")
+        return data
+//        let decoder = JSONDecoder()
+//        let sentences = try decoder.decode(InformationExtraction.self, from: data)
+//        return sentences
+    }
+    
     // MARK: - 请求 SummarizationFile
     func fetchSummarizationFile(from url: String) async throws -> Summarization {
         guard let url = URL(string: url) else {
@@ -175,6 +215,20 @@ public extension ByteDanceOpenSpeechClient {
         return sentences
     }
     
+    // MARK: - 请求 SummarizationFileData
+    func fetchSummarizationFileData(from url: String) async throws -> Data {
+        guard let url = URL(string: url) else {
+            throw OpenSpeechError.invalidResponse
+        }
+        let (data, _) = try await URLSession.shared.data(from: url)
+        // 🔍 建议保留，方便排查线上问题
+        MyLog("📄 SummarizationFile raw:\n\(String(data: data, encoding: .utf8) ?? "")")
+        return data
+//        let decoder = JSONDecoder()
+//        let sentences = try decoder.decode(Summarization.self, from: data)
+//        return sentences
+    }
+    
     // MARK: - 请求 TranslationFile
     func fetchTranslationFile(from url: String) async throws -> [TranslationRaw] {
         guard let url = URL(string: url) else {
@@ -186,6 +240,19 @@ public extension ByteDanceOpenSpeechClient {
         let decoder = JSONDecoder()
         let sentences = try decoder.decode([TranslationRaw].self, from: data)
         return sentences
+    }
+    // MARK: - 请求 TranslationFileData
+    func fetchTranslationFileData(from url: String) async throws -> Data {
+        guard let url = URL(string: url) else {
+            throw OpenSpeechError.invalidResponse
+        }
+        let (data, _) = try await URLSession.shared.data(from: url)
+        // 🔍 建议保留，方便排查线上问题
+        MyLog("📄 TranslationRaw raw:\n\(String(data: data, encoding: .utf8) ?? "")")
+        return data
+//        let decoder = JSONDecoder()
+//        let sentences = try decoder.decode([TranslationRaw].self, from: data)
+//        return sentences
     }
 
 }

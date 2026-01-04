@@ -43,7 +43,7 @@ extension AppDelegate {
     private func startAppInfo() {
 
         if UserDefaultsTools.isFirstInstallApp {
-            let item00 = RecordingItemRequest(updateTime: Int64.min, recordType: 0, recordPath: "isDemo.m4a", recordName: "isDemo", recordFolder: "isDemo", recordFolderId:UUID().uuidString, isFavorite: false, createTime: Int64.min)
+            let item00 = RecordingItemRequest(updateTime: Int64.min, recordType: 0, recordPath: "isDemo.m4a", recordName: "isDemo", recordFolder: "isDemo", recordFolderId:UUID().uuidString, isFavorite: false, createTime: Int64.min, transcriptionData: nil)
             do{
                 try! RecordingItemStore.shared.addRecordingItem(item00)
             }
@@ -51,8 +51,8 @@ extension AppDelegate {
             let itemFolder00 = FolderItemRequest(folderName: "isDemo", recordFolderId: UUID().uuidString, createTime: Int64.min)
             let itemFolder01 = FolderItemRequest(folderName: L10n.allNotes, recordFolderId: UUID().uuidString, createTime: Int64.max)
             do{
-                try! FolderItemStore.shared.addFolderItem(itemFolder00)
                 try! FolderItemStore.shared.addFolderItem(itemFolder01)
+                try! FolderItemStore.shared.addFolderItem(itemFolder00)
             }
 
             UserDefaultsTools.isFirstInstallApp = false

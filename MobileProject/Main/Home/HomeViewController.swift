@@ -47,10 +47,10 @@ class HomeViewController: SuperViewController {
     }
     
     func addNoteData(){
-        let item00 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, recordPath: "567.m4a", recordName: "test-Record-Name567", recordFolder: "Note00", recordFolderId: UUID().uuidString, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970))
-        let item01 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 0, recordPath: "567.m4a", recordName: "test-Record-Name678", recordFolder: "Note01", recordFolderId: UUID().uuidString, isFavorite: true, createTime: Int64(Date().timeIntervalSince1970))
-        let item02 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, recordPath: "567.m4a", recordName: "test-Record-Name789", recordFolder: "Note00", recordFolderId: UUID().uuidString, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970))
-        let item03 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 0, recordPath: "567.m4a", recordName: "test-Record-Name890", recordFolder: "Note01", recordFolderId: UUID().uuidString, isFavorite: true, createTime: Int64(Date().timeIntervalSince1970))
+        let item00 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, recordPath: "567.m4a", recordName: "test-Record-Name567", recordFolder: "Note00", recordFolderId: UUID().uuidString, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970),transcriptionData: nil)
+        let item01 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 0, recordPath: "567.m4a", recordName: "test-Record-Name678", recordFolder: "Note01", recordFolderId: UUID().uuidString, isFavorite: true, createTime: Int64(Date().timeIntervalSince1970),transcriptionData: nil)
+        let item02 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, recordPath: "567.m4a", recordName: "test-Record-Name789", recordFolder: "Note00", recordFolderId: UUID().uuidString, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970),transcriptionData: nil)
+        let item03 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 0, recordPath: "567.m4a", recordName: "test-Record-Name890", recordFolder: "Note01", recordFolderId: UUID().uuidString, isFavorite: true, createTime: Int64(Date().timeIntervalSince1970),transcriptionData: nil)
 
         do{
             try! RecordingItemStore.shared.addRecordingItem(item00)
@@ -221,6 +221,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             if UtitilTools.isDemoData(model: item) {
                 MyLog("Demo")
             }else{
+//                MBProgressHUD.showHUD()
                 let vc = HomeNoteDetailViewController(recordingItem: item)
                 self.navigationController?.pushViewController(vc, animated: true)
             }

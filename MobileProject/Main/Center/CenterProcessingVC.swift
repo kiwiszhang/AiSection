@@ -48,8 +48,9 @@ class CenterProcessingVC: SuperViewController {
     
     @objc func updateProcessingUI(_ notification: Notification){
         DispatchQueue.main.async { [self] in
-            bottomBtn.enable(true).alpha(1.0)
             guard let state = notification.object as? HandleRecordingState else { return }
+            bottomBtn.enable(true).alpha(1.0)
+            MyLog(state.handleContent)
             if state.handleStatus == 1 {
                 progressView.updateData(title: "", present: 0.25)
                 bottomBtn.enable(false).alpha(0.4)

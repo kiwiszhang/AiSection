@@ -88,6 +88,8 @@
 		53F68DAA2F03B2210051FFE6 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */; };
 		53F68DAC2F03BEDD0051FFE6 /* AudioPlaybackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DAB2F03BEDD0051FFE6 /* AudioPlaybackManager.swift */; };
 		53F68DAE2F04B3700051FFE6 /* RecordingWaveformItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DAD2F04B3700051FFE6 /* RecordingWaveformItemStore.swift */; };
+		53F68DB22F09FBB50051FFE6 /* HomeSharePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DB12F09FBB50051FFE6 /* HomeSharePopViewController.swift */; };
+		53F68DB42F09FE390051FFE6 /* ShareHandlePDFTEXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DB32F09FE390051FFE6 /* ShareHandlePDFTEXT.swift */; };
 		53FFAEEE2EFA2D8400A0C1EF /* TitleFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */; };
 		53FFAEF02EFA365A00A0C1EF /* CenterLanguagePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */; };
 		53FFAEF32EFA3BD600A0C1EF /* record-bottom.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */; };
@@ -206,6 +208,8 @@
 		53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		53F68DAB2F03BEDD0051FFE6 /* AudioPlaybackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlaybackManager.swift; sourceTree = "<group>"; };
 		53F68DAD2F04B3700051FFE6 /* RecordingWaveformItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingWaveformItemStore.swift; sourceTree = "<group>"; };
+		53F68DB12F09FBB50051FFE6 /* HomeSharePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSharePopViewController.swift; sourceTree = "<group>"; };
+		53F68DB32F09FE390051FFE6 /* ShareHandlePDFTEXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareHandlePDFTEXT.swift; sourceTree = "<group>"; };
 		53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleFieldView.swift; sourceTree = "<group>"; };
 		53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterLanguagePopVC.swift; sourceTree = "<group>"; };
 		53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "record-bottom.mp4"; sourceTree = "<group>"; };
@@ -302,6 +306,7 @@
 				538282152EF12DC50097EAD0 /* HomeFloderViewController.swift */,
 				538282192EF13A6F0097EAD0 /* HomeNoteDetailViewController.swift */,
 				531CD9302EECFF2300FC22F7 /* HomePopViewController.swift */,
+				53F68DB12F09FBB50051FFE6 /* HomeSharePopViewController.swift */,
 				53F68D9E2F0288420051FFE6 /* HomeMoveoutPopVC.swift */,
 				538282292EF27E4F0097EAD0 /* HomeAllNotePopVC.swift */,
 				53F68DA02F036FED0051FFE6 /* HomeNoAllNotePopVC.swift */,
@@ -534,6 +539,7 @@
 			isa = PBXGroup;
 			children = (
 				53FFAF012EFA90B800A0C1EF /* RecorderManager.swift */,
+				53F68DB32F09FE390051FFE6 /* ShareHandlePDFTEXT.swift */,
 				53F68DAB2F03BEDD0051FFE6 /* AudioPlaybackManager.swift */,
 				53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */,
 				53FFAF072EFE6D5200A0C1EF /* UploadRecord.swift */,
@@ -753,6 +759,7 @@
 				531CD8B32EEAAA0400FC22F7 /* UIButton+Create.swift in Sources */,
 				531CD9332EED075000FC22F7 /* HomeConfigData.swift in Sources */,
 				531CD8B62EEAAA0400FC22F7 /* MBProgressHUD+Extension.swift in Sources */,
+				53F68DB42F09FE390051FFE6 /* ShareHandlePDFTEXT.swift in Sources */,
 				53F68DA12F036FED0051FFE6 /* HomeNoAllNotePopVC.swift in Sources */,
 				531CD8B82EEAAA0400FC22F7 /* BottomPushAnimator.swift in Sources */,
 				538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */,
@@ -763,6 +770,7 @@
 				531CD92C2EEC10E900FC22F7 /* CenterClickPopViewController.swift in Sources */,
 				531CD9282EEBF0B900FC22F7 /* TabView.swift in Sources */,
 				531CD8BC2EEAAA0400FC22F7 /* UIButton+Extension.swift in Sources */,
+				53F68DB22F09FBB50051FFE6 /* HomeSharePopViewController.swift in Sources */,
 				53FFAEEE2EFA2D8400A0C1EF /* TitleFieldView.swift in Sources */,
 				538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */,
 				531CD9312EECFF2300FC22F7 /* HomePopViewController.swift in Sources */,

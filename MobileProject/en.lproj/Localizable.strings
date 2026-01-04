@@ -140,3 +140,6 @@ is complete (Aprox ~ 3 min).";
 "NoPermission" = "无法使用麦克风";
 "MicroSettings" = "请在系统设置中开启麦克风权限，以便录音";
 "GotoSettings" = "去设置";
+"noSummarization" = "没有总结";
+"noTranscription" = "没有转写";
+"Transcription" = "Transcription";

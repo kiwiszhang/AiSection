@@ -75,6 +75,11 @@ class UtitilTools{
         }
     }
     
+    /// 处理录音广播
+    static func broadcast(handleStatus: Int,handleContent: String) {
+        let state = HandleRecordingState(handleStatus: handleStatus, handleContent: handleContent)
+        kkNotification_post(name: NotificationCenterKeys.kHandleRecordingState.rawValue, object: state)
+    }
     
     /// Date转String 本地化转
     static func dateToString(_ date: Date, format: String = "MMM dd,yyyy") -> String {

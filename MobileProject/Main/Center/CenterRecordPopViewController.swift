@@ -85,13 +85,14 @@ class CenterRecordPopViewController: SuperViewController {
                     folderName00 = ""
                     recordFolderId00 = UUID().uuidString
 //                }
-                let item00 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, recordPath: RecorderManager.shared.recordURL!.lastPathComponent, recordName: RecorderManager.shared.recordURL!.deletingPathExtension().lastPathComponent, recordFolder: folderName00, recordFolderId: recordFolderId00, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970))
+                let item00 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, recordPath: RecorderManager.shared.recordURL!.lastPathComponent, recordName: RecorderManager.shared.recordURL!.deletingPathExtension().lastPathComponent, recordFolder: folderName00, recordFolderId: recordFolderId00, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970), transcriptionData: nil)
                 
                 try! RecordingItemStore.shared.addRecordingItem(item00)
                 
                 
                 UploadRecord.shared.uploadFile(fileName: fileName,fileURL:URL(string: RecorderManager.shared.recordURL!.absoluteString)!) { task in
                     if ((task.error == nil)) {
+                        UtitilTools.broadcast(handleStatus: 2, handleContent: "开始处理录音，录音文件上传成功")
                         MyLog("Put object from file success.");
                         let output = task.result;
                         MyLog(output)
@@ -108,6 +109,7 @@ class CenterRecordPopViewController: SuperViewController {
                         let HandlerfileName = fileName
                         SubmitAndQueryHandle.shared.handleRecord(fileName: HandlerfileName,client: client) { queryData in
                             if queryData.ErrCode == 0 && queryData.Status == "success"{
+                                UtitilTools.broadcast(handleStatus: 3, handleContent: "开始处理录音，录音文件转写成功")
                                 if let url = queryData.Result?.AudioTranscriptionFile {
                                     do {
                                         let listData = try await client.fetchAudioTranscription(from: url)
@@ -142,6 +144,7 @@ class CenterRecordPopViewController: SuperViewController {
                                         let itemData = try await client.fetchSummarizationFile(from: url)
                                         MyLog(itemData.title)
                                         MyLog(itemData.paragraph)
+                                        UtitilTools.broadcast(handleStatus: 4, handleContent: "处理录音，录音文件总结处理完成")
                                     } catch {
                                         MyLog("❌ Error: \(error.localizedDescription)")
                                     }
@@ -159,10 +162,11 @@ class CenterRecordPopViewController: SuperViewController {
                         }
                         
                     } else {
+                        UtitilTools.broadcast(handleStatus: 0, handleContent: "录音处理失败")
                         MyLog("Put object from file failed, error: \(String(describing: task.error))");
                     }
                 }
-                
+                UtitilTools.broadcast(handleStatus: 1, handleContent: "开始处理录音，上传录音文件")
                 let vc = CenterProcessingVC()
                 vc.modalPresentationStyle = .overFullScreen
                 self.present(vc, animated: true)

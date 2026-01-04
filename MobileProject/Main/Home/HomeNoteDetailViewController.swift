@@ -191,6 +191,13 @@ extension HomeNoteDetailViewController:DetailNavTopViewDelegate {
     }
     func shareClick(){
         MyLog("shareClick")
+        let content = HomeSharePopViewController(itemList: HomeConfigData.getHomeMoreShareData(), recordingItem: recordingItem!)
+        content.updateTitle(title: L10n.share)
+        let popup = PopupContainerViewController(contentVC: content, height: 462.h)
+        content.dismissAction = {
+            popup.dismissSelf()
+        }
+        UIApplication.topViewController()?.present(popup, animated: false)
     }
     func favoriteClick(){
         MyLog("favoriteClick")
