@@ -14,8 +14,12 @@ struct ProcessItem {
     let rightImage:UIImage
 }
 
+@objc protocol CenterProcessingVCDelegate: AnyObject {
+    func backDismissProcessing()
+}
 
 class CenterProcessingVC: SuperViewController {
+    weak var delegate: CenterProcessingVCDelegate?
 
     var itemList:[ProcessItem] = []
     var selecedRow = 0
@@ -24,7 +28,8 @@ class CenterProcessingVC: SuperViewController {
     }()
     
     private lazy var bgView = UIView().backgroundColor(kkColorFromHex(kkMainColor))
-    private lazy var backImageV = UIImageView().image(Asset.processingBack.image).enable(true).onTap {
+    private lazy var backImageV = UIImageView().image(Asset.processingBack.image).enable(false).onTap {
+        self.delegate?.backDismissProcessing()
         self.dismiss(animated: true)
     }
     
@@ -35,6 +40,8 @@ class CenterProcessingVC: SuperViewController {
     
     private lazy var bottomBtn = UILabel().text(L10n.notifyMeWhenDone).hnFont(size: 18.h, weight: .medium).color(.white).backgroundColor(kkColorFromHex(kkMainColor)).centerAligned().cornerRadius(14.h).onTap {
         MyLog("bottomBtn")
+        self.delegate?.backDismissProcessing()
+        self.dismiss(animated: true)
     }
     
     override func viewDidLoad() {
@@ -50,6 +57,7 @@ class CenterProcessingVC: SuperViewController {
         DispatchQueue.main.async { [self] in
             guard let state = notification.object as? HandleRecordingState else { return }
             bottomBtn.enable(true).alpha(1.0)
+            backImageV.enable(false)
             MyLog(state.handleContent)
             if state.handleStatus == 1 {
                 progressView.updateData(title: "", present: 0.25)
@@ -64,8 +72,8 @@ class CenterProcessingVC: SuperViewController {
             }
             if state.handleStatus == 2 {
                 progressView.updateData(title: "", present: 0.5)
+                backImageV.enable(true)
                 remainView.updateData(title: L10n.itIsSafeToLeave)
-                
                 let model00 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.enhanceAudioForBetterAccuracy, leftImage: Asset.processingAudio00.image,rightImage: Asset.addNoteCheck.image)
                 let model01 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.speechToTextWithSmartPunctuation, leftImage: Asset.processingAudio01.image,rightImage: Asset.processingLoading.image)
                 let model02 = ProcessItem(title: L10n.highlightingKeyPoints, subTitle: L10n.decisionsActionsAndTakeaways, leftImage: Asset.processingPoints.image,rightImage: Asset.processingLoadingLight.image)
@@ -75,6 +83,7 @@ class CenterProcessingVC: SuperViewController {
             
             if state.handleStatus == 3 {
                 progressView.updateData(title: "", present: 0.75)
+                backImageV.enable(true)
                 let model00 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.enhanceAudioForBetterAccuracy, leftImage: Asset.processingAudio00.image,rightImage: Asset.addNoteCheck.image)
                 let model01 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.speechToTextWithSmartPunctuation, leftImage: Asset.processingAudio01.image,rightImage: Asset.addNoteCheck.image)
                 let model02 = ProcessItem(title: L10n.highlightingKeyPoints, subTitle: L10n.decisionsActionsAndTakeaways, leftImage: Asset.processingPoints.image,rightImage: Asset.processingLoading.image)
@@ -84,7 +93,7 @@ class CenterProcessingVC: SuperViewController {
             
             if state.handleStatus == 4 {
                 progressView.updateData(title: "", present: 1.0)
-                
+                backImageV.enable(true)
                 let model00 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.enhanceAudioForBetterAccuracy, leftImage: Asset.processingAudio00.image,rightImage: Asset.addNoteCheck.image)
                 let model01 = ProcessItem(title: L10n.processingAudio, subTitle: L10n.speechToTextWithSmartPunctuation, leftImage: Asset.processingAudio01.image,rightImage: Asset.addNoteCheck.image)
                 let model02 = ProcessItem(title: L10n.highlightingKeyPoints, subTitle: L10n.decisionsActionsAndTakeaways, leftImage: Asset.processingPoints.image,rightImage: Asset.addNoteCheck.image)

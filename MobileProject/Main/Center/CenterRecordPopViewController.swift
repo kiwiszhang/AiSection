@@ -85,11 +85,12 @@ class CenterRecordPopViewController: SuperViewController {
                     folderName00 = ""
                     recordFolderId00 = UUID().uuidString
 //                }
-                let item00 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, recordPath: RecorderManager.shared.recordURL!.lastPathComponent, recordName: RecorderManager.shared.recordURL!.deletingPathExtension().lastPathComponent, recordFolder: folderName00, recordFolderId: recordFolderId00, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970), transcriptionData: nil)
+                let item00 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, handleType: 1, recordPath: RecorderManager.shared.recordURL!.lastPathComponent, recordName: RecorderManager.shared.recordURL!.deletingPathExtension().lastPathComponent, recordFolder: folderName00, recordFolderId: recordFolderId00, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970), transcriptionData: nil)
                 
                 try! RecordingItemStore.shared.addRecordingItem(item00)
                 
-                
+                let coreDataItem = try! RecordingItemStore.shared.fetchByFolderId(item00.recordFolderId!).first
+
                 UploadRecord.shared.uploadFile(fileName: fileName,fileURL:URL(string: RecorderManager.shared.recordURL!.absoluteString)!) { task in
                     if ((task.error == nil)) {
                         UtitilTools.broadcast(handleStatus: 2, handleContent: "开始处理录音，录音文件上传成功")
@@ -104,70 +105,83 @@ class CenterRecordPopViewController: SuperViewController {
                                 resourceId: XApiResourceId
                             )
                         )
-                        
-//                        let HandlerfileName = "Recording/1234.m4a"
-                        let HandlerfileName = fileName
-                        SubmitAndQueryHandle.shared.handleRecord(fileName: HandlerfileName,client: client) { queryData in
-                            if queryData.ErrCode == 0 && queryData.Status == "success"{
-                                UtitilTools.broadcast(handleStatus: 3, handleContent: "开始处理录音，录音文件转写成功")
-                                if let url = queryData.Result?.AudioTranscriptionFile {
-                                    do {
-                                        let listData = try await client.fetchAudioTranscription(from: url)
-                                        listData.forEach { item in
-                                            MyLog("🧑 Speaker: \(item.speaker.name ?? "Speaker")")
-                                            MyLog("content: \(item.content)")
+                        Task {
+                            do {
+                                let queryData = try await SubmitAndQueryHandle.shared.handleRecord(fileName: fileName, client: client)
+                                    if queryData.ErrCode == 0 && queryData.Status == "success"{
+                                        UtitilTools.broadcast(handleStatus: 3, handleContent: "开始处理录音，录音文件转写成功")
+                                        coreDataItem?.handleType = 1
+                                        try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
+                                        if let url = queryData.Result?.AudioTranscriptionFile {
+                                            do {
+                                                let transcriptionData = try await client.fetchAudioTranscriptionData(from: url)
+                                                coreDataItem!.transcriptionData = transcriptionData
+                                                try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
+                                            } catch {
+                                                MyLog("❌ Error: \(error.localizedDescription)")
+                                            }
                                         }
-                                    } catch {
-                                        MyLog("❌ Error: \(error.localizedDescription)")
+                                        if let url = queryData.Result?.ChapterFile {
+                                            do {
+                                                let chapterSummaryData = try await client.fetchChapterFileData(from: url)
+                                                coreDataItem!.chapterSummaryData = chapterSummaryData
+                                                try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
+                                            } catch {
+                                                MyLog("❌ Error: \(error.localizedDescription)")
+                                            }
+                                        }
+                                        
+                                        if let url = queryData.Result?.InformationExtractionFile {
+                                            do {
+                                                let informationData = try await client.fetchInformationExtractionFileData(from: url)
+                                                coreDataItem!.informationData = informationData
+                                                try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
+                                            } catch {
+                                                MyLog("❌ Error: \(error.localizedDescription)")
+                                            }
+                                        }
+                                        
+                                        if let url = queryData.Result?.SummarizationFile {
+                                            do {
+                                                let summarizationData = try await client.fetchSummarizationFileData(from: url)
+                                                coreDataItem!.summarizationData = summarizationData
+                                                try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
+                                                UtitilTools.broadcast(handleStatus: 4, handleContent: "处理录音，录音文件总结处理完成")
+                                            } catch {
+                                                MyLog("❌ Error: \(error.localizedDescription)")
+                                            }
+                                        }
+                                        
+                                        if let url = queryData.Result?.TranslationFile {
+                                            do {
+                                                let translationData = try await client.fetchTranslationFileData(from: url)
+                                                coreDataItem!.translationData = translationData
+                                                try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
+                                            } catch {
+                                                MyLog("❌ Error: \(error.localizedDescription)")
+                                            }
+                                        }
                                     }
-                                }
-                                if let url = queryData.Result?.ChapterFile {
-                                    do {
-                                        let listData = try await client.fetchChapterFile(from: url)
-                                        MyLog(listData.chapterSummary)
-                                    } catch {
-                                        MyLog("❌ Error: \(error.localizedDescription)")
-                                    }
-                                }
-                                
-                                if let url = queryData.Result?.InformationExtractionFile {
-                                    do {
-                                        let listData = try await client.fetchInformationExtractionFile(from: url)
-                                        MyLog(listData.todoList)
-                                    } catch {
-                                        MyLog("❌ Error: \(error.localizedDescription)")
-                                    }
-                                }
-                                
-                                if let url = queryData.Result?.SummarizationFile {
-                                    do {
-                                        let itemData = try await client.fetchSummarizationFile(from: url)
-                                        MyLog(itemData.title)
-                                        MyLog(itemData.paragraph)
-                                        UtitilTools.broadcast(handleStatus: 4, handleContent: "处理录音，录音文件总结处理完成")
-                                    } catch {
-                                        MyLog("❌ Error: \(error.localizedDescription)")
-                                    }
-                                }
-                                
-                                if let url = queryData.Result?.TranslationFile {
-                                    do {
-                                        let listData = try await client.fetchTranslationFile(from: url)
-                                        MyLog(listData)
-                                    } catch {
-                                        MyLog("❌ Error: \(error.localizedDescription)")
-                                    }
-                                }
+                                // 成功
+                            } catch {
+                                MyLog("❌ 外层收到错误：\(error)")
+                                coreDataItem?.handleType = -1
+                                try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
+                                UtitilTools.broadcast(handleStatus: 0, handleContent: "录音处理失败")
                             }
                         }
-                        
                     } else {
+                        coreDataItem?.handleType = -1
+                        try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
                         UtitilTools.broadcast(handleStatus: 0, handleContent: "录音处理失败")
                         MyLog("Put object from file failed, error: \(String(describing: task.error))");
                     }
                 }
                 UtitilTools.broadcast(handleStatus: 1, handleContent: "开始处理录音，上传录音文件")
+                coreDataItem?.handleType = 0
+                try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
                 let vc = CenterProcessingVC()
+                vc.delegate = self
                 vc.modalPresentationStyle = .overFullScreen
                 self.present(vc, animated: true)
             }
@@ -387,6 +401,12 @@ class CenterRecordPopViewController: SuperViewController {
 // MARK: -  =======================PopTopViewDelegate========================
 extension CenterRecordPopViewController:PopTopViewDelegate {
     func popTopViewClose() {
+        dismissAction?()
+    }
+}
+// MARK: -  =======================CenterProcessingVCDelegate========================
+extension CenterRecordPopViewController:CenterProcessingVCDelegate {
+    func backDismissProcessing() {
         dismissAction?()
     }
 }

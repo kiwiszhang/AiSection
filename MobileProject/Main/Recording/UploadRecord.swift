@@ -37,52 +37,19 @@ final class UploadRecord: NSObject {
 final class SubmitAndQueryHandle: NSObject {
     static let shared = SubmitAndQueryHandle()
 
-    func handleRecord(fileName:String,client:ByteDanceOpenSpeechClient,sourceLang: String = "zh_cn",targetLang: String = "en_us",completion: @escaping (_ queryData:QueryData) async -> Void){
+    func handleRecord(fileName:String,client:ByteDanceOpenSpeechClient,sourceLang: String = "zh_cn",targetLang: String = "en_us") async throws -> QueryData {
 
-        Task {
-            do {
-                let taskID = try await client.submitOfflineAudio(
-                    fileURL: "https://aisection.tos-cn-beijing.volces.com/" + fileName,sourceLang:sourceLang,targetLang:targetLang
-                )
-                MyLog("https://aisection.tos-cn-beijing.volces.com/" + fileName)
-                MyLog("✅ TaskID:\(taskID)")
-
-                let finished = try await client.waitUntilFinished(taskID: taskID)
-                MyLog("📌 finished:\(finished)")
-                await completion(finished)
-//                if let url = finished.Result?.AudioTranscriptionFile {
-//                    let listData = try await client.fetchAudioTranscription(from: url)
-//                    listData.forEach { item in
-//                        MyLog("🧑 Speaker: \(item.speaker.name ?? "Speaker")")
-//                        MyLog("content: \(item.content)")
-//                    }
-//                }
-//
-//                if let url = finished.Result?.ChapterFile {
-//                    let listData = try await client.fetchChapterFile(from: url)
-//                    MyLog(listData.chapterSummary)
-//                }
-//
-//                if let url = finished.Result?.InformationExtractionFile {
-//                    let listData = try await client.fetchInformationExtractionFile(from: url)
-//                    MyLog(listData.todoList)
-//                }
-//
-//                if let url = finished.Result?.SummarizationFile {
-//                    let itemData = try await client.fetchSummarizationFile(from: url)
-//                    MyLog(itemData.title)
-//                    MyLog(itemData.paragraph)
-//                }
-//
-//                if let url = finished.Result?.TranslationFile {
-//                    let listData = try await client.fetchTranslationFile(from: url)
-//                    MyLog(listData)
-//                }
-
-            } catch {
-                MyLog("❌ Error: \(error.localizedDescription)")
-            }
-        }
+        let fileURL = "https://aisection.tos-cn-beijing.volces.com/" + fileName
+        MyLog(fileURL)
+        let taskID = try await client.submitOfflineAudio(
+            fileURL: fileURL,
+            sourceLang: sourceLang,
+            targetLang: targetLang
+        )
+        MyLog("✅ TaskID:\(taskID)")
+        let finished = try await client.waitUntilFinished(taskID: taskID)
+        MyLog("📌 finished:\(finished)")
+        return finished
     }
     
     

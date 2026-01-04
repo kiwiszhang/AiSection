@@ -28,7 +28,6 @@ struct RecordItemModel {
 class HomeViewController: SuperViewController {
     private lazy var topview = TopView()
     private lazy var tabView = TabView()
-//    private lazy var itemList:[RecordItemModel] = []
     private lazy var itemList:[RecordingItem] = []
     private lazy var itemFolderList:[FolderItem] = []
     private lazy var tableView = {
@@ -36,6 +35,8 @@ class HomeViewController: SuperViewController {
     }()
     private lazy var emptyView = SectionEmptyView().hidden(true)
     private lazy var emptyAddView = SectionEmptyAddView().hidden(true)
+    private lazy var tipsLable = TipsTopView().cornerRadius(12.h).backgroundColor(kkColorFromHex("00D5A4")).hidden(true)
+    
     private lazy var searchText = ""
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,10 +48,10 @@ class HomeViewController: SuperViewController {
     }
     
     func addNoteData(){
-        let item00 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, recordPath: "567.m4a", recordName: "test-Record-Name567", recordFolder: "Note00", recordFolderId: UUID().uuidString, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970),transcriptionData: nil)
-        let item01 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 0, recordPath: "567.m4a", recordName: "test-Record-Name678", recordFolder: "Note01", recordFolderId: UUID().uuidString, isFavorite: true, createTime: Int64(Date().timeIntervalSince1970),transcriptionData: nil)
-        let item02 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, recordPath: "567.m4a", recordName: "test-Record-Name789", recordFolder: "Note00", recordFolderId: UUID().uuidString, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970),transcriptionData: nil)
-        let item03 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 0, recordPath: "567.m4a", recordName: "test-Record-Name890", recordFolder: "Note01", recordFolderId: UUID().uuidString, isFavorite: true, createTime: Int64(Date().timeIntervalSince1970),transcriptionData: nil)
+        let item00 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, handleType: 1, recordPath: "567.m4a", recordName: "test-Record-Name567", recordFolder: "Note00", recordFolderId: UUID().uuidString, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970),transcriptionData: nil)
+        let item01 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 0, handleType: 1, recordPath: "567.m4a", recordName: "test-Record-Name678", recordFolder: "Note01", recordFolderId: UUID().uuidString, isFavorite: true, createTime: Int64(Date().timeIntervalSince1970),transcriptionData: nil)
+        let item02 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 1, handleType: 1, recordPath: "567.m4a", recordName: "test-Record-Name789", recordFolder: "Note00", recordFolderId: UUID().uuidString, isFavorite: false, createTime: Int64(Date().timeIntervalSince1970),transcriptionData: nil)
+        let item03 = RecordingItemRequest(updateTime: Int64(Date().timeIntervalSince1970), recordType: 0, handleType: 1, recordPath: "567.m4a", recordName: "test-Record-Name890", recordFolder: "Note01", recordFolderId: UUID().uuidString, isFavorite: true, createTime: Int64(Date().timeIntervalSince1970),transcriptionData: nil)
 
         do{
             try! RecordingItemStore.shared.addRecordingItem(item00)
@@ -77,7 +78,7 @@ class HomeViewController: SuperViewController {
     
     override func setUpUI() {
         UserDefaultsTools.tabSelected = 0
-        view.addChildView([topview,tabView,tableView,emptyView,emptyAddView])
+        view.addChildView([topview,tabView,tableView,emptyView,emptyAddView,tipsLable])
         topview.snp.makeConstraints { make in
             make.left.right.top.equalToSuperview()
             make.height.equalTo(142.h)
@@ -112,6 +113,13 @@ class HomeViewController: SuperViewController {
         topview.delegate = self
         tabView.delegate = self
         
+        tipsLable.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(16.w)
+            make.right.equalToSuperview().offset(-16.w)
+            make.height.equalTo(40.h)
+            make.top.equalToSuperview().offset(53.h)
+        }
+
     }
     override func getData() {
         tabClickItemIndex(0)
@@ -121,9 +129,43 @@ class HomeViewController: SuperViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
         kkNotification_add(observer: self, selector: #selector(updateTableView), name: NotificationCenterKeys.kUpdateTableViewData.rawValue)
+        kkNotification_add(observer: self, selector: #selector(updateProcessingUI(_:)), name: NotificationCenterKeys.kHandleRecordingState.rawValue)
         tabClickItemIndex(UserDefaultsTools.tabSelected)
     }
     
+    @objc func updateProcessingUI(_ notification: Notification){
+        DispatchQueue.main.async { [self] in
+            guard let state = notification.object as? HandleRecordingState else { return }
+            if state.handleStatus == 0 {
+                tipsLable.hidden(false).backgroundColor(kkColorFromHex("F93B61"))
+                tipsLable.updateData(image: Asset.tipsFailder.image, title: L10n.yourNoteProcessingFailed)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+                    guard let self = self else {return}
+                    self.tipsLable.hidden(true)
+                }
+            }
+            if state.handleStatus == 1 {
+                
+            }
+            if state.handleStatus == 2 {
+                
+            }
+            
+            if state.handleStatus == 3 {
+                tipsLable.hidden(false).backgroundColor(kkColorFromHex("00D5A4"))
+                tipsLable.updateData(image: Asset.tipsCompletion.image, title: L10n.yourNotesIsReady)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+                    guard let self = self else {return}
+                    self.tipsLable.hidden(true)
+                }
+            }
+            
+            if state.handleStatus == 4 {
+                
+            }
+            tableView.reloadData()
+        }
+    }
     @objc func updateTableView(){
         tabClickItemIndex(UserDefaultsTools.tabSelected)
     }
@@ -405,7 +447,7 @@ class RecordItemCell: SuperTableViewCell {
             dateL.text(timestampToFormattedString(item.updateTime))
             if item.recordType == 0 {
                 typeImageV.image(Asset.homeType00.image)
-            }else{
+            }else if item.recordType == 1{
                 typeImageV.image(Asset.homeType01.image)
             }
             if item.isFavorite {
@@ -416,6 +458,9 @@ class RecordItemCell: SuperTableViewCell {
             typeImageV.hidden(false)
             dateL.hidden(false)
             iconImageV.image(Asset.homeNote.image)
+            if item.handleType == -1{
+                iconImageV.image(Asset.noteError.image)
+            }
         }
     }
     
@@ -427,7 +472,7 @@ class RecordItemCell: SuperTableViewCell {
             dateL.text(timestampToFormattedString(item.updateTime))
             if item.recordType == 0 {
                 typeImageV.image(Asset.homeType00.image)
-            }else{
+            }else if item.recordType == 1{
                 typeImageV.image(Asset.homeType01.image)
             }
             if item.isFavorite {
@@ -438,6 +483,9 @@ class RecordItemCell: SuperTableViewCell {
             typeImageV.hidden(false)
             dateL.hidden(false)
             iconImageV.image(Asset.homeNote.image)
+            if item.handleType == -1{
+                iconImageV.image(Asset.noteError.image)
+            }
         }
     }
 

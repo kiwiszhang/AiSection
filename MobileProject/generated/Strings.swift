@@ -119,6 +119,8 @@ internal enum L10n {
   internal static let newNote = L10n.tr("Localizable", "New note", fallback: "New note")
   /// No items saved yet
   internal static let noItemsSavedYet = L10n.tr("Localizable", "No items saved yet", fallback: "No items saved yet")
+  /// 没有文件
+  internal static let noFile = L10n.tr("Localizable", "noFile", fallback: "没有文件")
   /// None
   internal static let `none` = L10n.tr("Localizable", "None", fallback: "None")
   /// 无法使用麦克风

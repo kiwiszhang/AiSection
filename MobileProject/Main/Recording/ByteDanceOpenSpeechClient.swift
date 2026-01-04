@@ -89,7 +89,7 @@ public extension ByteDanceOpenSpeechClient {
     /// 自动轮询直到任务完成
     func waitUntilFinished(
         taskID: String,
-        interval: TimeInterval = 30,
+        interval: TimeInterval = 10,
         timeout: TimeInterval = 300
     ) async throws -> QueryData {
 

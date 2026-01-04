@@ -95,80 +95,94 @@ extension HomeSharePopViewController: UITableViewDelegate, UITableViewDataSource
         MyLog(item.itemName)
         if indexPath.row == 0 {
             do {
-                let data = recordingItem?.summarizationData
-                let decoder = JSONDecoder()
-                let sentences = try decoder.decode(Summarization.self, from: data!)
-                MyLog(sentences)
-                if let pdfURL = ShareHandlePDFTEXT.shared.generateTextPDF(title: sentences.title,pdfTitle:(recordingItem?.recordName)! + " " + L10n.summarize, body: sentences.paragraph) {
-                    MyLog("✅ PDF summarizationData 导出成功: \(String(describing: pdfURL))")
-                    let activityVC = UIActivityViewController(activityItems: [pdfURL as Any], applicationActivities: nil)
-                    present(activityVC, animated: true)
+                if let data = recordingItem?.summarizationData {
+                    let decoder = JSONDecoder()
+                    let sentences = try decoder.decode(Summarization.self, from: data)
+                    MyLog(sentences)
+                    if let pdfURL = ShareHandlePDFTEXT.shared.generateTextPDF(title: sentences.title,pdfTitle:(recordingItem?.recordName)! + " " + L10n.summarize, body: sentences.paragraph) {
+                        MyLog("✅ PDF summarizationData 导出成功: \(String(describing: pdfURL))")
+                        let activityVC = UIActivityViewController(activityItems: [pdfURL as Any], applicationActivities: nil)
+                        present(activityVC, animated: true)
+                    }
+                }else{
+                    MBProgressHUD.showMessage(L10n.noSummarization)
                 }
             } catch {
                 MyLog("❌ Error: \(error.localizedDescription)")
-                MBProgressHUD.showHUD(L10n.noSummarization)
+                MBProgressHUD.showMessage(L10n.noSummarization)
             }
             
         }else if indexPath.row == 1 {
             do {
-                let data = recordingItem?.summarizationData
-                let decoder = JSONDecoder()
-                let sentences = try decoder.decode(Summarization.self, from: data!)
-                MyLog(sentences)
-                let content = sentences.title + sentences.paragraph
-                UIPasteboard.general.string = content
-                showAlertViewWithOutCancelButton(title: "",message: "已复制到剪贴板", confirmButtonTitle:"OK") { [self] confirmed in
-                    dismissAction?()
+                if let data = recordingItem?.summarizationData {
+                    let decoder = JSONDecoder()
+                    let sentences = try decoder.decode(Summarization.self, from: data)
+                    MyLog(sentences)
+                    let content = sentences.title + sentences.paragraph
+                    UIPasteboard.general.string = content
+                    showAlertViewWithOutCancelButton(title: "",message: "已复制到剪贴板", confirmButtonTitle:"OK") { [self] confirmed in
+                        dismissAction?()
+                    }
+                }else{
+                    MBProgressHUD.showMessage(L10n.noSummarization)
                 }
             } catch {
                 MyLog("❌ Error: \(error.localizedDescription)")
-                MBProgressHUD.showHUD(L10n.noSummarization)
+                MBProgressHUD.showMessage(L10n.noSummarization)
             }
         }else if indexPath.row == 2 {
             do {
-                let data = recordingItem?.transcriptionData
-                let decoder = JSONDecoder()
-                let sentences = try decoder.decode([AudioSentenceRaw].self, from: data!)
-                MyLog(sentences)
-                
-                var content = ""
-                for sentItem in sentences {
-                    let speaker = sentItem.speaker.name ?? ""
-                    content += speaker + ": " + sentItem.content + "\n"
-                }
-                
-                if let pdfURL = ShareHandlePDFTEXT.shared.generateTextPDF(title: L10n.transcription,pdfTitle:(recordingItem?.recordName)! + " " + L10n.transcription, body: content) {
-                    MyLog("✅ PDF Transcription 导出成功: \(String(describing: pdfURL))")
-                    let activityVC = UIActivityViewController(activityItems: [pdfURL as Any], applicationActivities: nil)
-                    present(activityVC, animated: true)
+                if let data = recordingItem?.transcriptionData {
+                    let decoder = JSONDecoder()
+                    let sentences = try decoder.decode([AudioSentenceRaw].self, from: data)
+                    MyLog(sentences)
+                    
+                    var content = ""
+                    for sentItem in sentences {
+                        let speaker = sentItem.speaker.name ?? ""
+                        content += speaker + ": " + sentItem.content + "\n"
+                    }
+                    
+                    if let pdfURL = ShareHandlePDFTEXT.shared.generateTextPDF(title: L10n.transcription,pdfTitle:(recordingItem?.recordName)! + " " + L10n.transcription, body: content) {
+                        MyLog("✅ PDF Transcription 导出成功: \(String(describing: pdfURL))")
+                        let activityVC = UIActivityViewController(activityItems: [pdfURL as Any], applicationActivities: nil)
+                        present(activityVC, animated: true)
+                    }
+                }else{
+                    MBProgressHUD.showMessage(L10n.noTranscription)
                 }
             } catch {
                 MyLog("❌ Error: \(error.localizedDescription)")
-                MBProgressHUD.showHUD(L10n.noTranscription)
+                MBProgressHUD.showMessage(L10n.noTranscription)
             }
         }else if indexPath.row == 3 {
             do {
-                let data = recordingItem?.transcriptionData
-                let decoder = JSONDecoder()
-                let sentences = try decoder.decode([AudioSentenceRaw].self, from: data!)
-                MyLog(sentences)
-                
-                var content = ""
-                for sentItem in sentences {
-                    let speaker = sentItem.speaker.name ?? ""
-                    content += speaker + ": " + sentItem.content + "\n"
-                }
-                UIPasteboard.general.string = content
-                showAlertViewWithOutCancelButton(title: "",message: "已复制到剪贴板", confirmButtonTitle:"OK") { [self] confirmed in
-                    dismissAction?()
+                if let data = recordingItem?.transcriptionData {
+                    let decoder = JSONDecoder()
+                    let sentences = try decoder.decode([AudioSentenceRaw].self, from: data)
+                    MyLog(sentences)
+                    
+                    var content = ""
+                    for sentItem in sentences {
+                        let speaker = sentItem.speaker.name ?? ""
+                        content += speaker + ": " + sentItem.content + "\n"
+                    }
+                    UIPasteboard.general.string = content
+                    showAlertViewWithOutCancelButton(title: "",message: "已复制到剪贴板", confirmButtonTitle:"OK") { [self] confirmed in
+                        dismissAction?()
+                    }
+                }else{
+                    MBProgressHUD.showMessage(L10n.noTranscription)
                 }
             } catch {
                 MyLog("❌ Error: \(error.localizedDescription)")
-                MBProgressHUD.showHUD(L10n.noTranscription)
+                MBProgressHUD.showMessage(L10n.noTranscription)
             }
         }else if indexPath.row == 4 {
             if let urlPath = UtitilTools.documentsURL(for: "Recording/" + (recordingItem?.recordPath!)!) {
                 ShareManager.shared.shareURL(urlPath,title: recordingItem?.recordName)
+            }else{
+                MBProgressHUD.showMessage(L10n.noFile)
             }
         }
     }

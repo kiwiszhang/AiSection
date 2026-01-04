@@ -69,3 +69,38 @@ extension TopView:RefreshDataDelegate {
         delegate?.refreshSearchNoData()
     }
 }
+
+
+class TipsTopView: SuperView{
+//    weak var delegate: TopViewDelegate?
+    // MARK: -  =====================lazyload=========================
+    private lazy var  titleLab = UILabel().text(L10n.yourNotesIsReady).color(.white).fontSize(14.h, weight: .medium)
+    private lazy var iconImage = UIImageView().image(Asset.tipsCompletion.image).enable(true).onTap { [self] in
+
+    }
+    // MARK: -  =====================Intial Methods===================
+    override func setUpUI() {
+        self.addChildView([titleLab,iconImage])
+        
+        iconImage.snp.makeConstraints { make in
+            make.width.height.equalTo(24.h)
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(16.w)
+        }
+        titleLab.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.left.equalTo(iconImage.snp.right).offset(8.w)
+            make.right.equalToSuperview().offset(-8.w)
+        }
+    }
+    override func getData() {
+
+    }
+    
+    func updateData(image:UIImage,title:String){
+        iconImage.image(image)
+        titleLab.text(title)
+    }
+    // MARK: -  =======================actions========================
+
+}

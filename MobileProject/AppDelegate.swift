@@ -43,7 +43,7 @@ extension AppDelegate {
     private func startAppInfo() {
 
         if UserDefaultsTools.isFirstInstallApp {
-            let item00 = RecordingItemRequest(updateTime: Int64.min, recordType: 0, recordPath: "isDemo.m4a", recordName: "isDemo", recordFolder: "isDemo", recordFolderId:UUID().uuidString, isFavorite: false, createTime: Int64.min, transcriptionData: nil)
+            let item00 = RecordingItemRequest(updateTime: Int64.min, recordType: 0, handleType: 1, recordPath: "isDemo.m4a", recordName: "isDemo", recordFolder: "isDemo", recordFolderId:UUID().uuidString, isFavorite: false, createTime: Int64.min, transcriptionData: nil)
             do{
                 try! RecordingItemStore.shared.addRecordingItem(item00)
             }

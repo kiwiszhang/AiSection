@@ -272,7 +272,7 @@ class RecordItemAddNoteCell: SuperTableViewCell {
         dateL.text(timestampToFormattedString(item.updateTime))
         if item.recordType == 0 {
             typeImageV.image(Asset.homeType00.image)
-        }else{
+        }else if item.recordType == 1{
             typeImageV.image(Asset.homeType01.image)
         }
         if item.isFavorite {
@@ -287,7 +287,9 @@ class RecordItemAddNoteCell: SuperTableViewCell {
         }else{
             checkImageV.image(Asset.addNoteUnCheck.image)
         }
-        
+        if item.handleType == -1{
+            iconImageV.image(Asset.noteError.image)
+        }
     }
     
     /// 时间戳转：Apr 10,2025 10:30 am这种格式的时间

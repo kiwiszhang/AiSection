@@ -11,6 +11,7 @@ import CoreData
 struct RecordingItemRequest {
     let updateTime:Int64?
     let recordType:Int16?
+    let handleType:Int16?
     let recordPath:String?
     let recordName:String?
     let recordFolder:String?
@@ -38,6 +39,7 @@ final class RecordingItemStore {
         item.updateTime = req.updateTime!
         item.createTime = req.createTime!
         item.recordType = req.recordType!
+        item.handleType = req.handleType!
         item.recordPath = req.recordPath
         item.recordFolder = req.recordFolder
         item.recordFolderId = req.recordFolderId!
@@ -96,6 +98,9 @@ final class RecordingItemStore {
             }
             if let recordType = req.recordType {
                 item.recordType = recordType
+            }
+            if let handleType = req.handleType {
+                item.handleType = handleType
             }
             if let recordPath = req.recordPath {
                 item.recordPath = recordPath
