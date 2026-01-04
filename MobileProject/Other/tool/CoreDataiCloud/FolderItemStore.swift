@@ -21,13 +21,41 @@ final class FolderItemStore {
         self.context = context
     }
     
+    /// 去重
+    func removeDuplicateFolderItemKeepLast() throws {
+        let items = try fetchAllFolderItem()
+        var seen = Set<Int64>()
+        for item in items {
+            let createTime = item.createTime
+            if seen.contains(createTime) {
+                context.delete(item)
+            } else {
+                seen.insert(createTime)
+            }
+        }
+        try context.save()
+    }
+    
     /// 新增FolderItem
     func addFolderItem(_ req: FolderItemRequest) throws {
-        let item = FolderItem(context: context)
-        item.id = UUID()
-        item.createTime = req.createTime!
-        item.folderName = req.folderName
-        item.recordFolderId = req.recordFolderId!
+        let uuid = "\(String(describing: req.createTime))".stableUUID  // 根据 createTime 生成唯一 ID
+        // 查询是否已有相同 ID 的 RecordingItem
+        let fetchRequest: NSFetchRequest<FolderItem> = FolderItem.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", uuid as CVarArg)
+        
+        if let existing = try context.fetch(fetchRequest).first {
+            // 已存在 → 更新
+            existing.folderName = req.folderName
+            existing.recordFolderId = req.recordFolderId
+            existing.createTime = req.createTime!
+        } else {
+            // 不存在 → 插入
+            let item = FolderItem(context: context)
+            item.id = uuid
+            item.folderName = req.folderName
+            item.recordFolderId = req.recordFolderId
+            item.createTime = req.createTime!
+        }
         try context.save()
     }
     

@@ -196,14 +196,17 @@ extension HomeViewController:TopViewDelegate {
         MyLog("refreshSearchNoData")
         searchText = ""
         if UserDefaultsTools.tabSelected == 0 {
+            try! RecordingItemStore.shared.removeDuplicateRecordingItemKeepLast()
             let listData = try! RecordingItemStore.shared.fetchAllRecordingItem()
             itemList = listData
         }
         if UserDefaultsTools.tabSelected == 2 {
+            try! RecordingItemStore.shared.removeDuplicateRecordingItemKeepLast()
             let listData = try! RecordingItemStore.shared.fetchAllRecordingItem(isFavorite: true)
             itemList = listData
         }
         if UserDefaultsTools.tabSelected == 1 {
+            try! FolderItemStore.shared.removeDuplicateFolderItemKeepLast()
             let listData = try! FolderItemStore.shared.fetchAllFolderOutAllNotesItem(isContainerLast: true)
             itemFolderList = listData
         }
@@ -685,14 +688,17 @@ extension HomeViewController:TabViewDelegate {
         topview.updateData(searchText: "")
         UserDefaultsTools.tabSelected = index
         if index == 0 {
+            try! RecordingItemStore.shared.removeDuplicateRecordingItemKeepLast()
             let items = try! RecordingItemStore.shared.fetchAllRecordingItem()
             itemList = items
             emptyView.refreshData(emptyImage: Asset.sectionEmpty.image, emptyStr: L10n.allResultsAreNegative)
         }else if index == 1 {
+            try! FolderItemStore.shared.removeDuplicateFolderItemKeepLast()
             let items = try! FolderItemStore.shared.fetchAllFolderOutAllNotesItem(isContainerLast: true)
             itemFolderList = items
             emptyView.refreshData(emptyImage: Asset.sectionEmpty.image, emptyStr: L10n.allResultsAreNegative)
         }else if index == 2 {
+            try! RecordingItemStore.shared.removeDuplicateRecordingItemKeepLast()
             let items = try! RecordingItemStore.shared.fetchAllRecordingItem(isFavorite: true)
             itemList = items
             emptyAddView.refreshData(emptyImage: Asset.sectionEmptyAdd.image, emptyStr: L10n.noItemsSavedYet)

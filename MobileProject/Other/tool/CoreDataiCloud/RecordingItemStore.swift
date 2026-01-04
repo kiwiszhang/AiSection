@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import CryptoKit
 
 struct RecordingItemRequest {
     let updateTime:Int64?
@@ -32,26 +33,87 @@ final class RecordingItemStore {
         self.context = context
     }
     
-    /// 新增RecordingItem
-    func addRecordingItem(_ req: RecordingItemRequest) throws {
-        let item = RecordingItem(context: context)
-        item.id = UUID()
-        item.updateTime = req.updateTime!
-        item.createTime = req.createTime!
-        item.recordType = req.recordType!
-        item.handleType = req.handleType!
-        item.recordPath = req.recordPath
-        item.recordFolder = req.recordFolder
-        item.recordFolderId = req.recordFolderId!
-        item.isFavorite = req.isFavorite!
-        item.recordName = req.recordName
-        item.transcriptionData = req.transcriptionData
-        item.chapterSummaryData = req.chapterSummaryData
-        item.informationData = req.informationData
-        item.summarizationData = req.summarizationData
-        item.translationData = req.translationData
+    /// 去重
+    func removeDuplicateRecordingItemKeepLast() throws {
+        let items = try fetchAllRecordingItem()
+        var seen = Set<Int64>()
+        for item in items {
+            let createTime = item.createTime
+            if seen.contains(createTime) {
+                context.delete(item)
+            } else {
+                seen.insert(createTime)
+            }
+        }
         try context.save()
     }
+
+    /// 新增RecordingItem
+    func addRecordingItem(_ req: RecordingItemRequest) throws {
+        let uuid = "\(String(describing: req.createTime))".stableUUID  // 根据 createTime 生成唯一 ID
+        // 查询是否已有相同 ID 的 RecordingItem
+        let fetchRequest: NSFetchRequest<RecordingItem> = RecordingItem.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", uuid as CVarArg)
+        
+        if let existing = try context.fetch(fetchRequest).first {
+            // 已存在 → 更新
+            existing.updateTime = Int64.min
+            existing.recordType = req.recordType!
+            existing.handleType = req.handleType ?? 0
+            existing.recordPath = req.recordPath
+            existing.recordName = req.recordName
+            existing.recordFolder = req.recordFolder
+            existing.recordFolderId = req.recordFolderId
+            existing.isFavorite = req.isFavorite ?? false
+            existing.transcriptionData = req.transcriptionData
+            existing.translationData = req.translationData
+            existing.summarizationData = req.summarizationData
+            existing.informationData = req.informationData
+            existing.chapterSummaryData = req.chapterSummaryData
+            existing.createTime = req.createTime ?? Int64.min
+        } else {
+            // 不存在 → 插入
+            let item = RecordingItem(context: context)
+            item.id = uuid
+            item.updateTime = req.updateTime ?? Int64.min
+            item.recordType = req.recordType!
+            item.handleType = req.handleType ?? 0
+            item.recordPath = req.recordPath
+            item.recordName = req.recordName
+            item.recordFolder = req.recordFolder
+            item.recordFolderId = req.recordFolderId
+            item.isFavorite = req.isFavorite ?? false
+            item.transcriptionData = req.transcriptionData
+            item.translationData = req.translationData
+            item.summarizationData = req.summarizationData
+            item.informationData = req.informationData
+            item.chapterSummaryData = req.chapterSummaryData
+            item.createTime = req.createTime ?? Int64.min
+        }
+        
+        try context.save()
+    }
+    
+    /// 新增RecordingItem
+//    func addRecordingItem(_ req: RecordingItemRequest) throws {
+//        let item = RecordingItem(context: context)
+//        item.id = UUID()
+//        item.updateTime = req.updateTime!
+//        item.createTime = req.createTime!
+//        item.recordType = req.recordType!
+//        item.handleType = req.handleType!
+//        item.recordPath = req.recordPath
+//        item.recordFolder = req.recordFolder
+//        item.recordFolderId = req.recordFolderId!
+//        item.isFavorite = req.isFavorite!
+//        item.recordName = req.recordName
+//        item.transcriptionData = req.transcriptionData
+//        item.chapterSummaryData = req.chapterSummaryData
+//        item.informationData = req.informationData
+//        item.summarizationData = req.summarizationData
+//        item.translationData = req.translationData
+//        try context.save()
+//    }
     
     /// 更新 RecordingItem
     func updateRecordingItem(_ item: RecordingItem) throws {
@@ -62,7 +124,6 @@ final class RecordingItemStore {
     
     /// 删除RecordingItem
     func delete(_ item: RecordingItem) throws {
-        UtitilTools.deleteRecording(relativePath: "Recording/\(item.recordPath!)")
         UtitilTools.deleteTOSObject(fileName: "Recording/\(item.recordPath!)") { task in
             if ((task.error == nil)) {
                 MyLog("Delete object success.");
@@ -70,6 +131,7 @@ final class RecordingItemStore {
                 MyLog("Delete object failed, error: \(String(describing: task.error))");
             }
         }
+        UtitilTools.deleteRecording(relativePath: "Recording/\(item.recordPath!)")
         context.delete(item)
         try context.save()
     }
@@ -147,9 +209,9 @@ final class RecordingItemStore {
             )
         }
         // 🔥 排除条件
-        predicates.append(
-            NSPredicate(format: "recordName != %@", "isDemo")
-        )
+//        predicates.append(
+//            NSPredicate(format: "recordName != %@", "isDemo")
+//        )
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createTime", ascending: false)] // 可选日期倒序
         return try context.fetch(fetchRequest)
@@ -233,4 +295,30 @@ final class RecordingItemStore {
 
     
     
+}
+
+
+extension String {
+    var stableUUID: UUID {
+        let hash = self.data(using: .utf8)!.sha256()
+        return UUID(uuid: (
+            hash[0], hash[1], hash[2], hash[3],
+            hash[4], hash[5], hash[6], hash[7],
+            hash[8], hash[9], hash[10], hash[11],
+            hash[12], hash[13], hash[14], hash[15]
+        ))
+    }
+}
+
+extension Data {
+    func sha256() -> Data {
+        let digest = SHA256.hash(data: self)
+        return Data(digest)
+    }
+}
+
+extension String {
+    func sha256() -> Data {
+        return Data(self.utf8).sha256()
+    }
 }
