@@ -16,7 +16,8 @@ class UserDefaultsTools {
 
         case segmentIndex = "UserDefaultsTypeKeys_segmentIndex"
         
-        case selectedIdentifiers = "UserDefaultsTypeKeys_selectedIdentifiers"
+        case langSelected = "UserDefaultsTypeKeys_langSelected"
+        case transcritionSelected = "UserDefaultsTypeKeys_transcritionSelected"
 
     }
     
@@ -32,9 +33,12 @@ class UserDefaultsTools {
     @UserDefault(UserDefaultsTypeKeys.segmentIndex.rawValue, defaultValue: 0)
     static var segmentIndex: Int
     
-    /// 照片选择标记
-    @UserDefault(UserDefaultsTypeKeys.selectedIdentifiers.rawValue, defaultValue: [])
-    static var selectedIdentifiers: [String]
+    /// 设置页设置语言
+    @UserDefault(UserDefaultsTypeKeys.langSelected.rawValue, defaultValue: "")
+    static var langSelected: String
+    /// 设置页设置总结转写语言
+    @UserDefault(UserDefaultsTypeKeys.transcritionSelected.rawValue, defaultValue: "")
+    static var transcritionSelected: String
    
     
 

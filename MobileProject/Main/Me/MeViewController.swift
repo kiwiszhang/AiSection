@@ -17,7 +17,10 @@ class MeViewController: SuperViewController {
 
     private lazy var itemList:[[SettingModel]] = []
     private lazy var itemHeaderList:[String] = []
-
+    private var langSelected:LangItem? = nil
+    private var TranscSelected:LangItem? = nil
+    private var langContent:CenterLanguagePopVC = CenterLanguagePopVC()
+    private var transcriptContent:CenterLanguagePopVC = CenterLanguagePopVC()
     private lazy var tableView = {
         return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.clear).registerCells(SettingItem00Cell.self).registerCells(SettingItem01Cell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SettingHeaderView.self).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeight(70.h).showsH(false).showsV(false)
     }()
@@ -85,18 +88,16 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             if indexPath.row == 0 {
-                let content = CenterLanguagePopVC()
-                content.delegate = self
-                let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
-                content.dismissAction = {
+                langContent.delegate = self
+                let popup = PopupContainerViewController(contentVC: langContent, height: kkScreenHeight - 60.h)
+                langContent.dismissAction = {
                     popup.dismissSelf()
                 }
                 self.present(popup, animated: false)
             } else if indexPath.row == 1 {
-                let content = CenterLanguagePopVC()
-                content.delegate = self
-                let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
-                content.dismissAction = {
+                transcriptContent.delegate = self
+                let popup = PopupContainerViewController(contentVC: transcriptContent, height: kkScreenHeight - 60.h)
+                transcriptContent.dismissAction = {
                     popup.dismissSelf()
                 }
                 self.present(popup, animated: false)
@@ -160,9 +161,23 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: -  =======================CenterLanguagePopVCDelegate========================
 extension MeViewController:CenterLanguagePopVCDelegate {
     func selectedLangitem(seletedItem: LangItem){
+//        MyLog("selectedLangitem")
+//        MyLog(seletedItem)
+    }
+    
+    func selectedLangitem(seletedItem: LangItem,sender:CenterLanguagePopVC) {
         MyLog("selectedLangitem")
         MyLog(seletedItem)
+        if sender == langContent {
+            langSelected = seletedItem
+            UserDefaultsTools.langSelected = seletedItem.title
+        }
         
+        if sender == transcriptContent {
+            TranscSelected = seletedItem
+            UserDefaultsTools.transcritionSelected = seletedItem.title
+        }
+        tableView.reloadData()
     }
 }
 
@@ -225,9 +240,11 @@ class SettingItem00Cell: SuperTableViewCell {
         iconImageV.image(item.imageIcon)
         titleL.text(item.title)
         if isFirst {
+            subTitleL.text(UserDefaultsTools.langSelected)
             bgView.cornerRadius(14.h, corners: [.topLeft,.topRight])
         }
         if isLast {
+            subTitleL.text(UserDefaultsTools.transcritionSelected)
             line.hidden(true)
             bgView.cornerRadius(14.h, corners: [.bottomLeft,.bottomRight])
         }

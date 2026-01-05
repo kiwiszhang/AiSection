@@ -23,6 +23,8 @@ import Localize_Swift
 
 @objc protocol CenterLanguagePopVCDelegate:AnyObject {
     func selectedLangitem(seletedItem: LangItem)
+    @objc optional
+    func selectedLangitem(seletedItem: LangItem,sender:CenterLanguagePopVC)
 }
 
 class CenterLanguagePopVC: SuperViewController {
@@ -41,6 +43,7 @@ class CenterLanguagePopVC: SuperViewController {
         MyLog("saveBtn")
         let selectedItem = itemList[selecedRow]
         delegate?.selectedLangitem(seletedItem: selectedItem)
+        delegate?.selectedLangitem?(seletedItem: selectedItem, sender: self)
         dismissAction?()
     }
 
