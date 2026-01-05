@@ -215,6 +215,7 @@ extension HomeViewController:TopViewDelegate {
     }
     func clickVipImage() {
         MyLog("clickVipImage")
+        self.navigationController?.pushViewController(EditorViewController(), animated: true)
     }
 }
 

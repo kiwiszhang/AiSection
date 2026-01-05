@@ -15,7 +15,7 @@ target 'MobileProject' do
   # 键盘处理
   pod 'IQKeyboardManagerSwift', '8.0.0'
 
-#  pod 'DSWaveformImage'
+#  pod 'ZSSRichTextEditor'
 
   # 数据存储
   pod 'SQLite.swift', '~> 0.13.0'
