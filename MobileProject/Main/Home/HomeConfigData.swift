@@ -68,4 +68,26 @@ class HomeConfigData {
         let item03 = PopItemModel(itemName: L10n.delete, itemIcon: Asset.moreDelete.image)
         return [item00,item01,item02,item03]
     }
+    
+    static func getSettingData() -> [[SettingModel]] {
+        let item00 = SettingModel(title: L10n.appLanguage, imageIcon: Asset.meLanguage.image)
+        let item01 = SettingModel(title: L10n.summaryTranscript, imageIcon: Asset.meTranlation.image)
+        
+        let item02 = SettingModel(title: L10n.rateUs, imageIcon: Asset.meRateUs.image)
+        let item03 = SettingModel(title: L10n.shareWithFriends, imageIcon: Asset.meSharewithFriends.image)
+        let item04 = SettingModel(title: L10n.contactSupport, imageIcon: Asset.meContactSupport.image)
+        let item05 = SettingModel(title: L10n.otherTools, imageIcon: Asset.meOtherTools.image)
+        
+        let item06 = SettingModel(title: L10n.privacyPolicy, imageIcon: Asset.mePrivacyPolicy.image)
+        let item07 = SettingModel(title: L10n.termsOfUse, imageIcon: Asset.meTermsofUse.image)
+        
+        return [[item00,item01],[item02,item03,item04,item05],[item06,item07]]
+    }
+    
+    static func getToolsData() -> [ToolsModel] {
+        let item00 = ToolsModel(title: "12344556",subTitle: "ZZZXXCVVVBVSDGSDFGDSFG",imageIcon: Asset.toolTranslate.image,toolsUrl: "")
+        let item01 = ToolsModel(title: "12344556",subTitle: "ZZZXXCVVVBVSDGSDFGDSFG",imageIcon: Asset.toolTranslate.image,toolsUrl: "")
+
+        return [item00,item01]
+    }
 }

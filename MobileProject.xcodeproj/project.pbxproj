@@ -90,6 +90,7 @@
 		53F68DAE2F04B3700051FFE6 /* RecordingWaveformItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DAD2F04B3700051FFE6 /* RecordingWaveformItemStore.swift */; };
 		53F68DB22F09FBB50051FFE6 /* HomeSharePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DB12F09FBB50051FFE6 /* HomeSharePopViewController.swift */; };
 		53F68DB42F09FE390051FFE6 /* ShareHandlePDFTEXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DB32F09FE390051FFE6 /* ShareHandlePDFTEXT.swift */; };
+		53F68DB62F0B59110051FFE6 /* MeOtherToolsPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DB52F0B59110051FFE6 /* MeOtherToolsPopVC.swift */; };
 		53FFAEEE2EFA2D8400A0C1EF /* TitleFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */; };
 		53FFAEF02EFA365A00A0C1EF /* CenterLanguagePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */; };
 		53FFAEF32EFA3BD600A0C1EF /* record-bottom.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */; };
@@ -210,6 +211,7 @@
 		53F68DAD2F04B3700051FFE6 /* RecordingWaveformItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingWaveformItemStore.swift; sourceTree = "<group>"; };
 		53F68DB12F09FBB50051FFE6 /* HomeSharePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSharePopViewController.swift; sourceTree = "<group>"; };
 		53F68DB32F09FE390051FFE6 /* ShareHandlePDFTEXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareHandlePDFTEXT.swift; sourceTree = "<group>"; };
+		53F68DB52F0B59110051FFE6 /* MeOtherToolsPopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeOtherToolsPopVC.swift; sourceTree = "<group>"; };
 		53FFAEED2EFA2D8400A0C1EF /* TitleFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleFieldView.swift; sourceTree = "<group>"; };
 		53FFAEEF2EFA365A00A0C1EF /* CenterLanguagePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterLanguagePopVC.swift; sourceTree = "<group>"; };
 		53FFAEF12EFA3BD600A0C1EF /* record-bottom.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "record-bottom.mp4"; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 			isa = PBXGroup;
 			children = (
 				531CD8D62EEAABD100FC22F7 /* MeViewController.swift */,
+				53F68DB52F0B59110051FFE6 /* MeOtherToolsPopVC.swift */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -785,6 +788,7 @@
 				531CD8E02EEAACF100FC22F7 /* Images.swift in Sources */,
 				531CD8E12EEAACF100FC22F7 /* Fonts.swift in Sources */,
 				531CD8E22EEAACF100FC22F7 /* MediaFiles.swift in Sources */,
+				53F68DB62F0B59110051FFE6 /* MeOtherToolsPopVC.swift in Sources */,
 				538282302EF407620097EAD0 /* SectionEmptyAddView.swift in Sources */,
 				53F68D8C2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodeld in Sources */,
 				531CD8E42EEAACF100FC22F7 /* Strings.swift in Sources */,
