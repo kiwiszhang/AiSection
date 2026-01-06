@@ -7,11 +7,22 @@
 
 import UIKit
 
-class EditorViewController: ZSSRichTextEditor {
+class EditorSummaryViewController: ZSSRichTextEditor {
+
+    private lazy var recordingItem:RecordingItem? = nil
 
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    init(recordingItem:RecordingItem) {
+        super.init(nibName: nil, bundle: nil)
+        self.recordingItem = recordingItem
+    }
+
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -33,6 +44,17 @@ class EditorViewController: ZSSRichTextEditor {
         
         title = "Rich Text Editor"
 
+        
+        do {
+            let decoder = JSONDecoder()
+            let sentences = try decoder.decode(InformationExtraction.self, from: recordingItem!.informationData!)
+            
+        } catch {
+        }
+        
+        
+        
+        
         let html = "<div class='test'></div><p>This is a test of the <strong>ZSSRichTextEditor</strong> by Zed Said Studio</p>";
         
         shouldShowKeyboard = false

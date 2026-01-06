@@ -59,6 +59,34 @@
 		531CD9312EECFF2300FC22F7 /* HomePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD9302EECFF2300FC22F7 /* HomePopViewController.swift */; };
 		531CD9332EED075000FC22F7 /* HomeConfigData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CD9322EED075000FC22F7 /* HomeConfigData.swift */; };
 		533D12442E1BAB4300C97724 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 533D12432E1BAB4300C97724 /* LaunchScreen.storyboard */; };
+		534146412F0CA0430012436B /* EditorSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146402F0CA0430012436B /* EditorSummaryViewController.swift */; };
+		534146502F0CA7730012436B /* ZSSh3@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146452F0CA7730012436B /* ZSSh3@3x.png */; };
+		534146512F0CA7730012436B /* ZSSkeyboard@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146482F0CA7730012436B /* ZSSkeyboard@3x.png */; };
+		534146522F0CA7730012436B /* ZSStextcolor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5341464C2F0CA7730012436B /* ZSStextcolor@3x.png */; };
+		534146532F0CA7730012436B /* ZSSoutdent@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5341464A2F0CA7730012436B /* ZSSoutdent@3x.png */; };
+		534146542F0CA7730012436B /* ZSSredo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5341464B2F0CA7730012436B /* ZSSredo@3x.png */; };
+		534146552F0CA7730012436B /* ZSSh2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146442F0CA7730012436B /* ZSSh2@3x.png */; };
+		534146562F0CA7730012436B /* ZSSitalic@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146472F0CA7730012436B /* ZSSitalic@3x.png */; };
+		534146572F0CA7730012436B /* ZSSh1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146432F0CA7730012436B /* ZSSh1@3x.png */; };
+		534146582F0CA7730012436B /* ZSSunorderedlist@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5341464F2F0CA7730012436B /* ZSSunorderedlist@3x.png */; };
+		534146592F0CA7730012436B /* ZSSunderline@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5341464D2F0CA7730012436B /* ZSSunderline@3x.png */; };
+		5341465A2F0CA7730012436B /* ZSSundo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5341464E2F0CA7730012436B /* ZSSundo@3x.png */; };
+		5341465B2F0CA7730012436B /* ZSSbold@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146422F0CA7730012436B /* ZSSbold@3x.png */; };
+		5341465C2F0CA7730012436B /* ZSSorderedlist@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146492F0CA7730012436B /* ZSSorderedlist@3x.png */; };
+		5341465D2F0CA7730012436B /* ZSSindent@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146462F0CA7730012436B /* ZSSindent@3x.png */; };
+		5341466B2F0CAEDB0012436B /* ZSSundo_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146692F0CAEDB0012436B /* ZSSundo_s@3x.png */; };
+		5341466C2F0CAEDB0012436B /* ZSSh3_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146612F0CAEDB0012436B /* ZSSh3_s@3x.png */; };
+		5341466D2F0CAEDB0012436B /* ZSStextcolor_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146672F0CAEDB0012436B /* ZSStextcolor_s@3x.png */; };
+		5341466E2F0CAEDB0012436B /* ZSSbold_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5341465E2F0CAEDB0012436B /* ZSSbold_s@3x.png */; };
+		5341466F2F0CAEDB0012436B /* ZSSindent_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146622F0CAEDB0012436B /* ZSSindent_s@3x.png */; };
+		534146702F0CAEDB0012436B /* ZSSorderedlist_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146642F0CAEDB0012436B /* ZSSorderedlist_s@3x.png */; };
+		534146712F0CAEDB0012436B /* ZSSh2_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146602F0CAEDB0012436B /* ZSSh2_s@3x.png */; };
+		534146722F0CAEDB0012436B /* ZSSunorderedlist_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5341466A2F0CAEDB0012436B /* ZSSunorderedlist_s@3x.png */; };
+		534146732F0CAEDB0012436B /* ZSSitalic_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146632F0CAEDB0012436B /* ZSSitalic_s@3x.png */; };
+		534146742F0CAEDB0012436B /* ZSSunderline_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146682F0CAEDB0012436B /* ZSSunderline_s@3x.png */; };
+		534146752F0CAEDB0012436B /* ZSSoutdent_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146652F0CAEDB0012436B /* ZSSoutdent_s@3x.png */; };
+		534146762F0CAEDB0012436B /* ZSSh1_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5341465F2F0CAEDB0012436B /* ZSSh1_s@3x.png */; };
+		534146772F0CAEDB0012436B /* ZSSredo_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146662F0CAEDB0012436B /* ZSSredo_s@3x.png */; };
 		538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */; };
 		538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */; };
 		538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */; };
@@ -96,31 +124,24 @@
 		53F68EFA2F0BB5A40051FFE6 /* ZSSh6.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E9F2F0BB5A40051FFE6 /* ZSSh6.png */; };
 		53F68EFB2F0BB5A40051FFE6 /* ZSSimageDevice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EA62F0BB5A40051FFE6 /* ZSSimageDevice@2x.png */; };
 		53F68EFC2F0BB5A40051FFE6 /* ZSSh5.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E9D2F0BB5A40051FFE6 /* ZSSh5.png */; };
-		53F68EFD2F0BB5A40051FFE6 /* ZSSh3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E9A2F0BB5A40051FFE6 /* ZSSh3@2x.png */; };
 		53F68EFE2F0BB5A40051FFE6 /* ZSSforcejustify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E942F0BB5A40051FFE6 /* ZSSforcejustify@2x.png */; };
-		53F68EFF2F0BB5A40051FFE6 /* ZSSorderedlist.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EB32F0BB5A40051FFE6 /* ZSSorderedlist.png */; };
 		53F68F002F0BB5A40051FFE6 /* ZSSimage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EA42F0BB5A40051FFE6 /* ZSSimage@2x.png */; };
 		53F68F012F0BB5A40051FFE6 /* ZSSsuperscript.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EC52F0BB5A40051FFE6 /* ZSSsuperscript.png */; };
 		53F68F022F0BB5A40051FFE6 /* ZSSinsertkeyword.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EA92F0BB5A40051FFE6 /* ZSSinsertkeyword.png */; };
 		53F68F032F0BB5A40051FFE6 /* ZSSleftjustify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EB02F0BB5A40051FFE6 /* ZSSleftjustify@2x.png */; };
 		53F68F042F0BB5A40051FFE6 /* ZSSclearstyle.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E8F2F0BB5A40051FFE6 /* ZSSclearstyle.png */; };
-		53F68F052F0BB5A40051FFE6 /* ZSSh2.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E972F0BB5A40051FFE6 /* ZSSh2.png */; };
-		53F68F062F0BB5A40051FFE6 /* ZSStextcolor.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EC92F0BB5A40051FFE6 /* ZSStextcolor.png */; };
 		53F68F072F0BB5A40051FFE6 /* ZSSh5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E9E2F0BB5A40051FFE6 /* ZSSh5@2x.png */; };
 		53F68F082F0BB5A40051FFE6 /* ZSSfonts.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E912F0BB5A40051FFE6 /* ZSSfonts.png */; };
 		53F68F092F0BB5A40051FFE6 /* ZSScenterjustify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E8E2F0BB5A40051FFE6 /* ZSScenterjustify@2x.png */; };
 		53F68F0A2F0BB5A40051FFE6 /* ZSSpicker.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EB92F0BB5A40051FFE6 /* ZSSpicker.png */; };
-		53F68F0B2F0BB5A40051FFE6 /* ZSSoutdent.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EB52F0BB5A40051FFE6 /* ZSSoutdent.png */; };
 		53F68F0C2F0BB5A40051FFE6 /* ZSShorizontalrule.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EA12F0BB5A40051FFE6 /* ZSShorizontalrule.png */; };
 		53F68F0D2F0BB5A40051FFE6 /* ZSSh4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E9C2F0BB5A40051FFE6 /* ZSSh4@2x.png */; };
 		53F68F0E2F0BB5A40051FFE6 /* ZSSparagraph.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EB72F0BB5A40051FFE6 /* ZSSparagraph.png */; };
 		53F68F0F2F0BB5A40051FFE6 /* ZSSunlink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68ED02F0BB5A40051FFE6 /* ZSSunlink@2x.png */; };
 		53F68F102F0BB5A40051FFE6 /* ZSSRichTextEditor.js in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EF42F0BB5A40051FFE6 /* ZSSRichTextEditor.js */; };
 		53F68F112F0BB5A40051FFE6 /* ZSSviewsource.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68ED32F0BB5A40051FFE6 /* ZSSviewsource.png */; };
-		53F68F122F0BB5A40051FFE6 /* ZSSh1.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E952F0BB5A40051FFE6 /* ZSSh1.png */; };
 		53F68F132F0BB5A40051FFE6 /* ZSSsuperscript@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EC62F0BB5A40051FFE6 /* ZSSsuperscript@2x.png */; };
 		53F68F142F0BB5A40051FFE6 /* ZSScenterjustify.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E8D2F0BB5A40051FFE6 /* ZSScenterjustify.png */; };
-		53F68F152F0BB5A40051FFE6 /* ZSSbold@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E8C2F0BB5A40051FFE6 /* ZSSbold@2x.png */; };
 		53F68F162F0BB5A40051FFE6 /* ZSSparagraph@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EB82F0BB5A40051FFE6 /* ZSSparagraph@2x.png */; };
 		53F68F172F0BB5A40051FFE6 /* ZSSrightjustify.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EBF2F0BB5A40051FFE6 /* ZSSrightjustify.png */; };
 		53F68F182F0BB5A40051FFE6 /* editor.html in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EEC2F0BB5A40051FFE6 /* editor.html */; };
@@ -129,48 +150,27 @@
 		53F68F1B2F0BB5A40051FFE6 /* ZSSpicker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EBA2F0BB5A40051FFE6 /* ZSSpicker@2x.png */; };
 		53F68F1C2F0BB5A40051FFE6 /* ZSSviewsource@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68ED42F0BB5A40051FFE6 /* ZSSviewsource@2x.png */; };
 		53F68F1D2F0BB5A40051FFE6 /* ZSSh6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EA02F0BB5A40051FFE6 /* ZSSh6@2x.png */; };
-		53F68F1E2F0BB5A40051FFE6 /* ZSSundo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68ECE2F0BB5A40051FFE6 /* ZSSundo@2x.png */; };
-		53F68F1F2F0BB5A40051FFE6 /* ZSSkeyboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EAD2F0BB5A40051FFE6 /* ZSSkeyboard.png */; };
 		53F68F202F0BB5A40051FFE6 /* ZSStable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EC82F0BB5A40051FFE6 /* ZSStable@2x.png */; };
-		53F68F212F0BB5A40051FFE6 /* ZSSindent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EA82F0BB5A40051FFE6 /* ZSSindent@2x.png */; };
 		53F68F222F0BB5A40051FFE6 /* jQuery.js in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EED2F0BB5A40051FFE6 /* jQuery.js */; };
 		53F68F232F0BB5A40051FFE6 /* ZSSforcejustify.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E932F0BB5A40051FFE6 /* ZSSforcejustify.png */; };
-		53F68F242F0BB5A40051FFE6 /* ZSSunorderedlist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68ED22F0BB5A40051FFE6 /* ZSSunorderedlist@2x.png */; };
-		53F68F252F0BB5A40051FFE6 /* ZSSitalic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EAC2F0BB5A40051FFE6 /* ZSSitalic@2x.png */; };
 		53F68F262F0BB5A40051FFE6 /* ZSSh4.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E9B2F0BB5A40051FFE6 /* ZSSh4.png */; };
 		53F68F272F0BB5A40051FFE6 /* ZSSstrikethrough.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EC12F0BB5A40051FFE6 /* ZSSstrikethrough.png */; };
 		53F68F282F0BB5A40051FFE6 /* ZSStable.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EC72F0BB5A40051FFE6 /* ZSStable.png */; };
 		53F68F292F0BB5A40051FFE6 /* ZSSinsertkeyword@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EAA2F0BB5A40051FFE6 /* ZSSinsertkeyword@2x.png */; };
-		53F68F2A2F0BB5A40051FFE6 /* ZSSunorderedlist.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68ED12F0BB5A40051FFE6 /* ZSSunorderedlist.png */; };
 		53F68F2B2F0BB5A40051FFE6 /* ZSSrightjustify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EC02F0BB5A40051FFE6 /* ZSSrightjustify@2x.png */; };
-		53F68F2C2F0BB5A40051FFE6 /* ZSSindent.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EA72F0BB5A40051FFE6 /* ZSSindent.png */; };
 		53F68F2D2F0BB5A40051FFE6 /* ZSSsubscript@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EC42F0BB5A40051FFE6 /* ZSSsubscript@2x.png */; };
-		53F68F2E2F0BB5A40051FFE6 /* ZSSh1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E962F0BB5A40051FFE6 /* ZSSh1@2x.png */; };
-		53F68F2F2F0BB5A40051FFE6 /* ZSSbold.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E8B2F0BB5A40051FFE6 /* ZSSbold.png */; };
 		53F68F302F0BB5A40051FFE6 /* ZSSquicklink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EBC2F0BB5A40051FFE6 /* ZSSquicklink@2x.png */; };
 		53F68F312F0BB5A40051FFE6 /* ZSSsubscript.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EC32F0BB5A40051FFE6 /* ZSSsubscript.png */; };
 		53F68F322F0BB5A40051FFE6 /* ZSSlink.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EB12F0BB5A40051FFE6 /* ZSSlink.png */; };
-		53F68F332F0BB5A40051FFE6 /* ZSSunderline.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68ECB2F0BB5A40051FFE6 /* ZSSunderline.png */; };
-		53F68F342F0BB5A40051FFE6 /* ZSSoutdent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EB62F0BB5A40051FFE6 /* ZSSoutdent@2x.png */; };
-		53F68F352F0BB5A40051FFE6 /* ZSStextcolor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68ECA2F0BB5A40051FFE6 /* ZSStextcolor@2x.png */; };
-		53F68F362F0BB5A40051FFE6 /* ZSSredo.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EBD2F0BB5A40051FFE6 /* ZSSredo.png */; };
 		53F68F372F0BB5A40051FFE6 /* JSBeautifier.js in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EEE2F0BB5A40051FFE6 /* JSBeautifier.js */; };
 		53F68F382F0BB5A40051FFE6 /* ZSSclearstyle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E902F0BB5A40051FFE6 /* ZSSclearstyle@2x.png */; };
-		53F68F392F0BB5A40051FFE6 /* ZSSh2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E982F0BB5A40051FFE6 /* ZSSh2@2x.png */; };
-		53F68F3A2F0BB5A40051FFE6 /* ZSSh3.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E992F0BB5A40051FFE6 /* ZSSh3.png */; };
 		53F68F3B2F0BB5A40051FFE6 /* ZSSlink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EB22F0BB5A40051FFE6 /* ZSSlink@2x.png */; };
 		53F68F3C2F0BB5A40051FFE6 /* ZSSquicklink.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EBB2F0BB5A40051FFE6 /* ZSSquicklink.png */; };
-		53F68F3D2F0BB5A40051FFE6 /* ZSSitalic.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EAB2F0BB5A40051FFE6 /* ZSSitalic.png */; };
 		53F68F3E2F0BB5A40051FFE6 /* ZSSfonts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E922F0BB5A40051FFE6 /* ZSSfonts@2x.png */; };
 		53F68F3F2F0BB5A40051FFE6 /* ZSSbgcolor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E8A2F0BB5A40051FFE6 /* ZSSbgcolor@2x.png */; };
-		53F68F402F0BB5A40051FFE6 /* ZSSunderline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68ECC2F0BB5A40051FFE6 /* ZSSunderline@2x.png */; };
-		53F68F412F0BB5A40051FFE6 /* ZSSundo.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68ECD2F0BB5A40051FFE6 /* ZSSundo.png */; };
 		53F68F422F0BB5A40051FFE6 /* ZSSunlink.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68ECF2F0BB5A40051FFE6 /* ZSSunlink.png */; };
 		53F68F432F0BB5A40051FFE6 /* ZSShorizontalrule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EA22F0BB5A40051FFE6 /* ZSShorizontalrule@2x.png */; };
-		53F68F442F0BB5A40051FFE6 /* ZSSkeyboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EAE2F0BB5A40051FFE6 /* ZSSkeyboard@2x.png */; };
-		53F68F452F0BB5A40051FFE6 /* ZSSredo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EBE2F0BB5A40051FFE6 /* ZSSredo@2x.png */; };
 		53F68F462F0BB5A40051FFE6 /* ZSSleftjustify.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EAF2F0BB5A40051FFE6 /* ZSSleftjustify.png */; };
-		53F68F472F0BB5A40051FFE6 /* ZSSorderedlist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EB42F0BB5A40051FFE6 /* ZSSorderedlist@2x.png */; };
 		53F68F482F0BB5A40051FFE6 /* ZSSimageDevice.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EA52F0BB5A40051FFE6 /* ZSSimageDevice.png */; };
 		53F68F492F0BB5A40051FFE6 /* HRColorUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F68EEA2F0BB5A40051FFE6 /* HRColorUtil.m */; };
 		53F68F4A2F0BB5A40051FFE6 /* ZSSBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F68EF02F0BB5A40051FFE6 /* ZSSBarButtonItem.m */; };
@@ -273,6 +273,34 @@
 		531CD9302EECFF2300FC22F7 /* HomePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePopViewController.swift; sourceTree = "<group>"; };
 		531CD9322EED075000FC22F7 /* HomeConfigData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeConfigData.swift; sourceTree = "<group>"; };
 		533D12432E1BAB4300C97724 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		534146402F0CA0430012436B /* EditorSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSummaryViewController.swift; sourceTree = "<group>"; };
+		534146422F0CA7730012436B /* ZSSbold@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSbold@3x.png"; sourceTree = "<group>"; };
+		534146432F0CA7730012436B /* ZSSh1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSh1@3x.png"; sourceTree = "<group>"; };
+		534146442F0CA7730012436B /* ZSSh2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSh2@3x.png"; sourceTree = "<group>"; };
+		534146452F0CA7730012436B /* ZSSh3@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSh3@3x.png"; sourceTree = "<group>"; };
+		534146462F0CA7730012436B /* ZSSindent@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSindent@3x.png"; sourceTree = "<group>"; };
+		534146472F0CA7730012436B /* ZSSitalic@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSitalic@3x.png"; sourceTree = "<group>"; };
+		534146482F0CA7730012436B /* ZSSkeyboard@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSkeyboard@3x.png"; sourceTree = "<group>"; };
+		534146492F0CA7730012436B /* ZSSorderedlist@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSorderedlist@3x.png"; sourceTree = "<group>"; };
+		5341464A2F0CA7730012436B /* ZSSoutdent@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSoutdent@3x.png"; sourceTree = "<group>"; };
+		5341464B2F0CA7730012436B /* ZSSredo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSredo@3x.png"; sourceTree = "<group>"; };
+		5341464C2F0CA7730012436B /* ZSStextcolor@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSStextcolor@3x.png"; sourceTree = "<group>"; };
+		5341464D2F0CA7730012436B /* ZSSunderline@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSunderline@3x.png"; sourceTree = "<group>"; };
+		5341464E2F0CA7730012436B /* ZSSundo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSundo@3x.png"; sourceTree = "<group>"; };
+		5341464F2F0CA7730012436B /* ZSSunorderedlist@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSunorderedlist@3x.png"; sourceTree = "<group>"; };
+		5341465E2F0CAEDB0012436B /* ZSSbold_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSbold_s@3x.png"; sourceTree = "<group>"; };
+		5341465F2F0CAEDB0012436B /* ZSSh1_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSh1_s@3x.png"; sourceTree = "<group>"; };
+		534146602F0CAEDB0012436B /* ZSSh2_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSh2_s@3x.png"; sourceTree = "<group>"; };
+		534146612F0CAEDB0012436B /* ZSSh3_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSh3_s@3x.png"; sourceTree = "<group>"; };
+		534146622F0CAEDB0012436B /* ZSSindent_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSindent_s@3x.png"; sourceTree = "<group>"; };
+		534146632F0CAEDB0012436B /* ZSSitalic_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSitalic_s@3x.png"; sourceTree = "<group>"; };
+		534146642F0CAEDB0012436B /* ZSSorderedlist_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSorderedlist_s@3x.png"; sourceTree = "<group>"; };
+		534146652F0CAEDB0012436B /* ZSSoutdent_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSoutdent_s@3x.png"; sourceTree = "<group>"; };
+		534146662F0CAEDB0012436B /* ZSSredo_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSredo_s@3x.png"; sourceTree = "<group>"; };
+		534146672F0CAEDB0012436B /* ZSStextcolor_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSStextcolor_s@3x.png"; sourceTree = "<group>"; };
+		534146682F0CAEDB0012436B /* ZSSunderline_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSunderline_s@3x.png"; sourceTree = "<group>"; };
+		534146692F0CAEDB0012436B /* ZSSundo_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSundo_s@3x.png"; sourceTree = "<group>"; };
+		5341466A2F0CAEDB0012436B /* ZSSunorderedlist_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSunorderedlist_s@3x.png"; sourceTree = "<group>"; };
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
 		5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFloderPopViewController.swift; sourceTree = "<group>"; };
 		538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddNotePopViewController.swift; sourceTree = "<group>"; };
@@ -310,8 +338,6 @@
 		53F68DB92F0BB0940051FFE6 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		53F68E892F0BB5A40051FFE6 /* ZSSbgcolor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSbgcolor.png; sourceTree = "<group>"; };
 		53F68E8A2F0BB5A40051FFE6 /* ZSSbgcolor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSbgcolor@2x.png"; sourceTree = "<group>"; };
-		53F68E8B2F0BB5A40051FFE6 /* ZSSbold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSbold.png; sourceTree = "<group>"; };
-		53F68E8C2F0BB5A40051FFE6 /* ZSSbold@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSbold@2x.png"; sourceTree = "<group>"; };
 		53F68E8D2F0BB5A40051FFE6 /* ZSScenterjustify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSScenterjustify.png; sourceTree = "<group>"; };
 		53F68E8E2F0BB5A40051FFE6 /* ZSScenterjustify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSScenterjustify@2x.png"; sourceTree = "<group>"; };
 		53F68E8F2F0BB5A40051FFE6 /* ZSSclearstyle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSclearstyle.png; sourceTree = "<group>"; };
@@ -320,12 +346,6 @@
 		53F68E922F0BB5A40051FFE6 /* ZSSfonts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSfonts@2x.png"; sourceTree = "<group>"; };
 		53F68E932F0BB5A40051FFE6 /* ZSSforcejustify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSforcejustify.png; sourceTree = "<group>"; };
 		53F68E942F0BB5A40051FFE6 /* ZSSforcejustify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSforcejustify@2x.png"; sourceTree = "<group>"; };
-		53F68E952F0BB5A40051FFE6 /* ZSSh1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSh1.png; sourceTree = "<group>"; };
-		53F68E962F0BB5A40051FFE6 /* ZSSh1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSh1@2x.png"; sourceTree = "<group>"; };
-		53F68E972F0BB5A40051FFE6 /* ZSSh2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSh2.png; sourceTree = "<group>"; };
-		53F68E982F0BB5A40051FFE6 /* ZSSh2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSh2@2x.png"; sourceTree = "<group>"; };
-		53F68E992F0BB5A40051FFE6 /* ZSSh3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSh3.png; sourceTree = "<group>"; };
-		53F68E9A2F0BB5A40051FFE6 /* ZSSh3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSh3@2x.png"; sourceTree = "<group>"; };
 		53F68E9B2F0BB5A40051FFE6 /* ZSSh4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSh4.png; sourceTree = "<group>"; };
 		53F68E9C2F0BB5A40051FFE6 /* ZSSh4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSh4@2x.png"; sourceTree = "<group>"; };
 		53F68E9D2F0BB5A40051FFE6 /* ZSSh5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSh5.png; sourceTree = "<group>"; };
@@ -338,30 +358,18 @@
 		53F68EA42F0BB5A40051FFE6 /* ZSSimage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSimage@2x.png"; sourceTree = "<group>"; };
 		53F68EA52F0BB5A40051FFE6 /* ZSSimageDevice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSimageDevice.png; sourceTree = "<group>"; };
 		53F68EA62F0BB5A40051FFE6 /* ZSSimageDevice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSimageDevice@2x.png"; sourceTree = "<group>"; };
-		53F68EA72F0BB5A40051FFE6 /* ZSSindent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSindent.png; sourceTree = "<group>"; };
-		53F68EA82F0BB5A40051FFE6 /* ZSSindent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSindent@2x.png"; sourceTree = "<group>"; };
 		53F68EA92F0BB5A40051FFE6 /* ZSSinsertkeyword.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSinsertkeyword.png; sourceTree = "<group>"; };
 		53F68EAA2F0BB5A40051FFE6 /* ZSSinsertkeyword@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSinsertkeyword@2x.png"; sourceTree = "<group>"; };
-		53F68EAB2F0BB5A40051FFE6 /* ZSSitalic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSitalic.png; sourceTree = "<group>"; };
-		53F68EAC2F0BB5A40051FFE6 /* ZSSitalic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSitalic@2x.png"; sourceTree = "<group>"; };
-		53F68EAD2F0BB5A40051FFE6 /* ZSSkeyboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSkeyboard.png; sourceTree = "<group>"; };
-		53F68EAE2F0BB5A40051FFE6 /* ZSSkeyboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSkeyboard@2x.png"; sourceTree = "<group>"; };
 		53F68EAF2F0BB5A40051FFE6 /* ZSSleftjustify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSleftjustify.png; sourceTree = "<group>"; };
 		53F68EB02F0BB5A40051FFE6 /* ZSSleftjustify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSleftjustify@2x.png"; sourceTree = "<group>"; };
 		53F68EB12F0BB5A40051FFE6 /* ZSSlink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSlink.png; sourceTree = "<group>"; };
 		53F68EB22F0BB5A40051FFE6 /* ZSSlink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSlink@2x.png"; sourceTree = "<group>"; };
-		53F68EB32F0BB5A40051FFE6 /* ZSSorderedlist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSorderedlist.png; sourceTree = "<group>"; };
-		53F68EB42F0BB5A40051FFE6 /* ZSSorderedlist@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSorderedlist@2x.png"; sourceTree = "<group>"; };
-		53F68EB52F0BB5A40051FFE6 /* ZSSoutdent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSoutdent.png; sourceTree = "<group>"; };
-		53F68EB62F0BB5A40051FFE6 /* ZSSoutdent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSoutdent@2x.png"; sourceTree = "<group>"; };
 		53F68EB72F0BB5A40051FFE6 /* ZSSparagraph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSparagraph.png; sourceTree = "<group>"; };
 		53F68EB82F0BB5A40051FFE6 /* ZSSparagraph@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSparagraph@2x.png"; sourceTree = "<group>"; };
 		53F68EB92F0BB5A40051FFE6 /* ZSSpicker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSpicker.png; sourceTree = "<group>"; };
 		53F68EBA2F0BB5A40051FFE6 /* ZSSpicker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSpicker@2x.png"; sourceTree = "<group>"; };
 		53F68EBB2F0BB5A40051FFE6 /* ZSSquicklink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSquicklink.png; sourceTree = "<group>"; };
 		53F68EBC2F0BB5A40051FFE6 /* ZSSquicklink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSquicklink@2x.png"; sourceTree = "<group>"; };
-		53F68EBD2F0BB5A40051FFE6 /* ZSSredo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSredo.png; sourceTree = "<group>"; };
-		53F68EBE2F0BB5A40051FFE6 /* ZSSredo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSredo@2x.png"; sourceTree = "<group>"; };
 		53F68EBF2F0BB5A40051FFE6 /* ZSSrightjustify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSrightjustify.png; sourceTree = "<group>"; };
 		53F68EC02F0BB5A40051FFE6 /* ZSSrightjustify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSrightjustify@2x.png"; sourceTree = "<group>"; };
 		53F68EC12F0BB5A40051FFE6 /* ZSSstrikethrough.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSstrikethrough.png; sourceTree = "<group>"; };
@@ -372,16 +380,8 @@
 		53F68EC62F0BB5A40051FFE6 /* ZSSsuperscript@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSsuperscript@2x.png"; sourceTree = "<group>"; };
 		53F68EC72F0BB5A40051FFE6 /* ZSStable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSStable.png; sourceTree = "<group>"; };
 		53F68EC82F0BB5A40051FFE6 /* ZSStable@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSStable@2x.png"; sourceTree = "<group>"; };
-		53F68EC92F0BB5A40051FFE6 /* ZSStextcolor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSStextcolor.png; sourceTree = "<group>"; };
-		53F68ECA2F0BB5A40051FFE6 /* ZSStextcolor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSStextcolor@2x.png"; sourceTree = "<group>"; };
-		53F68ECB2F0BB5A40051FFE6 /* ZSSunderline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSunderline.png; sourceTree = "<group>"; };
-		53F68ECC2F0BB5A40051FFE6 /* ZSSunderline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSunderline@2x.png"; sourceTree = "<group>"; };
-		53F68ECD2F0BB5A40051FFE6 /* ZSSundo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSundo.png; sourceTree = "<group>"; };
-		53F68ECE2F0BB5A40051FFE6 /* ZSSundo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSundo@2x.png"; sourceTree = "<group>"; };
 		53F68ECF2F0BB5A40051FFE6 /* ZSSunlink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSunlink.png; sourceTree = "<group>"; };
 		53F68ED02F0BB5A40051FFE6 /* ZSSunlink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSunlink@2x.png"; sourceTree = "<group>"; };
-		53F68ED12F0BB5A40051FFE6 /* ZSSunorderedlist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSunorderedlist.png; sourceTree = "<group>"; };
-		53F68ED22F0BB5A40051FFE6 /* ZSSunorderedlist@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSunorderedlist@2x.png"; sourceTree = "<group>"; };
 		53F68ED32F0BB5A40051FFE6 /* ZSSviewsource.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSviewsource.png; sourceTree = "<group>"; };
 		53F68ED42F0BB5A40051FFE6 /* ZSSviewsource@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSviewsource@2x.png"; sourceTree = "<group>"; };
 		53F68ED62F0BB5A40051FFE6 /* CYRLayoutManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CYRLayoutManager.h; sourceTree = "<group>"; };
@@ -749,6 +749,7 @@
 			isa = PBXGroup;
 			children = (
 				53F68DB92F0BB0940051FFE6 /* EditorViewController.swift */,
+				534146402F0CA0430012436B /* EditorSummaryViewController.swift */,
 			);
 			path = RichText;
 			sourceTree = "<group>";
@@ -756,10 +757,35 @@
 		53F68ED52F0BB5A40051FFE6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				534146422F0CA7730012436B /* ZSSbold@3x.png */,
+				534146432F0CA7730012436B /* ZSSh1@3x.png */,
+				534146442F0CA7730012436B /* ZSSh2@3x.png */,
+				534146452F0CA7730012436B /* ZSSh3@3x.png */,
+				534146462F0CA7730012436B /* ZSSindent@3x.png */,
+				534146472F0CA7730012436B /* ZSSitalic@3x.png */,
+				534146482F0CA7730012436B /* ZSSkeyboard@3x.png */,
+				534146492F0CA7730012436B /* ZSSorderedlist@3x.png */,
+				5341464A2F0CA7730012436B /* ZSSoutdent@3x.png */,
+				5341464B2F0CA7730012436B /* ZSSredo@3x.png */,
+				5341464C2F0CA7730012436B /* ZSStextcolor@3x.png */,
+				5341464D2F0CA7730012436B /* ZSSunderline@3x.png */,
+				5341464E2F0CA7730012436B /* ZSSundo@3x.png */,
+				5341464F2F0CA7730012436B /* ZSSunorderedlist@3x.png */,
+				5341465E2F0CAEDB0012436B /* ZSSbold_s@3x.png */,
+				5341465F2F0CAEDB0012436B /* ZSSh1_s@3x.png */,
+				534146602F0CAEDB0012436B /* ZSSh2_s@3x.png */,
+				534146612F0CAEDB0012436B /* ZSSh3_s@3x.png */,
+				534146622F0CAEDB0012436B /* ZSSindent_s@3x.png */,
+				534146632F0CAEDB0012436B /* ZSSitalic_s@3x.png */,
+				534146642F0CAEDB0012436B /* ZSSorderedlist_s@3x.png */,
+				534146652F0CAEDB0012436B /* ZSSoutdent_s@3x.png */,
+				534146662F0CAEDB0012436B /* ZSSredo_s@3x.png */,
+				534146672F0CAEDB0012436B /* ZSStextcolor_s@3x.png */,
+				534146682F0CAEDB0012436B /* ZSSunderline_s@3x.png */,
+				534146692F0CAEDB0012436B /* ZSSundo_s@3x.png */,
+				5341466A2F0CAEDB0012436B /* ZSSunorderedlist_s@3x.png */,
 				53F68E892F0BB5A40051FFE6 /* ZSSbgcolor.png */,
 				53F68E8A2F0BB5A40051FFE6 /* ZSSbgcolor@2x.png */,
-				53F68E8B2F0BB5A40051FFE6 /* ZSSbold.png */,
-				53F68E8C2F0BB5A40051FFE6 /* ZSSbold@2x.png */,
 				53F68E8D2F0BB5A40051FFE6 /* ZSScenterjustify.png */,
 				53F68E8E2F0BB5A40051FFE6 /* ZSScenterjustify@2x.png */,
 				53F68E8F2F0BB5A40051FFE6 /* ZSSclearstyle.png */,
@@ -768,12 +794,6 @@
 				53F68E922F0BB5A40051FFE6 /* ZSSfonts@2x.png */,
 				53F68E932F0BB5A40051FFE6 /* ZSSforcejustify.png */,
 				53F68E942F0BB5A40051FFE6 /* ZSSforcejustify@2x.png */,
-				53F68E952F0BB5A40051FFE6 /* ZSSh1.png */,
-				53F68E962F0BB5A40051FFE6 /* ZSSh1@2x.png */,
-				53F68E972F0BB5A40051FFE6 /* ZSSh2.png */,
-				53F68E982F0BB5A40051FFE6 /* ZSSh2@2x.png */,
-				53F68E992F0BB5A40051FFE6 /* ZSSh3.png */,
-				53F68E9A2F0BB5A40051FFE6 /* ZSSh3@2x.png */,
 				53F68E9B2F0BB5A40051FFE6 /* ZSSh4.png */,
 				53F68E9C2F0BB5A40051FFE6 /* ZSSh4@2x.png */,
 				53F68E9D2F0BB5A40051FFE6 /* ZSSh5.png */,
@@ -786,30 +806,18 @@
 				53F68EA42F0BB5A40051FFE6 /* ZSSimage@2x.png */,
 				53F68EA52F0BB5A40051FFE6 /* ZSSimageDevice.png */,
 				53F68EA62F0BB5A40051FFE6 /* ZSSimageDevice@2x.png */,
-				53F68EA72F0BB5A40051FFE6 /* ZSSindent.png */,
-				53F68EA82F0BB5A40051FFE6 /* ZSSindent@2x.png */,
 				53F68EA92F0BB5A40051FFE6 /* ZSSinsertkeyword.png */,
 				53F68EAA2F0BB5A40051FFE6 /* ZSSinsertkeyword@2x.png */,
-				53F68EAB2F0BB5A40051FFE6 /* ZSSitalic.png */,
-				53F68EAC2F0BB5A40051FFE6 /* ZSSitalic@2x.png */,
-				53F68EAD2F0BB5A40051FFE6 /* ZSSkeyboard.png */,
-				53F68EAE2F0BB5A40051FFE6 /* ZSSkeyboard@2x.png */,
 				53F68EAF2F0BB5A40051FFE6 /* ZSSleftjustify.png */,
 				53F68EB02F0BB5A40051FFE6 /* ZSSleftjustify@2x.png */,
 				53F68EB12F0BB5A40051FFE6 /* ZSSlink.png */,
 				53F68EB22F0BB5A40051FFE6 /* ZSSlink@2x.png */,
-				53F68EB32F0BB5A40051FFE6 /* ZSSorderedlist.png */,
-				53F68EB42F0BB5A40051FFE6 /* ZSSorderedlist@2x.png */,
-				53F68EB52F0BB5A40051FFE6 /* ZSSoutdent.png */,
-				53F68EB62F0BB5A40051FFE6 /* ZSSoutdent@2x.png */,
 				53F68EB72F0BB5A40051FFE6 /* ZSSparagraph.png */,
 				53F68EB82F0BB5A40051FFE6 /* ZSSparagraph@2x.png */,
 				53F68EB92F0BB5A40051FFE6 /* ZSSpicker.png */,
 				53F68EBA2F0BB5A40051FFE6 /* ZSSpicker@2x.png */,
 				53F68EBB2F0BB5A40051FFE6 /* ZSSquicklink.png */,
 				53F68EBC2F0BB5A40051FFE6 /* ZSSquicklink@2x.png */,
-				53F68EBD2F0BB5A40051FFE6 /* ZSSredo.png */,
-				53F68EBE2F0BB5A40051FFE6 /* ZSSredo@2x.png */,
 				53F68EBF2F0BB5A40051FFE6 /* ZSSrightjustify.png */,
 				53F68EC02F0BB5A40051FFE6 /* ZSSrightjustify@2x.png */,
 				53F68EC12F0BB5A40051FFE6 /* ZSSstrikethrough.png */,
@@ -820,16 +828,8 @@
 				53F68EC62F0BB5A40051FFE6 /* ZSSsuperscript@2x.png */,
 				53F68EC72F0BB5A40051FFE6 /* ZSStable.png */,
 				53F68EC82F0BB5A40051FFE6 /* ZSStable@2x.png */,
-				53F68EC92F0BB5A40051FFE6 /* ZSStextcolor.png */,
-				53F68ECA2F0BB5A40051FFE6 /* ZSStextcolor@2x.png */,
-				53F68ECB2F0BB5A40051FFE6 /* ZSSunderline.png */,
-				53F68ECC2F0BB5A40051FFE6 /* ZSSunderline@2x.png */,
-				53F68ECD2F0BB5A40051FFE6 /* ZSSundo.png */,
-				53F68ECE2F0BB5A40051FFE6 /* ZSSundo@2x.png */,
 				53F68ECF2F0BB5A40051FFE6 /* ZSSunlink.png */,
 				53F68ED02F0BB5A40051FFE6 /* ZSSunlink@2x.png */,
-				53F68ED12F0BB5A40051FFE6 /* ZSSunorderedlist.png */,
-				53F68ED22F0BB5A40051FFE6 /* ZSSunorderedlist@2x.png */,
 				53F68ED32F0BB5A40051FFE6 /* ZSSviewsource.png */,
 				53F68ED42F0BB5A40051FFE6 /* ZSSviewsource@2x.png */,
 			);
@@ -996,31 +996,24 @@
 				53F68EFA2F0BB5A40051FFE6 /* ZSSh6.png in Resources */,
 				53F68EFB2F0BB5A40051FFE6 /* ZSSimageDevice@2x.png in Resources */,
 				53F68EFC2F0BB5A40051FFE6 /* ZSSh5.png in Resources */,
-				53F68EFD2F0BB5A40051FFE6 /* ZSSh3@2x.png in Resources */,
 				53F68EFE2F0BB5A40051FFE6 /* ZSSforcejustify@2x.png in Resources */,
-				53F68EFF2F0BB5A40051FFE6 /* ZSSorderedlist.png in Resources */,
 				53F68F002F0BB5A40051FFE6 /* ZSSimage@2x.png in Resources */,
 				53F68F012F0BB5A40051FFE6 /* ZSSsuperscript.png in Resources */,
 				53F68F022F0BB5A40051FFE6 /* ZSSinsertkeyword.png in Resources */,
 				53F68F032F0BB5A40051FFE6 /* ZSSleftjustify@2x.png in Resources */,
 				53F68F042F0BB5A40051FFE6 /* ZSSclearstyle.png in Resources */,
-				53F68F052F0BB5A40051FFE6 /* ZSSh2.png in Resources */,
-				53F68F062F0BB5A40051FFE6 /* ZSStextcolor.png in Resources */,
 				53F68F072F0BB5A40051FFE6 /* ZSSh5@2x.png in Resources */,
 				53F68F082F0BB5A40051FFE6 /* ZSSfonts.png in Resources */,
 				53F68F092F0BB5A40051FFE6 /* ZSScenterjustify@2x.png in Resources */,
 				53F68F0A2F0BB5A40051FFE6 /* ZSSpicker.png in Resources */,
-				53F68F0B2F0BB5A40051FFE6 /* ZSSoutdent.png in Resources */,
 				53F68F0C2F0BB5A40051FFE6 /* ZSShorizontalrule.png in Resources */,
 				53F68F0D2F0BB5A40051FFE6 /* ZSSh4@2x.png in Resources */,
 				53F68F0E2F0BB5A40051FFE6 /* ZSSparagraph.png in Resources */,
 				53F68F0F2F0BB5A40051FFE6 /* ZSSunlink@2x.png in Resources */,
 				53F68F102F0BB5A40051FFE6 /* ZSSRichTextEditor.js in Resources */,
 				53F68F112F0BB5A40051FFE6 /* ZSSviewsource.png in Resources */,
-				53F68F122F0BB5A40051FFE6 /* ZSSh1.png in Resources */,
 				53F68F132F0BB5A40051FFE6 /* ZSSsuperscript@2x.png in Resources */,
 				53F68F142F0BB5A40051FFE6 /* ZSScenterjustify.png in Resources */,
-				53F68F152F0BB5A40051FFE6 /* ZSSbold@2x.png in Resources */,
 				53F68F162F0BB5A40051FFE6 /* ZSSparagraph@2x.png in Resources */,
 				53F68F172F0BB5A40051FFE6 /* ZSSrightjustify.png in Resources */,
 				53F68F182F0BB5A40051FFE6 /* editor.html in Resources */,
@@ -1029,48 +1022,40 @@
 				53F68F1B2F0BB5A40051FFE6 /* ZSSpicker@2x.png in Resources */,
 				53F68F1C2F0BB5A40051FFE6 /* ZSSviewsource@2x.png in Resources */,
 				53F68F1D2F0BB5A40051FFE6 /* ZSSh6@2x.png in Resources */,
-				53F68F1E2F0BB5A40051FFE6 /* ZSSundo@2x.png in Resources */,
-				53F68F1F2F0BB5A40051FFE6 /* ZSSkeyboard.png in Resources */,
 				53F68F202F0BB5A40051FFE6 /* ZSStable@2x.png in Resources */,
-				53F68F212F0BB5A40051FFE6 /* ZSSindent@2x.png in Resources */,
 				53F68F222F0BB5A40051FFE6 /* jQuery.js in Resources */,
 				53F68F232F0BB5A40051FFE6 /* ZSSforcejustify.png in Resources */,
-				53F68F242F0BB5A40051FFE6 /* ZSSunorderedlist@2x.png in Resources */,
-				53F68F252F0BB5A40051FFE6 /* ZSSitalic@2x.png in Resources */,
 				53F68F262F0BB5A40051FFE6 /* ZSSh4.png in Resources */,
 				53F68F272F0BB5A40051FFE6 /* ZSSstrikethrough.png in Resources */,
+				5341466B2F0CAEDB0012436B /* ZSSundo_s@3x.png in Resources */,
+				5341466C2F0CAEDB0012436B /* ZSSh3_s@3x.png in Resources */,
+				5341466D2F0CAEDB0012436B /* ZSStextcolor_s@3x.png in Resources */,
+				5341466E2F0CAEDB0012436B /* ZSSbold_s@3x.png in Resources */,
+				5341466F2F0CAEDB0012436B /* ZSSindent_s@3x.png in Resources */,
+				534146702F0CAEDB0012436B /* ZSSorderedlist_s@3x.png in Resources */,
+				534146712F0CAEDB0012436B /* ZSSh2_s@3x.png in Resources */,
+				534146722F0CAEDB0012436B /* ZSSunorderedlist_s@3x.png in Resources */,
+				534146732F0CAEDB0012436B /* ZSSitalic_s@3x.png in Resources */,
+				534146742F0CAEDB0012436B /* ZSSunderline_s@3x.png in Resources */,
+				534146752F0CAEDB0012436B /* ZSSoutdent_s@3x.png in Resources */,
+				534146762F0CAEDB0012436B /* ZSSh1_s@3x.png in Resources */,
+				534146772F0CAEDB0012436B /* ZSSredo_s@3x.png in Resources */,
 				53F68F282F0BB5A40051FFE6 /* ZSStable.png in Resources */,
 				53F68F292F0BB5A40051FFE6 /* ZSSinsertkeyword@2x.png in Resources */,
-				53F68F2A2F0BB5A40051FFE6 /* ZSSunorderedlist.png in Resources */,
 				53F68F2B2F0BB5A40051FFE6 /* ZSSrightjustify@2x.png in Resources */,
-				53F68F2C2F0BB5A40051FFE6 /* ZSSindent.png in Resources */,
 				53F68F2D2F0BB5A40051FFE6 /* ZSSsubscript@2x.png in Resources */,
-				53F68F2E2F0BB5A40051FFE6 /* ZSSh1@2x.png in Resources */,
-				53F68F2F2F0BB5A40051FFE6 /* ZSSbold.png in Resources */,
 				53F68F302F0BB5A40051FFE6 /* ZSSquicklink@2x.png in Resources */,
 				53F68F312F0BB5A40051FFE6 /* ZSSsubscript.png in Resources */,
 				53F68F322F0BB5A40051FFE6 /* ZSSlink.png in Resources */,
-				53F68F332F0BB5A40051FFE6 /* ZSSunderline.png in Resources */,
-				53F68F342F0BB5A40051FFE6 /* ZSSoutdent@2x.png in Resources */,
-				53F68F352F0BB5A40051FFE6 /* ZSStextcolor@2x.png in Resources */,
-				53F68F362F0BB5A40051FFE6 /* ZSSredo.png in Resources */,
 				53F68F372F0BB5A40051FFE6 /* JSBeautifier.js in Resources */,
 				53F68F382F0BB5A40051FFE6 /* ZSSclearstyle@2x.png in Resources */,
-				53F68F392F0BB5A40051FFE6 /* ZSSh2@2x.png in Resources */,
-				53F68F3A2F0BB5A40051FFE6 /* ZSSh3.png in Resources */,
 				53F68F3B2F0BB5A40051FFE6 /* ZSSlink@2x.png in Resources */,
 				53F68F3C2F0BB5A40051FFE6 /* ZSSquicklink.png in Resources */,
-				53F68F3D2F0BB5A40051FFE6 /* ZSSitalic.png in Resources */,
 				53F68F3E2F0BB5A40051FFE6 /* ZSSfonts@2x.png in Resources */,
 				53F68F3F2F0BB5A40051FFE6 /* ZSSbgcolor@2x.png in Resources */,
-				53F68F402F0BB5A40051FFE6 /* ZSSunderline@2x.png in Resources */,
-				53F68F412F0BB5A40051FFE6 /* ZSSundo.png in Resources */,
 				53F68F422F0BB5A40051FFE6 /* ZSSunlink.png in Resources */,
 				53F68F432F0BB5A40051FFE6 /* ZSShorizontalrule@2x.png in Resources */,
-				53F68F442F0BB5A40051FFE6 /* ZSSkeyboard@2x.png in Resources */,
-				53F68F452F0BB5A40051FFE6 /* ZSSredo@2x.png in Resources */,
 				53F68F462F0BB5A40051FFE6 /* ZSSleftjustify.png in Resources */,
-				53F68F472F0BB5A40051FFE6 /* ZSSorderedlist@2x.png in Resources */,
 				53F68F482F0BB5A40051FFE6 /* ZSSimageDevice.png in Resources */,
 				531CD9262EEBE90C00FC22F7 /* Inter-Light-7.otf in Resources */,
 				539F2D432DA8B1190030DA8F /* InfoPlist.strings in Resources */,
@@ -1078,6 +1063,20 @@
 				531CD90C2EEAAF6400FC22F7 /* expenses.storekit in Resources */,
 				531CD90D2EEAAF6400FC22F7 /* StoreKitTestCertificate.cer in Resources */,
 				53FFAEF32EFA3BD600A0C1EF /* record-bottom.mp4 in Resources */,
+				534146502F0CA7730012436B /* ZSSh3@3x.png in Resources */,
+				534146512F0CA7730012436B /* ZSSkeyboard@3x.png in Resources */,
+				534146522F0CA7730012436B /* ZSStextcolor@3x.png in Resources */,
+				534146532F0CA7730012436B /* ZSSoutdent@3x.png in Resources */,
+				534146542F0CA7730012436B /* ZSSredo@3x.png in Resources */,
+				534146552F0CA7730012436B /* ZSSh2@3x.png in Resources */,
+				534146562F0CA7730012436B /* ZSSitalic@3x.png in Resources */,
+				534146572F0CA7730012436B /* ZSSh1@3x.png in Resources */,
+				534146582F0CA7730012436B /* ZSSunorderedlist@3x.png in Resources */,
+				534146592F0CA7730012436B /* ZSSunderline@3x.png in Resources */,
+				5341465A2F0CA7730012436B /* ZSSundo@3x.png in Resources */,
+				5341465B2F0CA7730012436B /* ZSSbold@3x.png in Resources */,
+				5341465C2F0CA7730012436B /* ZSSorderedlist@3x.png in Resources */,
+				5341465D2F0CA7730012436B /* ZSSindent@3x.png in Resources */,
 				53FFAEF42EFA3BD600A0C1EF /* record-top.mp4 in Resources */,
 				533D12442E1BAB4300C97724 /* LaunchScreen.storyboard in Resources */,
 				388FB0962DA17039006C52AC /* Assets.xcassets in Resources */,
@@ -1233,6 +1232,7 @@
 				53F68D9F2F0288420051FFE6 /* HomeMoveoutPopVC.swift in Sources */,
 				53FFAEF02EFA365A00A0C1EF /* CenterLanguagePopVC.swift in Sources */,
 				53FFAF062EFE21D200A0C1EF /* ByteDanceOpenSpeechClient.swift in Sources */,
+				534146412F0CA0430012436B /* EditorSummaryViewController.swift in Sources */,
 				531CD8D32EEAAB6E00FC22F7 /* GlobalImports.swift in Sources */,
 				531CD92F2EECF8BC00FC22F7 /* PopTopView.swift in Sources */,
 				531CD8FD2EEAAF6400FC22F7 /* NotificationCenterKeys.swift in Sources */,

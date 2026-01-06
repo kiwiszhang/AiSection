@@ -177,6 +177,9 @@ extension HomeNoteDetailViewController:DetailNavTopViewDelegate {
 
         menu.show(at: CGPoint(x: kkScreenWidth - 16.w, y: 88.h)) { [self] index in
             MyLog("点击了第 \(index) 项")
+            if index == 0 {
+                self.navigationController?.pushViewController(EditorSummaryViewController(recordingItem: recordingItem!), animated: true)
+            }
             if index == 2 {
                 let content = CenterLanguagePopVC()
                 content.delegate = self

@@ -233,4 +233,6 @@ static NSString * const ZSSEditorContent = @"document.activeElement.id=='zss_edi
  */
 - (void)setCSS:(NSString *)css;
 
+- (void)dismissKeyboard;
+
 @end
