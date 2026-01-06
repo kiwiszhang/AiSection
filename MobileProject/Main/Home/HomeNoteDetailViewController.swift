@@ -180,6 +180,9 @@ extension HomeNoteDetailViewController:DetailNavTopViewDelegate {
             if index == 0 {
                 self.navigationController?.pushViewController(EditorSummaryViewController(recordingItem: recordingItem!), animated: true)
             }
+            if index == 1 {
+                self.navigationController?.pushViewController(EditorTranscriptViewController(recordingItem: recordingItem!), animated: true)
+            }
             if index == 2 {
                 let content = CenterLanguagePopVC()
                 content.delegate = self

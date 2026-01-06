@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditorSummaryViewController: ZSSRichTextEditor {
+class EditorTranscriptViewController: ZSSRichTextEditor {
 
     private lazy var recordingItem:RecordingItem? = nil
 
@@ -39,18 +39,21 @@ class EditorSummaryViewController: ZSSRichTextEditor {
             target: self,
             action: #selector(exportHTML)
         )
-        title = "Action Item"
+        title = "Transcript"
         var html = "<div class='test'></div>";
         do {
-            let decoder = JSONDecoder()
-            let sentences = try decoder.decode(InformationExtraction.self, from: recordingItem!.informationData!)
-            MyLog("\(sentences.todoList)")
-            if !sentences.todoList.isEmpty {
-                for item in sentences.todoList {
-                    let content = item.content ?? ""
-                    html += "<p><ul><li>" + content + "<br /></li></ul></p>"
+            if let data = recordingItem!.transcriptionData {
+                let decoder = JSONDecoder()
+                let sentences = try decoder.decode([AudioSentenceRaw].self, from: data)
+                MyLog(sentences)
+                if !sentences.isEmpty {
+                    for item in sentences {
+                        let content = item.content
+                        let speaker = item.speaker.name ?? "speaker"
+                        html += "<p>" + speaker + ": " + content + "</p>"
+                    }
+                    setHTML(html)
                 }
-                setHTML(html)
             }
         } catch {
             MyLog("\(error)")

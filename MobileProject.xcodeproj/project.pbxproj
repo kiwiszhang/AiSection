@@ -87,6 +87,7 @@
 		534146752F0CAEDB0012436B /* ZSSoutdent_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146652F0CAEDB0012436B /* ZSSoutdent_s@3x.png */; };
 		534146762F0CAEDB0012436B /* ZSSh1_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5341465F2F0CAEDB0012436B /* ZSSh1_s@3x.png */; };
 		534146772F0CAEDB0012436B /* ZSSredo_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146662F0CAEDB0012436B /* ZSSredo_s@3x.png */; };
+		534146792F0CBC6F0012436B /* EditorTranscriptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146782F0CBC6F0012436B /* EditorTranscriptViewController.swift */; };
 		538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */; };
 		538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */; };
 		538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */; };
@@ -301,6 +302,7 @@
 		534146682F0CAEDB0012436B /* ZSSunderline_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSunderline_s@3x.png"; sourceTree = "<group>"; };
 		534146692F0CAEDB0012436B /* ZSSundo_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSundo_s@3x.png"; sourceTree = "<group>"; };
 		5341466A2F0CAEDB0012436B /* ZSSunorderedlist_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSunorderedlist_s@3x.png"; sourceTree = "<group>"; };
+		534146782F0CBC6F0012436B /* EditorTranscriptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorTranscriptViewController.swift; sourceTree = "<group>"; };
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
 		5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFloderPopViewController.swift; sourceTree = "<group>"; };
 		538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddNotePopViewController.swift; sourceTree = "<group>"; };
@@ -750,6 +752,7 @@
 			children = (
 				53F68DB92F0BB0940051FFE6 /* EditorViewController.swift */,
 				534146402F0CA0430012436B /* EditorSummaryViewController.swift */,
+				534146782F0CBC6F0012436B /* EditorTranscriptViewController.swift */,
 			);
 			path = RichText;
 			sourceTree = "<group>";
@@ -1193,6 +1196,7 @@
 				531CD8B82EEAAA0400FC22F7 /* BottomPushAnimator.swift in Sources */,
 				538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */,
 				53F68D992EFFCACA0051FFE6 /* FolderItemStore.swift in Sources */,
+				534146792F0CBC6F0012436B /* EditorTranscriptViewController.swift in Sources */,
 				5382822A2EF27E4F0097EAD0 /* HomeAllNotePopVC.swift in Sources */,
 				531CD8B92EEAAA0400FC22F7 /* UIColor+Extension.swift in Sources */,
 				531CD8BB2EEAAA0400FC22F7 /* MBProgressHUD.m in Sources */,
