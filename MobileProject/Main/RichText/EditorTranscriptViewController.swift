@@ -96,7 +96,6 @@ class EditorTranscriptViewController: ZSSRichTextEditor {
     
     @objc func handleBack() {
         handleHTML()
-        self.navigationController?.popViewController(animated: true)
     }
     
     func handleHTML(){
@@ -104,7 +103,7 @@ class EditorTranscriptViewController: ZSSRichTextEditor {
             guard let html = html, error == nil else { return }
             recordingItem!.transcriptionHtml = (html as! String)
             try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
-
+            self.navigationController?.popViewController(animated: true)
         }
     }
 
@@ -113,7 +112,6 @@ class EditorTranscriptViewController: ZSSRichTextEditor {
 extension EditorTranscriptViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return handleExit { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
         }
     }
     

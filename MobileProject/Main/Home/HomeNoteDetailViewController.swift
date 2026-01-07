@@ -48,6 +48,17 @@ class HomeNoteDetailViewController: SuperViewController {
         UIApplication.shared.beginReceivingRemoteControlEvents()
     }
 
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        getData()
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tableHeaderView.stopAudios()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -119,16 +130,6 @@ class HomeNoteDetailViewController: SuperViewController {
         tableHeaderView.updataNoteTitle(title: recordingItem!.recordFolder!)
         navTopView.setUpPlay()
         tableHeaderView.setUpPlay()
-    }
-    
-    open override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-    
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        tableHeaderView.stopAudios()
     }
 
 }
@@ -232,7 +233,46 @@ extension HomeNoteDetailViewController:CenterLanguagePopVCDelegate {
     func selectedLangitem(seletedItem: LangItem){
         MyLog("selectedLangitem")
         MyLog(seletedItem)
+        
+        Task {
+            do {
+                let informationHtml = recordingItem!.informationHtml ?? ""
+                let summariztionHtml = recordingItem!.summariztionHtml ?? ""
+                let result = try await translateText(
+                    text: cleanHTMLForNote(informationHtml + summariztionHtml),
+                    targetLanguage: seletedItem.localize
+                )
+                print("翻译结果:", result)
+            } catch {
+                print("翻译失败:", error)
+            }
+        }
+
     }
+    
+    func htmlToPlainText(_ html: String) -> String {
+        guard let data = html.data(using: .utf8) else { return html }
+
+        let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
+            .documentType: NSAttributedString.DocumentType.html,
+            .characterEncoding: String.Encoding.utf8.rawValue
+        ]
+
+        let attributedString = try? NSAttributedString(
+            data: data,
+            options: options,
+            documentAttributes: nil
+        )
+
+        return attributedString?.string ?? html
+    }
+    func cleanHTMLForNote(_ html: String) -> String {
+        let text = htmlToPlainText(html)
+        return text
+            .replacingOccurrences(of: "\n\n\n", with: "\n\n")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
 }
 
 // MARK: -  =======================DetailBottomViewDelegate========================

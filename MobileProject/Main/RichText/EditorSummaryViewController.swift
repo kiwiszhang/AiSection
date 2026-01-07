@@ -106,7 +106,6 @@ class EditorSummaryViewController: ZSSRichTextEditor {
     
     @objc func handleBack() {
         handleHTML()
-        self.navigationController?.popViewController(animated: true)
     }
 
     func handleHTML(){
@@ -115,9 +114,10 @@ class EditorSummaryViewController: ZSSRichTextEditor {
             let parts = (html as! String).components(separatedBy: "<h1>摘要</h1>")
             if parts.count >= 2 {
                 recordingItem!.informationHtml = parts.first
-                recordingItem!.summariztionHtml = "<div><h1>" + parts[1]
+                recordingItem!.summariztionHtml = "<h1>摘要</h1>" + parts[1]
                 try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
             }
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -126,14 +126,12 @@ class EditorSummaryViewController: ZSSRichTextEditor {
 
 extension EditorSummaryViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return handleExit { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
-        }
+        return false
     }
     
-    private func handleExit(_ confirm: @escaping () -> Void) -> Bool {
-        handleHTML()
-        return true
-    }
+//    private func handleExit(_ confirm: @escaping () -> Void) -> Bool {
+//        handleHTML()
+//        return true
+//    }
 
 }
