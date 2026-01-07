@@ -15,6 +15,10 @@ class EditorTranscriptViewController: ZSSRichTextEditor {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.delegate = self
+
     }
     
     init(recordingItem:RecordingItem,html:String?) {
@@ -35,12 +39,13 @@ class EditorTranscriptViewController: ZSSRichTextEditor {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "Export",
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "chevron.left"),
             style: .plain,
             target: self,
-            action: #selector(exportHTML)
+            action: #selector(handleBack)
         )
+
         title = "Transcript"
         
         if kkStringIsEmpty(html) {
@@ -89,14 +94,32 @@ class EditorTranscriptViewController: ZSSRichTextEditor {
 
     }
     
-    @objc func exportHTML() {
-        getHTML { result, error in
-            print(result ?? "")
+    @objc func handleBack() {
+        handleHTML()
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func handleHTML(){
+        getHTML { [self] html, error in
+            guard let html = html, error == nil else { return }
+            recordingItem!.transcriptionHtml = (html as! String)
+            try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
+
         }
-        
-//        getText { result, error in
-//            print(result ?? "")
-//        }
+    }
+
+}
+
+extension EditorTranscriptViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return handleExit { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    private func handleExit(_ confirm: @escaping () -> Void) -> Bool {
+        handleHTML()
+        return true
     }
 
 }

@@ -15,6 +15,10 @@ class EditorSummaryViewController: ZSSRichTextEditor {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.delegate = self
+
     }
     
     init(recordingItem:RecordingItem,html:String?) {
@@ -35,15 +39,16 @@ class EditorSummaryViewController: ZSSRichTextEditor {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "Export",
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "chevron.left"),
             style: .plain,
             target: self,
-            action: #selector(exportHTML)
+            action: #selector(handleBack)
         )
+        
         title = "Action Item"
         if kkStringIsEmpty(html) {
-            var html = "<div class=\"test\"><h1>Action Item</h1>";
+            var html = "<div><h1>Action Item</h1>";
             do {
                 let decoder = JSONDecoder()
                 let sentences = try decoder.decode(InformationExtraction.self, from: recordingItem!.informationData!)
@@ -56,7 +61,7 @@ class EditorSummaryViewController: ZSSRichTextEditor {
                     }
                 }
                 html += "</ul></p>"
-                html += "<h1>摘要</h1>"
+                html += "<div><h1>摘要</h1>"
                 if let sumData = recordingItem!.summarizationData {
                     let summarization = try decoder.decode(Summarization.self, from: sumData)
                     let title = summarization.title.replacingOccurrences(of: "\n", with: "<br />")
@@ -65,7 +70,8 @@ class EditorSummaryViewController: ZSSRichTextEditor {
                     let paragraph = summarization.paragraph.replacingOccurrences(of: "\n", with: "<br />")
                     html += paragraph
                 }
-    
+                html += "</div>"
+
                 setHTML(html)
     
             } catch {
@@ -98,14 +104,36 @@ class EditorSummaryViewController: ZSSRichTextEditor {
 
     }
     
-    @objc func exportHTML() {
-        getHTML { result, error in
-            print(result ?? "")
+    @objc func handleBack() {
+        handleHTML()
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    func handleHTML(){
+        getHTML { [self] html, error in
+            guard let html = html, error == nil else { return }
+            let parts = (html as! String).components(separatedBy: "<h1>摘要</h1>")
+            if parts.count >= 2 {
+                recordingItem!.informationHtml = parts.first
+                recordingItem!.summariztionHtml = "<div><h1>" + parts[1]
+                try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
+            }
         }
-        
-//        getText { result, error in
-//            print(result ?? "")
-//        }
+    }
+    
+    
+}
+
+extension EditorSummaryViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return handleExit { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    private func handleExit(_ confirm: @escaping () -> Void) -> Bool {
+        handleHTML()
+        return true
     }
 
 }

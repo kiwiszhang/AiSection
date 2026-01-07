@@ -393,15 +393,15 @@ final class HTMLTableViewCell: SuperTableViewCell {
                 if let htmlStr = recordingItem.summariztionHtml {
                 let htmlStr01 = "<div class=\"test\"><h1>Action Item</h1><p></p><ul><li>根据军哥整理的资料，确定AI会议、密码图片编辑和图片编辑等产品的UI设计风格和时间节点</li></ul><div><b>然后</b>就会被别人发现你在</div><div><b>今天晚上你来接她了</b></div><div><b><i>然后再把你爸爸啊<u>点的东西给他送过去嘛</u></i></b></div><div><i><u>然后就会被</u></i></div><div><u>今天晚上不去ba</u></div><div><ol><li><u>今天爸爸</u></li><li>今天我去…。</li><li>然后再给自己的</li></ol><div>你说了就可以啊嘛你不是</div></div><div><ul><li>今天晚上不去上课咯</li><li>吧姐姐姐姐姐姐了</li></ul></div></div><blockquote style=\"margin: 0px 0px 0px 40px;\"><div class=\"test\"><div><div>然后再来问他有多</div></div><h1>今天晚上不回家b</h1></div></blockquote><h2>姐姐旅途</h2><h3>我想去吃烤</h3><div>我<span style=\"color: rgb(97, 23, 255);\">是A自己在外面吃饭了</span></div><div><font color=\"#6117ff\"><span style=\"caret-color: rgb(97, 23, 255);\"><b><i><u>我想姐姐了开卡礼、你不爸</u></i></b></span></font></div>"
 
-                    let processedHTML = HTMLPreprocessor.attributedString(from: htmlStr01, font: UIFont.italicSystemFont(ofSize: 14), textColor: .black)
-                    htmlLabel.attributedText = processedHTML
+//                    let processedHTML = HTMLPreprocessor.attributedString(from: htmlStr01, font: UIFont.italicSystemFont(ofSize: 14), textColor: .black)
+//                    htmlLabel.attributedText = processedHTML
                     
-//                    let processedHTML = HTMLPreprocessor.preprocess(htmlStr)
-//                    htmlLabel.attributedText = Self.makeAttributedHTML(
-//                         html: processedHTML,
-//                         font: UIFont.interBase(size: 14.h, weight: .regularBase),
-//                         textColor: .black
-//                     )
+                    let processedHTML = HTMLPreprocessor.preprocess(htmlStr)
+                    htmlLabel.attributedText = Self.makeAttributedHTML(
+                         html: processedHTML,
+                         font: UIFont.interBase(size: 14.h, weight: .regularBase),
+                         textColor: .black
+                     )
                 }else{
                     var html = "<div><h1>摘要</h1>";
                     do {

@@ -99,7 +99,7 @@ class CenterAudioPopViewController: SuperViewController {
                                 
                                 if let url = queryData.Result?.InformationExtractionFile {
                                     do {
-                                        var html = "<div><h1>Action Item</h1></div>";
+                                        var html = "<div><h1>Action Item</h1>";
 
                                         let informationData = try await client.fetchInformationExtractionFileData(from: url)
                                         
@@ -114,6 +114,7 @@ class CenterAudioPopViewController: SuperViewController {
                                             }
                                         }
                                         html += "</ul></p>"
+                                        html += "</div>"
                                         coreDataItem?.informationHtml = html
                                         coreDataItem!.informationData = informationData
                                         try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
