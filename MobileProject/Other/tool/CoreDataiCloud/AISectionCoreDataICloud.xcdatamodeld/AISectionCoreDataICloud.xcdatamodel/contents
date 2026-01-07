@@ -12,6 +12,7 @@
         <attribute name="handleType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="informationData" optional="YES" attributeType="Binary"/>
+        <attribute name="informationHtml" optional="YES" attributeType="String"/>
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="recordFolder" optional="YES" attributeType="String"/>
         <attribute name="recordFolderId" optional="YES" attributeType="String"/>
@@ -19,7 +20,9 @@
         <attribute name="recordPath" optional="YES" attributeType="String"/>
         <attribute name="recordType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="summarizationData" optional="YES" attributeType="Binary"/>
+        <attribute name="summariztionHtml" optional="YES" attributeType="String"/>
         <attribute name="transcriptionData" optional="YES" attributeType="Binary"/>
+        <attribute name="transcriptionHtml" optional="YES" attributeType="String"/>
         <attribute name="translationData" optional="YES" attributeType="Binary"/>
         <attribute name="updateTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>

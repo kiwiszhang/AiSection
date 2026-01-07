@@ -68,7 +68,19 @@ class CenterAudioPopViewController: SuperViewController {
                                 try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
                                 if let url = queryData.Result?.AudioTranscriptionFile {
                                     do {
+                                        var html = "<div><h1>转写</h1>"
                                         let transcriptionData = try await client.fetchAudioTranscriptionData(from: url)
+                                        let decoder = JSONDecoder()
+                                        let sentences = try decoder.decode([AudioSentenceRaw].self, from: transcriptionData)
+                                        if !sentences.isEmpty {
+                                            for item in sentences {
+                                                let content = item.content
+                                                let speaker = item.speaker.name ?? "speaker"
+                                                html += "<p>" + speaker + ": " + content + "</p>"
+                                            }
+                                        }
+                                        html += "</div>"
+                                        coreDataItem?.transcriptionHtml = html
                                         coreDataItem!.transcriptionData = transcriptionData
                                         try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
                                     } catch {
@@ -87,7 +99,22 @@ class CenterAudioPopViewController: SuperViewController {
                                 
                                 if let url = queryData.Result?.InformationExtractionFile {
                                     do {
+                                        var html = "<div><h1>Action Item</h1></div>";
+
                                         let informationData = try await client.fetchInformationExtractionFileData(from: url)
+                                        
+                                        let decoder = JSONDecoder()
+                                        let sentences = try decoder.decode(InformationExtraction.self, from: informationData)
+                                        MyLog("\(sentences.todoList)")
+                                        html += "<p><ul>"
+                                        if !sentences.todoList.isEmpty {
+                                            for item in sentences.todoList {
+                                                let content = item.content ?? ""
+                                                html += "<li>" + content + "</li>"
+                                            }
+                                        }
+                                        html += "</ul></p>"
+                                        coreDataItem?.informationHtml = html
                                         coreDataItem!.informationData = informationData
                                         try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
                                     } catch {
@@ -97,7 +124,19 @@ class CenterAudioPopViewController: SuperViewController {
                                 
                                 if let url = queryData.Result?.SummarizationFile {
                                     do {
+                                        var html = "<div><h1>摘要</h1>";
                                         let summarizationData = try await client.fetchSummarizationFileData(from: url)
+                                        let decoder = JSONDecoder()
+                                        let summarization = try decoder.decode(Summarization.self, from: summarizationData)
+                //                        let title = markdownToSimpleHTML(summarization.title)
+                                        let title = summarization.title.replacingOccurrences(of: "\n", with: "<br />")
+                                        html += title
+                                        html += "<br />"
+                //                        let paragraph = markdownToSimpleHTML(summarization.paragraph)
+                                        let paragraph = summarization.paragraph.replacingOccurrences(of: "\n", with: "<br />")
+                                        html += paragraph
+                                        html += "</div>"
+                                        coreDataItem?.summariztionHtml = html
                                         coreDataItem!.summarizationData = summarizationData
                                         try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
                                         UtitilTools.broadcast(handleStatus: 4, handleContent: "处理录音，录音文件总结处理完成")

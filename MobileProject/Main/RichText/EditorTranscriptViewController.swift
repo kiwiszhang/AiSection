@@ -10,15 +10,17 @@ import UIKit
 class EditorTranscriptViewController: ZSSRichTextEditor {
 
     private lazy var recordingItem:RecordingItem? = nil
+    private lazy var html:String? = ""
 
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    init(recordingItem:RecordingItem) {
+    init(recordingItem:RecordingItem,html:String?) {
         super.init(nibName: nil, bundle: nil)
         self.recordingItem = recordingItem
+        self.html = html
     }
 
     @MainActor required init?(coder: NSCoder) {
@@ -40,23 +42,29 @@ class EditorTranscriptViewController: ZSSRichTextEditor {
             action: #selector(exportHTML)
         )
         title = "Transcript"
-        var html = "<div class='test'></div>";
-        do {
-            if let data = recordingItem!.transcriptionData {
-                let decoder = JSONDecoder()
-                let sentences = try decoder.decode([AudioSentenceRaw].self, from: data)
-                MyLog(sentences)
-                if !sentences.isEmpty {
-                    for item in sentences {
-                        let content = item.content
-                        let speaker = item.speaker.name ?? "speaker"
-                        html += "<p>" + speaker + ": " + content + "</p>"
+        
+        if kkStringIsEmpty(html) {
+            var html = "<div class=\"test\">";
+            do {
+                if let data = recordingItem!.transcriptionData {
+                    let decoder = JSONDecoder()
+                    let sentences = try decoder.decode([AudioSentenceRaw].self, from: data)
+                    MyLog(sentences)
+                    if !sentences.isEmpty {
+                        for item in sentences {
+                            let content = item.content
+                            let speaker = item.speaker.name ?? "speaker"
+                            html += "<p>" + speaker + ": " + content + "</p>"
+                        }
+                        setHTML(html)
                     }
-                    setHTML(html)
                 }
+            } catch {
+                MyLog("\(error)")
             }
-        } catch {
-            MyLog("\(error)")
+            html += "</div>"
+        }else{
+            setHTML(html)
         }
         
         

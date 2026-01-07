@@ -19,11 +19,17 @@ struct RecordingItemRequest {
     let recordFolderId:String?
     let isFavorite:Bool?
     let createTime:Int64?
+    
     var transcriptionData:Data?
     var translationData:Data?
     var summarizationData:Data?
     var informationData:Data?
     var chapterSummaryData:Data?
+    
+    var informationHtml:String?
+    var summariztionHtml:String?
+    var transcriptionHtml:String?
+
 }
 
 final class RecordingItemStore {
@@ -70,6 +76,11 @@ final class RecordingItemStore {
             existing.summarizationData = req.summarizationData
             existing.informationData = req.informationData
             existing.chapterSummaryData = req.chapterSummaryData
+
+            existing.informationHtml = req.informationHtml
+            existing.summariztionHtml = req.summariztionHtml
+            existing.transcriptionHtml = req.transcriptionHtml
+
             existing.createTime = req.createTime ?? Int64.min
         } else {
             // 不存在 → 插入
@@ -88,6 +99,11 @@ final class RecordingItemStore {
             item.summarizationData = req.summarizationData
             item.informationData = req.informationData
             item.chapterSummaryData = req.chapterSummaryData
+
+            item.informationHtml = req.informationHtml
+            item.summariztionHtml = req.summariztionHtml
+            item.transcriptionHtml = req.transcriptionHtml
+
             item.createTime = req.createTime ?? Int64.min
         }
         
@@ -190,6 +206,15 @@ final class RecordingItemStore {
             }
             if let translationData = req.translationData {
                 item.translationData = translationData
+            }
+            if let transcriptionHtml = req.transcriptionHtml {
+                item.transcriptionHtml = transcriptionHtml
+            }
+            if let summariztionHtml = req.summariztionHtml {
+                item.summariztionHtml = summariztionHtml
+            }
+            if let informationHtml = req.informationHtml {
+                item.informationHtml = informationHtml
             }
             try context.save()
         } else {

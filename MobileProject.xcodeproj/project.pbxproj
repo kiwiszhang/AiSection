@@ -88,6 +88,7 @@
 		534146762F0CAEDB0012436B /* ZSSh1_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5341465F2F0CAEDB0012436B /* ZSSh1_s@3x.png */; };
 		534146772F0CAEDB0012436B /* ZSSredo_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146662F0CAEDB0012436B /* ZSSredo_s@3x.png */; };
 		534146792F0CBC6F0012436B /* EditorTranscriptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146782F0CBC6F0012436B /* EditorTranscriptViewController.swift */; };
+		5341467B2F0E0AC90012436B /* HTMLPreprocessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341467A2F0E0AC90012436B /* HTMLPreprocessor.swift */; };
 		538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */; };
 		538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */; };
 		538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */; };
@@ -303,6 +304,7 @@
 		534146692F0CAEDB0012436B /* ZSSundo_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSundo_s@3x.png"; sourceTree = "<group>"; };
 		5341466A2F0CAEDB0012436B /* ZSSunorderedlist_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSunorderedlist_s@3x.png"; sourceTree = "<group>"; };
 		534146782F0CBC6F0012436B /* EditorTranscriptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorTranscriptViewController.swift; sourceTree = "<group>"; };
+		5341467A2F0E0AC90012436B /* HTMLPreprocessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLPreprocessor.swift; sourceTree = "<group>"; };
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
 		5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFloderPopViewController.swift; sourceTree = "<group>"; };
 		538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddNotePopViewController.swift; sourceTree = "<group>"; };
@@ -892,6 +894,7 @@
 			isa = PBXGroup;
 			children = (
 				53FFAF012EFA90B800A0C1EF /* RecorderManager.swift */,
+				5341467A2F0E0AC90012436B /* HTMLPreprocessor.swift */,
 				53F68DB32F09FE390051FFE6 /* ShareHandlePDFTEXT.swift */,
 				53F68DAB2F03BEDD0051FFE6 /* AudioPlaybackManager.swift */,
 				53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */,
@@ -1221,6 +1224,7 @@
 				531CD8E22EEAACF100FC22F7 /* MediaFiles.swift in Sources */,
 				53F68DB62F0B59110051FFE6 /* MeOtherToolsPopVC.swift in Sources */,
 				538282302EF407620097EAD0 /* SectionEmptyAddView.swift in Sources */,
+				5341467B2F0E0AC90012436B /* HTMLPreprocessor.swift in Sources */,
 				53F68D8C2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodeld in Sources */,
 				531CD8E42EEAACF100FC22F7 /* Strings.swift in Sources */,
 				53F68D9D2F027A590051FFE6 /* HomeMoreMovePopVC.swift in Sources */,

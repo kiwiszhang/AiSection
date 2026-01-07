@@ -10,15 +10,17 @@ import UIKit
 class EditorSummaryViewController: ZSSRichTextEditor {
 
     private lazy var recordingItem:RecordingItem? = nil
+    private lazy var html:String? = ""
 
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    init(recordingItem:RecordingItem) {
+    init(recordingItem:RecordingItem,html:String?) {
         super.init(nibName: nil, bundle: nil)
         self.recordingItem = recordingItem
+        self.html = html
     }
 
     @MainActor required init?(coder: NSCoder) {
@@ -40,23 +42,41 @@ class EditorSummaryViewController: ZSSRichTextEditor {
             action: #selector(exportHTML)
         )
         title = "Action Item"
-        var html = "<div class='test'></div>";
-        do {
-            let decoder = JSONDecoder()
-            let sentences = try decoder.decode(InformationExtraction.self, from: recordingItem!.informationData!)
-            MyLog("\(sentences.todoList)")
-            if !sentences.todoList.isEmpty {
-                for item in sentences.todoList {
-                    let content = item.content ?? ""
-                    html += "<p><ul><li>" + content + "<br /></li></ul></p>"
+        if kkStringIsEmpty(html) {
+            var html = "<div class=\"test\"><h1>Action Item</h1>";
+            do {
+                let decoder = JSONDecoder()
+                let sentences = try decoder.decode(InformationExtraction.self, from: recordingItem!.informationData!)
+                MyLog("\(sentences.todoList)")
+                html += "<p><ul>"
+                if !sentences.todoList.isEmpty {
+                    for item in sentences.todoList {
+                        let content = item.content ?? ""
+                        html += "<li>" + content + "</li>"
+                    }
                 }
+                html += "</ul></p>"
+                html += "<h1>摘要</h1>"
+                if let sumData = recordingItem!.summarizationData {
+                    let summarization = try decoder.decode(Summarization.self, from: sumData)
+                    let title = summarization.title.replacingOccurrences(of: "\n", with: "<br />")
+                    html += title
+                    html += "<br /><br />"
+                    let paragraph = summarization.paragraph.replacingOccurrences(of: "\n", with: "<br />")
+                    html += paragraph
+                }
+    
                 setHTML(html)
+    
+            } catch {
+                MyLog("\(error)")
             }
-        } catch {
-            MyLog("\(error)")
+    
+            html += "</div>"
+        }else{
+            setHTML(html)
         }
-        
-        
+
         shouldShowKeyboard = false
         alwaysShowToolbar = false
 //        placeholder = "请输入内容..."
