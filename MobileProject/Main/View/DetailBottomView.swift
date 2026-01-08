@@ -32,6 +32,9 @@ class DetailBottomView: SuperView{
     private var startPoint: CGPoint = .zero
     private var isCanceling = false
     private let cancelThreshold: CGFloat = 70  // 上滑 70pt 取消
+    private var lastLevel: CGFloat = 0
+    private var levelRecorder: AVAudioRecorder?
+    private var meterTimer: CADisplayLink?
 
     // MARK: -  =====================lazyload=========================
     private lazy var bgView = UIView().backgroundColor(.white).cornerRadius(12.h).border(width: 1, color: kkColorFromHex("DEE3EB"))
@@ -136,6 +139,8 @@ class DetailBottomView: SuperView{
             isCanceling = false
             showRecordingUI(status: 0)
             startSpeechRecognition()
+            startLevelMeter()
+            startMeterTimer()
 
         case .changed:
             let offsetY = startPoint.y - location.y
@@ -158,6 +163,7 @@ class DetailBottomView: SuperView{
             } else {
                 finishSpeechRecognition()
             }
+            stopLevelMeter()
             resetRecordingUI()
 
         default:
@@ -168,8 +174,11 @@ class DetailBottomView: SuperView{
     private func startSpeechRecognition() {
         // 开始 AVAudioEngine + SFSpeechRecognizer
         if audioEngine.isRunning {
-            cancelSpeechRecognition()
+            audioEngine.stop()
+            audioEngine.inputNode.removeTap(onBus: 0)
+            audioEngine.reset()
         }
+        
         request = SFSpeechAudioBufferRecognitionRequest()
         guard let request = request else { return }
         request.shouldReportPartialResults = true
@@ -185,7 +194,8 @@ class DetailBottomView: SuperView{
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: inputFormat) { buffer, _ in
             self.request?.append(buffer)
             
-            let level = self.audioLevel(from: buffer) ?? 0
+            print("frameLength:", buffer.frameLength)
+            let level = self.smoothLevel(self.audioLevel(from: buffer))
             DispatchQueue.main.async {
                 self.recognitionView.update(level: level)
             }
@@ -210,12 +220,12 @@ class DetailBottomView: SuperView{
         isCanceling = false
     }
     private func finishSpeechRecognition() {
-        guard isCanceling else { return }
-        isCanceling = false
 
         audioEngine.stop()
         audioEngine.inputNode.removeTap(onBus: 0)
         request?.endAudio()
+        audioEngine.reset()
+        recognitionView.reset()
 
         recognitionTask?.finish()
 
@@ -225,8 +235,6 @@ class DetailBottomView: SuperView{
     }
 
     private func cancelSpeechRecognition() {
-        guard isCanceling else { return }
-        isCanceling = false
 
         // 1️⃣ 停止 AudioEngine
         if audioEngine.isRunning {
@@ -236,6 +244,7 @@ class DetailBottomView: SuperView{
         // 2️⃣ 移除 Tap（否则下次必 crash）
         let inputNode = audioEngine.inputNode
         inputNode.removeTap(onBus: 0)
+        audioEngine.reset()
 
         // 3️⃣ 结束 request（不再接收音频）
         request?.endAudio()
@@ -246,9 +255,54 @@ class DetailBottomView: SuperView{
         // 5️⃣ 释放对象（非常重要）
         recognitionTask = nil
         request = nil
-
+        recognitionView.reset()
         // 6️⃣ 可选：UI 提示
         MyLog("🎤 语音识别已取消")
+    }
+
+    private func startLevelMeter() {
+        let url = URL(fileURLWithPath: "/dev/null")
+
+        let settings: [String: Any] = [
+            AVFormatIDKey: kAudioFormatAppleLossless,
+            AVSampleRateKey: 44100,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue
+        ]
+
+        levelRecorder = try? AVAudioRecorder(url: url, settings: settings)
+        levelRecorder?.isMeteringEnabled = true
+        levelRecorder?.prepareToRecord()
+        levelRecorder?.record()
+    }
+
+    
+    private func stopLevelMeter() {
+        meterTimer?.invalidate()
+        meterTimer = nil
+
+        levelRecorder?.stop()
+        levelRecorder = nil
+
+        recognitionView.reset()
+    }
+
+
+
+    private func startMeterTimer() {
+        meterTimer = CADisplayLink(target: self, selector: #selector(updateMeter))
+        meterTimer?.add(to: .main, forMode: .common)
+    }
+
+    @objc private func updateMeter() {
+        levelRecorder?.updateMeters()
+        let power = levelRecorder?.averagePower(forChannel: 0) ?? -60
+
+        let minDB: Float = -50
+        let maxDB: Float = -10
+        let level = max(0, min(1, (power - minDB) / (maxDB - minDB)))
+
+        recognitionView.update(level: CGFloat(level))
     }
 
 
@@ -278,11 +332,19 @@ class DetailBottomView: SuperView{
         tipsLable.hidden(false)
         if status == 0 {
             recognitionView.backgroundColor(kkColorFromHex(kkMainColor))
+//            recognitionView.backgroundColor(.systemRed)
             tipsLable.text(L10n.releaseToSendSlideUpToCancel).color(kkColorFromHex("A4A9B1"))
         }else if status == 1 {
             recognitionView.backgroundColor(kkColorFromHex("F93B61"))
+//            recognitionView.backgroundColor(.systemYellow)
             tipsLable.text(L10n.releaseToCancel).color(kkColorFromHex("F93B61"))
         }
+    }
+    
+    func smoothLevel(_ level: CGFloat) -> CGFloat {
+        let smoothed = max(level, lastLevel * 0.8)
+        lastLevel = smoothed
+        return smoothed
     }
     
     func audioLevel(from buffer: AVAudioPCMBuffer) -> CGFloat {
@@ -349,7 +411,7 @@ extension DetailBottomView:UITextFieldDelegate {
 final class WaveBarView: UIView {
 
     private var bars: [UIView] = []
-    private let barCount = 5
+    private let barCount = 18
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -364,7 +426,7 @@ final class WaveBarView: UIView {
     private func setup() {
         for _ in 0..<barCount {
             let bar = UIView()
-            bar.backgroundColor = .systemBlue
+            bar.backgroundColor = .white
             bar.layer.cornerRadius = 2
             addSubview(bar)
             bars.append(bar)
@@ -381,7 +443,14 @@ final class WaveBarView: UIView {
 
         for (i, bar) in bars.enumerated() {
             let x = startX + CGFloat(i) * (barWidth + spacing)
-            bar.frame = CGRect(x: x, y: bounds.midY, width: barWidth, height: 4)
+            bar.frame = CGRect(x: x, y: bounds.midY - 5.h, width: barWidth, height: 10.h)
+        }
+    }
+    
+    func reset() {
+        for bar in bars {
+            bar.frame.size.height = 10.h
+            bar.frame.origin.y = bounds.midY - 5.h
         }
     }
 
