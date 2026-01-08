@@ -12,6 +12,13 @@ import AVFoundation
 
 class ChatViewController: SuperViewController {
 
+    private lazy var scrollToBottomButton = UIImageView().image(Asset.chatDown.image).enable(true).hidden(true).onTap { [self] in
+        let lastRow = itemList.count - 1
+        if lastRow >= 0 {
+            let indexPath = IndexPath(row: lastRow, section: 0)
+            tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+    }
     private let showThreshold: CGFloat = 88.h
     private var isControlVisible = false
     private var bottomViewBottomConstraint: Constraint?
@@ -110,7 +117,7 @@ class ChatViewController: SuperViewController {
     
     override func setUpUI() {
         
-        view.addChildView([tableView,topView,bottomView])
+        view.addChildView([tableView,topView,bottomView,scrollToBottomButton])
         topView.snp.makeConstraints { make in
             make.left.right.top.equalToSuperview()
             make.height.equalTo(88.h)
@@ -146,6 +153,11 @@ class ChatViewController: SuperViewController {
         }
         tableView.keyboardDismissMode = .interactive
 
+        scrollToBottomButton.snp.makeConstraints { make in
+            make.width.height.equalTo(34.h)
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(bottomView.snp.top).offset(-8.h)
+        }
 
     }
     
@@ -154,7 +166,21 @@ class ChatViewController: SuperViewController {
         itemList = try! ChatInfoItemStore.shared.fetchAllChatInfoItemWithRecordCreateTime(createTime: recordingItem!.createTime)
         tableView.reloadData()
         tableHeaderView.updateData(item: recordingItem!)
+        
+        // 判断是否显示按钮
+        DispatchQueue.main.async {
+            self.updateScrollToBottomButtonVisibility()
+        }
     }
+    
+    // MARK: - 判断按钮显示
+    func updateScrollToBottomButtonVisibility() {
+        let contentHeight = tableView.contentSize.height
+        let tableHeight = tableView.frame.height
+
+        scrollToBottomButton.isHidden = contentHeight <= tableHeight
+    }
+
 }
 
 // MARK: -  =======================DetailBottomViewDelegate========================
@@ -250,11 +276,18 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        let threshold: CGFloat = 100
+
         let minOffsetY = -scrollView.adjustedContentInset.top
         if scrollView.contentOffset.y < minOffsetY {
             scrollView.contentOffset.y = minOffsetY
         }
         let offsetY = scrollView.contentOffset.y
+        
+        let maxOffset = scrollView.contentSize.height - scrollView.frame.height
+        scrollToBottomButton.isHidden = maxOffset - offsetY <= threshold
+
+        
         if offsetY >= showThreshold, !isControlVisible {
             showControl()
             isControlVisible = true

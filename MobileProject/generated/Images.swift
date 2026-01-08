@@ -27,6 +27,7 @@ internal enum Asset {
   internal static let accentColor = ColorAsset(name: "AccentColor")
   internal static let chatBg = ImageAsset(name: "chat_bg")
   internal static let chatClose = ImageAsset(name: "chat_close")
+  internal static let chatDown = ImageAsset(name: "chat_down")
   internal static let chatHelloHeader = ImageAsset(name: "chat_hello_header")
   internal static let chatHistory = ImageAsset(name: "chat_history")
   internal static let chatKeyborad = ImageAsset(name: "chat_keyborad")
