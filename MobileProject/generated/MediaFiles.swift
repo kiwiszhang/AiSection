@@ -10,10 +10,16 @@ import Foundation
 // swiftlint:disable explicit_type_interface identifier_name
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum Files {
-  /// record-bottom.mp4
-  internal static let recordBottomMp4 = File(name: "record-bottom", ext: "mp4", relativePath: "", mimeType: "video/mp4")
-  /// record-top.mp4
-  internal static let recordTopMp4 = File(name: "record-top", ext: "mp4", relativePath: "", mimeType: "video/mp4")
+  internal enum Gif {
+    /// chat_animation.gif
+    internal static let chatAnimationGif = File(name: "chat_animation", ext: "gif", relativePath: "", mimeType: "image/gif")
+  }
+  internal enum Videos {
+    /// record-bottom.mp4
+    internal static let recordBottomMp4 = File(name: "record-bottom", ext: "mp4", relativePath: "", mimeType: "video/mp4")
+    /// record-top.mp4
+    internal static let recordTopMp4 = File(name: "record-top", ext: "mp4", relativePath: "", mimeType: "video/mp4")
+  }
 }
 // swiftlint:enable explicit_type_interface identifier_name
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

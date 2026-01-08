@@ -25,6 +25,11 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
   internal static let accentColor = ColorAsset(name: "AccentColor")
+  internal static let chatBg = ImageAsset(name: "chat_bg")
+  internal static let chatClose = ImageAsset(name: "chat_close")
+  internal static let chatHistory = ImageAsset(name: "chat_history")
+  internal static let chatKeyborad = ImageAsset(name: "chat_keyborad")
+  internal static let chatRefrshu = ImageAsset(name: "chat_refrshu")
   internal static let floderDown = ImageAsset(name: "Floder_down")
   internal static let removeFolder = ImageAsset(name: "Remove_folder")
   internal static let addFloders = ImageAsset(name: "add_floders")

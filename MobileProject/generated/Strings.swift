@@ -145,6 +145,8 @@ internal enum L10n {
   internal static let pleaseRecordForAtLeast10Seconds = L10n.tr("Localizable", "please record for at least 10 seconds", fallback: "please record for at least 10 seconds")
   /// Portuguese (Brazil)
   internal static let portuguese = L10n.tr("Localizable", "Portuguese", fallback: "Portuguese (Brazil)")
+  /// Press and hold to speak
+  internal static let pressAndHoldToSpeak = L10n.tr("Localizable", "Press and hold to speak", fallback: "Press and hold to speak")
   /// Privacy Policy
   internal static let privacyPolicy = L10n.tr("Localizable", "Privacy Policy", fallback: "Privacy Policy")
   /// Processing Audio
@@ -157,6 +159,10 @@ internal enum L10n {
   internal static let rateUs = L10n.tr("Localizable", "Rate Us", fallback: "Rate Us")
   /// Recording
   internal static let recording = L10n.tr("Localizable", "Recording", fallback: "Recording")
+  /// Release to cancel
+  internal static let releaseToCancel = L10n.tr("Localizable", "Release to cancel", fallback: "Release to cancel")
+  /// Release to send, slide up to cancel
+  internal static let releaseToSendSlideUpToCancel = L10n.tr("Localizable", "Release to send, slide up to cancel", fallback: "Release to send, slide up to cancel")
   /// Remove folder
   internal static let removeFolder = L10n.tr("Localizable", "Remove folder", fallback: "Remove folder")
   /// Remove from Favorites

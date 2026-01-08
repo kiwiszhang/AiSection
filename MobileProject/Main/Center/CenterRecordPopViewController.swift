@@ -330,7 +330,7 @@ class CenterRecordPopViewController: SuperViewController {
         }
         
         
-        let mp4Video = Bundle.main.url(forResource: Files.recordTopMp4.name, withExtension: "mp4")
+        let mp4Video = Bundle.main.url(forResource: Files.Videos.recordTopMp4.name, withExtension: "mp4")
         guard let mp4VideoUrl = mp4Video else { return }
         videoTopView = VideoPlayerView(fileURL: mp4VideoUrl).enable(true)
         animationTop.addSubview(videoTopView!)
@@ -344,7 +344,7 @@ class CenterRecordPopViewController: SuperViewController {
             make.edges.equalToSuperview()
         }
         
-        let mp4VideoBottom = Bundle.main.url(forResource: Files.recordBottomMp4.name, withExtension: "mp4")
+        let mp4VideoBottom = Bundle.main.url(forResource: Files.Videos.recordBottomMp4.name, withExtension: "mp4")
         guard let mp4VideoUrlBottom = mp4VideoBottom else { return }
         videoBottomView = VideoPlayerView(fileURL: mp4VideoUrlBottom).enable(true)
         animationBottom.addSubview(videoBottomView!)

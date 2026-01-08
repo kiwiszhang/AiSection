@@ -285,9 +285,11 @@ extension HomeNoteDetailViewController:DetailBottomViewDelegate {
     }
     func bottomLeftClick(){
         MyLog("bottomLeftClick")
+        self.navigationController?.pushViewController(ChatViewController(), animated: true)
     }
     func bottomRightClick(){
         MyLog("bottomRightClick")
+        self.navigationController?.pushViewController(ChatViewController(), animated: true)
     }
 }
 
@@ -382,7 +384,8 @@ final class HTMLTableViewCell: SuperTableViewCell {
         }
 
         htmlLabel.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
+            make.top.equalToSuperview().offset(8.h)
+            make.bottom.equalToSuperview().offset(-8.h)
             make.left.equalToSuperview().offset(10.w)
             make.right.equalToSuperview().offset(-10.w)
         }
