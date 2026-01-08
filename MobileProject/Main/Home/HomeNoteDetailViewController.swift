@@ -285,11 +285,11 @@ extension HomeNoteDetailViewController:DetailBottomViewDelegate {
     }
     func bottomLeftClick(){
         MyLog("bottomLeftClick")
-        self.navigationController?.pushViewController(ChatViewController(), animated: true)
+        self.navigationController?.pushViewController(ChatViewController(recordingItem: recordingItem!), animated: true)
     }
     func bottomRightClick(){
         MyLog("bottomRightClick")
-        self.navigationController?.pushViewController(ChatViewController(), animated: true)
+        self.navigationController?.pushViewController(ChatViewController(recordingItem: recordingItem!), animated: true)
     }
 }
 

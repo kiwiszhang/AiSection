@@ -22,7 +22,7 @@ class ChatTableHeaderView: SuperView{
     private lazy var bgView = UIImageView().image(Asset.chatBg.image)
     private lazy var animationImage = UIImageView()
     private lazy var helloLable = UILabel().text("text").backgroundColor(kkColorFromHex("F2F4F8")).cornerRadius(14.h)
-    private lazy var typeLable = UILabel().border(width: 1, color: kkColorFromHex("F2F4F8")).cornerRadius(14.h)
+    private lazy var typeLable = ChatTypeView().border(width: 1, color: kkColorFromHex("F2F4F8")).cornerRadius(14.h)
     // MARK: -  =====================lazyload=========================
 //    init(recordingItem:RecordingItem) {
 //        super.init(frame: .zero)
@@ -31,7 +31,6 @@ class ChatTableHeaderView: SuperView{
 //    @MainActor required init?(coder: NSCoder) {
 //        fatalError("init(coder:) has not been implemented")
 //    }
-//    
 
     // MARK: -  =====================Intial Methods===================
     override func setUpUI() {
@@ -66,6 +65,23 @@ class ChatTableHeaderView: SuperView{
         }
         
         animationImage.loadGif(name: "chat_animation")
+    }
+    
+    override func getData() {
+//        if recordingItem?.recordType == 0 {
+//            typeLable.updateData(title: (recordingItem?.recordName!)!, sTitle: L10n.recording, icon: Asset.type00.image)
+//        }else{
+//            typeLable.updateData(title: (recordingItem?.recordName!)!, sTitle: L10n.audioFiles, icon: Asset.type01.image)
+//        }
+    }
+    
+    func updateData(item:RecordingItem){
+        recordingItem = item
+        if recordingItem?.recordType == 1 {
+            typeLable.updateData(title: (recordingItem?.recordName!)!, sTitle: L10n.recording, icon: Asset.type00.image)
+        }else{
+            typeLable.updateData(title: (recordingItem?.recordName!)!, sTitle: L10n.audioFiles, icon: Asset.type01.image)
+        }
     }
     
     

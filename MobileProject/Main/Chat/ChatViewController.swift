@@ -13,14 +13,24 @@ import AVFoundation
 class ChatViewController: SuperViewController {
 
     private var bottomViewBottomConstraint: Constraint?
-    private lazy var itemList:[[SettingModel]] = []
+    private lazy var itemList:[ChatInfoItem] = []
+    var recordingItem:RecordingItem? = nil
     private lazy var tableView = {
-        return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.clear).registerCells(SettingItem00Cell.self).registerCells(SettingItem01Cell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeight(70.h).showsH(false).showsV(false)
+        return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.clear).registerCells(ChatInfoItemCell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeightAutomaticDimension().estimatedRowHeight(80.h).showsH(false).showsV(false)
     }()
     private lazy var topView = ChatNavTopView()
     private lazy var tableHeaderView = ChatTableHeaderView().backgroundColor(.white)
     private lazy var bottomView = DetailBottomView()
 
+    init(recordingItem:RecordingItem) {
+        super.init(nibName: nil, bundle: nil)
+        self.recordingItem = recordingItem
+    }
+
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -74,7 +84,7 @@ class ChatViewController: SuperViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = kkColorFromHex(kkHomeBgColor)
+        view.backgroundColor = .white
         // Do any additional setup after loading the view.
         
         SFSpeechRecognizer.requestAuthorization { authStatus in
@@ -138,10 +148,10 @@ class ChatViewController: SuperViewController {
     }
     
     override func getData() {
-        
         bottomView.delegate = self
-        
+        itemList = try! ChatInfoItemStore.shared.fetchAllChatInfoItemWithRecordCreateTime(createTime: recordingItem!.createTime)
         tableView.reloadData()
+        tableHeaderView.updateData(item: recordingItem!)
     }
 }
 
@@ -162,35 +172,28 @@ extension ChatViewController:DetailBottomViewDelegate {
     }
     func bottomSendClick(text: String) {
         MyLog("发送内容:\(text)")
-        // 在这里把消息添加到 tableView 或发送给服务器
+        if !kkStringIsEmpty(text) {
+            let item00 = ChatInfoItemRequest(chatType: 0, content: text, createTime:Int64(Date().timeIntervalSince1970), recordCreateTime: recordingItem?.createTime)
+            try! ChatInfoItemStore.shared.addChatInfoItem(item00)
+        }
+        getData()
     }
 }
 
 //MARK: ----------TableViewDelegateDataSource-----------
 extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return itemList.count
+//    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemList.count
     }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemList[section].count
-    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let model = itemList[indexPath.section][indexPath.row]
-        let isFirst = indexPath.row == 0
-        let isLast = indexPath.row == itemList[indexPath.section].count - 1
-
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueCell(SettingItem00Cell.self, for: indexPath)
-            cell.selectionStyle = .none
-            cell.configure(with: model, isFirst: isFirst, isLast: isLast)
-            return cell
-        } else {
-            let cell = tableView.dequeueCell(SettingItem01Cell.self, for: indexPath)
-            cell.selectionStyle = .none
-            cell.configure(with: model, isFirst: isFirst, isLast: isLast)
-            return cell
-        }
+        let model = itemList[indexPath.row]
+        let cell = tableView.dequeueCell(ChatInfoItemCell.self, for: indexPath)
+        cell.selectionStyle = .none
+        cell.configure(with: model)
+        return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -213,4 +216,111 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
         return 0.01
     }
+}
+
+class ChatInfoItemCell: SuperTableViewCell {
+    private var itemModel:ChatInfoItem? = nil
+    private lazy var bgView = UILabel().backgroundColor(.white)
+    private lazy var contentBg = UILabel()
+    private lazy var contentL = UILabel().text("").hnFont(size: 14.h, weight: .regular).color(.white).lines(0)
+
+    private var leadingConstraint: Constraint?
+    private var trailingConstraint: Constraint?
+
+    override func setUpUI() {
+        self.backgroundColor(.clear)
+        contentView.addChildView([bgView])
+        bgView.addChildView([contentBg])
+        contentBg.addChildView([contentL])
+        contentView.backgroundColor(.clear)
+        
+        let maxBubbleWidth = kkScreenWidth - 48.w
+
+        bgView.snp.makeConstraints { make in
+            make.left.right.top.bottom.equalToSuperview()
+        }
+        
+        contentBg.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(8.h)
+            make.bottom.equalToSuperview().offset(-8.h)
+            // 关键：最大宽度限制
+            make.width.lessThanOrEqualTo(maxBubbleWidth)
+            // 左右对齐其中一个（根据消息方向控制）
+            leadingConstraint = make.leading.equalToSuperview().offset(24.w).constraint
+            trailingConstraint = make.trailing.equalToSuperview().offset(-24.w).constraint
+        }
+        
+        contentL.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(15.w)
+            make.right.equalToSuperview().offset(-15.w)
+            make.bottom.equalToSuperview().offset(-10.h)
+            make.top.equalToSuperview().offset(10.h)
+        }
+        
+        contentL.preferredMaxLayoutWidth = maxBubbleWidth
+        contentL.setContentHuggingPriority(.required, for: .horizontal)
+        contentL.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+    }
+    
+    func configure(with item: ChatInfoItem) {
+        itemModel = item
+//        contentL.text(itemModel?.content)
+        contentL.attributedText = makeAttributedText((itemModel?.content)!)
+        if itemModel?.chatType == 1 {
+            contentBg.cornerRadius(14.h, corners: [.topLeft,.bottomLeft,.bottomRight]).backgroundColor(kkColorFromHex(kkMainColor)).rightAligned()
+            contentL.color(.white)
+            leadingConstraint?.isActive = false
+            trailingConstraint?.isActive = true
+
+        }else{
+            contentBg.cornerRadius(14.h, corners: [.topRight,.bottomLeft,.bottomRight]).backgroundColor(kkColorFromHex(kkHomeBgColor)).leftAligned()
+            contentL.color(kkColorFromHex(kkMainTextColor))
+            leadingConstraint?.isActive = true
+            trailingConstraint?.isActive = false
+
+        }
+    }
+
+    private func makeAttributedText(_ text: String) -> NSAttributedString {
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineSpacing = 4
+        paragraph.lineBreakMode = .byWordWrapping
+
+        return NSAttributedString(
+            string: text,
+            attributes: [
+                .font: UIFont.systemFont(ofSize: 14.h),
+                .paragraphStyle: paragraph
+            ]
+        )
+    }
+
+    
+    func textHeight(
+        _ text: String,
+        font: UIFont,
+        maxWidth: CGFloat,
+        lineSpacing: CGFloat = 0
+    ) -> CGFloat {
+
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = lineSpacing
+        paragraphStyle.lineBreakMode = .byWordWrapping
+
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .paragraphStyle: paragraphStyle
+        ]
+
+        let rect = text.boundingRect(
+            with: CGSize(width: maxWidth, height: .greatestFiniteMagnitude),
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            attributes: attributes,
+            context: nil
+        )
+
+        return ceil(rect.height)
+    }
+
 }

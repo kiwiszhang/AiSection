@@ -94,6 +94,8 @@
 		534146822F0E52000012436B /* ChatNavTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146812F0E52000012436B /* ChatNavTopView.swift */; };
 		534146842F0E54470012436B /* ChatTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146832F0E54470012436B /* ChatTableHeaderView.swift */; };
 		534146862F0E58AD0012436B /* chat_animation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 534146852F0E58AD0012436B /* chat_animation.gif */; };
+		534146882F0F45510012436B /* ChatTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146872F0F45510012436B /* ChatTypeView.swift */; };
+		5341468A2F0F4BAB0012436B /* ChatInfoItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146892F0F4BAB0012436B /* ChatInfoItemStore.swift */; };
 		538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */; };
 		538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */; };
 		538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */; };
@@ -315,6 +317,8 @@
 		534146812F0E52000012436B /* ChatNavTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNavTopView.swift; sourceTree = "<group>"; };
 		534146832F0E54470012436B /* ChatTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableHeaderView.swift; sourceTree = "<group>"; };
 		534146852F0E58AD0012436B /* chat_animation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = chat_animation.gif; sourceTree = "<group>"; };
+		534146872F0F45510012436B /* ChatTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTypeView.swift; sourceTree = "<group>"; };
+		534146892F0F4BAB0012436B /* ChatInfoItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoItemStore.swift; sourceTree = "<group>"; };
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
 		5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFloderPopViewController.swift; sourceTree = "<group>"; };
 		538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddNotePopViewController.swift; sourceTree = "<group>"; };
@@ -674,6 +678,7 @@
 				53F68D962EFFB2B10051FFE6 /* RecordingItemStore.swift */,
 				53F68DAD2F04B3700051FFE6 /* RecordingWaveformItemStore.swift */,
 				53F68D982EFFCACA0051FFE6 /* FolderItemStore.swift */,
+				534146892F0F4BAB0012436B /* ChatInfoItemStore.swift */,
 			);
 			path = CoreDataiCloud;
 			sourceTree = "<group>";
@@ -737,6 +742,7 @@
 				538282172EF131F70097EAD0 /* NavTopView.swift */,
 				5382821B2EF13B200097EAD0 /* DetailNavTopView.swift */,
 				534146812F0E52000012436B /* ChatNavTopView.swift */,
+				534146872F0F45510012436B /* ChatTypeView.swift */,
 				5382821D2EF13EC00097EAD0 /* DetailBottomView.swift */,
 				538282232EF23C720097EAD0 /* DetailSegmentView.swift */,
 				5382821F2EF14ED70097EAD0 /* DetailTableHeaderView.swift */,
@@ -1219,6 +1225,7 @@
 				531CD9332EED075000FC22F7 /* HomeConfigData.swift in Sources */,
 				531CD8B62EEAAA0400FC22F7 /* MBProgressHUD+Extension.swift in Sources */,
 				53F68DB42F09FE390051FFE6 /* ShareHandlePDFTEXT.swift in Sources */,
+				534146882F0F45510012436B /* ChatTypeView.swift in Sources */,
 				53F68DA12F036FED0051FFE6 /* HomeNoAllNotePopVC.swift in Sources */,
 				531CD8B82EEAAA0400FC22F7 /* BottomPushAnimator.swift in Sources */,
 				538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */,
@@ -1244,6 +1251,7 @@
 				5382821A2EF13A6F0097EAD0 /* HomeNoteDetailViewController.swift in Sources */,
 				53FFAF082EFE6D5200A0C1EF /* UploadRecord.swift in Sources */,
 				534146842F0E54470012436B /* ChatTableHeaderView.swift in Sources */,
+				5341468A2F0F4BAB0012436B /* ChatInfoItemStore.swift in Sources */,
 				531CD8E02EEAACF100FC22F7 /* Images.swift in Sources */,
 				531CD8E12EEAACF100FC22F7 /* Fonts.swift in Sources */,
 				531CD8E22EEAACF100FC22F7 /* MediaFiles.swift in Sources */,
