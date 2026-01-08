@@ -141,6 +141,11 @@ internal enum L10n {
   internal static let noTranscription = L10n.tr("Localizable", "noTranscription", fallback: "没有转写")
   /// Other Tools
   internal static let otherTools = L10n.tr("Localizable", "Other Tools", fallback: "Other Tools")
+  /// I am your personal AI assistant. 
+  /// I can help you with searching for information, 
+  /// organizing meetings, managing your to-do list, 
+  /// rewriting presentations, writing documents, and more. Feel free to ask me anything!
+  internal static let personalAIAssistant = L10n.tr("Localizable", "personal AI assistant", fallback: "I am your personal AI assistant. \nI can help you with searching for information, \norganizing meetings, managing your to-do list, \nrewriting presentations, writing documents, and more. Feel free to ask me anything!")
   /// please record for at least 10 seconds
   internal static let pleaseRecordForAtLeast10Seconds = L10n.tr("Localizable", "please record for at least 10 seconds", fallback: "please record for at least 10 seconds")
   /// Portuguese (Brazil)

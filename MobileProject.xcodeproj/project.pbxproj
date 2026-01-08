@@ -96,6 +96,8 @@
 		534146862F0E58AD0012436B /* chat_animation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 534146852F0E58AD0012436B /* chat_animation.gif */; };
 		534146882F0F45510012436B /* ChatTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146872F0F45510012436B /* ChatTypeView.swift */; };
 		5341468A2F0F4BAB0012436B /* ChatInfoItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146892F0F4BAB0012436B /* ChatInfoItemStore.swift */; };
+		5341468C2F0F5FA60012436B /* ChatHelloView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341468B2F0F5FA60012436B /* ChatHelloView.swift */; };
+		5341468E2F0F7DFB0012436B /* ArkChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341468D2F0F7DFB0012436B /* ArkChat.swift */; };
 		538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */; };
 		538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */; };
 		538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */; };
@@ -319,6 +321,8 @@
 		534146852F0E58AD0012436B /* chat_animation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = chat_animation.gif; sourceTree = "<group>"; };
 		534146872F0F45510012436B /* ChatTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTypeView.swift; sourceTree = "<group>"; };
 		534146892F0F4BAB0012436B /* ChatInfoItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoItemStore.swift; sourceTree = "<group>"; };
+		5341468B2F0F5FA60012436B /* ChatHelloView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHelloView.swift; sourceTree = "<group>"; };
+		5341468D2F0F7DFB0012436B /* ArkChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkChat.swift; sourceTree = "<group>"; };
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
 		5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFloderPopViewController.swift; sourceTree = "<group>"; };
 		538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddNotePopViewController.swift; sourceTree = "<group>"; };
@@ -742,6 +746,7 @@
 				538282172EF131F70097EAD0 /* NavTopView.swift */,
 				5382821B2EF13B200097EAD0 /* DetailNavTopView.swift */,
 				534146812F0E52000012436B /* ChatNavTopView.swift */,
+				5341468B2F0F5FA60012436B /* ChatHelloView.swift */,
 				534146872F0F45510012436B /* ChatTypeView.swift */,
 				5382821D2EF13EC00097EAD0 /* DetailBottomView.swift */,
 				538282232EF23C720097EAD0 /* DetailSegmentView.swift */,
@@ -924,6 +929,7 @@
 				53FFAF012EFA90B800A0C1EF /* RecorderManager.swift */,
 				5341467A2F0E0AC90012436B /* HTMLPreprocessor.swift */,
 				5341467C2F0E452D0012436B /* ArkTranslate.swift */,
+				5341468D2F0F7DFB0012436B /* ArkChat.swift */,
 				53F68DB32F09FE390051FFE6 /* ShareHandlePDFTEXT.swift */,
 				53F68DAB2F03BEDD0051FFE6 /* AudioPlaybackManager.swift */,
 				53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */,
@@ -1284,6 +1290,7 @@
 				53F68F4C2F0BB5A40051FFE6 /* HRColorCursor.m in Sources */,
 				53F68F4D2F0BB5A40051FFE6 /* CYRTextView.m in Sources */,
 				53F68F4E2F0BB5A40051FFE6 /* ZSSTextView.m in Sources */,
+				5341468E2F0F7DFB0012436B /* ArkChat.swift in Sources */,
 				53F68F4F2F0BB5A40051FFE6 /* HRColorPickerViewController.m in Sources */,
 				534146802F0E51570012436B /* ChatViewController.swift in Sources */,
 				53F68F502F0BB5A40051FFE6 /* HRCgUtil.m in Sources */,
@@ -1295,6 +1302,7 @@
 				53F68F552F0BB5A40051FFE6 /* CYRLayoutManager.m in Sources */,
 				53F68F562F0BB5A40051FFE6 /* CYRToken.m in Sources */,
 				53FFAF022EFA90B800A0C1EF /* RecorderManager.swift in Sources */,
+				5341468C2F0F5FA60012436B /* ChatHelloView.swift in Sources */,
 				531CD8FE2EEAAF6400FC22F7 /* EventReport.swift in Sources */,
 				53F68D9B2F0273520051FFE6 /* HomeFolderMorePopVC.swift in Sources */,
 				53FFAEF62EFA3C1200A0C1EF /* CenterRecordPopViewController.swift in Sources */,

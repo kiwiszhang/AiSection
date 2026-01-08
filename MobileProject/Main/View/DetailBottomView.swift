@@ -16,6 +16,7 @@ import AVFoundation
     func bottomLeftClick()
     func bottomRightClick()
     @objc optional func bottomSendClick(text: String)
+    @objc optional func bottomClick()
 
 }
 
@@ -48,7 +49,8 @@ class DetailBottomView: SuperView{
 
     private lazy var tipsLable = UILabel().text(L10n.releaseToSendSlideUpToCancel).hnFont(size: 12.h, weight: .regular).color(kkColorFromHex("A4A9B1")).centerAligned().hidden(true)
     
-    private lazy var recognitionView = UIView().backgroundColor(kkColorFromHex(kkMainColor)).cornerRadius(12.h).hidden(true)
+//    private lazy var recognitionView = WaveBarView().backgroundColor(kkColorFromHex(kkMainColor)).cornerRadius(12.h).hidden(true)
+    private lazy var recognitionView = WaveBarView().backgroundColor(.systemRed).cornerRadius(12.h).hidden(true)
 
     
     private lazy var longPressGesture: UILongPressGestureRecognizer = {
@@ -116,8 +118,11 @@ class DetailBottomView: SuperView{
         
     }
     
-    func longPress(){
-        
+    func bottonClick(){
+        prompTextField.enable(false)
+        bgView.onTap {
+            self.delegate?.bottomClick?()
+        }
     }
     
     // MARK: -  =======================actions========================
@@ -179,6 +184,11 @@ class DetailBottomView: SuperView{
         inputNode.removeTap(onBus: 0)
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: inputFormat) { buffer, _ in
             self.request?.append(buffer)
+            
+            let level = self.audioLevel(from: buffer) ?? 0
+            DispatchQueue.main.async {
+                self.recognitionView.update(level: level)
+            }
         }
 
         audioEngine.prepare()
@@ -275,6 +285,30 @@ class DetailBottomView: SuperView{
         }
     }
     
+    func audioLevel(from buffer: AVAudioPCMBuffer) -> CGFloat {
+        guard let channelData = buffer.floatChannelData?[0] else { return 0 }
+
+        var rms: Float = 0
+        let frameLength = Int(buffer.frameLength)
+
+        for i in 0..<frameLength {
+            rms += channelData[i] * channelData[i]
+        }
+
+        rms = sqrt(rms / Float(frameLength))
+
+        let db = 20 * log10(rms)
+
+        // 🔥 放大区间
+        let minDB: Float = -45
+        let maxDB: Float = -10
+
+        let normalized = (db - minDB) / (maxDB - minDB)
+        return CGFloat(max(0, min(1, normalized)))
+    }
+
+
+    
 }
 
 // MARK: -  =====================UITextFieldDelegate=========================
@@ -311,3 +345,58 @@ extension DetailBottomView:UITextFieldDelegate {
         return true
     }
 }
+
+final class WaveBarView: UIView {
+
+    private var bars: [UIView] = []
+    private let barCount = 5
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+
+    private func setup() {
+        for _ in 0..<barCount {
+            let bar = UIView()
+            bar.backgroundColor = .systemBlue
+            bar.layer.cornerRadius = 2
+            addSubview(bar)
+            bars.append(bar)
+        }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        let barWidth: CGFloat = 4
+        let spacing: CGFloat = 6
+        let totalWidth = CGFloat(barCount) * barWidth + CGFloat(barCount - 1) * spacing
+        let startX = (bounds.width - totalWidth) / 2
+
+        for (i, bar) in bars.enumerated() {
+            let x = startX + CGFloat(i) * (barWidth + spacing)
+            bar.frame = CGRect(x: x, y: bounds.midY, width: barWidth, height: 4)
+        }
+    }
+
+    func update(level: CGFloat) {
+        let maxHeight = bounds.height
+
+        for (i, bar) in bars.enumerated() {
+            let randomFactor = CGFloat.random(in: 0.6...1.2)
+            let height = max(4, maxHeight * level * randomFactor)
+
+            UIView.animate(withDuration: 0.1) {
+                bar.frame.origin.y = self.bounds.midY - height / 2
+                bar.frame.size.height = height
+            }
+        }
+    }
+}
+

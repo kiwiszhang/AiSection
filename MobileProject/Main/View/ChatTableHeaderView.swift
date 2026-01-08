@@ -21,7 +21,7 @@ class ChatTableHeaderView: SuperView{
     
     private lazy var bgView = UIImageView().image(Asset.chatBg.image)
     private lazy var animationImage = UIImageView()
-    private lazy var helloLable = UILabel().text("text").backgroundColor(kkColorFromHex("F2F4F8")).cornerRadius(14.h)
+    private lazy var helloLable = ChatHelloView().backgroundColor(kkColorFromHex("F2F4F8")).cornerRadius(14.h)
     private lazy var typeLable = ChatTypeView().border(width: 1, color: kkColorFromHex("F2F4F8")).cornerRadius(14.h)
     // MARK: -  =====================lazyload=========================
 //    init(recordingItem:RecordingItem) {

@@ -13,7 +13,7 @@ struct ChatInfoItemRequest {
     let content:String?
     let createTime:Int64?
     let recordCreateTime:Int64?
-//    let createTime:Int64?
+    let responseId:String?
 }
 
 final class ChatInfoItemStore {
@@ -31,6 +31,7 @@ final class ChatInfoItemStore {
         item.createTime = req.createTime!
         item.recordCreateTime = req.recordCreateTime!
         item.content = req.content!
+        item.responseId = req.responseId!
         try context.save()
     }
     
@@ -76,6 +77,9 @@ final class ChatInfoItemStore {
             if let content = req.content {
                 item.content = content
             }
+            if let responseId = req.responseId {
+                item.responseId = responseId
+            }
             try context.save()
         } else {
             throw NSError(domain: "ChatInfoItem", code: 404, userInfo: [
@@ -102,6 +106,21 @@ final class ChatInfoItemStore {
         var predicates: [NSPredicate] = []
         predicates.append(
             NSPredicate(format: "recordCreateTime == %@", NSNumber(value: createTime))
+        )
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createTime", ascending: true)] // 可选日期倒序
+        return try context.fetch(fetchRequest)
+    }
+    
+    /// 查询所有 ChatInfoItem
+    func fetchChatInfoItemWithRecordCreateTimeAndChatType(createTime:Int64,chatType:Int) throws -> [ChatInfoItem] {
+        let fetchRequest: NSFetchRequest<ChatInfoItem> = ChatInfoItem.fetchRequest()
+        var predicates: [NSPredicate] = []
+        predicates.append(
+            NSPredicate(format: "recordCreateTime == %@", NSNumber(value: createTime))
+        )
+        predicates.append(
+            NSPredicate(format: "chatType == %@", NSNumber(value: chatType))
         )
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createTime", ascending: true)] // 可选日期倒序

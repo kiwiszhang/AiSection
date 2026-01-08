@@ -12,6 +12,8 @@ import AVFoundation
 
 class ChatViewController: SuperViewController {
 
+    private let showThreshold: CGFloat = 88.h
+    private var isControlVisible = false
     private var bottomViewBottomConstraint: Constraint?
     private lazy var itemList:[ChatInfoItem] = []
     var recordingItem:RecordingItem? = nil
@@ -173,8 +175,37 @@ extension ChatViewController:DetailBottomViewDelegate {
     func bottomSendClick(text: String) {
         MyLog("发送内容:\(text)")
         if !kkStringIsEmpty(text) {
-            let item00 = ChatInfoItemRequest(chatType: 0, content: text, createTime:Int64(Date().timeIntervalSince1970), recordCreateTime: recordingItem?.createTime)
+            let item00 = ChatInfoItemRequest(chatType: 0, content: text, createTime:Int64(Date().timeIntervalSince1970), recordCreateTime: recordingItem?.createTime, responseId: " ")
             try! ChatInfoItemStore.shared.addChatInfoItem(item00)
+            
+            Task {
+                do {
+                    let chatlist = try! ChatInfoItemStore.shared.fetchChatInfoItemWithRecordCreateTimeAndChatType(createTime: recordingItem!.createTime, chatType: 1)
+                    if !chatlist.isEmpty {
+                        let chatItem = chatlist.last
+                        let decoded = try await requestDoubaoResponseMutilChat(text: text, responseId: (chatItem?.responseId)!)
+                        let reply = extractAssistantText(from: decoded)
+                        if !kkStringIsEmpty(reply) {
+                            let item00 = ChatInfoItemRequest(chatType: 1, content: reply, createTime:Int64(Date().timeIntervalSince1970), recordCreateTime: recordingItem?.createTime, responseId: decoded.id)
+                            try! ChatInfoItemStore.shared.addChatInfoItem(item00)
+                            getData()
+                        }
+                        MyLog("AI 回复：\(reply)")
+                    }else{
+    //                    let reply = try await requestDoubaoChat(text: text)
+                        let decoded = try await requestDoubaoResponse(text: text)
+                        let reply = extractAssistantText(from: decoded)
+                        if !kkStringIsEmpty(reply) {
+                            let item00 = ChatInfoItemRequest(chatType: 1, content: reply, createTime:Int64(Date().timeIntervalSince1970), recordCreateTime: recordingItem?.createTime, responseId: decoded.id)
+                            try! ChatInfoItemStore.shared.addChatInfoItem(item00)
+                            getData()
+                        }
+                        MyLog("AI 回复：\(reply)")
+                    }
+                } catch {
+                    MyLog("请求失败：\(error)")
+                }
+            }
         }
         getData()
     }
@@ -215,6 +246,30 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
         return 0.01
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let minOffsetY = -scrollView.adjustedContentInset.top
+        if scrollView.contentOffset.y < minOffsetY {
+            scrollView.contentOffset.y = minOffsetY
+        }
+        let offsetY = scrollView.contentOffset.y
+        if offsetY >= showThreshold, !isControlVisible {
+            showControl()
+            isControlVisible = true
+        } else if offsetY < showThreshold, isControlVisible {
+            hideControl()
+            isControlVisible = false
+        }
+    }
+    
+    private func showControl() {
+        topView.backgroundColor(.white)
+    }
+
+    private func hideControl() {
+        topView.backgroundColor(.clear)
     }
 }
 
@@ -267,7 +322,7 @@ class ChatInfoItemCell: SuperTableViewCell {
         itemModel = item
 //        contentL.text(itemModel?.content)
         contentL.attributedText = makeAttributedText((itemModel?.content)!)
-        if itemModel?.chatType == 1 {
+        if itemModel?.chatType == 0 {
             contentBg.cornerRadius(14.h, corners: [.topLeft,.bottomLeft,.bottomRight]).backgroundColor(kkColorFromHex(kkMainColor)).rightAligned()
             contentL.color(.white)
             leadingConstraint?.isActive = false

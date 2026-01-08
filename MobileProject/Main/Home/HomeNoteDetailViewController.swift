@@ -130,6 +130,7 @@ class HomeNoteDetailViewController: SuperViewController {
         tableHeaderView.updataNoteTitle(title: recordingItem!.recordFolder!)
         navTopView.setUpPlay()
         tableHeaderView.setUpPlay()
+        bottomView.bottonClick()
     }
 
 }
@@ -289,6 +290,9 @@ extension HomeNoteDetailViewController:DetailBottomViewDelegate {
     }
     func bottomRightClick(){
         MyLog("bottomRightClick")
+        self.navigationController?.pushViewController(ChatViewController(recordingItem: recordingItem!), animated: true)
+    }
+    func bottomClick(){
         self.navigationController?.pushViewController(ChatViewController(recordingItem: recordingItem!), animated: true)
     }
 }
