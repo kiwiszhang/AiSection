@@ -12,7 +12,7 @@ import AVFoundation
 
 class ChatViewController: SuperViewController {
 
-    private lazy var scrollToBottomButton = UIImageView().image(Asset.chatDown.image).enable(true).hidden(true).onTap { [self] in
+    private lazy var scrollToBottomButton = UIImageView().image(Asset.chatDown.image).enable(true).hidden(true).shadow(kkColorFromHexWithAlpha("000000", 0.16), 12.h, 4, 0, 4.h).onTap { [self] in
         let lastRow = itemList.count - 1
         if lastRow >= 0 {
             let indexPath = IndexPath(row: lastRow, section: 0)
@@ -21,6 +21,7 @@ class ChatViewController: SuperViewController {
     }
     private let showThreshold: CGFloat = 88.h
     private var isControlVisible = false
+    private var isShowKey = false
     private var bottomViewBottomConstraint: Constraint?
     private lazy var itemList:[ChatInfoItem] = []
     var recordingItem:RecordingItem? = nil
@@ -162,6 +163,7 @@ class ChatViewController: SuperViewController {
     }
     
     override func getData() {
+        topView.delegate = self
         bottomView.delegate = self
         itemList = try! ChatInfoItemStore.shared.fetchAllChatInfoItemWithRecordCreateTime(createTime: recordingItem!.createTime)
         tableView.reloadData()
@@ -183,6 +185,20 @@ class ChatViewController: SuperViewController {
 
 }
 
+// MARK: -  =======================ChatNavTopViewDelegate========================
+extension ChatViewController:ChatNavTopViewDelegate {
+    func backClick(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    func moreClick(){
+        MyLog("ChatNavTopViewDelegate")
+    }
+    func shareClick(){
+        MyLog("ChatNavTopViewDelegate")
+        self.navigationController?.pushViewController(ChatHistoryViewController(recordingItem: recordingItem!), animated: true)
+    }
+}
+
 // MARK: -  =======================DetailBottomViewDelegate========================
 extension ChatViewController:DetailBottomViewDelegate {
     func refreshDetailBottomData(updatedText:String){
@@ -196,10 +212,12 @@ extension ChatViewController:DetailBottomViewDelegate {
     }
     func bottomRightClick(){
         MyLog("bottomRightClick")
-        bottomView.clickAudioBtn(isShowKey: true)
+        isShowKey = !isShowKey
+        bottomView.clickAudioBtn(isShowKey: isShowKey)
     }
     func bottomSendClick(text: String) {
         MyLog("发送内容:\(text)")
+        isShowKey = false
         if !kkStringIsEmpty(text) {
             let item00 = ChatInfoItemRequest(chatType: 0, content: text, createTime:Int64(Date().timeIntervalSince1970), recordCreateTime: recordingItem?.createTime, responseId: " ")
             try! ChatInfoItemStore.shared.addChatInfoItem(item00)

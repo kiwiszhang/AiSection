@@ -89,6 +89,26 @@ class UtitilTools{
         return formatter.string(from: date)
     }
 
+    /// 时间戳转时间格式
+    static func formatTimestamp(_ timestamp: Int64) -> (date: String, time: String) {
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+        let locale = Locale(identifier: "en_US_POSIX")
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = locale
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+
+        let timeFormatter = DateFormatter()
+        timeFormatter.locale = locale
+        timeFormatter.dateFormat = "h:mm a"
+
+        let dateText = dateFormatter.string(from: date)
+        let timeText = timeFormatter.string(from: date)
+            .replacingOccurrences(of: "AM", with: "am")
+            .replacingOccurrences(of: "PM", with: "pm")
+
+        return (dateText, timeText)
+    }
     
     /// 订阅
     static func purchaseProduct(type:SubscriptionManager.SubscriptionType,completion: @escaping (Bool) -> Void) {

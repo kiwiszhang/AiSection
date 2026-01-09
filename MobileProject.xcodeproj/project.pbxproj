@@ -90,7 +90,7 @@
 		534146792F0CBC6F0012436B /* EditorTranscriptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146782F0CBC6F0012436B /* EditorTranscriptViewController.swift */; };
 		5341467B2F0E0AC90012436B /* HTMLPreprocessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341467A2F0E0AC90012436B /* HTMLPreprocessor.swift */; };
 		5341467D2F0E452D0012436B /* ArkTranslate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341467C2F0E452D0012436B /* ArkTranslate.swift */; };
-		534146802F0E51570012436B /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341467F2F0E51570012436B /* ChatViewController.swift */; };
+		534146802F0E51570012436B /* ChatHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341467F2F0E51570012436B /* ChatHistoryViewController.swift */; };
 		534146822F0E52000012436B /* ChatNavTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146812F0E52000012436B /* ChatNavTopView.swift */; };
 		534146842F0E54470012436B /* ChatTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146832F0E54470012436B /* ChatTableHeaderView.swift */; };
 		534146862F0E58AD0012436B /* chat_animation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 534146852F0E58AD0012436B /* chat_animation.gif */; };
@@ -98,6 +98,8 @@
 		5341468A2F0F4BAB0012436B /* ChatInfoItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146892F0F4BAB0012436B /* ChatInfoItemStore.swift */; };
 		5341468C2F0F5FA60012436B /* ChatHelloView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341468B2F0F5FA60012436B /* ChatHelloView.swift */; };
 		5341468E2F0F7DFB0012436B /* ArkChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341468D2F0F7DFB0012436B /* ArkChat.swift */; };
+		534146902F0FB6CE0012436B /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341468F2F0FB6CE0012436B /* ChatViewController.swift */; };
+		534146922F10A1F60012436B /* ChatHistoryNavTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146912F10A1F60012436B /* ChatHistoryNavTopView.swift */; };
 		538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */; };
 		538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */; };
 		538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */; };
@@ -315,7 +317,7 @@
 		534146782F0CBC6F0012436B /* EditorTranscriptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorTranscriptViewController.swift; sourceTree = "<group>"; };
 		5341467A2F0E0AC90012436B /* HTMLPreprocessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLPreprocessor.swift; sourceTree = "<group>"; };
 		5341467C2F0E452D0012436B /* ArkTranslate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkTranslate.swift; sourceTree = "<group>"; };
-		5341467F2F0E51570012436B /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		5341467F2F0E51570012436B /* ChatHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryViewController.swift; sourceTree = "<group>"; };
 		534146812F0E52000012436B /* ChatNavTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNavTopView.swift; sourceTree = "<group>"; };
 		534146832F0E54470012436B /* ChatTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableHeaderView.swift; sourceTree = "<group>"; };
 		534146852F0E58AD0012436B /* chat_animation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = chat_animation.gif; sourceTree = "<group>"; };
@@ -323,6 +325,8 @@
 		534146892F0F4BAB0012436B /* ChatInfoItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoItemStore.swift; sourceTree = "<group>"; };
 		5341468B2F0F5FA60012436B /* ChatHelloView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHelloView.swift; sourceTree = "<group>"; };
 		5341468D2F0F7DFB0012436B /* ArkChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkChat.swift; sourceTree = "<group>"; };
+		5341468F2F0FB6CE0012436B /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		534146912F10A1F60012436B /* ChatHistoryNavTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryNavTopView.swift; sourceTree = "<group>"; };
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
 		5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFloderPopViewController.swift; sourceTree = "<group>"; };
 		538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddNotePopViewController.swift; sourceTree = "<group>"; };
@@ -746,6 +750,7 @@
 				538282172EF131F70097EAD0 /* NavTopView.swift */,
 				5382821B2EF13B200097EAD0 /* DetailNavTopView.swift */,
 				534146812F0E52000012436B /* ChatNavTopView.swift */,
+				534146912F10A1F60012436B /* ChatHistoryNavTopView.swift */,
 				5341468B2F0F5FA60012436B /* ChatHelloView.swift */,
 				534146872F0F45510012436B /* ChatTypeView.swift */,
 				5382821D2EF13EC00097EAD0 /* DetailBottomView.swift */,
@@ -777,7 +782,8 @@
 		5341467E2F0E51330012436B /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				5341467F2F0E51570012436B /* ChatViewController.swift */,
+				5341467F2F0E51570012436B /* ChatHistoryViewController.swift */,
+				5341468F2F0FB6CE0012436B /* ChatViewController.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1255,6 +1261,7 @@
 				5382821E2EF13EC00097EAD0 /* DetailBottomView.swift in Sources */,
 				53F68D972EFFB2B10051FFE6 /* RecordingItemStore.swift in Sources */,
 				5382821A2EF13A6F0097EAD0 /* HomeNoteDetailViewController.swift in Sources */,
+				534146902F0FB6CE0012436B /* ChatViewController.swift in Sources */,
 				53FFAF082EFE6D5200A0C1EF /* UploadRecord.swift in Sources */,
 				534146842F0E54470012436B /* ChatTableHeaderView.swift in Sources */,
 				5341468A2F0F4BAB0012436B /* ChatInfoItemStore.swift in Sources */,
@@ -1292,7 +1299,7 @@
 				53F68F4E2F0BB5A40051FFE6 /* ZSSTextView.m in Sources */,
 				5341468E2F0F7DFB0012436B /* ArkChat.swift in Sources */,
 				53F68F4F2F0BB5A40051FFE6 /* HRColorPickerViewController.m in Sources */,
-				534146802F0E51570012436B /* ChatViewController.swift in Sources */,
+				534146802F0E51570012436B /* ChatHistoryViewController.swift in Sources */,
 				53F68F502F0BB5A40051FFE6 /* HRCgUtil.m in Sources */,
 				5341467D2F0E452D0012436B /* ArkTranslate.swift in Sources */,
 				53F68F512F0BB5A40051FFE6 /* HRColorPickerView.m in Sources */,
@@ -1305,6 +1312,7 @@
 				5341468C2F0F5FA60012436B /* ChatHelloView.swift in Sources */,
 				531CD8FE2EEAAF6400FC22F7 /* EventReport.swift in Sources */,
 				53F68D9B2F0273520051FFE6 /* HomeFolderMorePopVC.swift in Sources */,
+				534146922F10A1F60012436B /* ChatHistoryNavTopView.swift in Sources */,
 				53FFAEF62EFA3C1200A0C1EF /* CenterRecordPopViewController.swift in Sources */,
 				531CD8FF2EEAAF6400FC22F7 /* UserDefaultsTools.swift in Sources */,
 				5382821C2EF13B200097EAD0 /* DetailNavTopView.swift in Sources */,
