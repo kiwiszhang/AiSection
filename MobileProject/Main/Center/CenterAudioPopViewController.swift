@@ -17,7 +17,8 @@ class CenterAudioPopViewController: SuperViewController {
 
     var dismissAction: (() -> Void)?
     private var fDestURL:URL?
-    private var destLang:String = "en_us"
+    private var destLang:String = ""
+    private var fileN:String = ""
     private var selectedFolderItem:FolderItem? = nil
     private lazy var barView = PopTopView()
     private lazy var audioView = TitleFieldView()
@@ -238,6 +239,14 @@ class CenterAudioPopViewController: SuperViewController {
         getBtn.enable(false).alpha(0.4)
     }
 
+    func getBtnStatus(lang:String,fileName:String){
+        if !kkStringIsEmpty(lang) && !kkStringIsEmpty(fileName) {
+            getBtn.enable(true).alpha(1)
+        }else{
+            getBtn.enable(false).alpha(0.4)
+        }
+    }
+    
 }
 
 
@@ -329,6 +338,7 @@ extension CenterAudioPopViewController:CenterLanguagePopVCDelegate {
         MyLog(seletedItem)
         languageView.updateContent(content: seletedItem.subTitle)
         destLang = seletedItem.localize
+        getBtnStatus(lang: destLang, fileName: fileN)
     }
 }
 
@@ -349,8 +359,8 @@ extension CenterAudioPopViewController: UIDocumentPickerDelegate {
         
         let fileName = url.lastPathComponent
         audioView.updateContent(content: fileName)
-
-        getBtn.enable(true).alpha(1)
+        fileN = fileName
+        getBtnStatus(lang: destLang, fileName: fileN)
         // 拷贝到 App 沙盒
         saveToSandboxIfNeeded(url)
     }

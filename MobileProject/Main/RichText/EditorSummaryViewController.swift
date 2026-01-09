@@ -10,7 +10,7 @@ import UIKit
 class EditorSummaryViewController: ZSSRichTextEditor {
 
     private lazy var recordingItem:RecordingItem? = nil
-    private lazy var html:String? = ""
+    private lazy var htmlText:String? = ""
 
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -21,10 +21,33 @@ class EditorSummaryViewController: ZSSRichTextEditor {
 
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if navigationController?.topViewController !== self {
+            navigationController?.delegate = nil
+            navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        }
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        // 确认是 pop 出去，而不是 push 新页面
+        if navigationController?.topViewController !== self {
+//            cleanupWebView()
+            editorView.navigationDelegate = nil
+            editorView.uiDelegate = nil
+            editorView.removeFromSuperview()
+            editorView = nil
+
+        }
+    }
+
+    
     init(recordingItem:RecordingItem,html:String?) {
         super.init(nibName: nil, bundle: nil)
         self.recordingItem = recordingItem
-        self.html = html
+        self.htmlText = html
     }
 
     @MainActor required init?(coder: NSCoder) {
@@ -34,8 +57,22 @@ class EditorSummaryViewController: ZSSRichTextEditor {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         dismissKeyboard()
+        
+        let realHtml = htmlText
+        MyLog(realHtml)
+//        setHTML(recordingItem?.informationHtml!)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            guard let self = self else {return}
+            setHTML(recordingItem?.informationHtml!)
+        }
+
     }
     
+    deinit {
+        MyLog("🔥 EditorSummaryViewController deinit")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,7 +84,7 @@ class EditorSummaryViewController: ZSSRichTextEditor {
         )
         
         title = "Action Item"
-        if kkStringIsEmpty(html) {
+        if kkStringIsEmpty(htmlText) {
             var html = "<div><h1>Action Item</h1>";
             do {
                 let decoder = JSONDecoder()
@@ -80,7 +117,7 @@ class EditorSummaryViewController: ZSSRichTextEditor {
     
             html += "</div>"
         }else{
-            setHTML(html)
+//            htmlText = "<div>\n    <h1>Action Item</h1>\n</div>\n<p></p>\n<ul>\n    <li>与军哥、安卓对齐扫码记账这个品的绩效方向，查看竞品情况</li>\n    <li><span style=\"color: rgb(0, 101, 255);\">安卓在周一会议上同步核心关键词和转化核心词的落地页</span><span style=\"color: rgb(17, 255, 55);\">转化这两个重要指标的数据</span>\n    </li>\n    <li><span style=\"color: rgb(228, 124, 255);\">军哥整理4个新品的前期调研资料，包括竞品分析、用户使用逻辑</span><span style=\"color: rgb(255, 246, 47);\">和核心功能点的付费点等，并与产品和研发团队对齐项目进度和时间节点</span>\n    </li>\n    <li>根据军哥整理的资料，确定AI会议、密码图片编辑和图片编辑等产品的UI设计风格和时间节点</li>\n</ul>\n<p></p>"
         }
 
         shouldShowKeyboard = false
@@ -108,20 +145,74 @@ class EditorSummaryViewController: ZSSRichTextEditor {
         handleHTML()
     }
 
+    
     func handleHTML(){
-        getHTML { [self] html, error in
-            guard let html = html, error == nil else { return }
-            let parts = (html as! String).components(separatedBy: "<h1>摘要</h1>")
-            if parts.count >= 2 {
-                recordingItem!.informationHtml = parts.first
-                recordingItem!.summariztionHtml = "<h1>摘要</h1>" + parts[1]
-                try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
-            }
-            self.navigationController?.popViewController(animated: true)
+        
+  
+
+        editorView?.evaluateJavaScript(ZSSEditorHTML) { [weak self] result, _ in
+            guard let html = result as? String else { return }
+            self?.recordingItem?.informationHtml = html
+            try? RecordingItemStore.shared.updateRecordingItem(self!.recordingItem!)
+            self?.navigationController?.popViewController(animated: true)
         }
+
+//        getHTML { [weak self] html, error in
+//            guard let self = self,
+//                  let html = html,
+//                  error == nil else { return }
+//
+//            self.recordingItem?.informationHtml = html as? String
+//            try? RecordingItemStore.shared.updateRecordingItem(self.recordingItem!)
+//            self.navigationController?.popViewController(animated: true)
+//        }
+
+        
+//        getHTML { [self] html, error in
+//            guard let html = html, error == nil else { return }
+////            let parts = (html as! String).components(separatedBy: "<h1>摘要</h1>")
+////            if parts.count >= 2 {
+////                recordingItem!.informationHtml = parts.first
+////                recordingItem!.summariztionHtml = "<h1>摘要</h1>" + parts[1]
+////                try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
+////            }
+//            recordingItem!.informationHtml = (html as! String)
+//            MyLog("parts.first---\(html)")
+//            try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
+//            self.navigationController?.popViewController(animated: true)
+//        }
     }
     
-    
+    private func cleanupWebView() {
+        // 停止加载
+        editorView?.stopLoading()
+
+        // 断 delegate
+        editorView?.navigationDelegate = nil
+        editorView?.uiDelegate = nil
+
+        let controller = editorView?.configuration.userContentController
+
+        // 移除所有 JS
+        controller?.removeAllUserScripts()
+
+        // iOS 14+
+        if #available(iOS 14.0, *) {
+            controller?.removeAllScriptMessageHandlers()
+        } else {
+            // ZSS 默认用到的 handler 名（常见）
+            let names = [
+                "callback",
+                "log",
+                "event",
+                "editor"
+            ]
+            names.forEach {
+                controller?.removeScriptMessageHandler(forName: $0)
+            }
+        }
+    }
+
 }
 
 extension EditorSummaryViewController: UIGestureRecognizerDelegate {
@@ -135,3 +226,5 @@ extension EditorSummaryViewController: UIGestureRecognizerDelegate {
 //    }
 
 }
+
+

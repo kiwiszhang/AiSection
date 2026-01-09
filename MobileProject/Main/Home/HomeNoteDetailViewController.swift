@@ -188,8 +188,8 @@ extension HomeNoteDetailViewController:DetailNavTopViewDelegate {
             MyLog("点击了第 \(index) 项")
             if index == 0 {
                 let informationHtml = recordingItem!.informationHtml ?? ""
-                let summariztionHtml = recordingItem!.summariztionHtml ?? ""
-                self.navigationController?.pushViewController(EditorSummaryViewController(recordingItem: recordingItem!,html: informationHtml + summariztionHtml), animated: true)
+//                let summariztionHtml = recordingItem!.summariztionHtml ?? ""
+                self.navigationController?.pushViewController(EditorSummaryViewController(recordingItem: recordingItem!,html: informationHtml), animated: true)
             }
             if index == 1 {
                 let transcriptionHtml = recordingItem!.transcriptionHtml ?? ""
@@ -239,10 +239,13 @@ extension HomeNoteDetailViewController:CenterLanguagePopVCDelegate {
             do {
                 let informationHtml = recordingItem!.informationHtml ?? ""
                 let summariztionHtml = recordingItem!.summariztionHtml ?? ""
-                let result = try await translateText(
-                    text: cleanHTMLForNote(informationHtml + summariztionHtml),
-                    targetLanguage: seletedItem.localize
-                )
+//                let result = try await translateText(
+//                    text: cleanHTMLForNote(informationHtml + summariztionHtml),
+//                    targetLanguage: seletedItem.localize
+//                )
+                
+                let result = try await AIApiManager.shared.translate(textList: [informationHtml], targetLanguage: "en")
+                
                 print("翻译结果:", result)
             } catch {
                 print("翻译失败:", error)

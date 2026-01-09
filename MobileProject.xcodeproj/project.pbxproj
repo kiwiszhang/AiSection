@@ -100,6 +100,8 @@
 		5341468E2F0F7DFB0012436B /* ArkChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341468D2F0F7DFB0012436B /* ArkChat.swift */; };
 		534146902F0FB6CE0012436B /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341468F2F0FB6CE0012436B /* ChatViewController.swift */; };
 		534146922F10A1F60012436B /* ChatHistoryNavTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146912F10A1F60012436B /* ChatHistoryNavTopView.swift */; };
+		534146992F10B1C90012436B /* VolcSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146982F10B1C90012436B /* VolcSigner.swift */; };
+		5341469A2F10B1C90012436B /* AIApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146972F10B1C90012436B /* AIApiManager.swift */; };
 		538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */; };
 		538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */; };
 		538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */; };
@@ -327,6 +329,8 @@
 		5341468D2F0F7DFB0012436B /* ArkChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkChat.swift; sourceTree = "<group>"; };
 		5341468F2F0FB6CE0012436B /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		534146912F10A1F60012436B /* ChatHistoryNavTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryNavTopView.swift; sourceTree = "<group>"; };
+		534146972F10B1C90012436B /* AIApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIApiManager.swift; sourceTree = "<group>"; };
+		534146982F10B1C90012436B /* VolcSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolcSigner.swift; sourceTree = "<group>"; };
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
 		5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFloderPopViewController.swift; sourceTree = "<group>"; };
 		538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddNotePopViewController.swift; sourceTree = "<group>"; };
@@ -782,6 +786,8 @@
 		5341467E2F0E51330012436B /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				534146972F10B1C90012436B /* AIApiManager.swift */,
+				534146982F10B1C90012436B /* VolcSigner.swift */,
 				5341467F2F0E51570012436B /* ChatHistoryViewController.swift */,
 				5341468F2F0FB6CE0012436B /* ChatViewController.swift */,
 			);
@@ -1324,6 +1330,8 @@
 				538282182EF131F70097EAD0 /* NavTopView.swift in Sources */,
 				531CD9072EEAAF6400FC22F7 /* PersistenceController.swift in Sources */,
 				531CD9092EEAAF6400FC22F7 /* ShareManager.swift in Sources */,
+				534146992F10B1C90012436B /* VolcSigner.swift in Sources */,
+				5341469A2F10B1C90012436B /* AIApiManager.swift in Sources */,
 				531CD90A2EEAAF6400FC22F7 /* AppIconHelper.swift in Sources */,
 				538282242EF23C720097EAD0 /* DetailSegmentView.swift in Sources */,
 				539F2D4C2DA921030030DA8F /* WebViewController.swift in Sources */,

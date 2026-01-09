@@ -310,6 +310,7 @@ extension HomeViewController:HomeAddFloderPopVCDelegate {
         do{
             try! FolderItemStore.shared.addFolderItem(item00)
         }
+        tabClickItemIndex(UserDefaultsTools.tabSelected)
     }
 }
 

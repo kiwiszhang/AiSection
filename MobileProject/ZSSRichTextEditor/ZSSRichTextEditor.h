@@ -79,6 +79,12 @@ static NSString * const ZSSEditorContent = @"document.activeElement.id=='zss_edi
  */
 @property (nonatomic) BOOL shouldShowKeyboard;
 
+/*
+ *  WKWebView for writing/editing/displaying the content
+ */
+@property (nonatomic, strong) WKWebView *editorView;
+
+
 /**
  * If the toolbar should always be shown or not
  */

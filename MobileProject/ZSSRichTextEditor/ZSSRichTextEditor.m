@@ -108,11 +108,6 @@ static Class hackishFixClass = Nil;
 @property (nonatomic, strong) NSString *htmlString;
 
 /*
- *  WKWebView for writing/editing/displaying the content
- */
-@property (nonatomic, strong) WKWebView *editorView;
-
-/*
  *  ZSSTextView for displaying the source code for what is displayed in the editor view
  */
 @property (nonatomic, strong) ZSSTextView *sourceView;
