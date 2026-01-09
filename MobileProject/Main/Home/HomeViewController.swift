@@ -268,8 +268,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 MyLog("Demo")
             }else{
 //                MBProgressHUD.showHUD()
-                let vc = HomeNoteDetailViewController(recordingItem: item)
-                self.navigationController?.pushViewController(vc, animated: true)
+                if ((item.transcriptionData?.isEmpty) != nil) {
+                    let vc = HomeNoteDetailViewController(recordingItem: item)
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
             }
         }
         

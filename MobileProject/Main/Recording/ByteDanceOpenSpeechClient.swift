@@ -43,7 +43,7 @@ public extension ByteDanceOpenSpeechClient {
 
     func submitOfflineAudio(
         fileURL: String,
-        sourceLang: String = "zh_cn",
+        sourceLang: String = "en_us",
         targetLang: String = "en_us"
     ) async throws -> String {
 

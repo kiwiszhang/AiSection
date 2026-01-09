@@ -60,9 +60,11 @@ class CenterAudioPopViewController: SuperViewController {
                     )
                 )
                 
+//               zh_cn
+//               en_us
                 Task {
                     do {
-                        let queryData = try await SubmitAndQueryHandle.shared.handleRecord(fileName: fileName, client: client)
+                        let queryData = try await SubmitAndQueryHandle.shared.handleRecord(fileName: fileName, client: client,sourceLang: "zh_cn")
                             if queryData.ErrCode == 0 && queryData.Status == "success"{
                                 UtitilTools.broadcast(handleStatus: 3, handleContent: "开始处理录音，录音文件转写成功")
                                 coreDataItem?.handleType = 1

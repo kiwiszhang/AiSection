@@ -571,77 +571,24 @@ static CGFloat kDefaultScale = 0.5;
     // Bold
     if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarBold]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
         
-        CGFloat buttonSize = 32;
-        CGFloat spacing = 10;   // 👈 你想要的间距
-        UIView *container =
-        [[UIView alloc] initWithFrame:CGRectMake(0, 0,
-                                                 buttonSize + spacing,
-                                                 44)];
-        UIImage *image = [[UIImage imageNamed:@"ZSSbold"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-
-        UIImage *image01 = [[UIImage imageNamed:@"ZSSbold_s"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-
-//        ZSSBarButtonItem *bold = [[ZSSBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(setBold)];
+//        ZSSBarButtonItem *bold = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSbold" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(setBold)];
         
-        UIButton *boldButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [boldButton setImage:image forState:UIControlStateNormal];
-        [boldButton setImage:image01 forState:UIControlStateSelected];
-        [boldButton addTarget:self
-                       action:@selector(boldButtonTapped:)
-             forControlEvents:UIControlEventTouchUpInside];
-
-        boldButton.frame = CGRectMake(spacing / 2,    // 👈 左右留白制造间距
-                                      (44 - buttonSize) / 2,
-                                      buttonSize,
-                                      buttonSize);
-        [container addSubview:boldButton];
-        ZSSBarButtonItem *boldItem = [[ZSSBarButtonItem alloc] initWithCustomView:container];
-        boldItem.label = @"bold";
+        ZSSBarButtonItem *bold = [self creatItem:@"ZSSbold" withBundle:bundle selector:@selector(setBold)];
+        bold.label = @"bold";
         if (customOrder) {
-            [items replaceObjectAtIndex:[_enabledToolbarItems indexOfObject:ZSSRichTextEditorToolbarBold] withObject:boldItem];
+            [items replaceObjectAtIndex:[_enabledToolbarItems indexOfObject:ZSSRichTextEditorToolbarBold] withObject:bold];
         } else {
-            [items addObject:boldItem];
+            [items addObject:bold];
         }
     }
 
     
     // Italic
     if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarItalic]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
-//        ZSSBarButtonItem *italic = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSitalic.png" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(setItalic)];
+//        ZSSBarButtonItem *italic = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSitalic" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(setItalic)];
         
-        CGFloat buttonSize = 32;
-        CGFloat spacing = 10;   // 👈 你想要的间距
-        UIView *container =
-        [[UIView alloc] initWithFrame:CGRectMake(0, 0,
-                                                 buttonSize + spacing,
-                                                 44)];
+        ZSSBarButtonItem *italic = [self creatItem:@"ZSSitalic" withBundle:bundle selector:@selector(setItalic)];
 
-        UIImage *image = [[UIImage imageNamed:@"ZSSitalic"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *image01 = [[UIImage imageNamed:@"ZSSitalic_s"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIButton *boldButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [boldButton setImage:image forState:UIControlStateNormal];
-        [boldButton setImage:image01 forState:UIControlStateSelected];
-        [boldButton addTarget:self
-                       action:@selector(setItalicButtonTapped:)
-             forControlEvents:UIControlEventTouchUpInside];
-        boldButton.frame = CGRectMake(spacing / 2,    // 👈 左右留白制造间距
-                                      (44 - buttonSize) / 2,
-                                      buttonSize,
-                                      buttonSize);
-        [container addSubview:boldButton];
-        ZSSBarButtonItem *italic = [[ZSSBarButtonItem alloc] initWithCustomView:container];
         italic.label = @"italic";
         if (customOrder) {
             [items replaceObjectAtIndex:[_enabledToolbarItems indexOfObject:ZSSRichTextEditorToolbarItalic] withObject:italic];
@@ -685,34 +632,10 @@ static CGFloat kDefaultScale = 0.5;
     
     // Underline
     if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarUnderline]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
-//        ZSSBarButtonItem *underline = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSunderline.png" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(setUnderline)];
-        CGFloat buttonSize = 32;
-        CGFloat spacing = 10;   // 👈 你想要的间距
-        UIView *container =
-        [[UIView alloc] initWithFrame:CGRectMake(0, 0,
-                                                 buttonSize + spacing,
-                                                 44)];
-        UIImage *image = [[UIImage imageNamed:@"ZSSunderline"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *image01 = [[UIImage imageNamed:@"ZSSunderline_s"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIButton *boldButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [boldButton setImage:image forState:UIControlStateNormal];
-        [boldButton setImage:image01 forState:UIControlStateSelected];
-        [boldButton addTarget:self
-                       action:@selector(setUnderlineButtonTapped:)
-             forControlEvents:UIControlEventTouchUpInside];
-        boldButton.frame = CGRectMake(spacing / 2,    // 👈 左右留白制造间距
-                                      (44 - buttonSize) / 2,
-                                      buttonSize,
-                                      buttonSize);
+//        ZSSBarButtonItem *underline = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSunderline" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(setUnderline)];
+        
+        ZSSBarButtonItem *underline = [self creatItem:@"ZSSunderline" withBundle:bundle selector:@selector(setUnderline)];
 
-        [container addSubview:boldButton];
-        ZSSBarButtonItem *underline = [[ZSSBarButtonItem alloc] initWithCustomView:container];
         underline.label = @"underline";
         if (customOrder) {
             [items replaceObjectAtIndex:[_enabledToolbarItems indexOfObject:ZSSRichTextEditorToolbarUnderline] withObject:underline];
@@ -747,35 +670,10 @@ static CGFloat kDefaultScale = 0.5;
     
     // Undo
     if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarUndo]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
-//        ZSSBarButtonItem *undoButton = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSundo.png" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(undo:)];
-        CGFloat buttonSize = 32;
-        CGFloat spacing = 10;   // 👈 你想要的间距
+//        ZSSBarButtonItem *undoButton = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSundo" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(undo)];
 
-        UIView *container =
-        [[UIView alloc] initWithFrame:CGRectMake(0, 0,
-                                                 buttonSize + spacing,
-                                                 44)];
-        UIImage *image = [[UIImage imageNamed:@"ZSSundo"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *image01 = [[UIImage imageNamed:@"ZSSundo_s"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIButton *boldButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [boldButton setImage:image forState:UIControlStateNormal];
-        [boldButton setImage:image01 forState:UIControlStateSelected];
-        [boldButton addTarget:self
-                       action:@selector(undoButtonTapped:)
-             forControlEvents:UIControlEventTouchUpInside];
-        boldButton.frame = CGRectMake(spacing / 2,    // 👈 左右留白制造间距
-                                      (44 - buttonSize) / 2,
-                                      buttonSize,
-                                      buttonSize);
+        ZSSBarButtonItem *undoButton = [self creatItem:@"ZSSundo" withBundle:bundle selector:@selector(undo)];
 
-        [container addSubview:boldButton];
-        ZSSBarButtonItem *undoButton = [[ZSSBarButtonItem alloc] initWithCustomView:container];
         undoButton.label = @"undo";
         if (customOrder) {
             [items replaceObjectAtIndex:[_enabledToolbarItems indexOfObject:ZSSRichTextEditorToolbarUndo] withObject:undoButton];
@@ -786,34 +684,9 @@ static CGFloat kDefaultScale = 0.5;
     
     // Redo
     if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarRedo]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
-//        ZSSBarButtonItem *redoButton = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSredo.png" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(redo:)];
-        CGFloat buttonSize = 32;
-        CGFloat spacing = 10;   // 👈 你想要的间距
-        UIView *container =
-        [[UIView alloc] initWithFrame:CGRectMake(0, 0,
-                                                 buttonSize + spacing,
-                                                 44)];
-        UIImage *image = [[UIImage imageNamed:@"ZSSredo"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *image01 = [[UIImage imageNamed:@"ZSSredo_s"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIButton *boldButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [boldButton setImage:image forState:UIControlStateNormal];
-        [boldButton setImage:image01 forState:UIControlStateSelected];
-        [boldButton addTarget:self
-                       action:@selector(redoButtonTapped:)
-             forControlEvents:UIControlEventTouchUpInside];
-        boldButton.frame = CGRectMake(spacing / 2,    // 👈 左右留白制造间距
-                                      (44 - buttonSize) / 2,
-                                      buttonSize,
-                                      buttonSize);
-
-        [container addSubview:boldButton];
-        ZSSBarButtonItem *redoButton = [[ZSSBarButtonItem alloc] initWithCustomView:container];
+//        ZSSBarButtonItem *redoButton = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSredo" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(redo)];
+        ZSSBarButtonItem *redoButton = [self creatItem:@"ZSSredo" withBundle:bundle selector:@selector(redo)];
+        
         redoButton.label = @"redo";
         if (customOrder) {
             [items replaceObjectAtIndex:[_enabledToolbarItems indexOfObject:ZSSRichTextEditorToolbarRedo] withObject:redoButton];
@@ -880,34 +753,9 @@ static CGFloat kDefaultScale = 0.5;
     // Header 1
     if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarH1]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
 //        ZSSBarButtonItem *h1 = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSh1.png" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(heading1)];
-        CGFloat buttonSize = 32;
-        CGFloat spacing = 10;   // 👈 你想要的间距
-        UIView *container =
-        [[UIView alloc] initWithFrame:CGRectMake(0, 0,
-                                                 buttonSize + spacing,
-                                                 44)];
-        UIImage *image = [[UIImage imageNamed:@"ZSSh1"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *image01 = [[UIImage imageNamed:@"ZSSh1_s"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIButton *bButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [bButton setImage:image forState:UIControlStateNormal];
-        [bButton setImage:image01 forState:UIControlStateSelected];
-        [bButton addTarget:self
-                       action:@selector(heading1ButtonTapped:)
-             forControlEvents:UIControlEventTouchUpInside];
-        bButton.frame = CGRectMake(spacing / 2,    // 👈 左右留白制造间距
-                                      (44 - buttonSize) / 2,
-                                      buttonSize,
-                                      buttonSize);
-
-        [container addSubview:bButton];
-        ZSSBarButtonItem *h1 = [[ZSSBarButtonItem alloc] initWithCustomView:container];
         
+        ZSSBarButtonItem *h1 = [self creatItem:@"ZSSh1" withBundle:bundle selector:@selector(heading1)];
+
         h1.label = @"h1";
         if (customOrder) {
             [items replaceObjectAtIndex:[_enabledToolbarItems indexOfObject:ZSSRichTextEditorToolbarH1] withObject:h1];
@@ -919,33 +767,8 @@ static CGFloat kDefaultScale = 0.5;
     // Header 2
     if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarH2]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
 //        ZSSBarButtonItem *h2 = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSh2.png" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(heading2)];
-        CGFloat buttonSize = 32;
-        CGFloat spacing = 10;   // 👈 你想要的间距
-        UIView *container =
-        [[UIView alloc] initWithFrame:CGRectMake(0, 0,
-                                                 buttonSize + spacing,
-                                                 44)];
-        UIImage *image = [[UIImage imageNamed:@"ZSSh2"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *image01 = [[UIImage imageNamed:@"ZSSh2_s"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIButton *bButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [bButton setImage:image forState:UIControlStateNormal];
-        [bButton setImage:image01 forState:UIControlStateSelected];
-        [bButton addTarget:self
-                       action:@selector(heading2ButtonTapped:)
-             forControlEvents:UIControlEventTouchUpInside];
-        bButton.frame = CGRectMake(spacing / 2,    // 👈 左右留白制造间距
-                                      (44 - buttonSize) / 2,
-                                      buttonSize,
-                                      buttonSize);
-
-        [container addSubview:bButton];
-        ZSSBarButtonItem *h1 = [[ZSSBarButtonItem alloc] initWithCustomView:container];        ZSSBarButtonItem *h2 = [[ZSSBarButtonItem alloc] initWithCustomView:container];
+        
+        ZSSBarButtonItem *h2 = [self creatItem:@"ZSSh2" withBundle:bundle selector:@selector(heading2)];
         h2.label = @"h2";
         if (customOrder) {
             [items replaceObjectAtIndex:[_enabledToolbarItems indexOfObject:ZSSRichTextEditorToolbarH2] withObject:h2];
@@ -957,33 +780,8 @@ static CGFloat kDefaultScale = 0.5;
     // Header 3
     if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarH3]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
 //        ZSSBarButtonItem *h3 = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSh3.png" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(heading3)];
-        CGFloat buttonSize = 32;
-        CGFloat spacing = 10;   // 👈 你想要的间距
-        UIView *container =
-        [[UIView alloc] initWithFrame:CGRectMake(0, 0,
-                                                 buttonSize + spacing,
-                                                 44)];
-        UIImage *image = [[UIImage imageNamed:@"ZSSh3"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *image01 = [[UIImage imageNamed:@"ZSSh3_s"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIButton *bButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [bButton setImage:image forState:UIControlStateNormal];
-        [bButton setImage:image01 forState:UIControlStateSelected];
-        [bButton addTarget:self
-                       action:@selector(heading3ButtonTapped:)
-             forControlEvents:UIControlEventTouchUpInside];
-        bButton.frame = CGRectMake(spacing / 2,    // 👈 左右留白制造间距
-                                      (44 - buttonSize) / 2,
-                                      buttonSize,
-                                      buttonSize);
-
-        [container addSubview:bButton];
-        ZSSBarButtonItem *h3 = [[ZSSBarButtonItem alloc] initWithCustomView:container];
+        
+        ZSSBarButtonItem *h3 = [self creatItem:@"ZSSh3" withBundle:bundle selector:@selector(heading3)];
         h3.label = @"h3";
         if (customOrder) {
             [items replaceObjectAtIndex:[_enabledToolbarItems indexOfObject:ZSSRichTextEditorToolbarH3] withObject:h3];
@@ -1028,33 +826,9 @@ static CGFloat kDefaultScale = 0.5;
     // Text Color
     if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarTextColor]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
 //        ZSSBarButtonItem *textColor = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSStextcolor.png" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(textColor)];
-        CGFloat buttonSize = 32;
-        CGFloat spacing = 10;   // 👈 你想要的间距
-        UIView *container =
-        [[UIView alloc] initWithFrame:CGRectMake(0, 0,
-                                                 buttonSize + spacing,
-                                                 44)];
-        UIImage *image = [[UIImage imageNamed:@"ZSStextcolor"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *image01 = [[UIImage imageNamed:@"ZSStextcolor_s"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIButton *boldButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [boldButton setImage:image forState:UIControlStateNormal];
-        [boldButton setImage:image01 forState:UIControlStateSelected];
-        [boldButton addTarget:self
-                       action:@selector(textColorButtonTapped:)
-             forControlEvents:UIControlEventTouchUpInside];
-        boldButton.frame = CGRectMake(spacing / 2,    // 👈 左右留白制造间距
-                                      (44 - buttonSize) / 2,
-                                      buttonSize,
-                                      buttonSize);
+        
+        ZSSBarButtonItem *textColor = [self creatItem:@"ZSStextcolor" withBundle:bundle selector:@selector(textColor)];
 
-        [container addSubview:boldButton];
-        ZSSBarButtonItem *textColor = [[ZSSBarButtonItem alloc] initWithCustomView:container];
         textColor.label = @"textColor";
         if (customOrder) {
             [items replaceObjectAtIndex:[_enabledToolbarItems indexOfObject:ZSSRichTextEditorToolbarTextColor] withObject:textColor];
@@ -1077,35 +851,9 @@ static CGFloat kDefaultScale = 0.5;
     // Unordered List
     if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarUnorderedList]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
 //        ZSSBarButtonItem *ul = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSunorderedlist.png" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(setUnorderedList)];
-        CGFloat buttonSize = 32;
-        CGFloat spacing = 10;   // 👈 你想要的间距
+        
+        ZSSBarButtonItem *ul = [self creatItem:@"ZSSunorderedlist" withBundle:bundle selector:@selector(setUnorderedList)];
 
-        UIView *container =
-        [[UIView alloc] initWithFrame:CGRectMake(0, 0,
-                                                 buttonSize + spacing,
-                                                 44)];
-
-        UIImage *image = [[UIImage imageNamed:@"ZSSunorderedlist"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *image01 = [[UIImage imageNamed:@"ZSSunorderedlist_s"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIButton *boldButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [boldButton setImage:image forState:UIControlStateNormal];
-        [boldButton setImage:image01 forState:UIControlStateSelected];
-        [boldButton addTarget:self
-                       action:@selector(setUnorderedListButtonTapped:)
-             forControlEvents:UIControlEventTouchUpInside];
-        boldButton.frame = CGRectMake(spacing / 2,    // 👈 左右留白制造间距
-                                      (44 - buttonSize) / 2,
-                                      buttonSize,
-                                      buttonSize);
-
-        [container addSubview:boldButton];
-        ZSSBarButtonItem *ul = [[ZSSBarButtonItem alloc] initWithCustomView:container];
         ul.label = @"unorderedList";
         if (customOrder) {
             [items replaceObjectAtIndex:[_enabledToolbarItems indexOfObject:ZSSRichTextEditorToolbarUnorderedList] withObject:ul];
@@ -1117,35 +865,9 @@ static CGFloat kDefaultScale = 0.5;
     // Ordered List
     if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarOrderedList]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
 //        ZSSBarButtonItem *ol = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSorderedlist.png" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(setOrderedList)];
-        CGFloat buttonSize = 32;
-        CGFloat spacing = 10;   // 👈 你想要的间距
+        
+        ZSSBarButtonItem *ol = [self creatItem:@"ZSSorderedlist" withBundle:bundle selector:@selector(setOrderedList)];
 
-        UIView *container =
-        [[UIView alloc] initWithFrame:CGRectMake(0, 0,
-                                                 buttonSize + spacing,
-                                                 44)];
-
-        UIImage *image = [[UIImage imageNamed:@"ZSSorderedlist"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *image01 = [[UIImage imageNamed:@"ZSSorderedlist_s"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIButton *boldButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [boldButton setImage:image forState:UIControlStateNormal];
-        [boldButton setImage:image01 forState:UIControlStateSelected];
-        [boldButton addTarget:self
-                       action:@selector(setOrderedListButtonTapped:)
-             forControlEvents:UIControlEventTouchUpInside];
-        boldButton.frame = CGRectMake(spacing / 2,    // 👈 左右留白制造间距
-                                      (44 - buttonSize) / 2,
-                                      buttonSize,
-                                      buttonSize);
-
-        [container addSubview:boldButton];
-        ZSSBarButtonItem *ol = [[ZSSBarButtonItem alloc] initWithCustomView:container];
         ol.label = @"orderedList";
         if (customOrder) {
             [items replaceObjectAtIndex:[_enabledToolbarItems indexOfObject:ZSSRichTextEditorToolbarOrderedList] withObject:ol];
@@ -1168,35 +890,9 @@ static CGFloat kDefaultScale = 0.5;
     // Indent
     if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarIndent]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
 //        ZSSBarButtonItem *indent = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSindent.png" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(setIndent)];
-        CGFloat buttonSize = 32;
-        CGFloat spacing = 10;   // 👈 你想要的间距
+       
+        ZSSBarButtonItem *indent = [self creatItem:@"ZSSindent" withBundle:bundle selector:@selector(setIndent)];
 
-        UIView *container =
-        [[UIView alloc] initWithFrame:CGRectMake(0, 0,
-                                                 buttonSize + spacing,
-                                                 44)];
-
-        UIImage *image = [[UIImage imageNamed:@"ZSSindent"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *image01 = [[UIImage imageNamed:@"ZSSindent_s"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIButton *bButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [bButton setImage:image forState:UIControlStateNormal];
-        [bButton setImage:image01 forState:UIControlStateSelected];
-        [bButton addTarget:self
-                       action:@selector(setIndentButtonTapped:)
-             forControlEvents:UIControlEventTouchUpInside];
-        bButton.frame = CGRectMake(spacing / 2,    // 👈 左右留白制造间距
-                                      (44 - buttonSize) / 2,
-                                      buttonSize,
-                                      buttonSize);
-
-        [container addSubview:bButton];
-        ZSSBarButtonItem *indent = [[ZSSBarButtonItem alloc] initWithCustomView:container];
         indent.label = @"indent";
         if (customOrder) {
             [items replaceObjectAtIndex:[_enabledToolbarItems indexOfObject:ZSSRichTextEditorToolbarIndent] withObject:indent];
@@ -1208,35 +904,9 @@ static CGFloat kDefaultScale = 0.5;
     // Outdent
     if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarOutdent]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
 //        ZSSBarButtonItem *outdent = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSoutdent.png" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(setOutdent)];
-        CGFloat buttonSize = 32;
-        CGFloat spacing = 10;   // 👈 你想要的间距
+       
+        ZSSBarButtonItem *outdent = [self creatItem:@"ZSSoutdent" withBundle:bundle selector:@selector(setOutdent)];
 
-        UIView *container =
-        [[UIView alloc] initWithFrame:CGRectMake(0, 0,
-                                                 buttonSize + spacing,
-                                                 44)];
-
-        UIImage *image = [[UIImage imageNamed:@"ZSSoutdent"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *image01 = [[UIImage imageNamed:@"ZSSoutdent_s"
-                                     inBundle:bundle
-                compatibleWithTraitCollection:nil]
-                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIButton *boldButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [boldButton setImage:image forState:UIControlStateNormal];
-        [boldButton setImage:image01 forState:UIControlStateSelected];
-        [boldButton addTarget:self
-                       action:@selector(setOutdentButtonTapped:)
-             forControlEvents:UIControlEventTouchUpInside];
-        boldButton.frame = CGRectMake(spacing / 2,    // 👈 左右留白制造间距
-                                      (44 - buttonSize) / 2,
-                                      buttonSize,
-                                      buttonSize);
-
-        [container addSubview:boldButton];
-        ZSSBarButtonItem *outdent = [[ZSSBarButtonItem alloc] initWithCustomView:container];
         outdent.label = @"outdent";
         if (customOrder) {
             [items replaceObjectAtIndex:[_enabledToolbarItems indexOfObject:ZSSRichTextEditorToolbarOutdent] withObject:outdent];
@@ -1315,6 +985,35 @@ static CGFloat kDefaultScale = 0.5;
     
 }
 
+- (ZSSBarButtonItem *)creatItem:(NSString *)imageName withBundle:(NSBundle *)bundle selector:(SEL)action {
+    CGFloat buttonSize = 32;
+    CGFloat spacing = 10;   // 👈 你想要的间距
+    UIView *container =
+    [[UIView alloc] initWithFrame:CGRectMake(0, 0,
+                                             buttonSize + spacing,
+                                             44)];
+    UIImage *image = [[UIImage imageNamed:imageName
+                                 inBundle:bundle
+            compatibleWithTraitCollection:nil]
+            imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *image01 = [[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageName]
+                                 inBundle:bundle
+            compatibleWithTraitCollection:nil]
+            imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIButton *boldButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [boldButton setImage:image forState:UIControlStateNormal];
+    [boldButton setImage:image01 forState:UIControlStateSelected];
+    [boldButton addTarget:self
+                   action:action
+         forControlEvents:UIControlEventTouchUpInside];
+    boldButton.frame = CGRectMake(spacing / 2,    // 👈 左右留白制造间距
+                                  (44 - buttonSize) / 2,
+                                  buttonSize,
+                                  buttonSize);
+    [container addSubview:boldButton];
+    ZSSBarButtonItem *outdent = [[ZSSBarButtonItem alloc] initWithCustomView:container];
+    return outdent;
+}
 
 - (void)buildToolbar {
     

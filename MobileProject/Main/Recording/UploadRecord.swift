@@ -37,7 +37,7 @@ final class UploadRecord: NSObject {
 final class SubmitAndQueryHandle: NSObject {
     static let shared = SubmitAndQueryHandle()
 
-    func handleRecord(fileName:String,client:ByteDanceOpenSpeechClient,sourceLang: String = "zh_cn",targetLang: String = "en_us") async throws -> QueryData {
+    func handleRecord(fileName:String,client:ByteDanceOpenSpeechClient,sourceLang: String = "",targetLang: String = "en_us") async throws -> QueryData {
 
         let fileURL = "https://aisection.tos-cn-beijing.volces.com/" + fileName
         MyLog(fileURL)

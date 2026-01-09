@@ -34,12 +34,7 @@ class EditorSummaryViewController: ZSSRichTextEditor {
 
         // 确认是 pop 出去，而不是 push 新页面
         if navigationController?.topViewController !== self {
-//            cleanupWebView()
-            editorView.navigationDelegate = nil
-            editorView.uiDelegate = nil
-            editorView.removeFromSuperview()
-            editorView = nil
-
+            cleanupWebView()
         }
     }
 
