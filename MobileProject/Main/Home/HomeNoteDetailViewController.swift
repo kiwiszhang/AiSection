@@ -189,7 +189,16 @@ extension HomeNoteDetailViewController:DetailNavTopViewDelegate {
             if index == 0 {
                 let informationHtml = recordingItem!.informationHtml ?? ""
 //                let summariztionHtml = recordingItem!.summariztionHtml ?? ""
-                self.navigationController?.pushViewController(EditorSummaryViewController(recordingItem: recordingItem!,html: informationHtml), animated: true)
+//                self.navigationController?.pushViewController(EditorSummaryViewController(recordingItem: recordingItem!,html: informationHtml), animated: true)
+                
+                let editorVC = ToastMarkdownEditorVC()
+                editorVC.initialMarkdown = recordingItem?.summariztionHtml
+                editorVC.savingMarkdown = { newText in
+//                    recordingItem.informationMarkdown = newText
+//                    try? RecordingItemStore.shared.updateRecordingItem(recordingItem)
+                }
+                navigationController?.pushViewController(editorVC, animated: true)
+
             }
             if index == 1 {
                 let transcriptionHtml = recordingItem!.transcriptionHtml ?? ""

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TipTap Editor iOS</title>
+
+<!-- TipTap & ProseMirror CDN -->
+
+<script src="tiptap-core.umd.js"></script>
+<script src="tiptap-starter-kit.umd.js"></script>
+<script>
+  window.editor = new window.TipTap.Editor({
+    element: document.querySelector('#editor'),
+    extensions: [window.TipTapStarterKit.StarterKit],
+    content: '<p>Hello TipTap</p>',
+  });
+</script>
+
+<style>
+html, body { margin:0; padding:0; height:100%; }
+#toolbar { display:flex; border-bottom:1px solid #ccc; padding:4px; background:#f5f5f5; }
+#toolbar button { margin-right:4px; }
+#editor { padding:8px; min-height:100%; }
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <button onclick="window.editor.chain().focus().toggleBold().run()">B</button>
+  <button onclick="window.editor.chain().focus().toggleItalic().run()">I</button>
+  <button onclick="window.editor.chain().focus().toggleStrike().run()">S</button>
+  <button onclick="window.editor.chain().focus().toggleHeading({level:1}).run()">H1</button>
+  <button onclick="window.editor.chain().focus().toggleHeading({level:2}).run()">H2</button>
+  <button onclick="window.editor.chain().focus().toggleHeading({level:3}).run()">H3</button>
+  <button onclick="window.editor.chain().focus().toggleBulletList().run()">UL</button>
+  <button onclick="window.editor.chain().focus().toggleOrderedList().run()">OL</button>
+  <button onclick="window.editor.chain().focus().undo().run()">Undo</button>
+  <button onclick="window.editor.chain().focus().redo().run()">Redo</button>
+</div>
+
+<div id="editor"></div>
+
+<script>
+  // TipTap JS 接口给 iOS 调用
+  window.getHTML = () => window.editor.getHTML();
+  window.setHTML = (html) => window.editor.commands.setContent(html);
+
+  window.getJSON = () => JSON.stringify(window.editor.getJSON());
+  window.setJSON = (jsonString) => window.editor.commands.setContent(JSON.parse(jsonString));
+</script>
+
+</body>
+</html>

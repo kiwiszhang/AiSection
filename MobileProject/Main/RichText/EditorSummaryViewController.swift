@@ -124,7 +124,7 @@ class EditorSummaryViewController: ZSSRichTextEditor {
         alwaysShowToolbar = false
 //        placeholder = "请输入内容..."
         enabledToolbarItems = [
-            ZSSRichTextEditorToolbarBold, //粗体
+            ZSSRichTextEditorToolbarBold, //粗体斜体下划线有序列表无序列表缩进取消缩进文本颜色H1H2H3
             ZSSRichTextEditorToolbarItalic, // 斜体
             ZSSRichTextEditorToolbarUnderline, // 下划线
             ZSSRichTextEditorToolbarUndo, // 撤回

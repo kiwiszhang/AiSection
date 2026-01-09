@@ -102,6 +102,12 @@
 		534146922F10A1F60012436B /* ChatHistoryNavTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146912F10A1F60012436B /* ChatHistoryNavTopView.swift */; };
 		534146992F10B1C90012436B /* VolcSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146982F10B1C90012436B /* VolcSigner.swift */; };
 		5341469A2F10B1C90012436B /* AIApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146972F10B1C90012436B /* AIApiManager.swift */; };
+		534146A12F10EF830012436B /* ToastMarkdownEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146A02F10EF830012436B /* ToastMarkdownEditorVC.swift */; };
+		534146A52F10F4590012436B /* editorTest.html in Resources */ = {isa = PBXBuildFile; fileRef = 534146A42F10F4590012436B /* editorTest.html */; };
+		534146A72F10F8650012436B /* tiptap.html in Resources */ = {isa = PBXBuildFile; fileRef = 534146A62F10F8650012436B /* tiptap.html */; };
+		534146A92F10F88E0012436B /* TipTapEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146A82F10F88E0012436B /* TipTapEditorVC.swift */; };
+		534146AB2F10FB150012436B /* tiptap-core.umd.js in Resources */ = {isa = PBXBuildFile; fileRef = 534146AA2F10FB150012436B /* tiptap-core.umd.js */; };
+		534146AD2F10FB1A0012436B /* tiptap-starter-kit.umd.js in Resources */ = {isa = PBXBuildFile; fileRef = 534146AC2F10FB1A0012436B /* tiptap-starter-kit.umd.js */; };
 		538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */; };
 		538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */; };
 		538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */; };
@@ -331,6 +337,12 @@
 		534146912F10A1F60012436B /* ChatHistoryNavTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryNavTopView.swift; sourceTree = "<group>"; };
 		534146972F10B1C90012436B /* AIApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIApiManager.swift; sourceTree = "<group>"; };
 		534146982F10B1C90012436B /* VolcSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolcSigner.swift; sourceTree = "<group>"; };
+		534146A02F10EF830012436B /* ToastMarkdownEditorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMarkdownEditorVC.swift; sourceTree = "<group>"; };
+		534146A42F10F4590012436B /* editorTest.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = editorTest.html; sourceTree = "<group>"; };
+		534146A62F10F8650012436B /* tiptap.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = tiptap.html; sourceTree = "<group>"; };
+		534146A82F10F88E0012436B /* TipTapEditorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipTapEditorVC.swift; sourceTree = "<group>"; };
+		534146AA2F10FB150012436B /* tiptap-core.umd.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "tiptap-core.umd.js"; sourceTree = "<group>"; };
+		534146AC2F10FB1A0012436B /* tiptap-starter-kit.umd.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "tiptap-starter-kit.umd.js"; sourceTree = "<group>"; };
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
 		5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFloderPopViewController.swift; sourceTree = "<group>"; };
 		538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddNotePopViewController.swift; sourceTree = "<group>"; };
@@ -484,6 +496,7 @@
 		388FB0802DA17037006C52AC = {
 			isa = PBXGroup;
 			children = (
+				5341469D2F10EF560012436B /* WebAssets */,
 				388FB08B2DA17037006C52AC /* MobileProject */,
 				388FB08A2DA17037006C52AC /* Products */,
 				ADE40B6ABC7B53FF133B5000 /* Pods */,
@@ -502,6 +515,10 @@
 		388FB08B2DA17037006C52AC /* MobileProject */ = {
 			isa = PBXGroup;
 			children = (
+				534146A42F10F4590012436B /* editorTest.html */,
+				534146A62F10F8650012436B /* tiptap.html */,
+				534146AA2F10FB150012436B /* tiptap-core.umd.js */,
+				534146AC2F10FB1A0012436B /* tiptap-starter-kit.umd.js */,
 				53F68EF82F0BB5A40051FFE6 /* ZSSRichTextEditor */,
 				53FFAF032EFBD41B00A0C1EF /* VeTOSiOSSDK.framework */,
 				531CD9152EEBAE7900FC22F7 /* ABTest */,
@@ -794,10 +811,19 @@
 			path = Chat;
 			sourceTree = "<group>";
 		};
+		5341469D2F10EF560012436B /* WebAssets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WebAssets;
+			sourceTree = "<group>";
+		};
 		53F68DB82F0BB07B0051FFE6 /* RichText */ = {
 			isa = PBXGroup;
 			children = (
 				53F68DB92F0BB0940051FFE6 /* EditorViewController.swift */,
+				534146A02F10EF830012436B /* ToastMarkdownEditorVC.swift */,
+				534146A82F10F88E0012436B /* TipTapEditorVC.swift */,
 				534146402F0CA0430012436B /* EditorSummaryViewController.swift */,
 				534146782F0CBC6F0012436B /* EditorTranscriptViewController.swift */,
 			);
@@ -1051,6 +1077,7 @@
 				53F68EFC2F0BB5A40051FFE6 /* ZSSh5.png in Resources */,
 				53F68EFE2F0BB5A40051FFE6 /* ZSSforcejustify@2x.png in Resources */,
 				53F68F002F0BB5A40051FFE6 /* ZSSimage@2x.png in Resources */,
+				534146AD2F10FB1A0012436B /* tiptap-starter-kit.umd.js in Resources */,
 				53F68F012F0BB5A40051FFE6 /* ZSSsuperscript.png in Resources */,
 				53F68F022F0BB5A40051FFE6 /* ZSSinsertkeyword.png in Resources */,
 				53F68F032F0BB5A40051FFE6 /* ZSSleftjustify@2x.png in Resources */,
@@ -1080,6 +1107,7 @@
 				53F68F222F0BB5A40051FFE6 /* jQuery.js in Resources */,
 				53F68F232F0BB5A40051FFE6 /* ZSSforcejustify.png in Resources */,
 				53F68F262F0BB5A40051FFE6 /* ZSSh4.png in Resources */,
+				534146AB2F10FB150012436B /* tiptap-core.umd.js in Resources */,
 				53F68F272F0BB5A40051FFE6 /* ZSSstrikethrough.png in Resources */,
 				5341466B2F0CAEDB0012436B /* ZSSundo_s@3x.png in Resources */,
 				5341466C2F0CAEDB0012436B /* ZSSh3_s@3x.png in Resources */,
@@ -1099,6 +1127,7 @@
 				53F68F2B2F0BB5A40051FFE6 /* ZSSrightjustify@2x.png in Resources */,
 				53F68F2D2F0BB5A40051FFE6 /* ZSSsubscript@2x.png in Resources */,
 				53F68F302F0BB5A40051FFE6 /* ZSSquicklink@2x.png in Resources */,
+				534146A52F10F4590012436B /* editorTest.html in Resources */,
 				53F68F312F0BB5A40051FFE6 /* ZSSsubscript.png in Resources */,
 				53F68F322F0BB5A40051FFE6 /* ZSSlink.png in Resources */,
 				53F68F372F0BB5A40051FFE6 /* JSBeautifier.js in Resources */,
@@ -1106,6 +1135,7 @@
 				53F68F3B2F0BB5A40051FFE6 /* ZSSlink@2x.png in Resources */,
 				53F68F3C2F0BB5A40051FFE6 /* ZSSquicklink.png in Resources */,
 				53F68F3E2F0BB5A40051FFE6 /* ZSSfonts@2x.png in Resources */,
+				534146A72F10F8650012436B /* tiptap.html in Resources */,
 				53F68F3F2F0BB5A40051FFE6 /* ZSSbgcolor@2x.png in Resources */,
 				53F68F422F0BB5A40051FFE6 /* ZSSunlink.png in Resources */,
 				53F68F432F0BB5A40051FFE6 /* ZSShorizontalrule@2x.png in Resources */,
@@ -1260,6 +1290,7 @@
 				538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */,
 				531CD9312EECFF2300FC22F7 /* HomePopViewController.swift in Sources */,
 				53F68DAE2F04B3700051FFE6 /* RecordingWaveformItemStore.swift in Sources */,
+				534146A12F10EF830012436B /* ToastMarkdownEditorVC.swift in Sources */,
 				53F68DBA2F0BB0940051FFE6 /* EditorViewController.swift in Sources */,
 				538282322EF4EAF50097EAD0 /* CenterAudioPopViewController.swift in Sources */,
 				531CD8DF2EEAACF100FC22F7 /* JSON.swift in Sources */,
@@ -1312,6 +1343,7 @@
 				53F68F522F0BB5A40051FFE6 /* CYRTextStorage.m in Sources */,
 				53F68F532F0BB5A40051FFE6 /* HRBrightnessCursor.m in Sources */,
 				53F68F542F0BB5A40051FFE6 /* ZSSFontsViewController.m in Sources */,
+				534146A92F10F88E0012436B /* TipTapEditorVC.swift in Sources */,
 				53F68F552F0BB5A40051FFE6 /* CYRLayoutManager.m in Sources */,
 				53F68F562F0BB5A40051FFE6 /* CYRToken.m in Sources */,
 				53FFAF022EFA90B800A0C1EF /* RecorderManager.swift in Sources */,
