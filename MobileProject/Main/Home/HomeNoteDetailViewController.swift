@@ -126,21 +126,6 @@ class HomeNoteDetailViewController: SuperViewController {
         if UserDefaultsTools.segmentIndex == 0 {
             itemList = [model00,model01]
         }else if UserDefaultsTools.segmentIndex == 1 {
-            
-//            do {
-//                let transcriptionData = recordingItem!.transcriptionData
-//                let decoder = JSONDecoder()
-//                let sentences = try decoder.decode([AudioSentenceRaw].self, from: transcriptionData!)
-//                if !sentences.isEmpty {
-//                    for item in sentences {
-//                        let item01 = TranscriptionItemRequest(channel_id: -1, content: item.content, createTime: Int64(Date().timeIntervalSince1970), recordCreateTime: recordingItem!.createTime, end_time: item.endTime, lang: item.lang, paragraph_id: Int16(item.paragraphID), sentence_id: Int16(item.sentenceID), speakerName: item.speaker.name ?? "", speakerType: Int16(item.speaker.type ?? 0), start_time: item.startTime, words: "")
-//                        try! TranscriptionItemStore.shared.addTranscriptionItem(item01)
-//                    }
-//                }
-//            }catch {
-//                
-//            }
-            
             itemTranscriptionList = try! TranscriptionItemStore.shared.fetchTranscriptionItemWithRecordCreateTime(createTime: recordingItem!.createTime)
         }
         tableView.reloadData()
@@ -395,22 +380,12 @@ extension HomeNoteDetailViewController: UITableViewDelegate, UITableViewDataSour
         segmentV.isHidden = false
         navTopView.recordV.hidden(false)
         navTopView.backgroundColor(.white)
-//        UIView.animate(withDuration: 0.25) { [self] in
-//            segmentV.alpha = 1
-//            segmentV.transform = .identity
-//        }
     }
 
     private func hideControl() {
         segmentV.isHidden = true
         navTopView.recordV.hidden(true)
         navTopView.backgroundColor(kkColorFromHexWithAlpha("317DFF", 0.16))
-//        UIView.animate(withDuration: 0.25, animations: { [self] in
-//            segmentV.alpha = 0
-//            segmentV.transform = CGAffineTransform(translationX: 0, y: 10)
-//        }) { [self] _ in
-//            segmentV.isHidden = true
-//        }
     }
 
 
@@ -457,16 +432,16 @@ final class HTMLTableViewCell: SuperTableViewCell {
                 }else{
                     var html = "<div><h1>Action Item</h1></div>";
                     do {
-//                        let decoder = JSONDecoder()
-//                        let sentences = try decoder.decode(InformationExtraction.self, from: recordingItem.informationData!)
-//                        MyLog("\(sentences.todoList)")
-//                        html += "<p><ul>"
-//                        if !sentences.todoList.isEmpty {
-//                            for item in sentences.todoList {
-//                                let content = item.content ?? ""
-//                                html += "<li>" + content + "</li>"
-//                            }
-//                        }
+                        let decoder = JSONDecoder()
+                        let sentences = try decoder.decode(InformationExtraction.self, from: recordingItem.informationData!)
+                        MyLog("\(sentences.todoList)")
+                        html += "<p><ul>"
+                        if !sentences.todoList.isEmpty {
+                            for item in sentences.todoList {
+                                let content = item.content ?? ""
+                                html += "<li>" + content + "</li>"
+                            }
+                        }
                         html += "</ul></p>"
 //                        recordingItem.informationHtml = html
 //                        try! RecordingItemStore.shared.updateRecordingItem(recordingItem)

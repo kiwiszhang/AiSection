@@ -271,6 +271,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 if ((item.transcriptionData?.isEmpty) != nil) {
                     let vc = HomeNoteDetailViewController(recordingItem: item)
                     self.navigationController?.pushViewController(vc, animated: true)
+
                 }
             }
         }
@@ -309,9 +310,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 extension HomeViewController:HomeAddFloderPopVCDelegate {
     func addFloderSave(Floder:String) {
         let item00 = FolderItemRequest(folderName: Floder, recordFolderId: UUID().uuidString, createTime: Int64(Date().timeIntervalSince1970))
-        do{
-            try! FolderItemStore.shared.addFolderItem(item00)
-        }
+        
+        try! FolderItemStore.shared.addFolderItem(item00)
         tabClickItemIndex(UserDefaultsTools.tabSelected)
     }
 }

@@ -148,6 +148,8 @@ final class RecordingItemStore {
             }
         }
         UtitilTools.deleteRecording(relativePath: "Recording/\(item.recordPath!)")
+        try TranscriptionItemStore.shared.deleteByCreateTimePredicate(createTime: item.createTime)
+        try ChatInfoItemStore.shared.deleteByCreateTimePredicate(createTime: item.createTime)
         context.delete(item)
         try context.save()
     }

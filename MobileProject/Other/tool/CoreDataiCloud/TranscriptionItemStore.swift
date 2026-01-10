@@ -61,6 +61,27 @@ final class TranscriptionItemStore {
         try context.save()
     }
     
+    /// 根据createTime删除TranscriptionItem
+    func deleteByCreateTimePredicate(createTime:Int64) throws {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> =
+            TranscriptionItem.fetchRequest()
+        fetchRequest.predicate = NSPredicate(
+            format: "recordCreateTime != %@",
+            NSNumber(value: createTime)
+        )
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        deleteRequest.resultType = .resultTypeObjectIDs
+        let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
+        let objectIDs = result?.result as? [NSManagedObjectID] ?? []
+        let changes: [AnyHashable: Any] = [
+            NSDeletedObjectsKey: objectIDs
+        ]
+        NSManagedObjectContext.mergeChanges(
+            fromRemoteContextSave: changes,
+            into: [context]
+        )
+    }
+
 
     /// 删除所有 TranscriptionItem
     func deleteAllTranscriptionItems() throws {
