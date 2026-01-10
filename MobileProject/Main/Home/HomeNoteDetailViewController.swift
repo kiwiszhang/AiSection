@@ -255,9 +255,11 @@ extension HomeNoteDetailViewController:CenterLanguagePopVCDelegate {
 //                    targetLanguage: seletedItem.localize
 //                )
                 
-                let result = try await AIApiManager.shared.translate(textList: [informationHtml], targetLanguage: "en")
+                let result = try await AIApiManager.shared.translate(textList: [informationHtml], targetLanguage: seletedItem.localize)
                 
                 print("翻译结果:", result)
+                recordingItem!.informationHtml = result.first
+                try RecordingItemStore.shared.updateRecordingItem(recordingItem!)
             } catch {
                 print("翻译失败:", error)
             }

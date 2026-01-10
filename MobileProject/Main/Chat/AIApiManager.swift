@@ -17,7 +17,7 @@ final class AIApiManager {
     ///   - textList: 待翻译的文本列表（列表长度不超过16，总文本长度不超过5000字符）
     ///   - targetLanguage: 目标语言，默认中文（可在语言支持中查询对应的语言代码）
     /// - Returns: 翻译结果
-    func translate(textList: [String], targetLanguage: String = "zh") async throws -> [String] {
+    func translate(textList: [String], targetLanguage: String = "en") async throws -> [String] {
         let signer = VolcSigner(
             region: "cn-north-1",
             service: "translate",

@@ -44,12 +44,16 @@ internal enum L10n {
   internal static let confirm = L10n.tr("Localizable", "Confirm", fallback: "Confirm")
   /// Contact Support
   internal static let contactSupport = L10n.tr("Localizable", "Contact Support", fallback: "Contact Support")
+  /// 已复制到剪贴板
+  internal static let copyTopastBorad = L10n.tr("Localizable", "copyTopastBorad", fallback: "已复制到剪贴板")
   /// Decisions, actions, and takeaways
   internal static let decisionsActionsAndTakeaways = L10n.tr("Localizable", "Decisions, actions, and takeaways", fallback: "Decisions, actions, and takeaways")
   /// Delete
   internal static let delete = L10n.tr("Localizable", "Delete", fallback: "Delete")
   /// Deliver a share-ready summary
   internal static let deliverAShareReadySummary = L10n.tr("Localizable", "Deliver a share-ready summary", fallback: "Deliver a share-ready summary")
+  /// Describe
+  internal static let describe = L10n.tr("Localizable", "Describe", fallback: "Describe")
   /// Discover all featureswith this note！
   internal static let discoverAllFeatureswithThisNote = L10n.tr("Localizable", "Discover all featureswith this note", fallback: "Discover all featureswith this note！")
   /// Edit Summary
@@ -93,6 +97,8 @@ internal enum L10n {
   internal static let languageOfSummaryTranscript = L10n.tr("Localizable", "Language of Summary Transcript", fallback: "Language of Summary & Transcript")
   /// Legal
   internal static let legal = L10n.tr("Localizable", "Legal", fallback: "Legal")
+  /// Mail
+  internal static let mail = L10n.tr("Localizable", "Mail", fallback: "Mail")
   /// Purchase Error!
   internal static let mbBuyError = L10n.tr("Localizable", "mb-buy-error", fallback: "Purchase Error!")
   /// Purchase Successful!
@@ -139,6 +145,8 @@ internal enum L10n {
   internal static let notes = L10n.tr("Localizable", "Notes", fallback: "notes")
   /// 没有转写
   internal static let noTranscription = L10n.tr("Localizable", "noTranscription", fallback: "没有转写")
+  /// OK
+  internal static let ok = L10n.tr("Localizable", "OK", fallback: "OK")
   /// Other Tools
   internal static let otherTools = L10n.tr("Localizable", "Other Tools", fallback: "Other Tools")
   /// I am your personal AI assistant. 
@@ -146,6 +154,12 @@ internal enum L10n {
   /// organizing meetings, managing your to-do list, 
   /// rewriting presentations, writing documents, and more. Feel free to ask me anything!
   internal static let personalAIAssistant = L10n.tr("Localizable", "personal AI assistant", fallback: "I am your personal AI assistant. \nI can help you with searching for information, \norganizing meetings, managing your to-do list, \nrewriting presentations, writing documents, and more. Feel free to ask me anything!")
+  /// Please enter the content you need...
+  internal static let pleaseEnterTheContentYouNeed = L10n.tr("Localizable", "Please enter the content you need...", fallback: "Please enter the content you need...")
+  /// Please enter the title information
+  internal static let pleaseEnterTheTitleInformation = L10n.tr("Localizable", "Please enter the title information", fallback: "Please enter the title information")
+  /// Please enter your email address
+  internal static let pleaseEnterYourEmailAddress = L10n.tr("Localizable", "Please enter your email address", fallback: "Please enter your email address")
   /// please record for at least 10 seconds
   internal static let pleaseRecordForAtLeast10Seconds = L10n.tr("Localizable", "please record for at least 10 seconds", fallback: "please record for at least 10 seconds")
   /// Portuguese (Brazil)
@@ -216,6 +230,12 @@ internal enum L10n {
   internal static let supportFeedback = L10n.tr("Localizable", "Support & Feedback", fallback: "Support & Feedback")
   /// Terms of Use
   internal static let termsOfUse = L10n.tr("Localizable", "Terms of Use", fallback: "Terms of Use")
+  /// 请输入正确的邮箱
+  internal static let textCorrectMail = L10n.tr("Localizable", "textCorrectMail", fallback: "请输入正确的邮箱")
+  /// Thank you for your feedback.
+  internal static let thankYouForYourFeedback = L10n.tr("Localizable", "Thank you for your feedback.", fallback: "Thank you for your feedback.")
+  /// Title
+  internal static let title = L10n.tr("Localizable", "Title", fallback: "Title")
   /// Traditional
   internal static let traditional = L10n.tr("Localizable", "Traditional", fallback: "Traditional")
   /// Transcription

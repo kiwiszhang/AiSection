@@ -120,7 +120,7 @@ extension HomeSharePopViewController: UITableViewDelegate, UITableViewDataSource
                     MyLog(sentences)
                     let content = sentences.title + sentences.paragraph
                     UIPasteboard.general.string = content
-                    showAlertViewWithOutCancelButton(title: "",message: "已复制到剪贴板", confirmButtonTitle:"OK") { [self] confirmed in
+                    showAlertViewWithOutCancelButton(title: "",message: L10n.copyTopastBorad, confirmButtonTitle:L10n.ok) { [self] confirmed in
                         dismissAction?()
                     }
                 }else{
@@ -168,7 +168,7 @@ extension HomeSharePopViewController: UITableViewDelegate, UITableViewDataSource
                         content += speaker + ": " + sentItem.content + "\n"
                     }
                     UIPasteboard.general.string = content
-                    showAlertViewWithOutCancelButton(title: "",message: "已复制到剪贴板", confirmButtonTitle:"OK") { [self] confirmed in
+                    showAlertViewWithOutCancelButton(title: "",message: L10n.copyTopastBorad, confirmButtonTitle:L10n.ok) { [self] confirmed in
                         dismissAction?()
                     }
                 }else{

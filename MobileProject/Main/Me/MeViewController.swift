@@ -115,7 +115,13 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
             } else if indexPath.row == 1 {
                 
             } else if indexPath.row == 2 {
-                
+                let content = MeContactSupportPopVC()
+//                content.delegate = self
+                let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
+                content.dismissAction = {
+                    popup.dismissSelf()
+                }
+                self.present(popup, animated: false)
             } else if indexPath.row == 3 {
                 let content = MeOtherToolsPopVC()
 //                content.delegate = self

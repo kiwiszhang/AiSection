@@ -125,13 +125,22 @@ is complete (Aprox ~ 3 min).";
 "Release to send, slide up to cancel" = "Release to send, slide up to cancel";
 "Press and hold to speak" = "Press and hold to speak";
 "Release to cancel" = "Release to cancel";
-"Language" = "Language";
-"Language" = "Language";
-"Language" = "Language";
-"Language" = "Language";
-"Language" = "Language";
+"Title" = "Title";
+"Please enter the title information" = "Please enter the title information";
+"Describe" = "Describe";
+"Please enter the content you need..." = "Please enter the content you need...";
+"Mail" = "Mail";
 "personal AI assistant" = "I am your personal AI assistant. \nI can help you with searching for information, \norganizing meetings, managing your to-do list, \nrewriting presentations, writing documents, and more. Feel free to ask me anything!";
 
+"Please enter your email address" = "Please enter your email address";
+"Thank you for your feedback." = "Thank you for your feedback.";
+"Got It" = "Got It";
+"OK" = "OK";
+"Mail" = "Mail";
+"Mail" = "Mail";
+"Mail" = "Mail";
+"Mail" = "Mail";
+"Mail" = "Mail";
 
 
 
@@ -156,4 +165,6 @@ is complete (Aprox ~ 3 min).";
 "noSummarization" = "没有总结";
 "noTranscription" = "没有转写";
 "noFile" = "没有文件";
+"copyTopastBorad" = "已复制到剪贴板";
+"textCorrectMail" = "请输入正确的邮箱";
 "Transcription" = "Transcription";
