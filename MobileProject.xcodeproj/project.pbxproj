@@ -102,6 +102,8 @@
 		534146922F10A1F60012436B /* ChatHistoryNavTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146912F10A1F60012436B /* ChatHistoryNavTopView.swift */; };
 		534146992F10B1C90012436B /* VolcSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146982F10B1C90012436B /* VolcSigner.swift */; };
 		5341469A2F10B1C90012436B /* AIApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146972F10B1C90012436B /* AIApiManager.swift */; };
+		534146AF2F11DF840012436B /* TranscriptionItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146AE2F11DF840012436B /* TranscriptionItemStore.swift */; };
+		534146B32F1203EE0012436B /* ZSSclearstyle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146B22F1203EE0012436B /* ZSSclearstyle@3x.png */; };
 		538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */; };
 		538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */; };
 		538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */; };
@@ -144,7 +146,6 @@
 		53F68F012F0BB5A40051FFE6 /* ZSSsuperscript.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EC52F0BB5A40051FFE6 /* ZSSsuperscript.png */; };
 		53F68F022F0BB5A40051FFE6 /* ZSSinsertkeyword.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EA92F0BB5A40051FFE6 /* ZSSinsertkeyword.png */; };
 		53F68F032F0BB5A40051FFE6 /* ZSSleftjustify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EB02F0BB5A40051FFE6 /* ZSSleftjustify@2x.png */; };
-		53F68F042F0BB5A40051FFE6 /* ZSSclearstyle.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E8F2F0BB5A40051FFE6 /* ZSSclearstyle.png */; };
 		53F68F072F0BB5A40051FFE6 /* ZSSh5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E9E2F0BB5A40051FFE6 /* ZSSh5@2x.png */; };
 		53F68F082F0BB5A40051FFE6 /* ZSSfonts.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E912F0BB5A40051FFE6 /* ZSSfonts.png */; };
 		53F68F092F0BB5A40051FFE6 /* ZSScenterjustify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E8E2F0BB5A40051FFE6 /* ZSScenterjustify@2x.png */; };
@@ -178,7 +179,6 @@
 		53F68F312F0BB5A40051FFE6 /* ZSSsubscript.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EC32F0BB5A40051FFE6 /* ZSSsubscript.png */; };
 		53F68F322F0BB5A40051FFE6 /* ZSSlink.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EB12F0BB5A40051FFE6 /* ZSSlink.png */; };
 		53F68F372F0BB5A40051FFE6 /* JSBeautifier.js in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EEE2F0BB5A40051FFE6 /* JSBeautifier.js */; };
-		53F68F382F0BB5A40051FFE6 /* ZSSclearstyle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E902F0BB5A40051FFE6 /* ZSSclearstyle@2x.png */; };
 		53F68F3B2F0BB5A40051FFE6 /* ZSSlink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EB22F0BB5A40051FFE6 /* ZSSlink@2x.png */; };
 		53F68F3C2F0BB5A40051FFE6 /* ZSSquicklink.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68EBB2F0BB5A40051FFE6 /* ZSSquicklink.png */; };
 		53F68F3E2F0BB5A40051FFE6 /* ZSSfonts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53F68E922F0BB5A40051FFE6 /* ZSSfonts@2x.png */; };
@@ -331,6 +331,8 @@
 		534146912F10A1F60012436B /* ChatHistoryNavTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryNavTopView.swift; sourceTree = "<group>"; };
 		534146972F10B1C90012436B /* AIApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIApiManager.swift; sourceTree = "<group>"; };
 		534146982F10B1C90012436B /* VolcSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolcSigner.swift; sourceTree = "<group>"; };
+		534146AE2F11DF840012436B /* TranscriptionItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionItemStore.swift; sourceTree = "<group>"; };
+		534146B22F1203EE0012436B /* ZSSclearstyle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSclearstyle@3x.png"; sourceTree = "<group>"; };
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
 		5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFloderPopViewController.swift; sourceTree = "<group>"; };
 		538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddNotePopViewController.swift; sourceTree = "<group>"; };
@@ -370,8 +372,6 @@
 		53F68E8A2F0BB5A40051FFE6 /* ZSSbgcolor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSbgcolor@2x.png"; sourceTree = "<group>"; };
 		53F68E8D2F0BB5A40051FFE6 /* ZSScenterjustify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSScenterjustify.png; sourceTree = "<group>"; };
 		53F68E8E2F0BB5A40051FFE6 /* ZSScenterjustify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSScenterjustify@2x.png"; sourceTree = "<group>"; };
-		53F68E8F2F0BB5A40051FFE6 /* ZSSclearstyle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSclearstyle.png; sourceTree = "<group>"; };
-		53F68E902F0BB5A40051FFE6 /* ZSSclearstyle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSclearstyle@2x.png"; sourceTree = "<group>"; };
 		53F68E912F0BB5A40051FFE6 /* ZSSfonts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSfonts.png; sourceTree = "<group>"; };
 		53F68E922F0BB5A40051FFE6 /* ZSSfonts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSfonts@2x.png"; sourceTree = "<group>"; };
 		53F68E932F0BB5A40051FFE6 /* ZSSforcejustify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSforcejustify.png; sourceTree = "<group>"; };
@@ -691,6 +691,7 @@
 				53F68DAD2F04B3700051FFE6 /* RecordingWaveformItemStore.swift */,
 				53F68D982EFFCACA0051FFE6 /* FolderItemStore.swift */,
 				534146892F0F4BAB0012436B /* ChatInfoItemStore.swift */,
+				534146AE2F11DF840012436B /* TranscriptionItemStore.swift */,
 			);
 			path = CoreDataiCloud;
 			sourceTree = "<group>";
@@ -836,10 +837,9 @@
 				5341466A2F0CAEDB0012436B /* ZSSunorderedlist_s@3x.png */,
 				53F68E892F0BB5A40051FFE6 /* ZSSbgcolor.png */,
 				53F68E8A2F0BB5A40051FFE6 /* ZSSbgcolor@2x.png */,
+				534146B22F1203EE0012436B /* ZSSclearstyle@3x.png */,
 				53F68E8D2F0BB5A40051FFE6 /* ZSScenterjustify.png */,
 				53F68E8E2F0BB5A40051FFE6 /* ZSScenterjustify@2x.png */,
-				53F68E8F2F0BB5A40051FFE6 /* ZSSclearstyle.png */,
-				53F68E902F0BB5A40051FFE6 /* ZSSclearstyle@2x.png */,
 				53F68E912F0BB5A40051FFE6 /* ZSSfonts.png */,
 				53F68E922F0BB5A40051FFE6 /* ZSSfonts@2x.png */,
 				53F68E932F0BB5A40051FFE6 /* ZSSforcejustify.png */,
@@ -1054,7 +1054,6 @@
 				53F68F012F0BB5A40051FFE6 /* ZSSsuperscript.png in Resources */,
 				53F68F022F0BB5A40051FFE6 /* ZSSinsertkeyword.png in Resources */,
 				53F68F032F0BB5A40051FFE6 /* ZSSleftjustify@2x.png in Resources */,
-				53F68F042F0BB5A40051FFE6 /* ZSSclearstyle.png in Resources */,
 				53F68F072F0BB5A40051FFE6 /* ZSSh5@2x.png in Resources */,
 				53F68F082F0BB5A40051FFE6 /* ZSSfonts.png in Resources */,
 				53F68F092F0BB5A40051FFE6 /* ZSScenterjustify@2x.png in Resources */,
@@ -1102,7 +1101,6 @@
 				53F68F312F0BB5A40051FFE6 /* ZSSsubscript.png in Resources */,
 				53F68F322F0BB5A40051FFE6 /* ZSSlink.png in Resources */,
 				53F68F372F0BB5A40051FFE6 /* JSBeautifier.js in Resources */,
-				53F68F382F0BB5A40051FFE6 /* ZSSclearstyle@2x.png in Resources */,
 				53F68F3B2F0BB5A40051FFE6 /* ZSSlink@2x.png in Resources */,
 				53F68F3C2F0BB5A40051FFE6 /* ZSSquicklink.png in Resources */,
 				53F68F3E2F0BB5A40051FFE6 /* ZSSfonts@2x.png in Resources */,
@@ -1126,6 +1124,7 @@
 				534146562F0CA7730012436B /* ZSSitalic@3x.png in Resources */,
 				534146572F0CA7730012436B /* ZSSh1@3x.png in Resources */,
 				534146582F0CA7730012436B /* ZSSunorderedlist@3x.png in Resources */,
+				534146B32F1203EE0012436B /* ZSSclearstyle@3x.png in Resources */,
 				534146592F0CA7730012436B /* ZSSunderline@3x.png in Resources */,
 				5341465A2F0CA7730012436B /* ZSSundo@3x.png in Resources */,
 				5341465B2F0CA7730012436B /* ZSSbold@3x.png in Resources */,
@@ -1325,6 +1324,7 @@
 				53FFAEF82EFA626A00A0C1EF /* CenterProcessingVC.swift in Sources */,
 				531CD9042EEAAF6400FC22F7 /* UtitilTools.swift in Sources */,
 				53F68DAC2F03BEDD0051FFE6 /* AudioPlaybackManager.swift in Sources */,
+				534146AF2F11DF840012436B /* TranscriptionItemStore.swift in Sources */,
 				531CD9052EEAAF6400FC22F7 /* SubscriptionManager.swift in Sources */,
 				531CD9062EEAAF6400FC22F7 /* Common.swift in Sources */,
 				538282182EF131F70097EAD0 /* NavTopView.swift in Sources */,
@@ -1492,9 +1492,11 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = MobileProject/MobileProjectDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = NKTVSPZ2V9;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = V5QGDN3Y45;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MobileProject",
@@ -1506,6 +1508,7 @@
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone permission is needed for audio recording";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Allow photo library access to choose pictures";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow saving media to your Photos";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "需要语音识别权限用于语音输入";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
@@ -1519,9 +1522,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuehai.coredata;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuehai.kiwiDev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = kiwiDev;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1555,6 +1559,7 @@
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone permission is needed for audio recording";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Allow photo library access to choose pictures";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow saving media to your Photos";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "需要语音识别权限用于语音输入";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;

@@ -32,6 +32,7 @@ internal enum Asset {
   internal static let chatHistory = ImageAsset(name: "chat_history")
   internal static let chatKeyborad = ImageAsset(name: "chat_keyborad")
   internal static let chatRefrshu = ImageAsset(name: "chat_refrshu")
+  internal static let chatTrans = ImageAsset(name: "chat_trans")
   internal static let floderDown = ImageAsset(name: "Floder_down")
   internal static let removeFolder = ImageAsset(name: "Remove_folder")
   internal static let addFloders = ImageAsset(name: "add_floders")

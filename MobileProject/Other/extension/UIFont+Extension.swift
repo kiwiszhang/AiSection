@@ -89,3 +89,11 @@ public extension UITextField {
         return self
     }
 }
+
+public extension UITextView {
+    @discardableResult
+    func hnFont(size: CGFloat, weight: InterWeightOner = .regular) -> Self {
+        self.font = UIFont.interOner(size: size, weight: weight)
+        return self
+    }
+}

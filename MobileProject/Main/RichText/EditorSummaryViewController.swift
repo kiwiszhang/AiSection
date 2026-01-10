@@ -52,16 +52,6 @@ class EditorSummaryViewController: ZSSRichTextEditor {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         dismissKeyboard()
-        
-        let realHtml = htmlText
-        MyLog(realHtml)
-//        setHTML(recordingItem?.informationHtml!)
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            guard let self = self else {return}
-            setHTML(recordingItem?.informationHtml!)
-        }
-
     }
     
     deinit {
@@ -79,41 +69,46 @@ class EditorSummaryViewController: ZSSRichTextEditor {
         )
         
         title = "Action Item"
-        if kkStringIsEmpty(htmlText) {
-            var html = "<div><h1>Action Item</h1>";
-            do {
-                let decoder = JSONDecoder()
-                let sentences = try decoder.decode(InformationExtraction.self, from: recordingItem!.informationData!)
-                MyLog("\(sentences.todoList)")
-                html += "<p><ul>"
-                if !sentences.todoList.isEmpty {
-                    for item in sentences.todoList {
-                        let content = item.content ?? ""
-                        html += "<li>" + content + "</li>"
-                    }
-                }
-                html += "</ul></p>"
-                html += "<div><h1>摘要</h1>"
-                if let sumData = recordingItem!.summarizationData {
-                    let summarization = try decoder.decode(Summarization.self, from: sumData)
-                    let title = summarization.title.replacingOccurrences(of: "\n", with: "<br />")
-                    html += title
-                    html += "<br /><br />"
-                    let paragraph = summarization.paragraph.replacingOccurrences(of: "\n", with: "<br />")
-                    html += paragraph
-                }
-                html += "</div>"
+//        if kkStringIsEmpty(htmlText) {
+//            var html = "<div><h1>Action Item</h1>";
+//            do {
+//                let decoder = JSONDecoder()
+//                let sentences = try decoder.decode(InformationExtraction.self, from: recordingItem!.informationData!)
+//                MyLog("\(sentences.todoList)")
+//                html += "<p><ul>"
+//                if !sentences.todoList.isEmpty {
+//                    for item in sentences.todoList {
+//                        let content = item.content ?? ""
+//                        html += "<li>" + content + "</li>"
+//                    }
+//                }
+//                html += "</ul></p>"
+//                html += "<div><h1>摘要</h1>"
+//                if let sumData = recordingItem!.summarizationData {
+//                    let summarization = try decoder.decode(Summarization.self, from: sumData)
+//                    let title = summarization.title.replacingOccurrences(of: "\n", with: "<br />")
+//                    html += title
+//                    html += "<br /><br />"
+//                    let paragraph = summarization.paragraph.replacingOccurrences(of: "\n", with: "<br />")
+//                    html += paragraph
+//                }
+//                html += "</div>"
+//
+//                setHTML(html)
+//    
+//            } catch {
+//                MyLog("\(error)")
+//            }
+//    
+//            html += "</div>"
+//        }else{
+            htmlText = "<div>\n    <h1>Action Item</h1>\n</div>\n<p></p>\n<ul>\n    <li>与军哥、安卓对齐扫码记账这个品的绩效方向，查看竞品情况</li>\n    <li><span style=\"color: rgb(0, 101, 255);\">安卓在周一会议上同步核心关键词和转化核心词的落地页</span><span style=\"color: rgb(17, 255, 55);\">转化这两个重要指标的数据</span>\n    </li>\n    <li><span style=\"color: rgb(228, 124, 255);\">军哥整理4个新品的前期调研资料，包括竞品分析、用户使用逻辑</span><span style=\"color: rgb(255, 246, 47);\">和核心功能点的付费点等，并与产品和研发团队对齐项目进度和时间节点</span>\n    </li>\n    <li>根据军哥整理的资料，确定AI会议、密码图片编辑和图片编辑等产品的UI设计风格和时间节点</li>\n</ul>\n<p></p>"
+            let realHtml = htmlText
+            MyLog(realHtml)
+//        setHTML(recordingItem?.informationHtml!)
+        setHTML(htmlText)
 
-                setHTML(html)
-    
-            } catch {
-                MyLog("\(error)")
-            }
-    
-            html += "</div>"
-        }else{
-//            htmlText = "<div>\n    <h1>Action Item</h1>\n</div>\n<p></p>\n<ul>\n    <li>与军哥、安卓对齐扫码记账这个品的绩效方向，查看竞品情况</li>\n    <li><span style=\"color: rgb(0, 101, 255);\">安卓在周一会议上同步核心关键词和转化核心词的落地页</span><span style=\"color: rgb(17, 255, 55);\">转化这两个重要指标的数据</span>\n    </li>\n    <li><span style=\"color: rgb(228, 124, 255);\">军哥整理4个新品的前期调研资料，包括竞品分析、用户使用逻辑</span><span style=\"color: rgb(255, 246, 47);\">和核心功能点的付费点等，并与产品和研发团队对齐项目进度和时间节点</span>\n    </li>\n    <li>根据军哥整理的资料，确定AI会议、密码图片编辑和图片编辑等产品的UI设计风格和时间节点</li>\n</ul>\n<p></p>"
-        }
+//        }
 
         shouldShowKeyboard = false
         alwaysShowToolbar = false

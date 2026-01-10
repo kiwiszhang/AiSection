@@ -75,7 +75,7 @@ zss_editor.init = function() {
 }//end
 
 zss_editor.updateOffset = function() {
-    
+ 
     if (!zss_editor.updateScrollOffset)
         return;
     
@@ -86,8 +86,10 @@ zss_editor.updateOffset = function() {
     var maxOffsetY = footer.offset().top - zss_editor.contentHeight;
     
     if (maxOffsetY < 0)
+    {
         maxOffsetY = 0;
-    
+    }
+    maxOffsetY = maxOffsetY + 100;
     if (offsetY > maxOffsetY)
     {
         window.scrollTo(0, maxOffsetY);

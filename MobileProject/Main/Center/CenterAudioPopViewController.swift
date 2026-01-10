@@ -62,6 +62,7 @@ class CenterAudioPopViewController: SuperViewController {
                 
 //               zh_cn
 //               en_us
+//                ja-JP
                 Task {
                     do {
                         let queryData = try await SubmitAndQueryHandle.shared.handleRecord(fileName: fileName, client: client,sourceLang: "zh_cn")
@@ -71,21 +72,32 @@ class CenterAudioPopViewController: SuperViewController {
                                 try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
                                 if let url = queryData.Result?.AudioTranscriptionFile {
                                     do {
-                                        var html = "<div><h1>转写</h1>"
+//                                        var html = "<div><h1>转写</h1>"
+//                                        let transcriptionData = try await client.fetchAudioTranscriptionData(from: url)
+//                                        let decoder = JSONDecoder()
+//                                        let sentences = try decoder.decode([AudioSentenceRaw].self, from: transcriptionData)
+//                                        if !sentences.isEmpty {
+//                                            for item in sentences {
+//                                                let content = item.content
+//                                                let speaker = item.speaker.name ?? "speaker"
+//                                                html += "<p>" + speaker + ": " + content + "</p>"
+//                                            }
+//                                        }
+//                                        html += "</div>"
+                                        
                                         let transcriptionData = try await client.fetchAudioTranscriptionData(from: url)
+                                        coreDataItem?.transcriptionHtml = ""
+                                        coreDataItem!.transcriptionData = transcriptionData
+                                        try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
+
                                         let decoder = JSONDecoder()
                                         let sentences = try decoder.decode([AudioSentenceRaw].self, from: transcriptionData)
                                         if !sentences.isEmpty {
                                             for item in sentences {
-                                                let content = item.content
-                                                let speaker = item.speaker.name ?? "speaker"
-                                                html += "<p>" + speaker + ": " + content + "</p>"
+                                                var item01 = TranscriptionItemRequest(channel_id: -1, content: item.content, createTime: Int64(Date().timeIntervalSince1970), recordCreateTime: coreDataItem?.createTime, end_time: item.endTime, lang: item.lang, paragraph_id: Int16(item.paragraphID), sentence_id: Int16(item.sentenceID), speakerName: item.speaker.name ?? "", speakerType: Int16(item.speaker.type ?? 0), start_time: item.startTime, words: "")
+                                                try! TranscriptionItemStore.shared.addTranscriptionItem(item01)
                                             }
                                         }
-                                        html += "</div>"
-                                        coreDataItem?.transcriptionHtml = html
-                                        coreDataItem!.transcriptionData = transcriptionData
-                                        try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
                                     } catch {
                                         MyLog("❌ Error: \(error.localizedDescription)")
                                     }

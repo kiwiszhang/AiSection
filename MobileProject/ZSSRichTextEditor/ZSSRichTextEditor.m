@@ -646,7 +646,9 @@ static CGFloat kDefaultScale = 0.5;
     
     // Remove Format
     if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarRemoveFormat]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
-        ZSSBarButtonItem *removeFormat = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSclearstyle.png" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(removeFormat)];
+//        ZSSBarButtonItem *removeFormat = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSclearstyle.png" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(removeFormat)];
+        ZSSBarButtonItem *removeFormat = [self creatItem:@"ZSSclearstyle" withBundle:bundle selector:@selector(removeFormat)];
+
         removeFormat.label = @"removeFormat";
         if (customOrder) {
             [items replaceObjectAtIndex:[_enabledToolbarItems indexOfObject:ZSSRichTextEditorToolbarRemoveFormat] withObject:removeFormat];
@@ -1150,7 +1152,7 @@ static CGFloat kDefaultScale = 0.5;
     NSString *html = self.internalHTML;
     self.sourceView.text = html;
     NSString *cleanedHTML = [self removeQuotesFromHTML:self.sourceView.text];
-    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setHTML(\"%@\");", cleanedHTML];
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setHTML(`%@`);", cleanedHTML];
     [self.editorView evaluateJavaScript:trigger completionHandler:^(NSString *result, NSError *error) {
 
     }];
@@ -2105,7 +2107,12 @@ static CGFloat kDefaultScale = 0.5;
     if (!self.internalHTML) {
         self.internalHTML = @"";
     }
-    [self updateHTML];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self updateHTML];
+    });
+
+//    [self updateHTML];
     
     if(self.placeholder) {
         [self setPlaceholderText];

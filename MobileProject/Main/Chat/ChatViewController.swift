@@ -192,10 +192,10 @@ extension ChatViewController:ChatNavTopViewDelegate {
     }
     func moreClick(){
         MyLog("ChatNavTopViewDelegate")
+        self.navigationController?.pushViewController(ChatHistoryViewController(recordingItem: recordingItem!), animated: true)
     }
     func shareClick(){
         MyLog("ChatNavTopViewDelegate")
-        self.navigationController?.pushViewController(ChatHistoryViewController(recordingItem: recordingItem!), animated: true)
     }
 }
 

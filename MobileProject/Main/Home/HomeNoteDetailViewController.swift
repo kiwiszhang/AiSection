@@ -14,11 +14,13 @@ struct DetailNoteItemModel {
 
 class HomeNoteDetailViewController: SuperViewController {
     private lazy var itemList:[DetailNoteItemModel] = []
+    private lazy var itemTranscriptionList:[TranscriptionItem] = []
     var model:DetailNoteItemModel? = nil
     private lazy var recordingItem:RecordingItem? = nil
     private lazy var tableView = {
-        return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.white).registerCells(HTMLTableViewCell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeightAutomaticDimension().showsH(false).showsV(false).estimatedRowHeight(100.h)
+        return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.white).registerCells(HTMLTableViewCell.self).registerCells(TranscriptionTableViewCell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeightAutomaticDimension().showsH(false).showsV(false).estimatedRowHeight(100.h)
     }()
+    
     private lazy var navTopView = DetailNavTopView()
     private lazy var bottomView = DetailBottomView().cornerRadius(16.h, corners: [.topLeft,.topRight])
     private lazy var tableHeaderView = DetailTableHeaderView().backgroundColor(.white)
@@ -51,6 +53,9 @@ class HomeNoteDetailViewController: SuperViewController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        UserDefaultsTools.segmentIndex = 0
+        segmentV.segmentedView.setSelectedIndex(UserDefaultsTools.segmentIndex, animated: false)
+        tableHeaderView.segmentV.segmentedView.setSelectedIndex(UserDefaultsTools.segmentIndex, animated: false)
         getData()
     }
     
@@ -121,7 +126,22 @@ class HomeNoteDetailViewController: SuperViewController {
         if UserDefaultsTools.segmentIndex == 0 {
             itemList = [model00,model01]
         }else if UserDefaultsTools.segmentIndex == 1 {
-            itemList = [model00]
+            
+//            do {
+//                let transcriptionData = recordingItem!.transcriptionData
+//                let decoder = JSONDecoder()
+//                let sentences = try decoder.decode([AudioSentenceRaw].self, from: transcriptionData!)
+//                if !sentences.isEmpty {
+//                    for item in sentences {
+//                        let item01 = TranscriptionItemRequest(channel_id: -1, content: item.content, createTime: Int64(Date().timeIntervalSince1970), recordCreateTime: recordingItem!.createTime, end_time: item.endTime, lang: item.lang, paragraph_id: Int16(item.paragraphID), sentence_id: Int16(item.sentenceID), speakerName: item.speaker.name ?? "", speakerType: Int16(item.speaker.type ?? 0), start_time: item.startTime, words: "")
+//                        try! TranscriptionItemStore.shared.addTranscriptionItem(item01)
+//                    }
+//                }
+//            }catch {
+//                
+//            }
+            
+            itemTranscriptionList = try! TranscriptionItemStore.shared.fetchTranscriptionItemWithRecordCreateTime(createTime: recordingItem!.createTime)
         }
         tableView.reloadData()
         
@@ -131,6 +151,8 @@ class HomeNoteDetailViewController: SuperViewController {
         navTopView.setUpPlay()
         tableHeaderView.setUpPlay()
         bottomView.bottonClick()
+        
+        
     }
 
 }
@@ -192,8 +214,12 @@ extension HomeNoteDetailViewController:DetailNavTopViewDelegate {
                 self.navigationController?.pushViewController(EditorSummaryViewController(recordingItem: recordingItem!,html: informationHtml), animated: true)
             }
             if index == 1 {
-                let transcriptionHtml = recordingItem!.transcriptionHtml ?? ""
-                self.navigationController?.pushViewController(EditorTranscriptViewController(recordingItem: recordingItem!,html: transcriptionHtml), animated: true)
+//                let transcriptionHtml = recordingItem!.transcriptionHtml ?? ""
+//                self.navigationController?.pushViewController(EditorTranscriptViewController(recordingItem: recordingItem!,html: transcriptionHtml), animated: true)
+                UserDefaultsTools.segmentIndex = 1
+                segmentV.segmentedView.setSelectedIndex(UserDefaultsTools.segmentIndex, animated: false)
+                tableHeaderView.segmentV.segmentedView.setSelectedIndex(UserDefaultsTools.segmentIndex, animated: false)
+                getData()
             }
             if index == 2 {
                 let content = CenterLanguagePopVC()
@@ -303,20 +329,36 @@ extension HomeNoteDetailViewController:DetailBottomViewDelegate {
 //MARK: ----------TableViewDelegateDataSource-----------
 extension HomeNoteDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemList.count
+        if UserDefaultsTools.segmentIndex == 0 {
+            return itemList.count
+        }else if UserDefaultsTools.segmentIndex == 1 {
+            return itemTranscriptionList.count
+        }
+        return 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let model = itemList[indexPath.row]
-        let cell = tableView.dequeueCell(HTMLTableViewCell.self, for: indexPath)
-        cell.selectionStyle = .none
-        
         if UserDefaultsTools.segmentIndex == 0 {
+            let cell = tableView.dequeueCell(HTMLTableViewCell.self, for: indexPath)
+            cell.selectionStyle = .none
             cell.configure(recordingItem: recordingItem!,indexPath: indexPath)
-        }else if UserDefaultsTools.segmentIndex == 1 {
-            cell.configure(recordingItem: recordingItem!,indexPath: indexPath)
+            return cell
+        } else if UserDefaultsTools.segmentIndex == 1 {
+            let cell = tableView.dequeueCell(TranscriptionTableViewCell.self, for: indexPath)
+            cell.selectionStyle = .none
+            let tItem = itemTranscriptionList[indexPath.row]
+            cell.configure(with: tItem, recordingItem: recordingItem!)
+            cell.editCallback = { [weak self] newText in
+                guard let self else { return }
+                tItem.content = newText
+                try! TranscriptionItemStore.shared.updateTranscriptionItem(tItem)
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+            }
+
+            return cell
         }
+        return UITableViewCell()
 //        cell.configure(with: model,recordingItem: recordingItem!)
-        return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let item = itemList[indexPath.row]
@@ -415,16 +457,16 @@ final class HTMLTableViewCell: SuperTableViewCell {
                 }else{
                     var html = "<div><h1>Action Item</h1></div>";
                     do {
-                        let decoder = JSONDecoder()
-                        let sentences = try decoder.decode(InformationExtraction.self, from: recordingItem.informationData!)
-                        MyLog("\(sentences.todoList)")
-                        html += "<p><ul>"
-                        if !sentences.todoList.isEmpty {
-                            for item in sentences.todoList {
-                                let content = item.content ?? ""
-                                html += "<li>" + content + "</li>"
-                            }
-                        }
+//                        let decoder = JSONDecoder()
+//                        let sentences = try decoder.decode(InformationExtraction.self, from: recordingItem.informationData!)
+//                        MyLog("\(sentences.todoList)")
+//                        html += "<p><ul>"
+//                        if !sentences.todoList.isEmpty {
+//                            for item in sentences.todoList {
+//                                let content = item.content ?? ""
+//                                html += "<li>" + content + "</li>"
+//                            }
+//                        }
                         html += "</ul></p>"
 //                        recordingItem.informationHtml = html
 //                        try! RecordingItemStore.shared.updateRecordingItem(recordingItem)
@@ -481,44 +523,53 @@ final class HTMLTableViewCell: SuperTableViewCell {
                 }
             }
         }else if UserDefaultsTools.segmentIndex == 1 {
-            
-            if let htmlStr = recordingItem.transcriptionHtml {
-                let processedHTML = HTMLPreprocessor.preprocess(htmlStr)
-                let start = CFAbsoluteTimeGetCurrent()
-//                MBProgressHUD.showHUD()
-                htmlLabel.attributedText = Self.makeAttributedHTML(
-                    html: processedHTML,
-                    font: UIFont.interBase(size: 14.h, weight: .regularBase),
-                    textColor: .black
-                )
-//                MBProgressHUD.hideHUD()
-                let end = CFAbsoluteTimeGetCurrent()
-                MyLog("⏱ [\("title")] 耗时：\((end - start) * 1000) ms")
-            }else{
-                var html = "<div><h1>转写</h1>"
-                do {
-                    let decoder = JSONDecoder()
-                    if let data = recordingItem.transcriptionData {
-                        let sentences = try decoder.decode([AudioSentenceRaw].self, from: data)
-                        if !sentences.isEmpty {
-                            for item in sentences {
-                                let content = item.content
-                                let speaker = item.speaker.name ?? "speaker"
-                                html += "<p>" + speaker + ": " + content + "</p>"
-                            }
-                        }
-                    }
-                    html += "</div>"
-                    let processedHTML = HTMLPreprocessor.preprocess(html)
-                    htmlLabel.attributedText = Self.makeAttributedHTML(
-                        html: processedHTML,
-                        font: UIFont.interBase(size: 14.h, weight: .regularBase),
-                        textColor: .black
-                    )
-                } catch {
-                    MyLog("\(error)")
-                }
-            }
+//            
+//            if let htmlStr = recordingItem.transcriptionHtml {
+//                let processedHTML = HTMLPreprocessor.preprocess(htmlStr)
+//                let start = CFAbsoluteTimeGetCurrent()
+////                MBProgressHUD.showHUD()
+//                htmlLabel.attributedText = Self.makeAttributedHTML(
+//                    html: processedHTML,
+//                    font: UIFont.interBase(size: 14.h, weight: .regularBase),
+//                    textColor: .black
+//                )
+////                MBProgressHUD.hideHUD()
+//                let end = CFAbsoluteTimeGetCurrent()
+//                MyLog("⏱ [\("title")] 耗时：\((end - start) * 1000) ms")
+//            }else{
+//                var html = "<div><h1>转写</h1>"
+//                do {
+////                    let decoder = JSONDecoder()
+////                    if let data = recordingItem.transcriptionData {
+////                        let sentences = try decoder.decode([AudioSentenceRaw].self, from: data)
+////                        if !sentences.isEmpty {
+////                            for item in sentences {
+////                                let content = item.content
+////                                let speaker = item.speaker.name ?? "speaker"
+////                                html += "<p>" + speaker + ": " + content + "</p>"
+////                            }
+////                        }
+////                    }
+////                    html += "</div>"
+////                    let processedHTML = HTMLPreprocessor.preprocess(html)
+////                    htmlLabel.attributedText = Self.makeAttributedHTML(
+////                        html: processedHTML,
+////                        font: UIFont.interBase(size: 14.h, weight: .regularBase),
+////                        textColor: .black
+////                    )
+//                    let transcriptionData = recordingItem.transcriptionData
+//                    let decoder = JSONDecoder()
+//                    let sentences = try decoder.decode([AudioSentenceRaw].self, from: transcriptionData!)
+//                    if !sentences.isEmpty {
+//                        for item in sentences {
+//                            let item01 = TranscriptionItemRequest(channel_id: -1, content: item.content, createTime: Int64(Date().timeIntervalSince1970), recordCreateTime: recordingItem.createTime, end_time: item.endTime, lang: item.lang, paragraph_id: Int16(item.paragraphID), sentence_id: Int16(item.sentenceID), speakerName: item.speaker.name ?? "", speakerType: Int16(item.speaker.type ?? 0), start_time: item.startTime, words: "")
+//                            try! TranscriptionItemStore.shared.addTranscriptionItem(item01)
+//                        }
+//                    }
+//                } catch {
+//                    MyLog("\(error)")
+//                }
+//            }
         }
     }
 }
@@ -611,93 +662,106 @@ extension UIColor {
 }
 
 
-class DetailNoteItemCell: SuperTableViewCell {
-    private var itemModel:DetailNoteItemModel? = nil
+class TranscriptionTableViewCell: SuperTableViewCell,UITextViewDelegate {
     private lazy var bgView = UIView().backgroundColor(kkColorFromHex(kkHomeBgColor)).cornerRadius(14.w)
-    private lazy var titleL = UILabel().text("title").color(kkColorFromHex(kkMainTitleColor)).hnFont(size: 18.h, weight: .bold)
-    private lazy var subTitleL = UILabel().text("title").color(kkColorFromHex(kkMainTitleColor)).hnFont(size: 14.h, weight: .regular).lines(0)
+    private lazy var titleL = UILabel().text("00:00").color(kkColorFromHex(kkSubTitleColor)).hnFont(size: 14.h, weight: .regular)
+    private lazy var contentL = UILabel().text("title").color(kkColorFromHex(kkMainTitleColor)).hnFont(size: 14.h, weight: .regular).lines(0)
+    private lazy var contentTextView = UITextView().text("").hnFont(size: 14.h, weight: .regular).color(kkColorFromHex(kkMainTitleColor)).hidden(true).backgroundColor(.clear).delegate(self)
+
+
+    private lazy var editerImg = UIImageView().image(Asset.chatTrans.image).enable(true).onTap {
+        MyLog("editerImg")
+        self.toggleEdit()
+    }
+    
+    private var isEditingContent = false
+    var editCallback: ((String) -> Void)?
 
     override func setUpUI() {
         self.backgroundColor(.clear)
         contentView.addChildView([bgView])
-        bgView.addChildView([titleL,subTitleL])
+        bgView.addChildView([titleL,contentL,contentTextView,editerImg])
         
         bgView.snp.makeConstraints { make in
-            make.width.equalTo(343.w)
-            make.height.equalTo(170.h)
-            make.center.equalToSuperview()
+            make.top.equalToSuperview().offset(8.h)
+            make.bottom.equalToSuperview().offset(-8.h)
+            make.left.equalToSuperview().offset(24.w)
+            make.right.equalToSuperview().offset(-24.w)
         }
         
         titleL.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(20.w)
             make.right.equalToSuperview()
-            make.top.equalToSuperview().offset(16.h)
-            make.height.equalTo(22.h)
+            make.top.equalToSuperview().offset(15.h)
+            make.height.equalTo(17.h)
         }
         
-        subTitleL.snp.makeConstraints { make in
+        contentL.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(20.w)
+            make.right.equalToSuperview().offset(-20.w)
+            make.top.equalTo(titleL.snp.bottom).offset(10.h)
+            make.bottom.equalToSuperview().offset(-10.h)
+        }
+        
+        contentTextView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(20.w)
             make.right.equalToSuperview().offset(-20.w)
             make.top.equalTo(titleL.snp.bottom).offset(10.h)
             make.bottom.equalToSuperview().offset(-10.h)
         }
 
+        
+        editerImg.snp.makeConstraints { make in
+            make.width.height.equalTo(24.h)
+            make.right.equalToSuperview().offset(-8.w)
+            make.top.equalToSuperview().offset(8.h)
+        }
+    }
+    func configure(with item: TranscriptionItem,recordingItem:RecordingItem) {
+        titleL.text(formatTime(item.start_time))
+        contentL.text(item.content)
     }
     
-    func configure(with item: DetailNoteItemModel,recordingItem:RecordingItem) {
-        itemModel = item
-        titleL.text(item.noteName)
-//        subTitleL.text(item.noteDetail)
-        var html = "<div class='test'></div>";
-        do {
-            let decoder = JSONDecoder()
-            let sentences = try decoder.decode(InformationExtraction.self, from: recordingItem.informationData!)
-            MyLog("\(sentences.todoList)")
-            if !sentences.todoList.isEmpty {
-                for item in sentences.todoList {
-                    let content = item.content ?? ""
-                    html += "<p><ul><li>" + content + "<br /></li></ul></p>"
-                }
-            }
-//            html += "<h1>摘要</h1><br />"
-//            if let sumData = recordingItem!.summarizationData {
-//                let summarization = try decoder.decode(Summarization.self, from: sumData)
-//                html += summarization.title
-//                html += "<br />"
-//                html += summarization.paragraph
-//            }
-
-            let cleanedHTML = html
-                .replacingOccurrences(of: "<p></p>", with: "")
-
-            setHTML(cleanedHTML)
-            
-        } catch {
-            MyLog("\(error)")
+    func formatTime(_ time: Double) -> String {
+        let totalSeconds = Int(time / 1000)
+        let hours = totalSeconds / 3600
+        let minutes = (totalSeconds % 3600) / 60
+        let seconds = totalSeconds % 60
+        if hours > 0 {
+            return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+        } else {
+            return String(format: "%02d:%02d", minutes, seconds)
         }
     }
     
-    func setHTML(_ html: String) {
-        let data = Data(html.utf8)
+    func textViewDidEndEditing(_ textView: UITextView) {
+        exitEditMode()
+    }
 
-        let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
-            .documentType: NSAttributedString.DocumentType.html,
-            .characterEncoding: String.Encoding.utf8.rawValue
-        ]
+    private func exitEditMode() {
+        guard isEditingContent else { return }
+        isEditingContent = false
 
-        if let attributed = try? NSMutableAttributedString(data: data,
-                                                            options: options,
-                                                            documentAttributes: nil) {
+        let newText = contentTextView.text ?? ""
+        contentL.text = newText
 
-            // 🔧 统一字体（非常重要）
-            attributed.addAttribute(
-                .font,
-                value: UIFont.interBase(size: 14.h, weight: .regularBase),
-                range: NSRange(location: 0, length: attributed.length)
-            )
+        contentTextView.resignFirstResponder()
+        contentTextView.isHidden = true
+        contentL.isHidden = false
 
-            subTitleL.attributedText = attributed
-        }
+        editCallback?(newText)
+    }
+
+    private func enterEditMode() {
+        isEditingContent = true
+        contentTextView.text = contentL.text
+        contentTextView.isHidden = false
+        contentL.isHidden = true
+        contentTextView.becomeFirstResponder()
+    }
+
+    private func toggleEdit() {
+        isEditingContent ? exitEditMode() : enterEditMode()
     }
 
 }
