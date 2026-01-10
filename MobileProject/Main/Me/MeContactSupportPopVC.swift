@@ -20,6 +20,9 @@ class MeContactSupportPopVC: SuperViewController {
     private lazy var confirmBtn = UILabel().text(L10n.confirm).hnFont(size: 18.h, weight: .medium).backgroundColor(kkColorFromHex(kkMainColor)).cornerRadius(14.h).enable(false).alpha(0.4).centerAligned().color(.white).onTap { [self] in
         if mailStr.isEmail {
             openMailApp()
+            showAlertViewWithOutCancelButton(title: L10n.thankYouForYourFeedback,message: "", confirmButtonTitle:L10n.gotIt) { [self]confirmed in
+                dismissAction?()
+            }
         }else{
             showAlertViewWithOutCancelButton(title: "",message: L10n.textCorrectMail, confirmButtonTitle:L10n.ok) { [self] confirmed in
             }
@@ -59,6 +62,7 @@ class MeContactSupportPopVC: SuperViewController {
             make.height.equalTo(50.h)
             make.bottom.equalToSuperview().offset(-40.h)
         }
+        confirmBtn.enable(false)
     }
     
     override func getData() {
@@ -74,7 +78,6 @@ class MeContactSupportPopVC: SuperViewController {
     func updataConfirmBtnStatus(title:String,content:String,mail:String){
         if !kkStringIsEmpty(title) && !kkStringIsEmpty(content) && !kkStringIsEmpty(mail) {
             confirmBtn.enable(true).alpha(1)
-            dismissAction?()
         }else{
             confirmBtn.enable(false).alpha(0.4)
         }
