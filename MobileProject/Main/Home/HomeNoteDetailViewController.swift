@@ -245,18 +245,20 @@ extension HomeNoteDetailViewController:CenterLanguagePopVCDelegate {
     func selectedLangitem(seletedItem: LangItem){
         MyLog("selectedLangitem")
         MyLog(seletedItem)
+        UserDefaultsTools.transcritionSelected = seletedItem.title
         Task {
             do {
                 let informationHtml = recordingItem!.informationHtml ?? ""
-                let summariztionHtml = recordingItem!.summariztionHtml ?? ""
-                UserDefaultsTools.transcritionSelected = seletedItem.title
                 let jsonString = try await requestDoubaoContent(html: informationHtml, targetLang: UserDefaultsTools.transcritionSelected)
                 let informationHtmlContent = try extractHTML(from: jsonString)
+                recordingItem!.informationHtml = informationHtmlContent
                 MyLog("翻译结果: \(informationHtmlContent)")
+
+                
+                let summariztionHtml = recordingItem!.summariztionHtml ?? ""
                 let jsonString01 = try await requestDoubaoContent(html: summariztionHtml, targetLang: UserDefaultsTools.transcritionSelected)
                 let summariztionHtmlContent = try extractHTML(from: jsonString01)
                 MyLog("翻译结果: \(summariztionHtmlContent)")
-                recordingItem!.informationHtml = informationHtmlContent
                 recordingItem!.summariztionHtml = summariztionHtmlContent
                 try RecordingItemStore.shared.updateRecordingItem(recordingItem!)
                 getData()
