@@ -245,23 +245,23 @@ extension HomeNoteDetailViewController:CenterLanguagePopVCDelegate {
     func selectedLangitem(seletedItem: LangItem){
         MyLog("selectedLangitem")
         MyLog(seletedItem)
-        
         Task {
             do {
                 let informationHtml = recordingItem!.informationHtml ?? ""
                 let summariztionHtml = recordingItem!.summariztionHtml ?? ""
-//                let result = try await translateText(
-//                    text: cleanHTMLForNote(informationHtml + summariztionHtml),
-//                    targetLanguage: seletedItem.localize
-//                )
-                
-                let result = try await AIApiManager.shared.translate(textList: [informationHtml], targetLanguage: seletedItem.localize)
-                
-                print("翻译结果:", result)
-                recordingItem!.informationHtml = result.first
+                UserDefaultsTools.transcritionSelected = seletedItem.title
+                let jsonString = try await requestDoubaoContent(html: informationHtml, targetLang: UserDefaultsTools.transcritionSelected)
+                let informationHtmlContent = try extractHTML(from: jsonString)
+                MyLog("翻译结果: \(informationHtmlContent)")
+                let jsonString01 = try await requestDoubaoContent(html: summariztionHtml, targetLang: UserDefaultsTools.transcritionSelected)
+                let summariztionHtmlContent = try extractHTML(from: jsonString01)
+                MyLog("翻译结果: \(summariztionHtmlContent)")
+                recordingItem!.informationHtml = informationHtmlContent
+                recordingItem!.summariztionHtml = summariztionHtmlContent
                 try RecordingItemStore.shared.updateRecordingItem(recordingItem!)
+                getData()
             } catch {
-                print("翻译失败:", error)
+                MyLog("翻译失败: \(error)")
             }
         }
 
@@ -481,7 +481,6 @@ final class HTMLTableViewCell: SuperTableViewCell {
                             let title = summarization.title.replacingOccurrences(of: "\n", with: "<br />")
                             html += title
                             html += "<br />"
-    //                        let paragraph = markdownToSimpleHTML(summarization.paragraph)
                             let paragraph = summarization.paragraph.replacingOccurrences(of: "\n", with: "<br />")
                             html += paragraph
                         }

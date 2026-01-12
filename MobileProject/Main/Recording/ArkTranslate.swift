@@ -99,3 +99,80 @@ func translateText(
         throw TranslationError.emptyResult
     }
 }
+
+
+struct ChatRequest: Encodable {
+    let model: String
+    let messages: [Message]
+
+    struct Message: Encodable {
+        let role: String
+        let content: String
+    }
+}
+
+struct CompletionResponse: Decodable {
+    let choices: [Choice]
+
+    struct Choice: Decodable {
+        let message: Message
+    }
+
+    struct Message: Decodable {
+        let role: String
+        let content: String
+    }
+}
+
+struct ContentWrapper: Decodable {
+    let content: String
+}
+
+func requestDoubaoContent(html:String,targetLang:String) async throws -> String {
+    
+    let url = URL(string: "https://ark.cn-beijing.volces.com/api/v3/chat/completions")!
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.setValue("Bearer 35c11675-66e0-4d52-8f91-09c1385de0a4",
+                     forHTTPHeaderField: "Authorization")
+    
+    let body: [String: Any] = [
+        "model": "doubao-1-5-pro-32k-250115",
+        "messages": [
+            ["role": "system", "content": "你是人工智能助手."],
+            ["role": "user", "content": "\(html) 将这个html里面的内容翻译为: \(targetLang)，翻译完成后html标签的结构和样式不改变，返回的结果为{\"content\":\"XXXX\"}这种json格式"]
+        ]
+    ]
+    
+    request.httpBody = try JSONSerialization.data(withJSONObject: body)
+    
+    let (data, _) = try await URLSession.shared.data(for: request)
+    
+    // 🔍 调试用（可删）
+    if let json = String(data: data, encoding: .utf8) {
+        print("Response JSON:", json)
+    }
+    
+    // ✅ 解析 {"content":"XXXX"}
+    let response = try JSONDecoder().decode(CompletionResponse.self, from: data)
+    // ✅ 安全取值并返回 content
+    guard let content = response.choices.first?.message.content else {
+        throw NSError(domain: "DoubaoError",
+                      code: -1,
+                      userInfo: [NSLocalizedDescriptionKey: "content 不存在"])
+    }
+    
+    return content
+}
+
+func extractHTML(from jsonString: String) throws -> String {
+    guard let data = jsonString.data(using: .utf8) else {
+        throw NSError(domain: "ParseError", code: -1)
+    }
+
+    let wrapper = try JSONDecoder().decode(ContentWrapper.self, from: data)
+    return wrapper.content
+}
+

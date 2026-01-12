@@ -102,11 +102,13 @@ class EditorSummaryViewController: ZSSRichTextEditor {
 //    
 //            html += "</div>"
 //        }else{
-//            htmlText = "<div>\n    <h1>Action Item</h1>\n</div>\n<p></p>\n<ul>\n    <li>与军哥、安卓对齐扫码记账这个品的绩效方向，查看竞品情况</li>\n    <li><span style=\"color: rgb(0, 101, 255);\">安卓在周一会议上同步核心关键词和转化核心词的落地页</span><span style=\"color: rgb(17, 255, 55);\">转化这两个重要指标的数据</span>\n    </li>\n    <li><span style=\"color: rgb(228, 124, 255);\">军哥整理4个新品的前期调研资料，包括竞品分析、用户使用逻辑</span><span style=\"color: rgb(255, 246, 47);\">和核心功能点的付费点等，并与产品和研发团队对齐项目进度和时间节点</span>\n    </li>\n    <li>根据军哥整理的资料，确定AI会议、密码图片编辑和图片编辑等产品的UI设计风格和时间节点</li>\n</ul>\n<p></p>"
+        //            htmlText = "<div>\n    <h1>Action Item</h1>\n</div>\n<p></p>\n<ul>\n    <li>与军哥、安卓对齐扫码记账这个品的绩效方向，查看竞品情况</li>\n    <li><span style=\"color: rgb(0, 101, 255);\">安卓在周一会议上同步核心关键词和转化核心词的落地页</span><span style=\"color: rgb(17, 255, 55);\">转化这两个重要指标的数据</span>\n    </li>\n    <li><span style=\"color: rgb(228, 124, 255);\">军哥整理4个新品的前期调研资料，包括竞品分析、用户使用逻辑</span><span style=\"color: rgb(255, 246, 47);\">和核心功能点的付费点等，并与产品和研发团队对齐项目进度和时间节点</span>\n    </li>\n    <li>根据军哥整理的资料，确定AI会议、密码图片编辑和图片编辑等产品的UI设计风格和时间节点</li>\n</ul>\n<p></p>"
+        
+        htmlText = "<div>\n    <h1>アクション項目</h1>\n</div>\n<p></p>\n<ul>\n    <li>軍哥とAndroidチームと、スキャン決済記帳という商品のパフォーマンス方向を合わせ、競合商品の状況を調べる</li>\n    <li><span style=\"color: rgb(0, 101, 255);\">Androidチームは月曜日の会議で、コアキーワードと転化コアキーワードのランディングページを共有する</span><span style=\"color: rgb(17, 255, 55);\">これら2つの重要な指標のデータを転化する</span>\n    </li>\n    <li><span style=\"color: rgb(228, 124, 255);\">軍哥は4つの新商品の前期調査資料を整理する。これには競合商品分析、ユーザーの使用ロジックが含まれる</span><span style=\"color: rgb(255, 246, 47);\">およびコア機能の有料ポイントなどを含め、プロダクトチームと開発チームとプロジェクトの進捗と時間枠を合わせる</span>\n    </li>\n    <li>軍哥が整理した資料に基づき、AI会議、パスワード画像編集、画像編集などの製品のUIデザインスタイルと時間枠を決定する</li>\n</ul>\n<p></p>"
             let realHtml = htmlText
             MyLog(realHtml)
-        setHTML(recordingItem?.informationHtml!)
-//        setHTML(htmlText)
+//        setHTML(recordingItem?.informationHtml!)
+        setHTML(htmlText)
 
 //        }
 

@@ -37,7 +37,7 @@ class UserDefaultsTools {
     @UserDefault(UserDefaultsTypeKeys.langSelected.rawValue, defaultValue: "")
     static var langSelected: String
     /// 设置页设置总结转写语言
-    @UserDefault(UserDefaultsTypeKeys.transcritionSelected.rawValue, defaultValue: "")
+    @UserDefault(UserDefaultsTypeKeys.transcritionSelected.rawValue, defaultValue: "en")
     static var transcritionSelected: String
    
     
