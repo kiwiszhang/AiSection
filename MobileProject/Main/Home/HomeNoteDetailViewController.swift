@@ -7,7 +7,7 @@
 
 import UIKit
 
-let kSplitStringWithHtml = ",.678-12345,.;45623"
+let kSplitStringWithHtml = "<ol><ol><ol><ul><ul><ol><ul></ul></ol></ul></ul></ol></ol></ol>"
 
 struct DetailNoteItemModel {
     var noteName: String = ""
@@ -201,8 +201,6 @@ extension HomeNoteDetailViewController:DetailNavTopViewDelegate {
                 self.navigationController?.pushViewController(EditorSummaryViewController(recordingItem: recordingItem!,html: informationHtml + kSplitStringWithHtml + summariztionHtml), animated: true)
             }
             if index == 1 {
-//                let transcriptionHtml = recordingItem!.transcriptionHtml ?? ""
-//                self.navigationController?.pushViewController(EditorTranscriptViewController(recordingItem: recordingItem!,html: transcriptionHtml), animated: true)
                 UserDefaultsTools.segmentIndex = 1
                 segmentV.segmentedView.setSelectedIndex(UserDefaultsTools.segmentIndex, animated: false)
                 tableHeaderView.segmentV.segmentedView.setSelectedIndex(UserDefaultsTools.segmentIndex, animated: false)
@@ -248,26 +246,38 @@ extension HomeNoteDetailViewController:CenterLanguagePopVCDelegate {
         MyLog("selectedLangitem")
         MyLog(seletedItem)
         UserDefaultsTools.transcritionSelected = seletedItem.title
-        Task {
-            do {
-                let informationHtml = recordingItem!.todoJsonString ?? ""
-                let jsonString = try await requestDoubaoContent(html: informationHtml, targetLang: UserDefaultsTools.transcritionSelected)
-                let informationHtmlContent = try extractHTML(from: jsonString)
-                recordingItem!.todoJsonString = informationHtmlContent
-                MyLog("翻译结果: \(informationHtmlContent)")
+        Task { @MainActor in
+            MBProgressHUD.showHUD()
 
-                
-                let summariztionHtml = recordingItem!.chapterSummaryJsonString ?? ""
-                let jsonString01 = try await requestDoubaoContent(html: summariztionHtml, targetLang: UserDefaultsTools.transcritionSelected)
+            defer {
+                MBProgressHUD.hideHUD()
+            }
+
+            do {
+                let informationHtml = recordingItem?.todoJsonString ?? ""
+                let jsonString = try await requestDoubaoContent(
+                    html: informationHtml,
+                    targetLang: UserDefaultsTools.transcritionSelected
+                )
+                let informationHtmlContent = try extractHTML(from: jsonString)
+                recordingItem?.todoJsonString = informationHtmlContent
+
+                let summariztionHtml = recordingItem?.chapterSummaryJsonString ?? ""
+                let jsonString01 = try await requestDoubaoContent(
+                    html: summariztionHtml,
+                    targetLang: UserDefaultsTools.transcritionSelected
+                )
                 let summariztionHtmlContent = try extractHTML(from: jsonString01)
-                MyLog("翻译结果: \(summariztionHtmlContent)")
-                recordingItem!.chapterSummaryJsonString = summariztionHtmlContent
+                recordingItem?.chapterSummaryJsonString = summariztionHtmlContent
+
                 try RecordingItemStore.shared.updateRecordingItem(recordingItem!)
                 getData()
+
             } catch {
                 MyLog("翻译失败: \(error)")
             }
         }
+
 
     }
     

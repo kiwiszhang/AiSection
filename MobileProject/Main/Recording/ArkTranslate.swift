@@ -134,6 +134,7 @@ func requestDoubaoContent(html:String,targetLang:String) async throws -> String 
     
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
+    request.timeoutInterval = 5 * 60
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.setValue("Bearer 35c11675-66e0-4d52-8f91-09c1385de0a4",
                      forHTTPHeaderField: "Authorization")
@@ -183,6 +184,7 @@ func requestDoubaoAISummary(content:String) async throws -> SummaryResult {
     
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
+    request.timeoutInterval = 5 * 60
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.setValue("Bearer 35c11675-66e0-4d52-8f91-09c1385de0a4",
                      forHTTPHeaderField: "Authorization")

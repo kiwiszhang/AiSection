@@ -68,7 +68,7 @@ class EditorSummaryViewController: ZSSRichTextEditor {
             action: #selector(handleBack)
         )
         
-        title = "Action Item"
+        title = "Editer"
         let realHtml = htmlText
         MyLog(realHtml)
         setHTML(htmlText)
@@ -99,40 +99,14 @@ class EditorSummaryViewController: ZSSRichTextEditor {
 
     
     func handleHTML(){
-        
-  
-
         editorView?.evaluateJavaScript(ZSSEditorHTML) { [weak self] result, _ in
             guard let html = result as? String else { return }
-            self?.recordingItem?.todoJsonString = html
+            let htmlArr = html.components(separatedBy: kSplitStringWithHtml)
+            self?.recordingItem?.todoJsonString = htmlArr.first
+            self?.recordingItem?.chapterSummaryJsonString = htmlArr.last
             try? RecordingItemStore.shared.updateRecordingItem(self!.recordingItem!)
             self?.navigationController?.popViewController(animated: true)
         }
-
-//        getHTML { [weak self] html, error in
-//            guard let self = self,
-//                  let html = html,
-//                  error == nil else { return }
-//
-//            self.recordingItem?.informationHtml = html as? String
-//            try? RecordingItemStore.shared.updateRecordingItem(self.recordingItem!)
-//            self.navigationController?.popViewController(animated: true)
-//        }
-
-        
-//        getHTML { [self] html, error in
-//            guard let html = html, error == nil else { return }
-////            let parts = (html as! String).components(separatedBy: "<h1>摘要</h1>")
-////            if parts.count >= 2 {
-////                recordingItem!.informationHtml = parts.first
-////                recordingItem!.summariztionHtml = "<h1>摘要</h1>" + parts[1]
-////                try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
-////            }
-//            recordingItem!.informationHtml = (html as! String)
-//            MyLog("parts.first---\(html)")
-//            try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
-//            self.navigationController?.popViewController(animated: true)
-//        }
     }
     
     private func cleanupWebView() {

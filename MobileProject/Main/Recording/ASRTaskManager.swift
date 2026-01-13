@@ -34,6 +34,8 @@ final class ASRTaskManager {
             format: format,
             language: language
         )
+        
+        UtitilTools.broadcast(handleStatus: 3, handleContent: "录音文件上传成功")
 
         guard let logId else {
             throw ASRError.invalidSubmit
@@ -132,7 +134,7 @@ private extension ASRTaskManager {
                 case .processing:
                     print("⏳ Processing, next in \(delay / 1_000_000_000)s")
                     try await Task.sleep(nanoseconds: delay)
-                    delay = min(delay * 2, 20_000_000_000)
+                    delay = min(delay * 2, 12_000_000_000)
 
                 case .finished(let response):
                     print("✅ ASR Finished")
