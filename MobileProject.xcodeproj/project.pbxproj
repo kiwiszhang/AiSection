@@ -105,6 +105,8 @@
 		534146AF2F11DF840012436B /* TranscriptionItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146AE2F11DF840012436B /* TranscriptionItemStore.swift */; };
 		534146B32F1203EE0012436B /* ZSSclearstyle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146B22F1203EE0012436B /* ZSSclearstyle@3x.png */; };
 		534146B52F123C170012436B /* MeContactSupportPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146B42F123C170012436B /* MeContactSupportPopVC.swift */; };
+		536D5B352F148E4200030A0E /* ArkRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D5B342F148E4200030A0E /* ArkRecord.swift */; };
+		536D5B372F14DF2100030A0E /* ASRTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D5B362F14DF2100030A0E /* ASRTaskManager.swift */; };
 		538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */; };
 		538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */; };
 		538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */; };
@@ -336,6 +338,8 @@
 		534146B22F1203EE0012436B /* ZSSclearstyle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSclearstyle@3x.png"; sourceTree = "<group>"; };
 		534146B42F123C170012436B /* MeContactSupportPopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeContactSupportPopVC.swift; sourceTree = "<group>"; };
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
+		536D5B342F148E4200030A0E /* ArkRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkRecord.swift; sourceTree = "<group>"; };
+		536D5B362F14DF2100030A0E /* ASRTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASRTaskManager.swift; sourceTree = "<group>"; };
 		5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFloderPopViewController.swift; sourceTree = "<group>"; };
 		538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddNotePopViewController.swift; sourceTree = "<group>"; };
 		538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddFloderPopVC.swift; sourceTree = "<group>"; };
@@ -950,6 +954,8 @@
 				53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */,
 				53FFAF072EFE6D5200A0C1EF /* UploadRecord.swift */,
 				53FFAF052EFE21D200A0C1EF /* ByteDanceOpenSpeechClient.swift */,
+				536D5B342F148E4200030A0E /* ArkRecord.swift */,
+				536D5B362F14DF2100030A0E /* ASRTaskManager.swift */,
 			);
 			path = Recording;
 			sourceTree = "<group>";
@@ -1303,6 +1309,7 @@
 				53F68F492F0BB5A40051FFE6 /* HRColorUtil.m in Sources */,
 				53F68F4A2F0BB5A40051FFE6 /* ZSSBarButtonItem.m in Sources */,
 				53F68F4B2F0BB5A40051FFE6 /* ZSSRichTextEditor.m in Sources */,
+				536D5B352F148E4200030A0E /* ArkRecord.swift in Sources */,
 				53F68F4C2F0BB5A40051FFE6 /* HRColorCursor.m in Sources */,
 				53F68F4D2F0BB5A40051FFE6 /* CYRTextView.m in Sources */,
 				53F68F4E2F0BB5A40051FFE6 /* ZSSTextView.m in Sources */,
@@ -1334,6 +1341,7 @@
 				538282182EF131F70097EAD0 /* NavTopView.swift in Sources */,
 				531CD9072EEAAF6400FC22F7 /* PersistenceController.swift in Sources */,
 				531CD9092EEAAF6400FC22F7 /* ShareManager.swift in Sources */,
+				536D5B372F14DF2100030A0E /* ASRTaskManager.swift in Sources */,
 				534146992F10B1C90012436B /* VolcSigner.swift in Sources */,
 				5341469A2F10B1C90012436B /* AIApiManager.swift in Sources */,
 				531CD90A2EEAAF6400FC22F7 /* AppIconHelper.swift in Sources */,

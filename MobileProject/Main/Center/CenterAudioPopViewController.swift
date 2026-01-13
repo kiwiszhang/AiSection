@@ -46,148 +46,186 @@ class CenterAudioPopViewController: SuperViewController {
         let coreDataItem = try! RecordingItemStore.shared.fetchByFolderId(item00.recordFolderId!).first
 
         UploadRecord.shared.uploadFile(fileName: fileName,fileURL:URL(string: destURL.absoluteString)!) { [self] task in
-            if ((task.error == nil)) {
-                UtitilTools.broadcast(handleStatus: 2, handleContent: "开始处理录音，录音文件上传成功")
-                MyLog("Put object from file success.");
-                let output = task.result;
-                MyLog(output)
-                
-                let client = ByteDanceOpenSpeechClient(
-                    config: .init(
-                        appKey: XApiAppKey,
-                        accessKey: XApiAccessKey,
-                        resourceId: XApiResourceId
+            
+            let fileURL01 = "https://aisection.tos-cn-beijing.volces.com/" + fileName
+
+            let requestId = UUID().uuidString
+            Task {
+                do {
+                    let manager = ASRTaskManager(appID: "1509259405", token: "igffrg1qHo-kFpureDQq6lhic-rINsDM")
+                    let result = try await manager.transcribe(
+                        audioURL: fileURL01,
+                        format: "mp3",
+                        language: UserDefaultsTools.recordLangugasSelected
                     )
-                )
-                
-//               zh_cn
-//               en_us
-//                ja-JP
-                Task {
-                    do {
-                        let queryData = try await SubmitAndQueryHandle.shared.handleRecord(fileName: fileName, client: client,sourceLang: "zh_cn")
-                            if queryData.ErrCode == 0 && queryData.Status == "success"{
-                                UtitilTools.broadcast(handleStatus: 3, handleContent: "开始处理录音，录音文件转写成功")
-                                coreDataItem?.handleType = 1
-                                try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
-                                if let url = queryData.Result?.AudioTranscriptionFile {
-                                    do {
-//                                        var html = "<div><h1>转写</h1>"
+                    print("最终识别文本：", result.result?.utterances)
+                    
+                    let utterances = result.result?.utterances ?? []
+                    if !utterances.isEmpty {
+                        for item in utterances {
+                            var item01 = TranscriptionItemRequest(channel_id:Int16(item.additions?.channel_id ?? "0"), content: item.text, createTime: Int64(Date().timeIntervalSince1970), recordCreateTime: coreDataItem?.createTime, end_time: Double(item.end_time ?? 0), lang:" ", paragraph_id: 0, sentence_id: 0, speakerName:item.additions?.speaker, speakerType: Int16(item.additions?.speaker ?? "0"), start_time: Double(item.start_time ?? 0), words: "")
+                            try! TranscriptionItemStore.shared.addTranscriptionItem(item01)
+                        }
+                    }
+                    
+                    print("最终识别文本：", result.result?.text ?? "")
+
+                    if !kkStringIsEmpty(result.result?.text){
+                        let data = try await requestDoubaoAISummary(content: (result.result?.text)!)
+                        MyLog(data )
+                    }
+                    
+                    
+                } catch {
+                    print("❌ 提交失败:", error.localizedDescription)
+                }
+            }
+            
+        }
+        
+        
+//            if ((task.error == nil)) {
+//                UtitilTools.broadcast(handleStatus: 2, handleContent: "开始处理录音，录音文件上传成功")
+//                MyLog("Put object from file success.");
+//                let output = task.result;
+//                MyLog(output)
+//                
+//                let client = ByteDanceOpenSpeechClient(
+//                    config: .init(
+//                        appKey: XApiAppKey,
+//                        accessKey: XApiAccessKey,
+//                        resourceId: XApiResourceId
+//                    )
+//                )
+//                
+////               zh_cn
+////               en_us
+////                ja-JP
+//                Task {
+//                    do {
+//                        let queryData = try await SubmitAndQueryHandle.shared.handleRecord(fileName: fileName, client: client,sourceLang: "zh_cn")
+//                            if queryData.ErrCode == 0 && queryData.Status == "success"{
+//                                UtitilTools.broadcast(handleStatus: 3, handleContent: "开始处理录音，录音文件转写成功")
+//                                coreDataItem?.handleType = 1
+//                                try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
+//                                if let url = queryData.Result?.AudioTranscriptionFile {
+//                                    do {
+////                                        var html = "<div><h1>转写</h1>"
+////                                        let transcriptionData = try await client.fetchAudioTranscriptionData(from: url)
+////                                        let decoder = JSONDecoder()
+////                                        let sentences = try decoder.decode([AudioSentenceRaw].self, from: transcriptionData)
+////                                        if !sentences.isEmpty {
+////                                            for item in sentences {
+////                                                let content = item.content
+////                                                let speaker = item.speaker.name ?? "speaker"
+////                                                html += "<p>" + speaker + ": " + content + "</p>"
+////                                            }
+////                                        }
+////                                        html += "</div>"
+//                                        
 //                                        let transcriptionData = try await client.fetchAudioTranscriptionData(from: url)
+//                                        coreDataItem?.transcriptionHtml = ""
+//                                        coreDataItem!.transcriptionData = transcriptionData
+//                                        try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
+//
 //                                        let decoder = JSONDecoder()
 //                                        let sentences = try decoder.decode([AudioSentenceRaw].self, from: transcriptionData)
 //                                        if !sentences.isEmpty {
 //                                            for item in sentences {
-//                                                let content = item.content
-//                                                let speaker = item.speaker.name ?? "speaker"
-//                                                html += "<p>" + speaker + ": " + content + "</p>"
+//                                                var item01 = TranscriptionItemRequest(channel_id: -1, content: item.content, createTime: Int64(Date().timeIntervalSince1970), recordCreateTime: coreDataItem?.createTime, end_time: item.endTime, lang: item.lang, paragraph_id: Int16(item.paragraphID), sentence_id: Int16(item.sentenceID), speakerName: item.speaker.name ?? "", speakerType: Int16(item.speaker.type ?? 0), start_time: item.startTime, words: "")
+//                                                try! TranscriptionItemStore.shared.addTranscriptionItem(item01)
 //                                            }
 //                                        }
+//                                    } catch {
+//                                        MyLog("❌ Error: \(error.localizedDescription)")
+//                                    }
+//                                }
+//                                if let url = queryData.Result?.ChapterFile {
+//                                    do {
+//                                        let chapterSummaryData = try await client.fetchChapterFileData(from: url)
+//                                        coreDataItem!.chapterSummaryData = chapterSummaryData
+//                                        try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
+//                                    } catch {
+//                                        MyLog("❌ Error: \(error.localizedDescription)")
+//                                    }
+//                                }
+//                                
+//                                if let url = queryData.Result?.InformationExtractionFile {
+//                                    do {
+//                                        var html = "<div><h1>Action Item</h1>";
+//
+//                                        let informationData = try await client.fetchInformationExtractionFileData(from: url)
+//                                        
+//                                        let decoder = JSONDecoder()
+//                                        let sentences = try decoder.decode(InformationExtraction.self, from: informationData)
+//                                        MyLog("\(sentences.todoList)")
+//                                        html += "<p><ul>"
+//                                        if !sentences.todoList.isEmpty {
+//                                            for item in sentences.todoList {
+//                                                let content = item.content ?? ""
+//                                                html += "<li>" + content + "</li>"
+//                                            }
+//                                        }
+//                                        html += "</ul></p>"
 //                                        html += "</div>"
-                                        
-                                        let transcriptionData = try await client.fetchAudioTranscriptionData(from: url)
-                                        coreDataItem?.transcriptionHtml = ""
-                                        coreDataItem!.transcriptionData = transcriptionData
-                                        try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
-
-                                        let decoder = JSONDecoder()
-                                        let sentences = try decoder.decode([AudioSentenceRaw].self, from: transcriptionData)
-                                        if !sentences.isEmpty {
-                                            for item in sentences {
-                                                var item01 = TranscriptionItemRequest(channel_id: -1, content: item.content, createTime: Int64(Date().timeIntervalSince1970), recordCreateTime: coreDataItem?.createTime, end_time: item.endTime, lang: item.lang, paragraph_id: Int16(item.paragraphID), sentence_id: Int16(item.sentenceID), speakerName: item.speaker.name ?? "", speakerType: Int16(item.speaker.type ?? 0), start_time: item.startTime, words: "")
-                                                try! TranscriptionItemStore.shared.addTranscriptionItem(item01)
-                                            }
-                                        }
-                                    } catch {
-                                        MyLog("❌ Error: \(error.localizedDescription)")
-                                    }
-                                }
-                                if let url = queryData.Result?.ChapterFile {
-                                    do {
-                                        let chapterSummaryData = try await client.fetchChapterFileData(from: url)
-                                        coreDataItem!.chapterSummaryData = chapterSummaryData
-                                        try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
-                                    } catch {
-                                        MyLog("❌ Error: \(error.localizedDescription)")
-                                    }
-                                }
-                                
-                                if let url = queryData.Result?.InformationExtractionFile {
-                                    do {
-                                        var html = "<div><h1>Action Item</h1>";
-
-                                        let informationData = try await client.fetchInformationExtractionFileData(from: url)
-                                        
-                                        let decoder = JSONDecoder()
-                                        let sentences = try decoder.decode(InformationExtraction.self, from: informationData)
-                                        MyLog("\(sentences.todoList)")
-                                        html += "<p><ul>"
-                                        if !sentences.todoList.isEmpty {
-                                            for item in sentences.todoList {
-                                                let content = item.content ?? ""
-                                                html += "<li>" + content + "</li>"
-                                            }
-                                        }
-                                        html += "</ul></p>"
-                                        html += "</div>"
-                                        coreDataItem?.informationHtml = html
-                                        coreDataItem!.informationData = informationData
-                                        try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
-                                    } catch {
-                                        MyLog("❌ Error: \(error.localizedDescription)")
-                                    }
-                                }
-                                
-                                if let url = queryData.Result?.SummarizationFile {
-                                    do {
-                                        var html = "<div><h1>摘要</h1>";
-                                        let summarizationData = try await client.fetchSummarizationFileData(from: url)
-                                        let decoder = JSONDecoder()
-                                        let summarization = try decoder.decode(Summarization.self, from: summarizationData)
-                //                        let title = markdownToSimpleHTML(summarization.title)
-                                        let title = summarization.title.replacingOccurrences(of: "\n", with: "<br />")
-                                        html += title
-                                        html += "<br />"
-                //                        let paragraph = markdownToSimpleHTML(summarization.paragraph)
-                                        let paragraph = summarization.paragraph.replacingOccurrences(of: "\n", with: "<br />")
-                                        html += paragraph
-                                        html += "</div>"
-                                        coreDataItem?.summariztionHtml = html
-                                        coreDataItem!.summarizationData = summarizationData
-                                        try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
-                                        UtitilTools.broadcast(handleStatus: 4, handleContent: "处理录音，录音文件总结处理完成")
-                                    } catch {
-                                        MyLog("❌ Error: \(error.localizedDescription)")
-                                    }
-                                }
-                                
-                                if let url = queryData.Result?.TranslationFile {
-                                    do {
-                                        let translationData = try await client.fetchTranslationFileData(from: url)
-                                        coreDataItem!.translationData = translationData
-                                        try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
-                                    } catch {
-                                        MyLog("❌ Error: \(error.localizedDescription)")
-                                    }
-                                }
-                            }
-                        // 成功
-                    } catch {
-                        MyLog("❌ 外层收到错误：\(error)")
-                        coreDataItem?.handleType = -1
-                        try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
-                        UtitilTools.broadcast(handleStatus: 0, handleContent: "录音处理失败")
-                    }
-                }
-
-            } else {
-                coreDataItem?.handleType = -1
-                try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
-                UtitilTools.broadcast(handleStatus: 0, handleContent: "录音处理失败")
-                MyLog("Put object from file failed, error: \(String(describing: task.error))");
-            }
-        }
-        UtitilTools.broadcast(handleStatus: 1, handleContent: "开始处理录音，上传录音文件")
+//                                        coreDataItem?.informationHtml = html
+//                                        coreDataItem!.informationData = informationData
+//                                        try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
+//                                    } catch {
+//                                        MyLog("❌ Error: \(error.localizedDescription)")
+//                                    }
+//                                }
+//                                
+//                                if let url = queryData.Result?.SummarizationFile {
+//                                    do {
+//                                        var html = "<div><h1>摘要</h1>";
+//                                        let summarizationData = try await client.fetchSummarizationFileData(from: url)
+//                                        let decoder = JSONDecoder()
+//                                        let summarization = try decoder.decode(Summarization.self, from: summarizationData)
+//                //                        let title = markdownToSimpleHTML(summarization.title)
+//                                        let title = summarization.title.replacingOccurrences(of: "\n", with: "<br />")
+//                                        html += title
+//                                        html += "<br />"
+//                //                        let paragraph = markdownToSimpleHTML(summarization.paragraph)
+//                                        let paragraph = summarization.paragraph.replacingOccurrences(of: "\n", with: "<br />")
+//                                        html += paragraph
+//                                        html += "</div>"
+//                                        coreDataItem?.summariztionHtml = html
+//                                        coreDataItem!.summarizationData = summarizationData
+//                                        try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
+//                                        UtitilTools.broadcast(handleStatus: 4, handleContent: "处理录音，录音文件总结处理完成")
+//                                    } catch {
+//                                        MyLog("❌ Error: \(error.localizedDescription)")
+//                                    }
+//                                }
+//                                
+//                                if let url = queryData.Result?.TranslationFile {
+//                                    do {
+//                                        let translationData = try await client.fetchTranslationFileData(from: url)
+//                                        coreDataItem!.translationData = translationData
+//                                        try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
+//                                    } catch {
+//                                        MyLog("❌ Error: \(error.localizedDescription)")
+//                                    }
+//                                }
+//                            }
+//                        // 成功
+//                    } catch {
+//                        MyLog("❌ 外层收到错误：\(error)")
+//                        coreDataItem?.handleType = -1
+//                        try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
+//                        UtitilTools.broadcast(handleStatus: 0, handleContent: "录音处理失败")
+//                    }
+//                }
+//
+//            } else {
+//                coreDataItem?.handleType = -1
+//                try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
+//                UtitilTools.broadcast(handleStatus: 0, handleContent: "录音处理失败")
+//                MyLog("Put object from file failed, error: \(String(describing: task.error))");
+//            }
+//        }
+//        UtitilTools.broadcast(handleStatus: 1, handleContent: "开始处理录音，上传录音文件")
         coreDataItem?.handleType = 0
         try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
         let vc = CenterProcessingVC()
@@ -353,6 +391,7 @@ extension CenterAudioPopViewController:CenterLanguagePopVCDelegate {
         languageView.updateContent(content: seletedItem.subTitle)
         destLang = seletedItem.localize
         getBtnStatus(lang: destLang, fileName: fileN)
+        UserDefaultsTools.recordLangugasSelected = seletedItem.transLocalize
     }
 }
 

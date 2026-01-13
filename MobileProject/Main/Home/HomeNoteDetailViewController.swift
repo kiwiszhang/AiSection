@@ -7,6 +7,8 @@
 
 import UIKit
 
+let kSplitStringWithHtml = ",.678-12345,.;45623"
+
 struct DetailNoteItemModel {
     var noteName: String = ""
     var noteDetail: String = ""
@@ -194,9 +196,9 @@ extension HomeNoteDetailViewController:DetailNavTopViewDelegate {
         menu.show(at: CGPoint(x: kkScreenWidth - 16.w, y: 88.h)) { [self] index in
             MyLog("点击了第 \(index) 项")
             if index == 0 {
-                let informationHtml = recordingItem!.informationHtml ?? ""
-//                let summariztionHtml = recordingItem!.summariztionHtml ?? ""
-                self.navigationController?.pushViewController(EditorSummaryViewController(recordingItem: recordingItem!,html: informationHtml), animated: true)
+                let informationHtml = recordingItem!.todoJsonString ?? ""
+                let summariztionHtml = recordingItem!.chapterSummaryJsonString ?? ""
+                self.navigationController?.pushViewController(EditorSummaryViewController(recordingItem: recordingItem!,html: informationHtml + kSplitStringWithHtml + summariztionHtml), animated: true)
             }
             if index == 1 {
 //                let transcriptionHtml = recordingItem!.transcriptionHtml ?? ""
@@ -248,18 +250,18 @@ extension HomeNoteDetailViewController:CenterLanguagePopVCDelegate {
         UserDefaultsTools.transcritionSelected = seletedItem.title
         Task {
             do {
-                let informationHtml = recordingItem!.informationHtml ?? ""
+                let informationHtml = recordingItem!.todoJsonString ?? ""
                 let jsonString = try await requestDoubaoContent(html: informationHtml, targetLang: UserDefaultsTools.transcritionSelected)
                 let informationHtmlContent = try extractHTML(from: jsonString)
-                recordingItem!.informationHtml = informationHtmlContent
+                recordingItem!.todoJsonString = informationHtmlContent
                 MyLog("翻译结果: \(informationHtmlContent)")
 
                 
-                let summariztionHtml = recordingItem!.summariztionHtml ?? ""
+                let summariztionHtml = recordingItem!.chapterSummaryJsonString ?? ""
                 let jsonString01 = try await requestDoubaoContent(html: summariztionHtml, targetLang: UserDefaultsTools.transcritionSelected)
                 let summariztionHtmlContent = try extractHTML(from: jsonString01)
                 MyLog("翻译结果: \(summariztionHtmlContent)")
-                recordingItem!.summariztionHtml = summariztionHtmlContent
+                recordingItem!.chapterSummaryJsonString = summariztionHtmlContent
                 try RecordingItemStore.shared.updateRecordingItem(recordingItem!)
                 getData()
             } catch {
@@ -426,7 +428,7 @@ final class HTMLTableViewCell: SuperTableViewCell {
         
         if UserDefaultsTools.segmentIndex == 0 {
             if indexPath.row == 0 {
-                if let htmlStr = recordingItem.informationHtml {
+                if let htmlStr = recordingItem.todoJsonString,htmlStr.contains(str: "<div>") {
                     let processedHTML = HTMLPreprocessor.preprocess(htmlStr)
                      htmlLabel.attributedText = Self.makeAttributedHTML(
                          html: processedHTML,
@@ -435,38 +437,25 @@ final class HTMLTableViewCell: SuperTableViewCell {
                      )
                 }else{
                     var html = "<div><h1>Action Item</h1></div>";
-                    do {
-                        let decoder = JSONDecoder()
-                        let sentences = try decoder.decode(InformationExtraction.self, from: recordingItem.informationData!)
-                        MyLog("\(sentences.todoList)")
-                        html += "<p><ul>"
-                        if !sentences.todoList.isEmpty {
-                            for item in sentences.todoList {
-                                let content = item.content ?? ""
-                                html += "<li>" + content + "</li>"
-                            }
+                    let arr = [String].fromJSONString(recordingItem.todoJsonString!)
+                    html += "<p><ol>"
+                    if !arr!.isEmpty {
+                        for item in arr! {
+                            html += "<li>" + item + "</li>"
                         }
-                        html += "</ul></p>"
-//                        recordingItem.informationHtml = html
-//                        try! RecordingItemStore.shared.updateRecordingItem(recordingItem)
-
-                        let processedHTML = HTMLPreprocessor.preprocess(html)
-                        htmlLabel.attributedText = Self.makeAttributedHTML(
-                            html: processedHTML,
-                            font: UIFont.interBase(size: 14.h, weight: .regularBase),
-                            textColor: .black
-                        )
-                    } catch {
-                        MyLog("\(error)")
                     }
+                    html += "</ol></p>"
+                recordingItem.todoJsonString = html
+                try! RecordingItemStore.shared.updateRecordingItem(recordingItem)
+                    let processedHTML = HTMLPreprocessor.preprocess(html)
+                    htmlLabel.attributedText = Self.makeAttributedHTML(
+                        html: processedHTML,
+                        font: UIFont.interBase(size: 14.h, weight: .regularBase),
+                        textColor: .black
+                    )
                 }
             } else if indexPath.row == 1 {
-                if let htmlStr = recordingItem.summariztionHtml {
-                let htmlStr01 = "<div class=\"test\"><h1>Action Item</h1><p></p><ul><li>根据军哥整理的资料，确定AI会议、密码图片编辑和图片编辑等产品的UI设计风格和时间节点</li></ul><div><b>然后</b>就会被别人发现你在</div><div><b>今天晚上你来接她了</b></div><div><b><i>然后再把你爸爸啊<u>点的东西给他送过去嘛</u></i></b></div><div><i><u>然后就会被</u></i></div><div><u>今天晚上不去ba</u></div><div><ol><li><u>今天爸爸</u></li><li>今天我去…。</li><li>然后再给自己的</li></ol><div>你说了就可以啊嘛你不是</div></div><div><ul><li>今天晚上不去上课咯</li><li>吧姐姐姐姐姐姐了</li></ul></div></div><blockquote style=\"margin: 0px 0px 0px 40px;\"><div class=\"test\"><div><div>然后再来问他有多</div></div><h1>今天晚上不回家b</h1></div></blockquote><h2>姐姐旅途</h2><h3>我想去吃烤</h3><div>我<span style=\"color: rgb(97, 23, 255);\">是A自己在外面吃饭了</span></div><div><font color=\"#6117ff\"><span style=\"caret-color: rgb(97, 23, 255);\"><b><i><u>我想姐姐了开卡礼、你不爸</u></i></b></span></font></div>"
-
-//                    let processedHTML = HTMLPreprocessor.attributedString(from: htmlStr01, font: UIFont.italicSystemFont(ofSize: 14), textColor: .black)
-//                    htmlLabel.attributedText = processedHTML
-                    
+                if let htmlStr = recordingItem.chapterSummaryJsonString, htmlStr.contains(str: "<div>") {
                     let processedHTML = HTMLPreprocessor.preprocess(htmlStr)
                     htmlLabel.attributedText = Self.makeAttributedHTML(
                          html: processedHTML,
@@ -474,29 +463,31 @@ final class HTMLTableViewCell: SuperTableViewCell {
                          textColor: .black
                      )
                 }else{
-                    var html = "<div><h1>摘要</h1>";
-                    do {
-                        let decoder = JSONDecoder()
-                        if let sumData = recordingItem.summarizationData {
-                            let summarization = try decoder.decode(Summarization.self, from: sumData)
-    //                        let title = markdownToSimpleHTML(summarization.title)
-                            let title = summarization.title.replacingOccurrences(of: "\n", with: "<br />")
-                            html += title
-                            html += "<br />"
-                            let paragraph = summarization.paragraph.replacingOccurrences(of: "\n", with: "<br />")
-                            html += paragraph
+                    do{
+                        var html = "<div><h1>摘要</h1>";
+                        let data = recordingItem.chapterSummaryJsonString!.data(using: .utf8)!
+                        let chapters = try JSONDecoder().decode([ChapterSummary].self, from: data)
+                        if !chapters.isEmpty {
+                            for item in chapters {
+                                html += "<h3>" + item.title + "</h3>"
+                                html += "<ol>"
+                                for content in item.content {
+                                    html += "<li>" + content + "</li>"
+                                }
+                                html += "</ol>"
+                            }
                         }
-                        html += "</div>"
-//                        recordingItem.summariztionHtml = html
-//                        try! RecordingItemStore.shared.updateRecordingItem(recordingItem)
+                        html += "</div>";
+                        recordingItem.chapterSummaryJsonString = html
+                        try! RecordingItemStore.shared.updateRecordingItem(recordingItem)
                         let processedHTML = HTMLPreprocessor.preprocess(html)
                         htmlLabel.attributedText = Self.makeAttributedHTML(
                             html: processedHTML,
                             font: UIFont.interBase(size: 14.h, weight: .regularBase),
                             textColor: .black
                         )
-                    } catch {
-                        MyLog("\(error)")
+                    }catch{
+                        MyLog(error)
                     }
                 }
             }

@@ -12,12 +12,14 @@ import Localize_Swift
     var title: String = ""
     var subTitle: String = ""
     var localize: String = ""
+    var transLocalize: String = ""
     var isSelected: Bool = false
-    init(title: String,subTitle: String,localize: String,isSelected: Bool) {
+    init(title: String,subTitle: String,localize: String,isSelected: Bool,transLocalize:String) {
         self.title = title
         self.subTitle = subTitle
         self.localize = localize
         self.isSelected = isSelected
+        self.transLocalize = transLocalize
     }
 }
 
@@ -81,19 +83,19 @@ class CenterLanguagePopVC: SuperViewController {
         barView.updateSearchData(title: L10n.searchLanguage)
 
         let language = Localize.currentLanguage()
-        let item00 = LangItem(title: "English", subTitle: L10n.english, localize: "en", isSelected: false)
-        let item01 = LangItem(title: "Portuguese", subTitle: L10n.portuguese, localize: "pt", isSelected: false)
-        let item02 = LangItem(title: "Spanish", subTitle: L10n.spanish, localize: "es", isSelected: false)
-        let item03 = LangItem(title: "Türkçe", subTitle: L10n.turkish, localize: "tr", isSelected: false)
-        let item04 = LangItem(title: "Français", subTitle: L10n.french, localize: "fr", isSelected: false)
-        let item05 = LangItem(title: "Italiano", subTitle: L10n.italian, localize: "it", isSelected: false)
+        let item00 = LangItem(title: "English", subTitle: L10n.english, localize: "en", isSelected: false, transLocalize: "en-US")
+        let item01 = LangItem(title: "Portuguese", subTitle: L10n.portuguese, localize: "pt", isSelected: false, transLocalize: "pt-BR")
+        let item02 = LangItem(title: "Spanish", subTitle: L10n.spanish, localize: "es", isSelected: false, transLocalize: "es-MX")
+//        let item03 = LangItem(title: "Türkçe", subTitle: L10n.turkish, localize: "tr", isSelected: false)
+        let item04 = LangItem(title: "Français", subTitle: L10n.french, localize: "fr", isSelected: false, transLocalize: "fr-FR")
+//        let item05 = LangItem(title: "Italiano", subTitle: L10n.italian, localize: "it", isSelected: false)
 //        let item06 = LangItem(title: "Bahasa Indonesia", subTitle: L10n.indonesian, localize: "id", isSelected: false)
-        let item07 = LangItem(title: "日本語", subTitle: L10n.japanese, localize: "ja", isSelected: false)
+        let item07 = LangItem(title: "日本語", subTitle: L10n.japanese, localize: "ja", isSelected: false, transLocalize: "ja-JP")
 //        let item08 = LangItem(title: "العربية", subTitle: L10n.arabic, localize: "ar", isSelected: false)
-        let item09 = LangItem(title: "简体中文", subTitle: L10n.simplified, localize: "zh", isSelected: false)
-        let item10 = LangItem(title: "繁体中文", subTitle: L10n.traditional, localize: "zh-Hant", isSelected: false)
+        let item09 = LangItem(title: "简体中文", subTitle: L10n.simplified, localize: "zh", isSelected: false, transLocalize: "")
+//        let item10 = LangItem(title: "繁体中文", subTitle: L10n.traditional, localize: "zh-Hant", isSelected: false, transLocalize: "zh-Hant")
 //        sectionList = [item00,item01,item02,item03,item04,item05,item06,item07,item08,item09,item10]
-        itemList = [item00,item01,item02,item03,item04,item05,item07,item09,item10]
+        itemList = [item00,item01,item02,item04,item07,item09]
         itemList = itemList.map { item in
             let mutableItem = item
             mutableItem.isSelected = (item.localize == language)

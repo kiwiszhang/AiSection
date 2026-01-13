@@ -29,6 +29,11 @@ struct RecordingItemRequest {
     var informationHtml:String?
     var summariztionHtml:String?
     var transcriptionHtml:String?
+    
+    var chapterSummaryJsonString:String?
+    var summaryContentJsonString:String?
+    var summaryTitle:String?
+    var todoJsonString:String?
 
 }
 
@@ -80,6 +85,11 @@ final class RecordingItemStore {
             existing.informationHtml = req.informationHtml
             existing.summariztionHtml = req.summariztionHtml
             existing.transcriptionHtml = req.transcriptionHtml
+            
+            existing.todoJsonString = req.todoJsonString
+            existing.summaryTitle = req.summaryTitle
+            existing.summaryContentJsonString = req.summaryContentJsonString
+            existing.chapterSummaryJsonString = req.chapterSummaryJsonString
 
             existing.createTime = req.createTime ?? Int64.min
         } else {
@@ -103,6 +113,11 @@ final class RecordingItemStore {
             item.informationHtml = req.informationHtml
             item.summariztionHtml = req.summariztionHtml
             item.transcriptionHtml = req.transcriptionHtml
+
+            item.chapterSummaryJsonString = req.chapterSummaryJsonString
+            item.summaryContentJsonString = req.summaryContentJsonString
+            item.summaryTitle = req.summaryTitle
+            item.todoJsonString = req.todoJsonString
 
             item.createTime = req.createTime ?? Int64.min
         }
@@ -217,6 +232,18 @@ final class RecordingItemStore {
             }
             if let informationHtml = req.informationHtml {
                 item.informationHtml = informationHtml
+            }
+            if let chapterSummaryJsonString = req.chapterSummaryJsonString {
+                item.chapterSummaryJsonString = chapterSummaryJsonString
+            }
+            if let summaryContentJsonString = req.summaryContentJsonString {
+                item.summaryContentJsonString = summaryContentJsonString
+            }
+            if let summaryTitle = req.summaryTitle {
+                item.summaryTitle = summaryTitle
+            }
+            if let todoJsonString = req.todoJsonString {
+                item.todoJsonString = todoJsonString
             }
             try context.save()
         } else {

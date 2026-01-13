@@ -17,6 +17,7 @@
     </entity>
     <entity name="RecordingItem" representedClassName="RecordingItem" syncable="YES" codeGenerationType="class">
         <attribute name="chapterSummaryData" optional="YES" attributeType="Binary"/>
+        <attribute name="chapterSummaryJsonString" optional="YES" attributeType="String"/>
         <attribute name="createTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="handleType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -30,6 +31,9 @@
         <attribute name="recordType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="summarizationData" optional="YES" attributeType="Binary"/>
         <attribute name="summariztionHtml" optional="YES" attributeType="String"/>
+        <attribute name="summaryContentJsonString" optional="YES" attributeType="String"/>
+        <attribute name="summaryTitle" optional="YES" attributeType="String"/>
+        <attribute name="todoJsonString" optional="YES" attributeType="String"/>
         <attribute name="transcriptionData" optional="YES" attributeType="Binary"/>
         <attribute name="transcriptionHtml" optional="YES" attributeType="String"/>
         <attribute name="translationData" optional="YES" attributeType="Binary"/>

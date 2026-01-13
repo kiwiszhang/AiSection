@@ -18,6 +18,7 @@ class UserDefaultsTools {
         
         case langSelected = "UserDefaultsTypeKeys_langSelected"
         case transcritionSelected = "UserDefaultsTypeKeys_transcritionSelected"
+        case recordLangugasSelected = "UserDefaultsTypeKeys_recordLangugasSelected"
 
     }
     
@@ -39,6 +40,10 @@ class UserDefaultsTools {
     /// 设置页设置总结转写语言
     @UserDefault(UserDefaultsTypeKeys.transcritionSelected.rawValue, defaultValue: "en")
     static var transcritionSelected: String
+    
+    /// 语音识别语言设置
+    @UserDefault(UserDefaultsTypeKeys.recordLangugasSelected.rawValue, defaultValue: "en_US")
+    static var recordLangugasSelected: String
    
     
 
