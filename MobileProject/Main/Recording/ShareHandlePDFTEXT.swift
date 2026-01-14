@@ -159,4 +159,84 @@ final class ShareHandlePDFTEXT: NSObject {
 
     
 }
+import PDFKit
+import UIKit
 
+class PDFTextExporter {
+
+    static func export(
+        htmlContent: String,
+        fileName: String = "export.pdf",
+        pageSize: CGSize = CGSize(width: 595.2, height: 841.8), // A4 pt
+        margins: UIEdgeInsets = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24),
+        completion: @escaping (Result<URL, Error>) -> Void
+    ) {
+
+        guard let data = htmlContent.data(using: .utf8) else {
+            completion(.failure(NSError(domain: "PDFExporter", code: -1, userInfo: [NSLocalizedDescriptionKey: "HTML 编码失败"])))
+            return
+        }
+
+        let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
+            .documentType: NSAttributedString.DocumentType.html,
+            .characterEncoding: String.Encoding.utf8.rawValue
+        ]
+
+        let attributedString: NSAttributedString
+        do {
+            attributedString = try NSAttributedString(data: data, options: options, documentAttributes: nil)
+        } catch {
+            completion(.failure(error))
+            return
+        }
+
+        let pdfDocument = PDFDocument()
+        let pageRect = CGRect(origin: .zero, size: pageSize)
+        let printableRect = pageRect.inset(by: margins)
+
+        let textStorage = NSTextStorage(attributedString: attributedString)
+        let layoutManager = NSLayoutManager()
+        textStorage.addLayoutManager(layoutManager)
+
+        var pageIndex = 0
+        var glyphIndex = 0
+
+        while glyphIndex < layoutManager.numberOfGlyphs {
+
+            let textContainer = NSTextContainer(size: printableRect.size)
+            layoutManager.addTextContainer(textContainer)
+
+            // 获取当前页可显示的字形范围
+            let glyphRange = layoutManager.glyphRange(for: textContainer)
+            let charRange = layoutManager.characterRange(forGlyphRange: glyphRange, actualGlyphRange: nil)
+
+            // 创建页面渲染图片
+            let renderer = UIGraphicsImageRenderer(size: pageSize)
+            let img = renderer.image { ctx in
+                UIColor.white.setFill()
+                ctx.fill(pageRect)
+                ctx.cgContext.translateBy(x: printableRect.minX, y: printableRect.minY)
+
+                layoutManager.drawBackground(forGlyphRange: glyphRange, at: .zero)
+                layoutManager.drawGlyphs(forGlyphRange: glyphRange, at: .zero)
+            }
+
+            if let pdfPage = PDFPage(image: img) {
+                pdfDocument.insert(pdfPage, at: pageIndex)
+                pageIndex += 1
+            }
+
+            // 更新 glyphIndex 到下页开始位置
+            glyphIndex = NSMaxRange(glyphRange)
+        }
+
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let pdfURL = documentsDirectory.appendingPathComponent(fileName)
+
+        if pdfDocument.write(to: pdfURL) {
+            completion(.success(pdfURL))
+        } else {
+            completion(.failure(NSError(domain: "PDFExporter", code: -2, userInfo: [NSLocalizedDescriptionKey: "PDF 写入失败"])))
+        }
+    }
+}

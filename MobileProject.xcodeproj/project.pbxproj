@@ -105,6 +105,7 @@
 		534146B52F123C170012436B /* MeContactSupportPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146B42F123C170012436B /* MeContactSupportPopVC.swift */; };
 		536D5B372F14DF2100030A0E /* ASRTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D5B362F14DF2100030A0E /* ASRTaskManager.swift */; };
 		536D5BC92F16460100030A0E /* AudioProcessingPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D5BC82F16460100030A0E /* AudioProcessingPipeline.swift */; };
+		536D5BCF2F174AD400030A0E /* NDHTMLtoPDF.m in Sources */ = {isa = PBXBuildFile; fileRef = 536D5BCE2F174AD400030A0E /* NDHTMLtoPDF.m */; };
 		538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */; };
 		538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */; };
 		538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */; };
@@ -335,6 +336,8 @@
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
 		536D5B362F14DF2100030A0E /* ASRTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASRTaskManager.swift; sourceTree = "<group>"; };
 		536D5BC82F16460100030A0E /* AudioProcessingPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioProcessingPipeline.swift; sourceTree = "<group>"; };
+		536D5BCD2F174AD400030A0E /* NDHTMLtoPDF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NDHTMLtoPDF.h; sourceTree = "<group>"; };
+		536D5BCE2F174AD400030A0E /* NDHTMLtoPDF.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NDHTMLtoPDF.m; sourceTree = "<group>"; };
 		5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFloderPopViewController.swift; sourceTree = "<group>"; };
 		538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddNotePopViewController.swift; sourceTree = "<group>"; };
 		538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddFloderPopVC.swift; sourceTree = "<group>"; };
@@ -502,6 +505,8 @@
 		388FB08B2DA17037006C52AC /* MobileProject */ = {
 			isa = PBXGroup;
 			children = (
+				536D5BCD2F174AD400030A0E /* NDHTMLtoPDF.h */,
+				536D5BCE2F174AD400030A0E /* NDHTMLtoPDF.m */,
 				53F68EF82F0BB5A40051FFE6 /* ZSSRichTextEditor */,
 				53FFAF032EFBD41B00A0C1EF /* VeTOSiOSSDK.framework */,
 				531CD9152EEBAE7900FC22F7 /* ABTest */,
@@ -1316,6 +1321,7 @@
 				53FFAF022EFA90B800A0C1EF /* RecorderManager.swift in Sources */,
 				5341468C2F0F5FA60012436B /* ChatHelloView.swift in Sources */,
 				531CD8FE2EEAAF6400FC22F7 /* EventReport.swift in Sources */,
+				536D5BCF2F174AD400030A0E /* NDHTMLtoPDF.m in Sources */,
 				53F68D9B2F0273520051FFE6 /* HomeFolderMorePopVC.swift in Sources */,
 				534146922F10A1F60012436B /* ChatHistoryNavTopView.swift in Sources */,
 				53FFAEF62EFA3C1200A0C1EF /* CenterRecordPopViewController.swift in Sources */,

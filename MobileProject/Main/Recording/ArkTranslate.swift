@@ -29,6 +29,10 @@ struct CompletionResponse: Decodable {
         let content: String
     }
 }
+struct ContentModel: Decodable {
+    let content: String
+}
+
 func requestDoubaoContent(html:String,targetLang:String) async throws -> String {
     let url = URL(string: "https://ark.cn-beijing.volces.com/api/v3/chat/completions")!
     var request = URLRequest(url: url)
@@ -56,8 +60,20 @@ func requestDoubaoContent(html:String,targetLang:String) async throws -> String 
                       code: -1,
                       userInfo: [NSLocalizedDescriptionKey: "content 不存在"])
     }
-    return content
+    
+    if let data = content.data(using: .utf8) {
+        do {
+            let model = try JSONDecoder().decode(ContentModel.self, from: data)
+            return model.content
+        } catch {
+            print("解析失败:", error)
+            return ""
+        }
+    }else{
+        return ""
+    }
 }
+
 
 func requestDoubaoAISummary(content:String) async throws -> SummaryResult {
     let url = URL(string: "https://ark.cn-beijing.volces.com/api/v3/chat/completions")!

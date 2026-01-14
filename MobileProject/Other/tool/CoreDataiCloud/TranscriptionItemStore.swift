@@ -188,7 +188,7 @@ final class TranscriptionItemStore {
 //            NSPredicate(format: "chatType == %@", NSNumber(value: chatType))
 //        )
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createTime", ascending: true)] // 可选日期倒序
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "start_time", ascending: true)] // 可选日期倒序
         return try context.fetch(fetchRequest)
     }
 }

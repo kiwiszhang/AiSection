@@ -90,66 +90,81 @@ extension HomeSharePopViewController: UITableViewDelegate, UITableViewDataSource
         cell.configure(with: itemList[indexPath.row],isLast: isLast)
         return cell
     }
+    
+    func exportPDF(html: String,fileName:String) {
+        PDFTextExporter.export(htmlContent: html,fileName:fileName) { result in
+            switch result {
+            case .success(let url):
+                print("PDF生成成功: \(url)")
+                DispatchQueue.main.async {
+                        let vc = UIActivityViewController(
+                            activityItems: [url],
+                            applicationActivities: nil
+                        )
+                    self.present(vc, animated: true)
+                }
+            case .failure(let error):
+                print("生成失败: \(error)")
+            }
+        }
+    }
+    
+    func htmlToPlainTextPreserveLineBreaks(_ html: String) -> String {
+        var text = html
+
+        // 1️⃣ 将换行相关的标签替换为 \n
+        let breakTags = ["<br>", "<br/>", "<br />", "<p>", "</p>", "<li>", "</li>", "<h1>", "</h1>", "<h2>", "</h2>", "<h3>", "</h3>", "<h4>", "</h4>", "<h5>", "</h5>", "<h6>", "</h6>"]
+        for tag in breakTags {
+            text = text.replacingOccurrences(of: tag, with: "\n", options: .caseInsensitive, range: nil)
+        }
+
+        // 2️⃣ 删除所有其他 HTML 标签
+        text = text.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+
+        // 3️⃣ 替换连续多个换行符为两个换行符（防止太多空行）
+        let multipleNewlinesRegex = try! NSRegularExpression(pattern: "\n{2,}", options: [])
+        text = multipleNewlinesRegex.stringByReplacingMatches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count), withTemplate: "\n\n")
+
+        // 4️⃣ 去掉前后空格
+        text = text.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        return text
+    }
+
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = itemList[indexPath.row]
         MyLog(item.itemName)
         if indexPath.row == 0 {
-            do {
-                if let data = recordingItem?.summarizationData {
-//                    let decoder = JSONDecoder()
-//                    let sentences = try decoder.decode(Summarization.self, from: data)
-//                    MyLog(sentences)
-//                    if let pdfURL = ShareHandlePDFTEXT.shared.generateTextPDF(title: sentences.title,pdfTitle:(recordingItem?.recordName)! + " " + L10n.summarize, body: sentences.paragraph) {
-//                        MyLog("✅ PDF summarizationData 导出成功: \(String(describing: pdfURL))")
-//                        let activityVC = UIActivityViewController(activityItems: [pdfURL as Any], applicationActivities: nil)
-//                        present(activityVC, animated: true)
-//                    }
-                }else{
-                    MBProgressHUD.showMessage(L10n.noSummarization)
-                }
-            } catch {
-                MyLog("❌ Error: \(error.localizedDescription)")
+            if let data = recordingItem?.todoJsonString {
+                let html = data + (recordingItem?.chapterSummaryJsonString ?? " ")
+                exportPDF(html: html,fileName: (recordingItem?.recordName)! + "Summary.pdf")
+            }else{
                 MBProgressHUD.showMessage(L10n.noSummarization)
             }
-            
         }else if indexPath.row == 1 {
-            do {
-                if let data = recordingItem?.summarizationData {
-//                    let decoder = JSONDecoder()
-//                    let sentences = try decoder.decode(Summarization.self, from: data)
-//                    MyLog(sentences)
-//                    let content = sentences.title + sentences.paragraph
-//                    UIPasteboard.general.string = content
-//                    showAlertViewWithOutCancelButton(title: "",message: L10n.copyTopastBorad, confirmButtonTitle:L10n.ok) { [self] confirmed in
-//                        dismissAction?()
-//                    }
-                }else{
-                    MBProgressHUD.showMessage(L10n.noSummarization)
+            if let data = recordingItem?.todoJsonString {
+                var content = data + (recordingItem?.chapterSummaryJsonString ?? " ")
+                content = htmlToPlainTextPreserveLineBreaks(content)
+                UIPasteboard.general.string = content
+                showAlertViewWithOutCancelButton(title: "",message: L10n.copyTopastBorad, confirmButtonTitle:L10n.ok) { [self] confirmed in
+                    dismissAction?()
                 }
-            } catch {
-                MyLog("❌ Error: \(error.localizedDescription)")
+            }else{
                 MBProgressHUD.showMessage(L10n.noSummarization)
             }
         }else if indexPath.row == 2 {
             do {
-                if let data = recordingItem?.transcriptionData {
-//                    let decoder = JSONDecoder()
-//                    let sentences = try decoder.decode([AudioSentenceRaw].self, from: data)
-//                    MyLog(sentences)
-//                    
-//                    var content = ""
-//                    for sentItem in sentences {
-//                        let speaker = sentItem.speaker.name ?? ""
-//                        content += speaker + ": " + sentItem.content + "\n"
-//                    }
-//                    
-//                    if let pdfURL = ShareHandlePDFTEXT.shared.generateTextPDF(title: L10n.transcription,pdfTitle:(recordingItem?.recordName)! + " " + L10n.transcription, body: content) {
-//                        MyLog("✅ PDF Transcription 导出成功: \(String(describing: pdfURL))")
-//                        let activityVC = UIActivityViewController(activityItems: [pdfURL as Any], applicationActivities: nil)
-//                        present(activityVC, animated: true)
-//                    }
-                }else{
+                let transArr = try TranscriptionItemStore.shared.fetchTranscriptionItemWithRecordCreateTime(createTime: recordingItem!.createTime)
+                if transArr.isEmpty {
                     MBProgressHUD.showMessage(L10n.noTranscription)
+                }else{
+                    var html = "<ul>"
+                    for item in transArr {
+                        html += "<li>" + (item.speakerName ?? "") + ":" + (item.content ?? "") + "</li>"
+                    }
+                    html += "</ul>"
+                    exportPDF(html: html,fileName: (recordingItem?.recordName)! + "Transcription.pdf")
                 }
             } catch {
                 MyLog("❌ Error: \(error.localizedDescription)")
@@ -157,23 +172,19 @@ extension HomeSharePopViewController: UITableViewDelegate, UITableViewDataSource
             }
         }else if indexPath.row == 3 {
             do {
-//                if let data = recordingItem?.transcriptionData {
-//                    let decoder = JSONDecoder()
-//                    let sentences = try decoder.decode([AudioSentenceRaw].self, from: data)
-//                    MyLog(sentences)
-//                    
-//                    var content = ""
-//                    for sentItem in sentences {
-//                        let speaker = sentItem.speaker.name ?? ""
-//                        content += speaker + ": " + sentItem.content + "\n"
-//                    }
-//                    UIPasteboard.general.string = content
-//                    showAlertViewWithOutCancelButton(title: "",message: L10n.copyTopastBorad, confirmButtonTitle:L10n.ok) { [self] confirmed in
-//                        dismissAction?()
-//                    }
-//                }else{
-//                    MBProgressHUD.showMessage(L10n.noTranscription)
-//                }
+                let transArr = try TranscriptionItemStore.shared.fetchTranscriptionItemWithRecordCreateTime(createTime: recordingItem!.createTime)
+                if transArr.isEmpty {
+                    MBProgressHUD.showMessage(L10n.noTranscription)
+                }else{
+                    var content = ""
+                    for item in transArr {
+                        content += (item.content ?? "") + "\n"
+                    }
+                    UIPasteboard.general.string = content
+                    showAlertViewWithOutCancelButton(title: "",message: L10n.copyTopastBorad, confirmButtonTitle:L10n.ok) { [self] confirmed in
+                        dismissAction?()
+                    }
+                }
             } catch {
                 MyLog("❌ Error: \(error.localizedDescription)")
                 MBProgressHUD.showMessage(L10n.noTranscription)
