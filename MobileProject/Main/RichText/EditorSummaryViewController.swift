@@ -18,7 +18,7 @@ class EditorSummaryViewController: ZSSRichTextEditor {
         
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         navigationController?.delegate = self
-
+        editorView.becomeFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -51,7 +51,7 @@ class EditorSummaryViewController: ZSSRichTextEditor {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        dismissKeyboard()
+        editorView.becomeFirstResponder()
     }
     
     deinit {
@@ -80,6 +80,7 @@ class EditorSummaryViewController: ZSSRichTextEditor {
             ZSSRichTextEditorToolbarItalic, // 斜体
             ZSSRichTextEditorToolbarUnderline, // 下划线
             ZSSRichTextEditorToolbarUndo, // 撤回
+            ZSSRichTextEditorToolbarRedo,
             ZSSRichTextEditorToolbarOrderedList,// 有序列表
             ZSSRichTextEditorToolbarUnorderedList,//无序列表
             ZSSRichTextEditorToolbarIndent,// 缩进

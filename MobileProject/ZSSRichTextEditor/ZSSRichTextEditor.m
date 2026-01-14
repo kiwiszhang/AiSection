@@ -14,6 +14,15 @@
 #import "HRColorUtil.h"
 #import "ZSSTextView.h"
 
+@interface CustomWKWebView : WKWebView
+@end
+
+@implementation CustomWKWebView
+- (UIView *)inputAccessoryView {
+    return nil; // 返回 nil 就隐藏键盘上方 toolbar
+}
+@end
+
 @import JavaScriptCore;
 
 
@@ -374,7 +383,7 @@ static CGFloat kDefaultScale = 0.5;
     
 
     
-    self.editorView = [[WKWebView alloc] initWithFrame:frame
+    self.editorView = [[CustomWKWebView alloc] initWithFrame:frame
                                          configuration: config];
 
     
