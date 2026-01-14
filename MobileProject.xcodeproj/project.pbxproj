@@ -100,13 +100,11 @@
 		5341468E2F0F7DFB0012436B /* ArkChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341468D2F0F7DFB0012436B /* ArkChat.swift */; };
 		534146902F0FB6CE0012436B /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341468F2F0FB6CE0012436B /* ChatViewController.swift */; };
 		534146922F10A1F60012436B /* ChatHistoryNavTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146912F10A1F60012436B /* ChatHistoryNavTopView.swift */; };
-		534146992F10B1C90012436B /* VolcSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146982F10B1C90012436B /* VolcSigner.swift */; };
-		5341469A2F10B1C90012436B /* AIApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146972F10B1C90012436B /* AIApiManager.swift */; };
 		534146AF2F11DF840012436B /* TranscriptionItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146AE2F11DF840012436B /* TranscriptionItemStore.swift */; };
 		534146B32F1203EE0012436B /* ZSSclearstyle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 534146B22F1203EE0012436B /* ZSSclearstyle@3x.png */; };
 		534146B52F123C170012436B /* MeContactSupportPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146B42F123C170012436B /* MeContactSupportPopVC.swift */; };
-		536D5B352F148E4200030A0E /* ArkRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D5B342F148E4200030A0E /* ArkRecord.swift */; };
 		536D5B372F14DF2100030A0E /* ASRTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D5B362F14DF2100030A0E /* ASRTaskManager.swift */; };
+		536D5BC92F16460100030A0E /* AudioProcessingPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D5BC82F16460100030A0E /* AudioProcessingPipeline.swift */; };
 		538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */; };
 		538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */; };
 		538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */; };
@@ -212,7 +210,6 @@
 		53FFAEF82EFA626A00A0C1EF /* CenterProcessingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAEF72EFA626A00A0C1EF /* CenterProcessingVC.swift */; };
 		53FFAF022EFA90B800A0C1EF /* RecorderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAF012EFA90B800A0C1EF /* RecorderManager.swift */; };
 		53FFAF042EFBD41B00A0C1EF /* VeTOSiOSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53FFAF032EFBD41B00A0C1EF /* VeTOSiOSSDK.framework */; };
-		53FFAF062EFE21D200A0C1EF /* ByteDanceOpenSpeechClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAF052EFE21D200A0C1EF /* ByteDanceOpenSpeechClient.swift */; };
 		53FFAF082EFE6D5200A0C1EF /* UploadRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAF072EFE6D5200A0C1EF /* UploadRecord.swift */; };
 /* End PBXBuildFile section */
 
@@ -332,14 +329,12 @@
 		5341468D2F0F7DFB0012436B /* ArkChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkChat.swift; sourceTree = "<group>"; };
 		5341468F2F0FB6CE0012436B /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		534146912F10A1F60012436B /* ChatHistoryNavTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryNavTopView.swift; sourceTree = "<group>"; };
-		534146972F10B1C90012436B /* AIApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIApiManager.swift; sourceTree = "<group>"; };
-		534146982F10B1C90012436B /* VolcSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolcSigner.swift; sourceTree = "<group>"; };
 		534146AE2F11DF840012436B /* TranscriptionItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionItemStore.swift; sourceTree = "<group>"; };
 		534146B22F1203EE0012436B /* ZSSclearstyle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSclearstyle@3x.png"; sourceTree = "<group>"; };
 		534146B42F123C170012436B /* MeContactSupportPopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeContactSupportPopVC.swift; sourceTree = "<group>"; };
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
-		536D5B342F148E4200030A0E /* ArkRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArkRecord.swift; sourceTree = "<group>"; };
 		536D5B362F14DF2100030A0E /* ASRTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASRTaskManager.swift; sourceTree = "<group>"; };
+		536D5BC82F16460100030A0E /* AudioProcessingPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioProcessingPipeline.swift; sourceTree = "<group>"; };
 		5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFloderPopViewController.swift; sourceTree = "<group>"; };
 		538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddNotePopViewController.swift; sourceTree = "<group>"; };
 		538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddFloderPopVC.swift; sourceTree = "<group>"; };
@@ -461,7 +456,6 @@
 		53FFAEF72EFA626A00A0C1EF /* CenterProcessingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterProcessingVC.swift; sourceTree = "<group>"; };
 		53FFAF012EFA90B800A0C1EF /* RecorderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderManager.swift; sourceTree = "<group>"; };
 		53FFAF032EFBD41B00A0C1EF /* VeTOSiOSSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VeTOSiOSSDK.framework; sourceTree = "<group>"; };
-		53FFAF052EFE21D200A0C1EF /* ByteDanceOpenSpeechClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByteDanceOpenSpeechClient.swift; sourceTree = "<group>"; };
 		53FFAF072EFE6D5200A0C1EF /* UploadRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadRecord.swift; sourceTree = "<group>"; };
 		7041B3847FAF0D646FE4C66C /* Pods_ShareExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79A652786741A9805F07CCDE /* Pods-MobileProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileProject.debug.xcconfig"; path = "Target Support Files/Pods-MobileProject/Pods-MobileProject.debug.xcconfig"; sourceTree = "<group>"; };
@@ -794,8 +788,6 @@
 		5341467E2F0E51330012436B /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				534146972F10B1C90012436B /* AIApiManager.swift */,
-				534146982F10B1C90012436B /* VolcSigner.swift */,
 				5341467F2F0E51570012436B /* ChatHistoryViewController.swift */,
 				5341468F2F0FB6CE0012436B /* ChatViewController.swift */,
 			);
@@ -953,8 +945,7 @@
 				53F68DAB2F03BEDD0051FFE6 /* AudioPlaybackManager.swift */,
 				53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */,
 				53FFAF072EFE6D5200A0C1EF /* UploadRecord.swift */,
-				53FFAF052EFE21D200A0C1EF /* ByteDanceOpenSpeechClient.swift */,
-				536D5B342F148E4200030A0E /* ArkRecord.swift */,
+				536D5BC82F16460100030A0E /* AudioProcessingPipeline.swift */,
 				536D5B362F14DF2100030A0E /* ASRTaskManager.swift */,
 			);
 			path = Recording;
@@ -1301,7 +1292,6 @@
 				538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */,
 				53F68D9F2F0288420051FFE6 /* HomeMoveoutPopVC.swift in Sources */,
 				53FFAEF02EFA365A00A0C1EF /* CenterLanguagePopVC.swift in Sources */,
-				53FFAF062EFE21D200A0C1EF /* ByteDanceOpenSpeechClient.swift in Sources */,
 				534146412F0CA0430012436B /* EditorSummaryViewController.swift in Sources */,
 				531CD8D32EEAAB6E00FC22F7 /* GlobalImports.swift in Sources */,
 				531CD92F2EECF8BC00FC22F7 /* PopTopView.swift in Sources */,
@@ -1309,7 +1299,6 @@
 				53F68F492F0BB5A40051FFE6 /* HRColorUtil.m in Sources */,
 				53F68F4A2F0BB5A40051FFE6 /* ZSSBarButtonItem.m in Sources */,
 				53F68F4B2F0BB5A40051FFE6 /* ZSSRichTextEditor.m in Sources */,
-				536D5B352F148E4200030A0E /* ArkRecord.swift in Sources */,
 				53F68F4C2F0BB5A40051FFE6 /* HRColorCursor.m in Sources */,
 				53F68F4D2F0BB5A40051FFE6 /* CYRTextView.m in Sources */,
 				53F68F4E2F0BB5A40051FFE6 /* ZSSTextView.m in Sources */,
@@ -1342,10 +1331,9 @@
 				531CD9072EEAAF6400FC22F7 /* PersistenceController.swift in Sources */,
 				531CD9092EEAAF6400FC22F7 /* ShareManager.swift in Sources */,
 				536D5B372F14DF2100030A0E /* ASRTaskManager.swift in Sources */,
-				534146992F10B1C90012436B /* VolcSigner.swift in Sources */,
-				5341469A2F10B1C90012436B /* AIApiManager.swift in Sources */,
 				531CD90A2EEAAF6400FC22F7 /* AppIconHelper.swift in Sources */,
 				538282242EF23C720097EAD0 /* DetailSegmentView.swift in Sources */,
+				536D5BC92F16460100030A0E /* AudioProcessingPipeline.swift in Sources */,
 				539F2D4C2DA921030030DA8F /* WebViewController.swift in Sources */,
 				388FB08F2DA17037006C52AC /* SceneDelegate.swift in Sources */,
 			);

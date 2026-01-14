@@ -30,6 +30,28 @@ final class TranscriptionItemStore {
         self.context = context
     }
     
+    func addTranscriptionItems(_ items: [TranscriptionItemRequest]) throws {
+        guard !items.isEmpty else { return }
+
+        let context = PersistenceController.shared.newBackgroundContext()
+
+        try context.performAndWait {
+            for item in items {
+                let entity = TranscriptionItem(context: context)
+                entity.channel_id = item.channel_id ?? 0
+                entity.content = item.content
+                entity.createTime = item.createTime ?? Int64(Date().timeIntervalSince1970)
+                entity.recordCreateTime = item.recordCreateTime ?? 0
+                entity.start_time = item.start_time ?? 0
+                entity.end_time = item.end_time ?? 0
+                entity.speakerName = item.speakerName
+                entity.speakerType = item.speakerType ?? 0
+                entity.lang = item.lang
+                entity.words = item.words
+            }
+            try context.save()
+        }
+    }
     /// 新增TranscriptionItem
     func addTranscriptionItem(_ req: TranscriptionItemRequest) throws {
         let item = TranscriptionItem(context: context)
@@ -169,4 +191,9 @@ final class TranscriptionItemStore {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createTime", ascending: true)] // 可选日期倒序
         return try context.fetch(fetchRequest)
     }
+}
+
+extension TranscriptionItemStore {
+
+    
 }

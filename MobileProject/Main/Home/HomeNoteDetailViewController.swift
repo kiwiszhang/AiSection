@@ -259,16 +259,14 @@ extension HomeNoteDetailViewController:CenterLanguagePopVCDelegate {
                     html: informationHtml,
                     targetLang: UserDefaultsTools.transcritionSelected
                 )
-                let informationHtmlContent = try extractHTML(from: jsonString)
-                recordingItem?.todoJsonString = informationHtmlContent
+                recordingItem?.todoJsonString = jsonString
 
                 let summariztionHtml = recordingItem?.chapterSummaryJsonString ?? ""
                 let jsonString01 = try await requestDoubaoContent(
                     html: summariztionHtml,
                     targetLang: UserDefaultsTools.transcritionSelected
                 )
-                let summariztionHtmlContent = try extractHTML(from: jsonString01)
-                recordingItem?.chapterSummaryJsonString = summariztionHtmlContent
+                recordingItem?.chapterSummaryJsonString = jsonString01
 
                 try RecordingItemStore.shared.updateRecordingItem(recordingItem!)
                 getData()

@@ -96,14 +96,14 @@ extension HomeSharePopViewController: UITableViewDelegate, UITableViewDataSource
         if indexPath.row == 0 {
             do {
                 if let data = recordingItem?.summarizationData {
-                    let decoder = JSONDecoder()
-                    let sentences = try decoder.decode(Summarization.self, from: data)
-                    MyLog(sentences)
-                    if let pdfURL = ShareHandlePDFTEXT.shared.generateTextPDF(title: sentences.title,pdfTitle:(recordingItem?.recordName)! + " " + L10n.summarize, body: sentences.paragraph) {
-                        MyLog("✅ PDF summarizationData 导出成功: \(String(describing: pdfURL))")
-                        let activityVC = UIActivityViewController(activityItems: [pdfURL as Any], applicationActivities: nil)
-                        present(activityVC, animated: true)
-                    }
+//                    let decoder = JSONDecoder()
+//                    let sentences = try decoder.decode(Summarization.self, from: data)
+//                    MyLog(sentences)
+//                    if let pdfURL = ShareHandlePDFTEXT.shared.generateTextPDF(title: sentences.title,pdfTitle:(recordingItem?.recordName)! + " " + L10n.summarize, body: sentences.paragraph) {
+//                        MyLog("✅ PDF summarizationData 导出成功: \(String(describing: pdfURL))")
+//                        let activityVC = UIActivityViewController(activityItems: [pdfURL as Any], applicationActivities: nil)
+//                        present(activityVC, animated: true)
+//                    }
                 }else{
                     MBProgressHUD.showMessage(L10n.noSummarization)
                 }
@@ -115,14 +115,14 @@ extension HomeSharePopViewController: UITableViewDelegate, UITableViewDataSource
         }else if indexPath.row == 1 {
             do {
                 if let data = recordingItem?.summarizationData {
-                    let decoder = JSONDecoder()
-                    let sentences = try decoder.decode(Summarization.self, from: data)
-                    MyLog(sentences)
-                    let content = sentences.title + sentences.paragraph
-                    UIPasteboard.general.string = content
-                    showAlertViewWithOutCancelButton(title: "",message: L10n.copyTopastBorad, confirmButtonTitle:L10n.ok) { [self] confirmed in
-                        dismissAction?()
-                    }
+//                    let decoder = JSONDecoder()
+//                    let sentences = try decoder.decode(Summarization.self, from: data)
+//                    MyLog(sentences)
+//                    let content = sentences.title + sentences.paragraph
+//                    UIPasteboard.general.string = content
+//                    showAlertViewWithOutCancelButton(title: "",message: L10n.copyTopastBorad, confirmButtonTitle:L10n.ok) { [self] confirmed in
+//                        dismissAction?()
+//                    }
                 }else{
                     MBProgressHUD.showMessage(L10n.noSummarization)
                 }
@@ -133,21 +133,21 @@ extension HomeSharePopViewController: UITableViewDelegate, UITableViewDataSource
         }else if indexPath.row == 2 {
             do {
                 if let data = recordingItem?.transcriptionData {
-                    let decoder = JSONDecoder()
-                    let sentences = try decoder.decode([AudioSentenceRaw].self, from: data)
-                    MyLog(sentences)
-                    
-                    var content = ""
-                    for sentItem in sentences {
-                        let speaker = sentItem.speaker.name ?? ""
-                        content += speaker + ": " + sentItem.content + "\n"
-                    }
-                    
-                    if let pdfURL = ShareHandlePDFTEXT.shared.generateTextPDF(title: L10n.transcription,pdfTitle:(recordingItem?.recordName)! + " " + L10n.transcription, body: content) {
-                        MyLog("✅ PDF Transcription 导出成功: \(String(describing: pdfURL))")
-                        let activityVC = UIActivityViewController(activityItems: [pdfURL as Any], applicationActivities: nil)
-                        present(activityVC, animated: true)
-                    }
+//                    let decoder = JSONDecoder()
+//                    let sentences = try decoder.decode([AudioSentenceRaw].self, from: data)
+//                    MyLog(sentences)
+//                    
+//                    var content = ""
+//                    for sentItem in sentences {
+//                        let speaker = sentItem.speaker.name ?? ""
+//                        content += speaker + ": " + sentItem.content + "\n"
+//                    }
+//                    
+//                    if let pdfURL = ShareHandlePDFTEXT.shared.generateTextPDF(title: L10n.transcription,pdfTitle:(recordingItem?.recordName)! + " " + L10n.transcription, body: content) {
+//                        MyLog("✅ PDF Transcription 导出成功: \(String(describing: pdfURL))")
+//                        let activityVC = UIActivityViewController(activityItems: [pdfURL as Any], applicationActivities: nil)
+//                        present(activityVC, animated: true)
+//                    }
                 }else{
                     MBProgressHUD.showMessage(L10n.noTranscription)
                 }
@@ -157,23 +157,23 @@ extension HomeSharePopViewController: UITableViewDelegate, UITableViewDataSource
             }
         }else if indexPath.row == 3 {
             do {
-                if let data = recordingItem?.transcriptionData {
-                    let decoder = JSONDecoder()
-                    let sentences = try decoder.decode([AudioSentenceRaw].self, from: data)
-                    MyLog(sentences)
-                    
-                    var content = ""
-                    for sentItem in sentences {
-                        let speaker = sentItem.speaker.name ?? ""
-                        content += speaker + ": " + sentItem.content + "\n"
-                    }
-                    UIPasteboard.general.string = content
-                    showAlertViewWithOutCancelButton(title: "",message: L10n.copyTopastBorad, confirmButtonTitle:L10n.ok) { [self] confirmed in
-                        dismissAction?()
-                    }
-                }else{
-                    MBProgressHUD.showMessage(L10n.noTranscription)
-                }
+//                if let data = recordingItem?.transcriptionData {
+//                    let decoder = JSONDecoder()
+//                    let sentences = try decoder.decode([AudioSentenceRaw].self, from: data)
+//                    MyLog(sentences)
+//                    
+//                    var content = ""
+//                    for sentItem in sentences {
+//                        let speaker = sentItem.speaker.name ?? ""
+//                        content += speaker + ": " + sentItem.content + "\n"
+//                    }
+//                    UIPasteboard.general.string = content
+//                    showAlertViewWithOutCancelButton(title: "",message: L10n.copyTopastBorad, confirmButtonTitle:L10n.ok) { [self] confirmed in
+//                        dismissAction?()
+//                    }
+//                }else{
+//                    MBProgressHUD.showMessage(L10n.noTranscription)
+//                }
             } catch {
                 MyLog("❌ Error: \(error.localizedDescription)")
                 MBProgressHUD.showMessage(L10n.noTranscription)

@@ -47,35 +47,11 @@ class EditorTranscriptViewController: ZSSRichTextEditor {
         )
 
         title = "Transcript"
-        
-        if kkStringIsEmpty(html) {
-            var html = "<div class=\"test\">";
-            do {
-                if let data = recordingItem!.transcriptionData {
-                    let decoder = JSONDecoder()
-                    let sentences = try decoder.decode([AudioSentenceRaw].self, from: data)
-                    MyLog(sentences)
-                    if !sentences.isEmpty {
-                        for item in sentences {
-                            let content = item.content
-                            let speaker = item.speaker.name ?? "speaker"
-                            html += "<p>" + speaker + ": " + content + "</p>"
-                        }
-                        setHTML(html)
-                    }
-                }
-            } catch {
-                MyLog("\(error)")
-            }
-            html += "</div>"
-        }else{
-            setHTML(html)
-        }
+        setHTML(html)
         
         
         shouldShowKeyboard = false
         alwaysShowToolbar = false
-//        placeholder = "请输入内容..."
         enabledToolbarItems = [
             ZSSRichTextEditorToolbarBold, //粗体
             ZSSRichTextEditorToolbarItalic, // 斜体
