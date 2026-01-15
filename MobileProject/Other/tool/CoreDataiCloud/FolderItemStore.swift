@@ -110,9 +110,9 @@ final class FolderItemStore {
     func fetchAllFolderItem() throws -> [FolderItem] {
         let fetchRequest: NSFetchRequest<FolderItem> = FolderItem.fetchRequest()
         var predicates: [NSPredicate] = []
-//        predicates.append(
-//            NSPredicate(format: "createTime != %@", NSNumber(value: Int64.min))
-//        )
+        predicates.append(
+            NSPredicate(format: "createTime != %@", NSNumber(value: Int64.min))
+        )
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createTime", ascending: false)] // 可选日期倒序
         return try context.fetch(fetchRequest)

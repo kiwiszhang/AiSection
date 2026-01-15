@@ -21,7 +21,7 @@ class ChatViewController: SuperViewController {
     }
     private let showThreshold: CGFloat = 88.h
     private var isControlVisible = false
-    private var isShowKey = false
+    private var isShowKey = true
     private var bottomViewBottomConstraint: Constraint?
     private lazy var itemList:[ChatInfoItem] = []
     var recordingItem:RecordingItem? = nil
@@ -242,13 +242,14 @@ extension ChatViewController:DetailBottomViewDelegate {
     func bottomRightClick(){
         MyLog("bottomRightClick")
         
-        SFSpeechRecognizer.requestAuthorization { authStatus in
+        SFSpeechRecognizer.requestAuthorization { [self] authStatus in
             switch authStatus {
             case .authorized:
                 MyLog("语音识别授权成功")
                 self.checkMicrophonePermission(from: self)
             default:
                 MyLog("语音识别未授权")
+                bottomView.clickAudioBtn(isShowKey: !isShowKey)
                 self.showPermissionAlert(from: self, type: "语音识别")
             }
         }

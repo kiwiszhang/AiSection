@@ -446,7 +446,7 @@ final class HTMLTableViewCell: SuperTableViewCell {
                          textColor: .black
                      )
                 }else{
-                    var html = "<div><h1>Action Item</h1></div>";
+                    var html = "<div><h1>\(L10n.actionItem)</h1></div>";
                     let arr = [String].fromJSONString(recordingItem.todoJsonString!)
                     html += "<p><ol>"
                     if !arr!.isEmpty {
@@ -474,7 +474,7 @@ final class HTMLTableViewCell: SuperTableViewCell {
                      )
                 }else{
                     do{
-                        var html = "<div><h1>摘要</h1>";
+                        var html = "<div><h1>\(L10n.chaptersummary)</h1>";
                         let data = recordingItem.chapterSummaryJsonString!.data(using: .utf8)!
                         let chapters = try JSONDecoder().decode([ChapterSummary].self, from: data)
                         if !chapters.isEmpty {

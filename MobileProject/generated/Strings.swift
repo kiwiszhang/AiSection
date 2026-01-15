@@ -12,6 +12,8 @@ import Foundation
 internal enum L10n {
   ///  Notify me when done
   internal static let notifyMeWhenDone = L10n.tr("Localizable", " Notify me when done", fallback: " Notify me when done")
+  /// Action Item
+  internal static let actionItem = L10n.tr("Localizable", "Action Item", fallback: "Action Item")
   /// Add a note
   internal static let addANote = L10n.tr("Localizable", "Add a note", fallback: "Add a note")
   /// Add Folder
@@ -38,6 +40,8 @@ internal enum L10n {
   internal static let automatic = L10n.tr("Localizable", "Automatic", fallback: "Automatic")
   /// Cancel
   internal static let cancel = L10n.tr("Localizable", "Cancel", fallback: "Cancel")
+  /// 摘要
+  internal static let chaptersummary = L10n.tr("Localizable", "chaptersummary", fallback: "摘要")
   /// Chat with this note
   internal static let chatWithThisNote = L10n.tr("Localizable", "Chat with this note", fallback: "Chat with this note")
   /// 麦克风

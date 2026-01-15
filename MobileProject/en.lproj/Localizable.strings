@@ -177,3 +177,5 @@ is complete (Aprox ~ 3 min).";
 "checkMicrophonePermission" = "麦克风";
 "openPermission" = "请前往“设置 -> 隐私 -> %@”开启权限，以正常使用功能";
 "somePermissionNoOpen" = "%@权限未开启";
+"Action Item" = "Action Item";
+"chaptersummary" = "摘要";
