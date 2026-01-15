@@ -250,7 +250,7 @@ extension ChatViewController:DetailBottomViewDelegate {
             default:
                 MyLog("语音识别未授权")
                 bottomView.clickAudioBtn(isShowKey: !isShowKey)
-                self.showPermissionAlert(from: self, type: "语音识别")
+                self.showPermissionAlert(from: self, type: L10n.sfSpeechRecognizer)
             }
         }
     }

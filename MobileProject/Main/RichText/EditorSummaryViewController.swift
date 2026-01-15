@@ -71,9 +71,15 @@ class EditorSummaryViewController: ZSSRichTextEditor {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
         
         title = "Editer"
-        let realHtml = htmlText
-        MyLog(realHtml)
-        setHTML(htmlText)
+        let cleanHTML = htmlText!.replacingOccurrences(of: "&quot;", with: "").replacingOccurrences(of: "\\\"", with: "\"").replacingOccurrences(of: "span", with: "font")
+        MyLog(cleanHTML)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.1) {
+            self.setHTML(cleanHTML)
+        }
+
+//        setHTML(cleanHTML)
+
 
         shouldShowKeyboard = false
         alwaysShowToolbar = false
@@ -109,7 +115,10 @@ class EditorSummaryViewController: ZSSRichTextEditor {
         editorView?.evaluateJavaScript(ZSSEditorHTML) { [weak self] result, _ in
             guard let html = result as? String else { return }
             let htmlArr = html.components(separatedBy: kSplitStringWithHtml)
-            self?.recordingItem?.todoJsonString = htmlArr.first
+//            let cleanHTML = htmlArr.first!.replacingOccurrences(of: "&quot;", with: "").replacingOccurrences(of: "\\\"", with: "\"")
+            let cleanHTML = htmlArr.first!
+            self?.recordingItem?.todoJsonString = cleanHTML
+            MyLog(cleanHTML)
             self?.recordingItem?.chapterSummaryJsonString = htmlArr.last
             try? RecordingItemStore.shared.updateRecordingItem(self!.recordingItem!)
         }
