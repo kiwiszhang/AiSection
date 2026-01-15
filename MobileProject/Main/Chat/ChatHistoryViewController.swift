@@ -148,7 +148,7 @@ class ChatInfoItemHistoryCell: SuperTableViewCell {
     private var itemModel:ChatInfoItem? = nil
     private lazy var bgView = UILabel().backgroundColor(.clear)
     private lazy var contentBg = UILabel()
-    private lazy var contentL = UILabel().textNoAdjust("").hnFont(size: 14.h, weight: .regular).color(.white).lines(2)
+    private lazy var contentL = CopyableLabel().textNoAdjust("").hnFont(size: 14.h, weight: .regular).color(.white).lines(2)
 //    private lazy var timeL = UILabel().text("").hnFont(size: 10.h, weight: .regular).color(kkColorFromHex(kkSubTextColor))
     private lazy var dateV = DetailItemView()
     private lazy var timeL = DetailItemView()
@@ -203,7 +203,31 @@ class ChatInfoItemHistoryCell: SuperTableViewCell {
         contentL.setContentHuggingPriority(.required, for: .horizontal)
         contentL.setContentCompressionResistancePriority(.required, for: .horizontal)
 
+        let longPress = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(handleCopyLongPress(_:))
+        )
+        self.isUserInteractionEnabled = true
+        bgView.isUserInteractionEnabled = true
+        contentBg.isUserInteractionEnabled = true
+        contentL.isUserInteractionEnabled = true
+        contentL.addGestureRecognizer(longPress)
+        longPress.cancelsTouchesInView = false
     }
+    
+    @objc private func handleCopyLongPress(_ gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else { return }
+        guard let label = gesture.view as? UILabel,
+              let text = label.text,
+              !text.isEmpty else { return }
+
+        label.becomeFirstResponder()
+
+        let menu = UIMenuController.shared
+        menu.setTargetRect(label.bounds, in: label)
+        menu.setMenuVisible(true, animated: true)
+    }
+
     
     func configure(with item: ChatInfoItem,isSelected:Bool,isTapSelected:Bool) {
         itemModel = item

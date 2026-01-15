@@ -40,6 +40,8 @@ internal enum L10n {
   internal static let cancel = L10n.tr("Localizable", "Cancel", fallback: "Cancel")
   /// Chat with this note
   internal static let chatWithThisNote = L10n.tr("Localizable", "Chat with this note", fallback: "Chat with this note")
+  /// 麦克风
+  internal static let checkMicrophonePermission = L10n.tr("Localizable", "checkMicrophonePermission", fallback: "麦克风")
   /// Confirm
   internal static let confirm = L10n.tr("Localizable", "Confirm", fallback: "Confirm")
   /// Contact Support
@@ -151,6 +153,10 @@ internal enum L10n {
   internal static let noTranscription = L10n.tr("Localizable", "noTranscription", fallback: "没有转写")
   /// OK
   internal static let ok = L10n.tr("Localizable", "OK", fallback: "OK")
+  /// 请前往“设置 -> 隐私 -> %@”开启权限，以正常使用功能
+  internal static func openPermission(_ p1: Any) -> String {
+    return L10n.tr("Localizable", "openPermission", String(describing: p1), fallback: "请前往“设置 -> 隐私 -> %@”开启权限，以正常使用功能")
+  }
   /// Other Tools
   internal static let otherTools = L10n.tr("Localizable", "Other Tools", fallback: "Other Tools")
   /// I am your personal AI assistant. 
@@ -206,6 +212,8 @@ internal enum L10n {
   internal static let searchNotes = L10n.tr("Localizable", "Search notes", fallback: "Search notes")
   /// Search notes/folders
   internal static let searchNotesFolders = L10n.tr("Localizable", "Search notes/folders", fallback: "Search notes/folders")
+  /// 语音识别
+  internal static let sfSpeechRecognizer = L10n.tr("Localizable", "SFSpeechRecognizer", fallback: "语音识别")
   /// Share
   internal static let share = L10n.tr("Localizable", "Share", fallback: "Share")
   /// Share audio
@@ -224,6 +232,10 @@ internal enum L10n {
   internal static let shortRecordingDetected = L10n.tr("Localizable", "Short Recording Detected", fallback: "Short Recording Detected")
   /// Simplified
   internal static let simplified = L10n.tr("Localizable", "Simplified", fallback: "Simplified")
+  /// %@权限未开启
+  internal static func somePermissionNoOpen(_ p1: Any) -> String {
+    return L10n.tr("Localizable", "somePermissionNoOpen", String(describing: p1), fallback: "%@权限未开启")
+  }
   /// Spanish (Mexico)
   internal static let spanish = L10n.tr("Localizable", "Spanish", fallback: "Spanish (Mexico)")
   /// Speech to text with smart punctuation

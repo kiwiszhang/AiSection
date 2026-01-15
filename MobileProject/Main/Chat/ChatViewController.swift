@@ -100,21 +100,50 @@ class ChatViewController: SuperViewController {
         SFSpeechRecognizer.requestAuthorization { authStatus in
             switch authStatus {
             case .authorized:
-                print("语音识别授权成功")
+                MyLog("语音识别授权成功")
+                self.checkMicrophonePermission(from: self)
             default:
-                print("语音识别未授权")
-            }
-        }
-
-        AVAudioSession.sharedInstance().requestRecordPermission { granted in
-            if granted {
-                print("麦克风授权成功")
-            } else {
-                print("麦克风未授权")
+                MyLog("语音识别未授权")
+                self.showPermissionAlert(from: self, type: L10n.sfSpeechRecognizer)
             }
         }
 
     }
+    
+    func checkMicrophonePermission(from vc: UIViewController) {
+        AVAudioSession.sharedInstance().requestRecordPermission { granted in
+            DispatchQueue.main.async { [self] in
+                if granted {
+                    MyLog("麦克风授权成功")
+                    isShowKey = !isShowKey
+                    bottomView.clickAudioBtn(isShowKey: isShowKey)
+                } else {
+                    MyLog("麦克风未授权")
+                    self.showPermissionAlert(from: vc, type: L10n.checkMicrophonePermission)
+                }
+            }
+        }
+    }
+    
+    // 弹框提示用户去设置
+    private func showPermissionAlert(from vc: UIViewController, type: String) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(
+                title: L10n.somePermissionNoOpen(type),
+                message: L10n.openPermission(type),
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: L10n.cancel, style: .cancel))
+            alert.addAction(UIAlertAction(title: L10n.gotoSettings, style: .default, handler: { _ in
+                if let url = URL(string: UIApplication.openSettingsURLString),
+                   UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url)
+                }
+            }))
+            vc.present(alert, animated: true)
+        }
+    }
+    
     
     override func setUpUI() {
         
@@ -212,8 +241,17 @@ extension ChatViewController:DetailBottomViewDelegate {
     }
     func bottomRightClick(){
         MyLog("bottomRightClick")
-        isShowKey = !isShowKey
-        bottomView.clickAudioBtn(isShowKey: isShowKey)
+        
+        SFSpeechRecognizer.requestAuthorization { authStatus in
+            switch authStatus {
+            case .authorized:
+                MyLog("语音识别授权成功")
+                self.checkMicrophonePermission(from: self)
+            default:
+                MyLog("语音识别未授权")
+                self.showPermissionAlert(from: self, type: "语音识别")
+            }
+        }
     }
     func bottomSendClick(text: String) {
         MyLog("发送内容:\(text)")
@@ -221,7 +259,6 @@ extension ChatViewController:DetailBottomViewDelegate {
         if !kkStringIsEmpty(text) {
             let item00 = ChatInfoItemRequest(chatType: 0, content: text, createTime:Int64(Date().timeIntervalSince1970), recordCreateTime: recordingItem?.createTime, responseId: " ")
             try! ChatInfoItemStore.shared.addChatInfoItem(item00)
-            
             Task {
                 do {
                     let chatlist = try! ChatInfoItemStore.shared.fetchChatInfoItemWithRecordCreateTimeAndChatType(createTime: recordingItem!.createTime, chatType: 1)
@@ -328,7 +365,7 @@ class ChatInfoItemCell: SuperTableViewCell {
     private var itemModel:ChatInfoItem? = nil
     private lazy var bgView = UILabel().backgroundColor(.white)
     private lazy var contentBg = UILabel()
-    private lazy var contentL = UILabel().text("").hnFont(size: 14.h, weight: .regular).color(.white).lines(0)
+    private lazy var contentL = CopyableLabel().text("").hnFont(size: 14.h, weight: .regular).color(.white).lines(0)
 
     private var leadingConstraint: Constraint?
     private var trailingConstraint: Constraint?
@@ -367,7 +404,33 @@ class ChatInfoItemCell: SuperTableViewCell {
         contentL.setContentHuggingPriority(.required, for: .horizontal)
         contentL.setContentCompressionResistancePriority(.required, for: .horizontal)
 
+        let longPress = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(handleCopyLongPress(_:))
+        )
+        self.isUserInteractionEnabled = true
+        bgView.isUserInteractionEnabled = true
+        contentBg.isUserInteractionEnabled = true
+        contentL.isUserInteractionEnabled = true
+        contentL.addGestureRecognizer(longPress)
+        longPress.cancelsTouchesInView = false
+
     }
+    
+    @objc private func handleCopyLongPress(_ gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else { return }
+        guard let label = gesture.view as? UILabel,
+              let text = label.text,
+              !text.isEmpty else { return }
+
+        label.becomeFirstResponder()
+
+        let menu = UIMenuController.shared
+        menu.setTargetRect(label.bounds, in: label)
+        menu.setMenuVisible(true, animated: true)
+    }
+
+    
     
     func configure(with item: ChatInfoItem) {
         itemModel = item
@@ -430,3 +493,22 @@ class ChatInfoItemCell: SuperTableViewCell {
     }
 
 }
+
+final class CopyableLabel: UILabel {
+
+    override var canBecomeFirstResponder: Bool {
+        true
+    }
+
+    override func canPerformAction(
+        _ action: Selector,
+        withSender sender: Any?
+    ) -> Bool {
+        action == #selector(copy(_:))
+    }
+
+    override func copy(_ sender: Any?) {
+        UIPasteboard.general.string = text
+    }
+}
+
