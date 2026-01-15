@@ -194,7 +194,7 @@ private extension ASRTaskManager {
     func setCommonHeaders(_ request: inout URLRequest, taskId: String) {
         request.setValue(appID, forHTTPHeaderField: "X-Api-App-Key")
         request.setValue(token, forHTTPHeaderField: "X-Api-Access-Key")
-        request.setValue("volc.bigasr.auc", forHTTPHeaderField: "X-Api-Resource-Id")
+        request.setValue(XApiResourceId, forHTTPHeaderField: "X-Api-Resource-Id")
         request.setValue(taskId, forHTTPHeaderField: "X-Api-Request-Id")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     }

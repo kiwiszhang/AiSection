@@ -204,6 +204,8 @@ class DetailBottomView: SuperView{
         audioEngine.prepare()
         try? audioEngine.start()
 
+        let locale = Locale(identifier: UserDefaultsTools.recordLangugasSelected)
+        speechRecognizer = SFSpeechRecognizer(locale: locale)
         recognitionTask = speechRecognizer?.recognitionTask(with: request) { [weak self] result, error in
             guard let self = self else { return }
             if let result = result {

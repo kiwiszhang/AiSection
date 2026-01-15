@@ -245,26 +245,25 @@ extension HomeNoteDetailViewController:CenterLanguagePopVCDelegate {
     func selectedLangitem(seletedItem: LangItem){
         MyLog("selectedLangitem")
         MyLog(seletedItem)
-        UserDefaultsTools.transcritionSelected = seletedItem.title
+        UserDefaultsTools.fanyiYuYanTitle = seletedItem.title
+        UserDefaultsTools.fanyiYuYanSelected = seletedItem.transLocalize
         Task { @MainActor in
             MBProgressHUD.showHUD()
-
             defer {
                 MBProgressHUD.hideHUD()
             }
-
             do {
                 let informationHtml = recordingItem?.todoJsonString ?? ""
                 let jsonString = try await requestDoubaoContent(
                     html: informationHtml,
-                    targetLang: UserDefaultsTools.transcritionSelected
+                    targetLang: UserDefaultsTools.fanyiYuYanSelected
                 )
                 recordingItem?.todoJsonString = jsonString
 
                 let summariztionHtml = recordingItem?.chapterSummaryJsonString ?? ""
                 let jsonString01 = try await requestDoubaoContent(
                     html: summariztionHtml,
-                    targetLang: UserDefaultsTools.transcritionSelected
+                    targetLang: UserDefaultsTools.fanyiYuYanSelected
                 )
                 recordingItem?.chapterSummaryJsonString = jsonString01
 

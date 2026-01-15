@@ -169,3 +169,7 @@ is complete (Aprox ~ 3 min).";
 "textCorrectMail" = "请输入正确的邮箱";
 "Transcription" = "Transcription";
 "downloadFile" = "下载失败";
+"uploadrecord" = "上传录音中...";
+"transcribingrecord" = "语音识别中...";
+"saveResultRecord" = "保存识别结果中...";
+"generateAiSummary" = "生成 AI 总结中...";

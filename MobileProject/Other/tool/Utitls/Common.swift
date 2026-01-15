@@ -36,12 +36,13 @@ let TOS_BUCKET = "aisection"
 // MARK: - 豆包语音
 let XApiAppKey = "1509259405"
 let XApiAccessKey = "igffrg1qHo-kFpureDQq6lhic-rINsDM"
-let XApiResourceId = "volc.lark.minutes"
+let XApiResourceId = "volc.bigasr.auc"
 
 
 // MARK: - 常用标记
 //本地存储
 let GuidVersion = "GuidVersion"
+let AppStoreId = "123"
 
 var isPremiumUser: Bool {
     SubscriptionManager.shared.isValid

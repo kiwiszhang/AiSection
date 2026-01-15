@@ -56,7 +56,7 @@ class CenterAudioPopViewController: SuperViewController {
 //                    let result = try await manager.transcribe(
 //                        audioURL: fileURL01,
 //                        format: "mp3",
-//                        language: UserDefaultsTools.recordLangugasSelected
+//                        language: UserDefaultsTools.transcritionSelected
 //                    )
 //                    print("最终识别文本：", result.result?.utterances)
 //                    let utterances = result.result?.utterances ?? []
@@ -281,7 +281,7 @@ extension CenterAudioPopViewController:CenterLanguagePopVCDelegate {
         languageView.updateContent(content: seletedItem.subTitle)
         destLang = seletedItem.localize
         getBtnStatus(lang: destLang, fileName: fileN)
-        UserDefaultsTools.recordLangugasSelected = seletedItem.transLocalize
+        UserDefaultsTools.transcritionSelected = seletedItem.transLocalize
     }
 }
 

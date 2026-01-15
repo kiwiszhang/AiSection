@@ -92,7 +92,7 @@ class CenterLanguagePopVC: SuperViewController {
 //        let item06 = LangItem(title: "Bahasa Indonesia", subTitle: L10n.indonesian, localize: "id", isSelected: false)
         let item07 = LangItem(title: "日本語", subTitle: L10n.japanese, localize: "ja", isSelected: false, transLocalize: "ja-JP")
 //        let item08 = LangItem(title: "العربية", subTitle: L10n.arabic, localize: "ar", isSelected: false)
-        let item09 = LangItem(title: "简体中文", subTitle: L10n.simplified, localize: "zh", isSelected: false, transLocalize: "")
+        let item09 = LangItem(title: "简体中文", subTitle: L10n.simplified, localize: "zh", isSelected: false, transLocalize: "zh-CN")
 //        let item10 = LangItem(title: "繁体中文", subTitle: L10n.traditional, localize: "zh-Hant", isSelected: false, transLocalize: "zh-Hant")
 //        sectionList = [item00,item01,item02,item03,item04,item05,item06,item07,item08,item09,item10]
         itemList = [item00,item01,item02,item04,item07,item09]

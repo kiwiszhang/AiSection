@@ -74,6 +74,8 @@ internal enum L10n {
   internal static let folder = L10n.tr("Localizable", "Folder", fallback: "Folder")
   /// French
   internal static let french = L10n.tr("Localizable", "French", fallback: "French")
+  /// 生成 AI 总结中...
+  internal static let generateAiSummary = L10n.tr("Localizable", "generateAiSummary", fallback: "生成 AI 总结中...")
   /// Get Summary
   internal static let getSummary = L10n.tr("Localizable", "Get Summary", fallback: "Get Summary")
   /// Got It
@@ -194,6 +196,8 @@ internal enum L10n {
   internal static let reset = L10n.tr("Localizable", "Reset", fallback: "Reset")
   /// Save
   internal static let save = L10n.tr("Localizable", "Save", fallback: "Save")
+  /// 保存识别结果中...
+  internal static let saveResultRecord = L10n.tr("Localizable", "saveResultRecord", fallback: "保存识别结果中...")
   /// Search folders
   internal static let searchFolders = L10n.tr("Localizable", "Search folders", fallback: "Search folders")
   /// Search language
@@ -240,6 +244,8 @@ internal enum L10n {
   internal static let title = L10n.tr("Localizable", "Title", fallback: "Title")
   /// Traditional
   internal static let traditional = L10n.tr("Localizable", "Traditional", fallback: "Traditional")
+  /// 语音识别中...
+  internal static let transcribingrecord = L10n.tr("Localizable", "transcribingrecord", fallback: "语音识别中...")
   /// Transcription
   internal static let transcription = L10n.tr("Localizable", "Transcription", fallback: "Transcription")
   /// Translate
@@ -250,6 +256,8 @@ internal enum L10n {
   internal static let turkish = L10n.tr("Localizable", "Turkish", fallback: "Turkish")
   /// Upload video
   internal static let uploadVideo = L10n.tr("Localizable", "Upload video", fallback: "Upload video")
+  /// 上传录音中...
+  internal static let uploadrecord = L10n.tr("Localizable", "uploadrecord", fallback: "上传录音中...")
   /// Welcome！
   internal static let welcome = L10n.tr("Localizable", "Welcome", fallback: "Welcome！")
   /// Wrapping Up

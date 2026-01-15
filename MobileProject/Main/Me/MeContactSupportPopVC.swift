@@ -95,6 +95,15 @@ class MeContactSupportPopVC: SuperViewController {
            let url = URL(string: encoded) {
             UIApplication.shared.open(url)
         }
+        
+//        MailHelper.shared.sendMail(
+//            to: [mailStr],
+//            subject: titleStr,
+//            body: "<b>\(contentStr)</b>",
+//            isHTML: true,
+//            from: self
+//        )
+
     }
 
     
@@ -363,5 +372,49 @@ class MeRow02ItemView: SuperView,UITextViewDelegate {
                     ])
         }
         delegate?.meRow02ItemContent(content: textView.text)
+    }
+}
+
+
+import MessageUI
+
+class MailHelper: NSObject, MFMailComposeViewControllerDelegate {
+
+    static let shared = MailHelper()
+
+    func sendMail(
+        to recipients: [String],
+        subject: String,
+        body: String,
+        isHTML: Bool = false,
+        from vc: UIViewController
+    ) {
+        guard MFMailComposeViewController.canSendMail() else {
+            print("设备未配置邮件账户")
+            return
+        }
+
+        let mailVC = MFMailComposeViewController()
+        mailVC.mailComposeDelegate = self
+        mailVC.setToRecipients(recipients)
+        mailVC.setSubject(subject)
+        mailVC.setMessageBody(body, isHTML: isHTML)
+
+//        vc.present(mailVC, animated: true)
+        
+        let content = mailVC
+        let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
+        vc.present(popup, animated: false)
+
+        
+        
+    }
+
+    func mailComposeController(
+        _ controller: MFMailComposeViewController,
+        didFinishWith result: MFMailComposeResult,
+        error: Error?
+    ) {
+        controller.dismiss(animated: true)
     }
 }

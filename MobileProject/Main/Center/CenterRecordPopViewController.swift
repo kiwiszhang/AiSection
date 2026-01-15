@@ -91,61 +91,6 @@ class CenterRecordPopViewController: SuperViewController {
                 
                 let coreDataItem = try! RecordingItemStore.shared.fetchByFolderId(item00.recordFolderId!).first
 
-//                UploadRecord.shared.uploadFile(fileName: fileName,fileURL:URL(string: RecorderManager.shared.recordURL!.absoluteString)!) { [self] task in
-//                    UtitilTools.broadcast(handleStatus: 2, handleContent: "开始处理录音，录音文件上传成功")
-//                    let fileURL01 = "https://aisection.tos-cn-beijing.volces.com/" + fileName
-//                    let requestId = UUID().uuidString
-//                    Task {
-//                        do {
-//                            let manager = ASRTaskManager(appID: "1509259405", token: "igffrg1qHo-kFpureDQq6lhic-rINsDM")
-//                            let result = try await manager.transcribe(
-//                                audioURL: fileURL01,
-//                                format: "mp3",
-//                                language: UserDefaultsTools.recordLangugasSelected
-//                            )
-//                            print("最终识别文本：", result.result?.utterances)
-//                            let utterances = result.result?.utterances ?? []
-//                            if !utterances.isEmpty {
-//                                for item in utterances {
-//                                    var item01 = TranscriptionItemRequest(channel_id:Int16(item.additions?.channel_id ?? "0"), content: item.text, createTime: Int64(Date().timeIntervalSince1970), recordCreateTime: coreDataItem?.createTime, end_time: Double(item.end_time ?? 0), lang:" ", paragraph_id: 0, sentence_id: 0, speakerName:item.additions?.speaker, speakerType: Int16(item.additions?.speaker ?? "0"), start_time: Double(item.start_time ?? 0), words: "")
-//                                    try! TranscriptionItemStore.shared.addTranscriptionItem(item01)
-//                                }
-//                            }
-//                            print("最终识别文本：", result.result?.text ?? "")
-//                            if !kkStringIsEmpty(result.result?.text){
-//                                coreDataItem?.transcriptionHtml = result.result?.text
-//                                let result = try await requestDoubaoAISummary(content: (result.result?.text!)!)
-//                                let todoArr = result.todoList ?? []
-//                                let jsonString00 = todoArr.toJSONString()
-//                //                let arr = [String].fromJSONString(json!)
-//                                coreDataItem!.todoJsonString = jsonString00
-//
-//
-//                                let summaryContentArr = result.summaryContent ?? []
-//                                let jsonString01 = summaryContentArr.toJSONString()
-//                                coreDataItem!.summaryTitle = result.summaryTitle ?? ""
-//                                coreDataItem!.summaryContentJsonString = jsonString01
-//
-//                                MyLog(result.chapterSummary?.first?.title ?? "")
-//
-//                                let jsonString02 = result.chapterSummary.toJSONString()
-//                                coreDataItem!.chapterSummaryJsonString = jsonString02
-//            //                            let chapter = jsonString02!.toModel(ChapterSummary.self)
-//                                try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
-//            
-//                                UtitilTools.broadcast(handleStatus: 4, handleContent: "录音文件识别成功")
-//                            }
-//                            
-//                            
-//                        } catch {
-//                            print("❌ 提交失败:", error.localizedDescription)
-//                            coreDataItem?.handleType = -1
-//                            try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
-//                            UtitilTools.broadcast(handleStatus: 0, handleContent: "录音处理失败")
-//                        }
-//                    }
-//                    
-//                }
                 
                 // 触发完整音频处理流程
                 AudioProcessingPipeline.shared.process(

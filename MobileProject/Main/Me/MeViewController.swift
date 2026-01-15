@@ -107,13 +107,15 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource {
                 if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                     SKStoreReviewController.requestReview(in: scene)
                 } else {
-                    if let url = URL(string: "https://apps.apple.com/app/id1234567890?action=write-review"),
+                    if let url = URL(string: "https://apps.apple.com/app/id\(AppStoreId)?action=write-review"),
                        UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url)
                     }
                 }
             } else if indexPath.row == 1 {
-                
+                if let url = URL(string: "https://apps.apple.com/app/id\(AppStoreId)?action=write-review") {
+                    ShareManager.shared.shareURL(url,title: L10n.shareWithFriends)
+                }
             } else if indexPath.row == 2 {
                 let content = MeContactSupportPopVC()
 //                content.delegate = self
@@ -177,11 +179,12 @@ extension MeViewController:CenterLanguagePopVCDelegate {
         if sender == langContent {
             langSelected = seletedItem
             UserDefaultsTools.langSelected = seletedItem.title
+            UserDefaultsTools.recordLangugasSelected = seletedItem.transLocalize
         }
         
         if sender == transcriptContent {
             TranscSelected = seletedItem
-            UserDefaultsTools.transcritionSelected = seletedItem.title
+            UserDefaultsTools.fanyiYuYanTitle = seletedItem.title
         }
         tableView.reloadData()
     }
@@ -250,7 +253,7 @@ class SettingItem00Cell: SuperTableViewCell {
             bgView.cornerRadius(14.h, corners: [.topLeft,.topRight])
         }
         if isLast {
-            subTitleL.text(UserDefaultsTools.transcritionSelected)
+            subTitleL.text(UserDefaultsTools.fanyiYuYanTitle)
             line.hidden(true)
             bgView.cornerRadius(14.h, corners: [.bottomLeft,.bottomRight])
         }

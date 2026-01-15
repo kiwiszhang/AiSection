@@ -10,8 +10,8 @@ final class AudioProcessingPipeline {
     static let shared = AudioProcessingPipeline()
     private let uploadService = UploadRecord.shared
     private let asrService = ASRTaskManager(
-        appID: "1509259405",
-        token: "igffrg1qHo-kFpureDQq6lhic-rINsDM"
+        appID: XApiAppKey,
+        token: XApiAccessKey
     )
     private init() {}
     
@@ -22,7 +22,7 @@ final class AudioProcessingPipeline {
         recordingItem: RecordingItem
     ) {
         DispatchQueue.main.async {
-            MBProgressHUD.showMessage("上传录音中...")
+            MBProgressHUD.showMessage(L10n.uploadrecord)
         }
 
         uploadService.uploadFile(fileName: fileName, fileURL: fileURL) { task in
@@ -38,22 +38,22 @@ final class AudioProcessingPipeline {
             Task {
                 do {
                     DispatchQueue.main.async {
-                        MBProgressHUD.showMessage("语音识别中...")
+                        MBProgressHUD.showMessage(L10n.transcribingrecord)
                     }
                     let response = try await self.asrService.transcribe(
                         audioURL: audioURL,
                         format: "mp3",
-                        language: UserDefaultsTools.recordLangugasSelected
+                        language: UserDefaultsTools.transcritionSelected
                     )
                     DispatchQueue.main.async {
-                        MBProgressHUD.showMessage("保存识别结果中...")
+                        MBProgressHUD.showMessage(L10n.saveResultRecord)
                     }
                     try await self.handleASRResult(
                         response,
                         recordingItem: recordingItem
                     )
                     DispatchQueue.main.async {
-                        MBProgressHUD.showMessage("生成 AI 总结中...")
+                        MBProgressHUD.showMessage(L10n.generateAiSummary)
                     }
                     try await self.handleAISummary(response.result?.text, recordingItem)
                     DispatchQueue.main.async {
