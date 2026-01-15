@@ -39,7 +39,7 @@ final class FolderItemStore {
     /// 新增FolderItem
     func addFolderItem(_ req: FolderItemRequest) throws {
         let uuid = "\(String(describing: req.createTime))".stableUUID  // 根据 createTime 生成唯一 ID
-        // 查询是否已有相同 ID 的 RecordingItem
+        // 查询是否已有相同 ID 的 FolderItem
         let fetchRequest: NSFetchRequest<FolderItem> = FolderItem.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", uuid as CVarArg)
         
@@ -110,9 +110,9 @@ final class FolderItemStore {
     func fetchAllFolderItem() throws -> [FolderItem] {
         let fetchRequest: NSFetchRequest<FolderItem> = FolderItem.fetchRequest()
         var predicates: [NSPredicate] = []
-        predicates.append(
-            NSPredicate(format: "createTime != %@", NSNumber(value: Int64.min))
-        )
+//        predicates.append(
+//            NSPredicate(format: "createTime != %@", NSNumber(value: Int64.min))
+//        )
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createTime", ascending: false)] // 可选日期倒序
         return try context.fetch(fetchRequest)

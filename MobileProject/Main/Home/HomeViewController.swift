@@ -46,6 +46,7 @@ class HomeViewController: SuperViewController {
 //        addNoteData()
 //        addFolderData()
         
+//        try! FolderItemStore.shared.deleteAllFolderItems()
 
     }
     

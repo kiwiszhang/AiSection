@@ -68,6 +68,8 @@ class EditorSummaryViewController: ZSSRichTextEditor {
             action: #selector(handleBack)
         )
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
+        
         title = "Editer"
         let realHtml = htmlText
         MyLog(realHtml)
@@ -95,6 +97,10 @@ class EditorSummaryViewController: ZSSRichTextEditor {
     }
     
     @objc func handleBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    @objc func handleSave() {
         handleHTML()
     }
 
@@ -106,7 +112,6 @@ class EditorSummaryViewController: ZSSRichTextEditor {
             self?.recordingItem?.todoJsonString = htmlArr.first
             self?.recordingItem?.chapterSummaryJsonString = htmlArr.last
             try? RecordingItemStore.shared.updateRecordingItem(self!.recordingItem!)
-            self?.navigationController?.popViewController(animated: true)
         }
     }
     

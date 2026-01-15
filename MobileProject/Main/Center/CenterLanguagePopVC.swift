@@ -79,7 +79,7 @@ class CenterLanguagePopVC: SuperViewController {
 
     override func getData() {
         barView.delegate = self
-        barView.updateData(title: L10n.language,isSearch: true)
+        barView.updateData(title: L10n.language,isSearch: false)
         barView.updateSearchData(title: L10n.searchLanguage)
 
         let language = Localize.currentLanguage()

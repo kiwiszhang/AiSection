@@ -227,7 +227,7 @@ final class AudioPlayerView: UIView {
     
     private func loadWaveform(url: URL) {
 
-        if let cached = WaveformCache.shared.waveform(for: url) {
+        if let cached = WaveformCache.shared.waveform(for: url),!cached.isEmpty {
             waveformView.samples = cached
             return
         }

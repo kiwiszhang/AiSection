@@ -56,6 +56,8 @@ internal enum L10n {
   internal static let describe = L10n.tr("Localizable", "Describe", fallback: "Describe")
   /// Discover all featureswith this note！
   internal static let discoverAllFeatureswithThisNote = L10n.tr("Localizable", "Discover all featureswith this note", fallback: "Discover all featureswith this note！")
+  /// 下载失败
+  internal static let downloadFile = L10n.tr("Localizable", "downloadFile", fallback: "下载失败")
   /// Edit Summary
   internal static let editSummary = L10n.tr("Localizable", "Edit Summary", fallback: "Edit Summary")
   /// Edit Transcript

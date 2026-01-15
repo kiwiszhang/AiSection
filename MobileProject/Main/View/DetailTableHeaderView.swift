@@ -112,10 +112,40 @@ class DetailTableHeaderView: SuperView{
             MyLog("无可用文件或路径错误")
             return
         }
+        
+        let exists = FileManager.default.fileExists(atPath: urlFile.path)
+        if exists {
+            recordV.configure(url: fileURL, duration: audioDuration(url: fileURL))
+        }else{
+            MBProgressHUD.showHUD()
+            if let url = URL(string: "https://aisection.tos-cn-beijing.volces.com/Recording/" + (recordingItem?.recordPath)!) {
+                downloadAudioFile(from: url) { result in
+                    switch result {
+                    case .success(let fileURL):
+                        print("下载成功，文件保存在:", fileURL)
+                        DispatchQueue.main.async { [self] in
+                            MBProgressHUD.hideHUD()
+                            guard let file = URL(string: urlFile.absoluteString) else {
+                                MyLog("无可用文件或路径错误")
+                                return
+                            }
+                            recordV.configure(url: file, duration: audioDuration(url: file))
+                        }
+                    case .failure(let error):
+                        print("下载失败:", error)
+                        DispatchQueue.main.async {
+                            MBProgressHUD.showMessage(L10n.downloadFile)
+                            MBProgressHUD.hideHUD()
+                        }
+                    }
+                }
+            }
+        }
+
+        
         MyLog(urlFile)
         MyLog(fileURL)
 //        recordV.loadAudio(url: fileURL)
-        recordV.configure(url: fileURL, duration: audioDuration(url: fileURL))
     }
     func stopAudios(){
         AudioPlaybackManager.shared.stop(recordV)

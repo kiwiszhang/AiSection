@@ -104,6 +104,7 @@
 		534146B52F123C170012436B /* MeContactSupportPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534146B42F123C170012436B /* MeContactSupportPopVC.swift */; };
 		536D5B372F14DF2100030A0E /* ASRTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D5B362F14DF2100030A0E /* ASRTaskManager.swift */; };
 		536D5BC92F16460100030A0E /* AudioProcessingPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D5BC82F16460100030A0E /* AudioProcessingPipeline.swift */; };
+		536D5BD12F18840A00030A0E /* DownloadAudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D5BD02F18840A00030A0E /* DownloadAudioFile.swift */; };
 		538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */; };
 		538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */; };
 		538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */; };
@@ -333,6 +334,7 @@
 		536531032DCB36BB0020026B /* MobileProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileProject.entitlements; sourceTree = "<group>"; };
 		536D5B362F14DF2100030A0E /* ASRTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASRTaskManager.swift; sourceTree = "<group>"; };
 		536D5BC82F16460100030A0E /* AudioProcessingPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioProcessingPipeline.swift; sourceTree = "<group>"; };
+		536D5BD02F18840A00030A0E /* DownloadAudioFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadAudioFile.swift; sourceTree = "<group>"; };
 		5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFloderPopViewController.swift; sourceTree = "<group>"; };
 		538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddNotePopViewController.swift; sourceTree = "<group>"; };
 		538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddFloderPopVC.swift; sourceTree = "<group>"; };
@@ -942,6 +944,7 @@
 				53F68DAB2F03BEDD0051FFE6 /* AudioPlaybackManager.swift */,
 				53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */,
 				53FFAF072EFE6D5200A0C1EF /* UploadRecord.swift */,
+				536D5BD02F18840A00030A0E /* DownloadAudioFile.swift */,
 				536D5BC82F16460100030A0E /* AudioProcessingPipeline.swift */,
 				536D5B362F14DF2100030A0E /* ASRTaskManager.swift */,
 			);
@@ -1330,6 +1333,7 @@
 				531CD90A2EEAAF6400FC22F7 /* AppIconHelper.swift in Sources */,
 				538282242EF23C720097EAD0 /* DetailSegmentView.swift in Sources */,
 				536D5BC92F16460100030A0E /* AudioProcessingPipeline.swift in Sources */,
+				536D5BD12F18840A00030A0E /* DownloadAudioFile.swift in Sources */,
 				539F2D4C2DA921030030DA8F /* WebViewController.swift in Sources */,
 				388FB08F2DA17037006C52AC /* SceneDelegate.swift in Sources */,
 			);
