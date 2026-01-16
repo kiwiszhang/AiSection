@@ -266,7 +266,7 @@ extension HomeNoteDetailViewController:CenterLanguagePopVCDelegate {
                     targetLang: UserDefaultsTools.fanyiYuYanSelected
                 )
                 recordingItem?.chapterSummaryJsonString = jsonString01
-
+                recordingItem?.updateTime = Int64(Date().timeIntervalSince1970)
                 try RecordingItemStore.shared.updateRecordingItem(recordingItem!)
                 getData()
 
@@ -611,6 +611,7 @@ class TranscriptionTableViewCell: SuperTableViewCell,UITextViewDelegate {
     private lazy var contentL = UILabel().text("title").color(kkColorFromHex(kkMainTitleColor)).hnFont(size: 14.h, weight: .regular).lines(0)
     private lazy var contentTextView = UITextView().text("").hnFont(size: 14.h, weight: .regular).color(kkColorFromHex(kkMainTitleColor)).hidden(true).backgroundColor(.clear).delegate(self)
 
+    private lazy var rItem:RecordingItem? = nil
 
     private lazy var editerImg = UIImageView().image(Asset.chatTrans.image).enable(true).onTap {
         MyLog("editerImg")
@@ -664,6 +665,7 @@ class TranscriptionTableViewCell: SuperTableViewCell,UITextViewDelegate {
 
     }
     func configure(with item: TranscriptionItem,recordingItem:RecordingItem) {
+        rItem = recordingItem
         titleL.text(formatTime(item.start_time))
         contentL.text(item.content)
     }
@@ -725,6 +727,8 @@ class TranscriptionTableViewCell: SuperTableViewCell,UITextViewDelegate {
         contentL.isHidden = false
 
         editCallback?(newText)
+        rItem?.updateTime = Int64(Date().timeIntervalSince1970)
+        try! RecordingItemStore.shared.updateRecordingItem(rItem!)
     }
 
     private func enterEditMode() {

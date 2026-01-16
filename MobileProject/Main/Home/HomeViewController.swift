@@ -311,6 +311,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 if ((item.todoJsonString?.isEmpty) != nil) {
                     let vc = HomeNoteDetailViewController(recordingItem: item)
                     self.navigationController?.pushViewController(vc, animated: true)
+                }else{
+                    MBProgressHUD.showMessage(L10n.waitresult)
                 }
             }
         }

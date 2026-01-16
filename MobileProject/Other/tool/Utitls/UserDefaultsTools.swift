@@ -37,7 +37,7 @@ class UserDefaultsTools {
     static var segmentIndex: Int
     
     /// 设置页设置语言
-    @UserDefault(UserDefaultsTypeKeys.langSelected.rawValue, defaultValue: "")
+    @UserDefault(UserDefaultsTypeKeys.langSelected.rawValue, defaultValue: "English")
     static var langSelected: String
     
     /// 总结转写语言

@@ -181,4 +181,5 @@ is complete (Aprox ~ 3 min).";
 "chaptersummary" = "摘要";
 "saveSuccesse" = "保存成功";
 "resultFail" = "AI返回结果失败";
+"waitresult" = "等待转写和AI总结完成";
 

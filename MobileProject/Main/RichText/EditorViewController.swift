@@ -99,7 +99,7 @@ class EditorViewController: UIViewController {
         }
         toolbar.onNormal = { [weak self] in
             self?.editor.execCommand("removeFormat")
-            self?.editor.execCommand("formatBlock", value: "p")
+//            self?.editor.execCommand("formatBlock", value: "p")
         }
 
         toolbar.onIndent = { [weak self] in

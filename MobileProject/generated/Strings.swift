@@ -280,6 +280,8 @@ internal enum L10n {
   internal static let uploadVideo = L10n.tr("Localizable", "Upload video", fallback: "Upload video")
   /// 上传录音中...
   internal static let uploadrecord = L10n.tr("Localizable", "uploadrecord", fallback: "上传录音中...")
+  /// 等待转写和AI总结完成
+  internal static let waitresult = L10n.tr("Localizable", "waitresult", fallback: "等待转写和AI总结完成")
   /// Welcome！
   internal static let welcome = L10n.tr("Localizable", "Welcome", fallback: "Welcome！")
   /// Wrapping Up
