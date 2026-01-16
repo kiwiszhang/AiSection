@@ -32,11 +32,16 @@ final class AudioProcessingPipeline {
             }
 
             UtitilTools.broadcast(handleStatus: 2, handleContent: "录音上传成功，开始识别")
-
+            
             let audioURL = "https://aisection.tos-cn-beijing.volces.com/" + fileName
 
             Task {
                 do {
+                    
+                    recordingItem.handleType = 2
+                    recordingItem.updateTime = Int64(Date().timeIntervalSince1970)
+                    try RecordingItemStore.shared.updateRecordingItem(recordingItem)
+                    
                     DispatchQueue.main.async {
                         MBProgressHUD.showMessage(L10n.transcribingrecord)
                     }
@@ -97,6 +102,8 @@ private extension AudioProcessingPipeline {
         // 2️⃣ 批量保存
         try TranscriptionItemStore.shared.addTranscriptionItems(items)
         recordingItem.transcriptionHtml = response.result?.text
+        recordingItem.handleType = 3
+        recordingItem.updateTime = Int64(Date().timeIntervalSince1970)
         try RecordingItemStore.shared.updateRecordingItem(recordingItem)
         UtitilTools.broadcast(handleStatus: 3, handleContent: "录音识别完成")
         try await handleAISummary(response.result?.text, recordingItem)
@@ -117,8 +124,9 @@ private extension AudioProcessingPipeline {
         recordingItem.summaryContentJsonString = summary.summaryContent?.toJSONString()
         recordingItem.chapterSummaryJsonString = summary.chapterSummary?.toJSONString()
         recordingItem.todoJsonString = summary.todoList?.toJSONString()
-
-        UtitilTools.broadcast(handleStatus: 4, handleContent: "录音识别完成")
+        recordingItem.handleType = 4
+        recordingItem.updateTime = Int64(Date().timeIntervalSince1970)
+        UtitilTools.broadcast(handleStatus: 4, handleContent: "录音AI总结完成")
         try RecordingItemStore.shared.updateRecordingItem(recordingItem)
     }
 

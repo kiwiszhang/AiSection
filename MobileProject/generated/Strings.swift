@@ -46,6 +46,8 @@ internal enum L10n {
   internal static let chatWithThisNote = L10n.tr("Localizable", "Chat with this note", fallback: "Chat with this note")
   /// 麦克风
   internal static let checkMicrophonePermission = L10n.tr("Localizable", "checkMicrophonePermission", fallback: "麦克风")
+  /// 数据处理失败，请点击右边更多按钮重试
+  internal static let cliccckMoretry = L10n.tr("Localizable", "cliccckMoretry", fallback: "数据处理失败，请点击右边更多按钮重试")
   /// Confirm
   internal static let confirm = L10n.tr("Localizable", "Confirm", fallback: "Confirm")
   /// Contact Support
@@ -96,9 +98,8 @@ internal enum L10n {
   internal static let home = L10n.tr("Localizable", "Home", fallback: "Home")
   /// Indonesian
   internal static let indonesian = L10n.tr("Localizable", "Indonesian", fallback: "Indonesian")
-  /// It is safe to leave. We’ll notify you when processing
-  /// is complete (Aprox ~ 3 min).
-  internal static let itIsSafeToLeave = L10n.tr("Localizable", "It is safe to leave", fallback: "It is safe to leave. We’ll notify you when processing\nis complete (Aprox ~ 3 min).")
+  /// It is safe to leave. We’ll notify you when processing is complete (Aprox ~ 3 min).don’t force close the app, or generation may fail.
+  internal static let itIsSafeToLeave = L10n.tr("Localizable", "It is safe to leave", fallback: "It is safe to leave. We’ll notify you when processing is complete (Aprox ~ 3 min).don’t force close the app, or generation may fail.")
   /// Italian
   internal static let italian = L10n.tr("Localizable", "Italian", fallback: "Italian")
   /// Japanese
@@ -141,6 +142,8 @@ internal enum L10n {
   internal static let newFolderName = L10n.tr("Localizable", "New folder name", fallback: "New folder name")
   /// New note
   internal static let newNote = L10n.tr("Localizable", "New note", fallback: "New note")
+  /// New Note Name
+  internal static let newNoteName = L10n.tr("Localizable", "New Note Name", fallback: "New Note Name")
   /// No items saved yet
   internal static let noItemsSavedYet = L10n.tr("Localizable", "No items saved yet", fallback: "No items saved yet")
   /// 没有文件
@@ -178,6 +181,8 @@ internal enum L10n {
   internal static let pleaseEnterYourEmailAddress = L10n.tr("Localizable", "Please enter your email address", fallback: "Please enter your email address")
   /// please record for at least 10 seconds
   internal static let pleaseRecordForAtLeast10Seconds = L10n.tr("Localizable", "please record for at least 10 seconds", fallback: "please record for at least 10 seconds")
+  /// 正在处理文件数据，请稍等
+  internal static let pleasewaitTime = L10n.tr("Localizable", "pleasewaitTime", fallback: "正在处理文件数据，请稍等")
   /// Portuguese (Brazil)
   internal static let portuguese = L10n.tr("Localizable", "Portuguese", fallback: "Portuguese (Brazil)")
   /// Press and hold to speak
@@ -194,6 +199,8 @@ internal enum L10n {
   internal static let rateUs = L10n.tr("Localizable", "Rate Us", fallback: "Rate Us")
   /// Recording
   internal static let recording = L10n.tr("Localizable", "Recording", fallback: "Recording")
+  /// Regenerate
+  internal static let regenerate = L10n.tr("Localizable", "Regenerate", fallback: "Regenerate")
   /// Release to cancel
   internal static let releaseToCancel = L10n.tr("Localizable", "Release to cancel", fallback: "Release to cancel")
   /// Release to send, slide up to cancel

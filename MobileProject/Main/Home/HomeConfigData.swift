@@ -8,6 +8,12 @@
 import UIKit
 
 class HomeConfigData {
+    static func getHomeFailMoreData() -> [PopItemModel] {
+        let item00 = PopItemModel(itemName: L10n.getSummary, itemIcon: Asset.moreRegenerate.image)
+        let item01 = PopItemModel(itemName: L10n.delete, itemIcon: Asset.moreDelete.image)
+        return [item00,item01]
+    }
+    
     static func getHomeMoreData() -> [PopItemModel] {
         let item00 = PopItemModel(itemName: L10n.share, itemIcon: Asset.moreShare.image)
         let item01 = PopItemModel(itemName: L10n.addToFavorites, itemIcon: Asset.moreFavorite.image)

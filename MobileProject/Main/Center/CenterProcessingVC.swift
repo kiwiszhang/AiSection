@@ -254,7 +254,7 @@ class RemaindView: SuperView {
 
     // MARK: -  =====================lazyload=========================
     private var leftImg = UIImageView().image(Asset.processingRemained.image)
-    private var remaindL = UILabel().text(L10n.processingInProgressPleaseDoNotLeave).hnFont(size: 12.h, weight: .regular).lines(2).color(.white)
+    private var remaindL = UILabel().text(L10n.processingInProgressPleaseDoNotLeave).hnFont(size: 12.h, weight: .regular).lines(3).color(.white)
     // MARK: -  =====================Intial Methods===================
     override func setUpUI() {
         self.addChildView([leftImg,remaindL])

@@ -102,8 +102,6 @@
 		53F68D9D2F027A590051FFE6 /* HomeMoreMovePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D9C2F027A590051FFE6 /* HomeMoreMovePopVC.swift */; };
 		53F68D9F2F0288420051FFE6 /* HomeMoveoutPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68D9E2F0288420051FFE6 /* HomeMoveoutPopVC.swift */; };
 		53F68DA12F036FED0051FFE6 /* HomeNoAllNotePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DA02F036FED0051FFE6 /* HomeNoAllNotePopVC.swift */; };
-		53F68DA62F03A7470051FFE6 /* DSWaveformImage in Frameworks */ = {isa = PBXBuildFile; productRef = 53F68DA52F03A7470051FFE6 /* DSWaveformImage */; };
-		53F68DA82F03A7470051FFE6 /* DSWaveformImageViews in Frameworks */ = {isa = PBXBuildFile; productRef = 53F68DA72F03A7470051FFE6 /* DSWaveformImageViews */; };
 		53F68DAA2F03B2210051FFE6 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DA92F03B2210051FFE6 /* AudioPlayerView.swift */; };
 		53F68DAC2F03BEDD0051FFE6 /* AudioPlaybackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DAB2F03BEDD0051FFE6 /* AudioPlaybackManager.swift */; };
 		53F68DAE2F04B3700051FFE6 /* RecordingWaveformItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F68DAD2F04B3700051FFE6 /* RecordingWaveformItemStore.swift */; };
@@ -275,9 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51AF4179CF536DCEB5636D5F /* Pods_MobileProject.framework in Frameworks */,
-				53F68DA62F03A7470051FFE6 /* DSWaveformImage in Frameworks */,
 				53FFAF042EFBD41B00A0C1EF /* VeTOSiOSSDK.framework in Frameworks */,
-				53F68DA82F03A7470051FFE6 /* DSWaveformImageViews in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,7 +695,6 @@
 			);
 			mainGroup = 388FB0802DA17037006C52AC;
 			packageReferences = (
-				53F68DA42F03A7470051FFE6 /* XCRemoteSwiftPackageReference "DSWaveformImage" */,
 			);
 			productRefGroup = 388FB08A2DA17037006C52AC /* Products */;
 			projectDirPath = "";
@@ -1191,30 +1186,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		53F68DA42F03A7470051FFE6 /* XCRemoteSwiftPackageReference "DSWaveformImage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/dmrschmidt/DSWaveformImage";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 14.2.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		53F68DA52F03A7470051FFE6 /* DSWaveformImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 53F68DA42F03A7470051FFE6 /* XCRemoteSwiftPackageReference "DSWaveformImage" */;
-			productName = DSWaveformImage;
-		};
-		53F68DA72F03A7470051FFE6 /* DSWaveformImageViews */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 53F68DA42F03A7470051FFE6 /* XCRemoteSwiftPackageReference "DSWaveformImage" */;
-			productName = DSWaveformImageViews;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		53F68D8A2EFFA9E40051FFE6 /* AISectionCoreDataICloud.xcdatamodeld */ = {

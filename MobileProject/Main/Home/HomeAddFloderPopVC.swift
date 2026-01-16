@@ -70,6 +70,10 @@ class HomeAddFloderPopVC: SuperViewController {
 
     }
     
+    func updataData(holderStr:String){
+        textFiled.updateData(holderStr: holderStr)
+    }
+    
 }
 
 
@@ -132,8 +136,9 @@ class AddCategoryFieldView: SuperView, UITextFieldDelegate {
     }
     
     // MARK: -  =======================actions========================
-
-    
+    func updateData(holderStr:String){
+        addField.holder(holderStr)
+    }
     
     // MARK: -  =====================delegate=========================
     // MARK: - UITextFieldDelegate

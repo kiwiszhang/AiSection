@@ -105,8 +105,7 @@
 "Decisions, actions, and takeaways" = "Decisions, actions, and takeaways";
 "Deliver a share-ready summary" = "Deliver a share-ready summary";
 " Notify me when done" = " Notify me when done";
-"It is safe to leave" = "It is safe to leave. We’ll notify you when processing
-is complete (Aprox ~ 3 min).";
+"It is safe to leave" = "It is safe to leave. We’ll notify you when processing is complete (Aprox ~ 3 min).don’t force close the app, or generation may fail.";
 "Your notes is ready" = "Your notes is ready!";
 "Your note processing failed" = "Your note processing failed!";
 "Remove folder" = "Remove folder";
@@ -137,8 +136,8 @@ is complete (Aprox ~ 3 min).";
 "Got It" = "Got It";
 "OK" = "OK";
 "Editer" = "Editer";
-"Mail" = "Mail";
-"Mail" = "Mail";
+"Regenerate" = "Regenerate";
+"New Note Name" = "New Note Name";
 "Mail" = "Mail";
 "Mail" = "Mail";
 
@@ -182,4 +181,8 @@ is complete (Aprox ~ 3 min).";
 "saveSuccesse" = "保存成功";
 "resultFail" = "AI返回结果失败";
 "waitresult" = "等待转写和AI总结完成";
+"cliccckMoretry" = "数据处理失败，请点击右边更多按钮重试";
+"pleasewaitTime" = "正在处理文件数据，请稍等";
+"cliccckMoretry" = "数据处理失败，请点击右边更多按钮重试";
+"cliccckMoretry" = "数据处理失败，请点击右边更多按钮重试";
 

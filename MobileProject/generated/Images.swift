@@ -56,6 +56,7 @@ internal enum Asset {
   internal static let homeNote = ImageAsset(name: "home_note")
   internal static let homeType00 = ImageAsset(name: "home_type_00")
   internal static let homeType01 = ImageAsset(name: "home_type_01")
+  internal static let moreRegenerate = ImageAsset(name: "more_Regenerate")
   internal static let moreAction = ImageAsset(name: "more_action")
   internal static let moreDelete = ImageAsset(name: "more_delete")
   internal static let moreFavorite = ImageAsset(name: "more_favorite")

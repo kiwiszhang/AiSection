@@ -46,7 +46,7 @@ class HomePopViewController: SuperViewController {
         
         tableView.snp.makeConstraints { make in
             make.width.equalTo(335.w)
-            make.height.equalTo(355.h)
+            make.height.equalTo((itemList.count * 70).h)
             make.centerX.equalToSuperview()
             make.top.equalTo(barView.snp.bottom).offset(-13.h)
         }
@@ -98,36 +98,98 @@ extension HomePopViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = itemList[indexPath.row]
         MyLog(item.itemName)
-        if indexPath.row == 0 {
-            let content = HomeSharePopViewController(itemList: HomeConfigData.getHomeMoreShareData(), recordingItem: recordingItem!)
-            content.updateTitle(title: L10n.share)
-            let popup = PopupContainerViewController(contentVC: content, height: 462.h)
-            content.dismissAction = {
-                popup.dismissSelf()
+        
+        if recordingItem!.handleType == -1 {
+            if indexPath.row == 0 {
+                MyLog("xxxxxxxxx")
+                let directory = RecorderManager.shared.recordingsDirectory()
+                let urlFile = URL(string:"\(directory.absoluteString)" + (recordingItem?.recordPath)!)!
+                guard let fileURL = URL(string: urlFile.absoluteString) else {
+                    MyLog("无可用文件或路径错误")
+                    return
+                }
+                let exists = FileManager.default.fileExists(atPath: urlFile.path)
+                if exists {
+                    // 触发完整音频处理流程
+                    let recordName = recordingItem?.recordPath?.components(separatedBy: ".").first
+                    AudioProcessingPipeline.shared.process(
+                        fileName: (recordName ?? recordingItem?.recordName)!,
+                        fileURL: fileURL,
+                        recordingItem: recordingItem!
+                    )
+                    dismissAction?()
+                }else{
+                    MBProgressHUD.showHUD()
+                    if let url = URL(string: "https://aisection.tos-cn-beijing.volces.com/Recording/" + (recordingItem?.recordPath)!) {
+                        downloadAudioFile(from: url) { result in
+                            switch result {
+                            case .success(let fileURL):
+                                print("下载成功，文件保存在:", fileURL)
+                                DispatchQueue.main.async { [self] in
+                                    MBProgressHUD.hideHUD()
+                                    guard let file = URL(string: urlFile.absoluteString) else {
+                                        MyLog("无可用文件或路径错误")
+                                        return
+                                    }
+                                    let recordName = recordingItem?.recordPath?.components(separatedBy: ".").first
+                                    AudioProcessingPipeline.shared.process(
+                                        fileName: (recordName ?? recordingItem?.recordName)!,
+                                        fileURL: fileURL,
+                                        recordingItem: recordingItem!
+                                    )
+                                    dismissAction?()
+                                }
+                            case .failure(let error):
+                                print("下载失败:", error)
+                                DispatchQueue.main.async { [self] in
+                                    MBProgressHUD.showMessage(L10n.downloadFile)
+                                    MBProgressHUD.hideHUD()
+                                    dismissAction?()
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }else if indexPath.row == 1 {
+                try! RecordingItemStore.shared.delete(recordingItem!)
+                dismissAction?()
             }
-            UIApplication.topViewController()?.present(popup, animated: false)
-        }else if indexPath.row == 1 {
-            recordingItem?.isFavorite = !recordingItem!.isFavorite
-            try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
-            dismissAction?()
-        }else if indexPath.row == 2 {
-            let content = HomeNoAllNotePopVC(recordingItem: recordingItem!)
-            let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
-            content.dismissAction = {
-                popup.dismissSelf()
+        }else if recordingItem!.handleType == 4{
+            if indexPath.row == 0 {
+                let content = HomeSharePopViewController(itemList: HomeConfigData.getHomeMoreShareData(), recordingItem: recordingItem!)
+                content.updateTitle(title: L10n.share)
+                let popup = PopupContainerViewController(contentVC: content, height: 462.h)
+                content.dismissAction = {
+                    popup.dismissSelf()
+                }
+                UIApplication.topViewController()?.present(popup, animated: false)
+            }else if indexPath.row == 1 {
+                recordingItem?.isFavorite = !recordingItem!.isFavorite
+                try! RecordingItemStore.shared.updateRecordingItem(recordingItem!)
+                dismissAction?()
+            }else if indexPath.row == 2 {
+                let content = HomeNoAllNotePopVC(recordingItem: recordingItem!)
+                let popup = PopupContainerViewController(contentVC: content, height: kkScreenHeight - 60.h)
+                content.dismissAction = {
+                    popup.dismissSelf()
+                }
+                UIApplication.topViewController()?.present(popup, animated: false)
+            }else if indexPath.row == 3 {
+                let content = HomeAddFloderPopVC(topTitle: L10n.rename)
+                content.updataData(holderStr: L10n.newNoteName)
+                content.delegate = self
+                let popup = PopupContainerViewController(contentVC: content, height: 259.h)
+                content.dismissAction = {
+                    popup.dismissSelf()
+                }
+                UIApplication.topViewController()?.present(popup, animated: false)
+            }else if indexPath.row == 4 {
+                try! RecordingItemStore.shared.delete(recordingItem!)
+                dismissAction?()
             }
-            UIApplication.topViewController()?.present(popup, animated: false)
-        }else if indexPath.row == 3 {
-            let content = HomeAddFloderPopVC(topTitle: L10n.rename)
-            content.delegate = self
-            let popup = PopupContainerViewController(contentVC: content, height: 259.h)
-            content.dismissAction = {
-                popup.dismissSelf()
-            }
-            UIApplication.topViewController()?.present(popup, animated: false)
-        }else if indexPath.row == 4 {
-            try! RecordingItemStore.shared.delete(recordingItem!)
-            dismissAction?()
+        }else{
+            
         }
     }
     

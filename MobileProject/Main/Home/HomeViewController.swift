@@ -155,16 +155,16 @@ class HomeViewController: SuperViewController {
             }
             
             if state.handleStatus == 3 {
+                
+            }
+            
+            if state.handleStatus == 4 {
                 tipsLable.hidden(false).backgroundColor(kkColorFromHex("00D5A4"))
                 tipsLable.updateData(image: Asset.tipsCompletion.image, title: L10n.yourNotesIsReady)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
                     guard let self = self else {return}
                     self.tipsLable.hidden(true)
                 }
-            }
-            
-            if state.handleStatus == 4 {
-                
             }
             tableView.reloadData()
         }
@@ -242,6 +242,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.configure(with: model)
                 return cell
             }
+            
+            let updateDate = Date(timeIntervalSince1970: TimeInterval(model.updateTime))
+            let interval = Date().timeIntervalSince(updateDate)
+            if interval > 30 * 60 && model.handleType != 4 {
+                model.handleType = -1
+                try! RecordingItemStore.shared.updateRecordingItem(model)
+            }
+            
             let cell = tableView.dequeueCell(RecordItemCell.self, for: indexPath)
             cell.selectionStyle = .none
             cell.delegate = self
@@ -307,12 +315,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 //                    }
 //                }
                 
-                
-                if ((item.todoJsonString?.isEmpty) != nil) {
-                    let vc = HomeNoteDetailViewController(recordingItem: item)
-                    self.navigationController?.pushViewController(vc, animated: true)
+                if item.handleType == -1 {
+                    MBProgressHUD.showMessage(L10n.cliccckMoretry)
+                }else if item.handleType == 4{
+                    if ((item.todoJsonString?.isEmpty) != nil) {
+                        let vc = HomeNoteDetailViewController(recordingItem: item)
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }else{
+                        MBProgressHUD.showMessage(L10n.waitresult)
+                    }
                 }else{
-                    MBProgressHUD.showMessage(L10n.waitresult)
+                    MBProgressHUD.showMessage(L10n.pleasewaitTime)
                 }
             }
         }
@@ -393,36 +406,48 @@ class RecordItemCell: SuperTableViewCell {
         MyLog(itemModel)
         if let model = itemModel {
             if UserDefaultsTools.tabSelected == 0 || UserDefaultsTools.tabSelected == 2 {
-                if isInFolder {
-                    
-                    var itemListData:[PopItemModel] = []
-                    if model.isFavorite {
-                        itemListData = HomeConfigData.getMoveOutFolderUnFavoriteData()
-                    }else{
-                        itemListData = HomeConfigData.getMoveOutFolderData()
-                    }
-                    let content = HomeMoveoutPopVC(itemList: itemListData,recordingItem: itemModel!)
-                    content.delegate = self
-                    let popup = PopupContainerViewController(contentVC: content, height: 564.h)
-                    content.dismissAction = { [self] in
-                        popup.dismissSelf()
-                        delegate?.reloadTableData()
-                    }
-                    UIApplication.topViewController()?.present(popup, animated: false)
-                }else{
-                    var itemListData:[PopItemModel] = []
-                    if model.isFavorite {
-                        itemListData = HomeConfigData.getHomeMoreUnFavoriteData()
-                    }else{
-                        itemListData = HomeConfigData.getHomeMoreData()
-                    }
+                if itemModel!.handleType == -1 {
+                    var itemListData:[PopItemModel] = HomeConfigData.getHomeFailMoreData()
                     let content = HomePopViewController(itemList: itemListData,recordingItem: itemModel!)
-                    let popup = PopupContainerViewController(contentVC: content, height: 462.h)
+                    let popup = PopupContainerViewController(contentVC: content, height: 250.h)
                     content.dismissAction = { [self] in
                         popup.dismissSelf()
                         delegate?.reloadTableData()
                     }
                     UIApplication.topViewController()?.present(popup, animated: false)
+                }else if itemModel!.handleType == 4{
+                    if isInFolder {
+                        var itemListData:[PopItemModel] = []
+                        if model.isFavorite {
+                            itemListData = HomeConfigData.getMoveOutFolderUnFavoriteData()
+                        }else{
+                            itemListData = HomeConfigData.getMoveOutFolderData()
+                        }
+                        let content = HomeMoveoutPopVC(itemList: itemListData,recordingItem: itemModel!)
+                        content.delegate = self
+                        let popup = PopupContainerViewController(contentVC: content, height: 564.h)
+                        content.dismissAction = { [self] in
+                            popup.dismissSelf()
+                            delegate?.reloadTableData()
+                        }
+                        UIApplication.topViewController()?.present(popup, animated: false)
+                    }else{
+                        var itemListData:[PopItemModel] = []
+                        if model.isFavorite {
+                            itemListData = HomeConfigData.getHomeMoreUnFavoriteData()
+                        }else{
+                            itemListData = HomeConfigData.getHomeMoreData()
+                        }
+                        let content = HomePopViewController(itemList: itemListData,recordingItem: itemModel!)
+                        let popup = PopupContainerViewController(contentVC: content, height: 462.h)
+                        content.dismissAction = { [self] in
+                            popup.dismissSelf()
+                            delegate?.reloadTableData()
+                        }
+                        UIApplication.topViewController()?.present(popup, animated: false)
+                    }
+                }else{
+                    MBProgressHUD.showMessage(L10n.pleasewaitTime)
                 }
             }
         }
@@ -506,8 +531,11 @@ class RecordItemCell: SuperTableViewCell {
             typeImageV.hidden(false)
             dateL.hidden(false)
             iconImageV.image(Asset.homeNote.image)
+            
             if item.handleType == -1{
                 iconImageV.image(Asset.noteError.image)
+            }else{
+                iconImageV.image(Asset.homeNote.image)
             }
         }
     }
@@ -533,6 +561,8 @@ class RecordItemCell: SuperTableViewCell {
             iconImageV.image(Asset.homeNote.image)
             if item.handleType == -1{
                 iconImageV.image(Asset.noteError.image)
+            }else{
+                iconImageV.image(Asset.homeNote.image)
             }
         }
     }

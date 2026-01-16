@@ -101,6 +101,7 @@ class CenterRecordPopViewController: SuperViewController {
                 
                 UtitilTools.broadcast(handleStatus: 1, handleContent: "开始处理录音，上传录音文件")
                 coreDataItem?.handleType = 0
+                coreDataItem?.updateTime = Int64(Date().timeIntervalSince1970)
                 try! RecordingItemStore.shared.updateRecordingItem(coreDataItem!)
                 let vc = CenterProcessingVC()
                 vc.delegate = self
