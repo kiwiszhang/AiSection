@@ -285,9 +285,16 @@ extension ChatViewController:DetailBottomViewDelegate {
         MyLog("发送内容:\(text)")
         isShowKey = false
         if !kkStringIsEmpty(text) {
-            let item00 = ChatInfoItemRequest(chatType: 0, content: text, createTime:Int64(Date().timeIntervalSince1970), recordCreateTime: recordingItem?.createTime, responseId: " ")
-            try! ChatInfoItemStore.shared.addChatInfoItem(item00)
+            let chats = try! ChatInfoItemStore.shared.fetchAllChatInfoItemWithRecordCreateTime(createTime: recordingItem!.createTime)
+            if !chats.isEmpty {
+                let item00 = ChatInfoItemRequest(chatType: 0, content: text, createTime:Int64(Date().timeIntervalSince1970), recordCreateTime: recordingItem?.createTime, responseId: "")
+                try! ChatInfoItemStore.shared.addChatInfoItem(item00)
+            }else{
+                let item00 = ChatInfoItemRequest(chatType: 0, content: (recordingItem!.transcriptionHtml ?? "") + "" + text, createTime:Int64(Date().timeIntervalSince1970), recordCreateTime: recordingItem?.createTime, responseId: " ")
+                try! ChatInfoItemStore.shared.addChatInfoItem(item00)
+            }
             Task {
+                MBProgressHUD.showHUD()
                 do {
                     let chatlist = try! ChatInfoItemStore.shared.fetchChatInfoItemWithRecordCreateTimeAndChatType(createTime: recordingItem!.createTime, chatType: 1)
                     if !chatlist.isEmpty {
@@ -297,26 +304,35 @@ extension ChatViewController:DetailBottomViewDelegate {
                         if !kkStringIsEmpty(reply) {
                             let item00 = ChatInfoItemRequest(chatType: 1, content: reply, createTime:Int64(Date().timeIntervalSince1970), recordCreateTime: recordingItem?.createTime, responseId: decoded.id)
                             try! ChatInfoItemStore.shared.addChatInfoItem(item00)
-                            getData()
+                            await MainActor.run {
+                                self.getData()
+                            }
                         }
                         MyLog("AI 回复：\(reply)")
                     }else{
-    //                    let reply = try await requestDoubaoChat(text: text)
-                        let decoded = try await requestDoubaoResponse(text: text)
+                        let decoded = try await requestDoubaoResponse(text: (recordingItem!.transcriptionHtml ?? "") + "" + text)
                         let reply = extractAssistantText(from: decoded)
                         if !kkStringIsEmpty(reply) {
                             let item00 = ChatInfoItemRequest(chatType: 1, content: reply, createTime:Int64(Date().timeIntervalSince1970), recordCreateTime: recordingItem?.createTime, responseId: decoded.id)
                             try! ChatInfoItemStore.shared.addChatInfoItem(item00)
-                            getData()
+                            await MainActor.run {
+                                self.getData()
+                            }
                         }
                         MyLog("AI 回复：\(reply)")
                     }
                 } catch {
                     MyLog("请求失败：\(error)")
+                    await MainActor.run {
+                        MBProgressHUD.hideHUD()
+                        MBProgressHUD.showMessage(L10n.resultFail)
+                    }
+                }
+                await MainActor.run {
+                    MBProgressHUD.hideHUD()
                 }
             }
         }
-        getData()
     }
 }
 
@@ -332,7 +348,7 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
         let model = itemList[indexPath.row]
         let cell = tableView.dequeueCell(ChatInfoItemCell.self, for: indexPath)
         cell.selectionStyle = .none
-        cell.configure(with: model)
+        cell.configure(with: model,recordItem: recordingItem!)
         return cell
     }
 
@@ -391,6 +407,7 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
 
 class ChatInfoItemCell: SuperTableViewCell {
     private var itemModel:ChatInfoItem? = nil
+    var recordingItem:RecordingItem? = nil
     private lazy var bgView = UILabel().backgroundColor(.white)
     private lazy var contentBg = UILabel()
     private lazy var contentL = CopyableLabel().text("").hnFont(size: 14.h, weight: .regular).color(.white).lines(0)
@@ -456,9 +473,12 @@ class ChatInfoItemCell: SuperTableViewCell {
         menu.setMenuVisible(true, animated: true)
     }
     
-    func configure(with item: ChatInfoItem) {
+    func configure(with item: ChatInfoItem,recordItem:RecordingItem) {
         itemModel = item
-        contentL.attributedText = makeAttributedText((itemModel?.content)!)
+        recordingItem = recordItem
+        var realContent = item.content
+        realContent!.removeWithStr(recordingItem?.transcriptionHtml ?? "")
+        contentL.attributedText = makeAttributedText((realContent)!)
         if itemModel?.chatType == 0 {
             contentBg.cornerRadius(14.h, corners: [.topLeft,.bottomLeft,.bottomRight]).backgroundColor(kkColorFromHex(kkMainColor)).rightAligned()
             contentL.color(.white)

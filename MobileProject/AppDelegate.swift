@@ -49,7 +49,7 @@ extension AppDelegate {
             }
             
             let itemFolder00 = FolderItemRequest(folderName: "isDemo", recordFolderId: "UUID(isDemo)uuidString", createTime: Int64.min)
-            let itemFolder01 = FolderItemRequest(folderName: L10n.allNotes, recordFolderId: UUID().uuidString, createTime: Int64.max)
+            let itemFolder01 = FolderItemRequest(folderName: L10n.allNotes, recordFolderId: "UUID(allNotes)uuidString", createTime: Int64.max)
             do{
                 try! FolderItemStore.shared.addFolderItem(itemFolder01)
                 try! FolderItemStore.shared.addFolderItem(itemFolder00)
