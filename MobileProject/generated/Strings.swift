@@ -68,6 +68,8 @@ internal enum L10n {
   internal static let editSummary = L10n.tr("Localizable", "Edit Summary", fallback: "Edit Summary")
   /// Edit Transcript
   internal static let editTranscript = L10n.tr("Localizable", "Edit Transcript", fallback: "Edit Transcript")
+  /// Editer
+  internal static let editer = L10n.tr("Localizable", "Editer", fallback: "Editer")
   /// English
   internal static let english = L10n.tr("Localizable", "English", fallback: "English")
   /// Enhance audio for better accuracy
@@ -208,6 +210,8 @@ internal enum L10n {
   internal static let save = L10n.tr("Localizable", "Save", fallback: "Save")
   /// 保存识别结果中...
   internal static let saveResultRecord = L10n.tr("Localizable", "saveResultRecord", fallback: "保存识别结果中...")
+  /// 保存成功
+  internal static let saveSuccesse = L10n.tr("Localizable", "saveSuccesse", fallback: "保存成功")
   /// Search folders
   internal static let searchFolders = L10n.tr("Localizable", "Search folders", fallback: "Search folders")
   /// Search language

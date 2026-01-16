@@ -20,7 +20,11 @@ final class EditorToolbar: UIView {
     var onUndo: (() -> Void)?
     var onRedo: (() -> Void)?
     var onDone: (() -> Void)?  // 收起键盘按钮回调
-
+    var onNormal: (() -> Void)?
+    var onH1: (() -> Void)?
+    var onH2: (() -> Void)?
+    var onH3: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .secondarySystemBackground
@@ -42,8 +46,12 @@ final class EditorToolbar: UIView {
         let redo = makeButton("ZSSredo")
         let indent = makeButton("ZSSindent")
         let outdent = makeButton("ZSSoutdent")
+        let h1 = makeButton("ZSSh1")
+        let h2 = makeButton("ZSSh2")
+        let h3 = makeButton("ZSSh3")
+        let normal = makeButton("ZSSclearstyle")
 
-        let stack = UIStackView(arrangedSubviews: [bold, italic, underline, color, olist, ulist, undo, redo, indent, outdent])
+        let stack = UIStackView(arrangedSubviews: [bold, italic, underline, color, olist, ulist, undo, redo, indent, outdent,h1,h2,h3,normal])
         stack.axis = .horizontal
         stack.spacing = 8
         stack.alignment = .center
@@ -93,6 +101,10 @@ final class EditorToolbar: UIView {
         redo.addTarget(self, action: #selector(redoTap), for: .touchUpInside)
         indent.addTarget(self, action: #selector(indentTap), for: .touchUpInside)
         outdent.addTarget(self, action: #selector(outdentTap), for: .touchUpInside)
+        h1.addTarget(self, action: #selector(h1Tap), for: .touchUpInside)
+        h2.addTarget(self, action: #selector(h2Tap), for: .touchUpInside)
+        h3.addTarget(self, action: #selector(h3Tap), for: .touchUpInside)
+        normal.addTarget(self, action: #selector(normalTap), for: .touchUpInside)
     }
 
     required init?(coder: NSCoder) { fatalError() }
@@ -119,4 +131,8 @@ final class EditorToolbar: UIView {
     @objc private func indentTap() { onIndent?() }
     @objc private func outdentTap() { onOutdent?() }
     @objc private func doneTap() { onDone?() }
+    @objc private func h1Tap() { onH1?() }
+    @objc private func h2Tap() { onH2?() }
+    @objc private func h3Tap() { onH3?() }
+    @objc private func normalTap() { onNormal?() }
 }

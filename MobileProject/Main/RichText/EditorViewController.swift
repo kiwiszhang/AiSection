@@ -10,6 +10,8 @@ import UIKit
 
 class EditorViewController: UIViewController {
 
+    private let toolbarHeight: CGFloat = 54
+
     private lazy var recordingItem:RecordingItem? = nil
     private lazy var htmlText:String? = ""
 
@@ -52,31 +54,28 @@ class EditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-  
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
+        title = L10n.editer
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.save, style: .plain, target: self, action: #selector(handleSave))
 
-        
         view.addSubview(editor)
         view.addSubview(toolbar)
         view.bringSubviewToFront(toolbar)
+        editor.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalToSuperview()
+        }
+        toolbar.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(toolbarHeight)
+            toolbarBottomConstraint = make.bottom.equalTo(view.snp.bottom).offset(toolbarHeight).constraint
+        }
 
-            editor.snp.makeConstraints { make in
-                make.top.leading.trailing.bottom.equalToSuperview()
-            }
+        // 加载 HTML
+        if let html = htmlText {
+            editor.loadHTML(html)
+        }
+        editor.setEditable(true)
 
-            toolbar.snp.makeConstraints { make in
-                make.leading.trailing.equalToSuperview()
-                make.height.equalTo(54)
-                toolbarBottomConstraint = make.bottom.equalTo(view.snp.bottom).offset(54).constraint
-            }
-
-            // 加载 HTML
-            if let html = htmlText {
-                editor.loadHTML(html)
-            }
-            editor.setEditable(true)
-
-            setupToolbarActions()
+        setupToolbarActions()
     }
 
     private func setupToolbarActions() {
@@ -88,9 +87,29 @@ class EditorViewController: UIViewController {
         toolbar.onUndo = { [weak self] in self?.editor.execCommand("undo") }
         toolbar.onRedo = { [weak self] in self?.editor.execCommand("redo") }
         toolbar.onColor = { [weak self] in self?.showColorPicker() }
-        toolbar.onOutdent = {}
-        toolbar.onIndent = {}
         toolbar.onDone = { [weak self] in self?.view.endEditing(true) }
+        toolbar.onH1 = { [weak self] in
+            self?.editor.execCommand("formatBlock", value: "h1")
+        }
+        toolbar.onH2 = { [weak self] in
+            self?.editor.execCommand("formatBlock", value: "h2")
+        }
+        toolbar.onH3 = { [weak self] in
+            self?.editor.execCommand("formatBlock", value: "h3")
+        }
+        toolbar.onNormal = { [weak self] in
+            self?.editor.execCommand("removeFormat")
+            self?.editor.execCommand("formatBlock", value: "p")
+        }
+
+        toolbar.onIndent = { [weak self] in
+            self?.editor.execCommand("indent")
+        }
+
+        toolbar.onOutdent = { [weak self] in
+            self?.editor.execCommand("outdent")
+        }
+
     }
 
     private func showColorPicker() {
@@ -115,6 +134,7 @@ class EditorViewController: UIViewController {
             MyLog(cleanHTML)
             self.recordingItem?.chapterSummaryJsonString = htmlArr.last
             try? RecordingItemStore.shared.updateRecordingItem(self.recordingItem!)
+            MBProgressHUD.showMessage(L10n.saveSuccesse)
         }
     }
     
@@ -124,8 +144,17 @@ class EditorViewController: UIViewController {
               let duration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
               let curve = info[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else { return }
 
-        toolbarBottomConstraint.update(offset: -kbFrame.height)
-        UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(rawValue: curve << 16)) {
+        let keyboardHeight = kbFrame.height
+        // 1️⃣ toolbar 跟着键盘走
+        toolbarBottomConstraint.update(offset: -keyboardHeight)
+        // 2️⃣ editor 底部 inset = toolbar
+        let bottomInset =  toolbarHeight
+        editor.setBottomInset(bottomInset)
+        UIView.animate(
+            withDuration: duration,
+            delay: 0,
+            options: UIView.AnimationOptions(rawValue: curve << 16)
+        ) {
             self.view.layoutIfNeeded()
         }
     }
@@ -135,8 +164,13 @@ class EditorViewController: UIViewController {
               let duration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
               let curve = info[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else { return }
 
-        toolbarBottomConstraint.update(offset: 54)
-        UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(rawValue: curve << 16)) {
+        toolbarBottomConstraint.update(offset: toolbarHeight)
+        editor.setBottomInset(0)
+        UIView.animate(
+            withDuration: duration,
+            delay: 0,
+            options: UIView.AnimationOptions(rawValue: curve << 16)
+        ) {
             self.view.layoutIfNeeded()
         }
     }
@@ -144,7 +178,6 @@ class EditorViewController: UIViewController {
 
 
 }
-
 extension EditorViewController: UIColorPickerViewControllerDelegate {
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         let hex = viewController.selectedColor.toHex() // 扩展方法下面给出
