@@ -23,7 +23,7 @@ final class FolderItemStore {
     
     /// 去重
     func removeDuplicateFolderItemKeepLast() throws {
-        let items = try fetchAllFolderItem()
+        let items = try fetchRemoveAllFolderItem()
         var seen = Set<Int64>()
         for item in items {
             let createTime = item.createTime
@@ -107,6 +107,17 @@ final class FolderItemStore {
     }
     
     /// 查询所有 FolderItem
+    func fetchRemoveAllFolderItem() throws -> [FolderItem] {
+        let fetchRequest: NSFetchRequest<FolderItem> = FolderItem.fetchRequest()
+        var predicates: [NSPredicate] = []
+//        predicates.append(
+//            NSPredicate(format: "createTime != %@", NSNumber(value: Int64.min))
+//        )
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createTime", ascending: false)] // 可选日期倒序
+        return try context.fetch(fetchRequest)
+    }
+    
     func fetchAllFolderItem() throws -> [FolderItem] {
         let fetchRequest: NSFetchRequest<FolderItem> = FolderItem.fetchRequest()
         var predicates: [NSPredicate] = []
