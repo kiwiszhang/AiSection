@@ -105,6 +105,8 @@
 		536D5B372F14DF2100030A0E /* ASRTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D5B362F14DF2100030A0E /* ASRTaskManager.swift */; };
 		536D5BC92F16460100030A0E /* AudioProcessingPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D5BC82F16460100030A0E /* AudioProcessingPipeline.swift */; };
 		536D5BD12F18840A00030A0E /* DownloadAudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D5BD02F18840A00030A0E /* DownloadAudioFile.swift */; };
+		536D5BD32F18D80400030A0E /* RichTextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D5BD22F18D80400030A0E /* RichTextEditorView.swift */; };
+		536D5BD52F18DA8200030A0E /* EditorToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536D5BD42F18DA8200030A0E /* EditorToolbar.swift */; };
 		538282102EEFBB710097EAD0 /* HomeFloderPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */; };
 		538282122EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */; };
 		538282142EEFE7660097EAD0 /* HomeAddFloderPopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */; };
@@ -335,6 +337,8 @@
 		536D5B362F14DF2100030A0E /* ASRTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASRTaskManager.swift; sourceTree = "<group>"; };
 		536D5BC82F16460100030A0E /* AudioProcessingPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioProcessingPipeline.swift; sourceTree = "<group>"; };
 		536D5BD02F18840A00030A0E /* DownloadAudioFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadAudioFile.swift; sourceTree = "<group>"; };
+		536D5BD22F18D80400030A0E /* RichTextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextEditorView.swift; sourceTree = "<group>"; };
+		536D5BD42F18DA8200030A0E /* EditorToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorToolbar.swift; sourceTree = "<group>"; };
 		5382820F2EEFBB710097EAD0 /* HomeFloderPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFloderPopViewController.swift; sourceTree = "<group>"; };
 		538282112EEFD56B0097EAD0 /* HomeAddNotePopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddNotePopViewController.swift; sourceTree = "<group>"; };
 		538282132EEFE7660097EAD0 /* HomeAddFloderPopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAddFloderPopVC.swift; sourceTree = "<group>"; };
@@ -798,6 +802,8 @@
 			isa = PBXGroup;
 			children = (
 				53F68DB92F0BB0940051FFE6 /* EditorViewController.swift */,
+				536D5BD22F18D80400030A0E /* RichTextEditorView.swift */,
+				536D5BD42F18DA8200030A0E /* EditorToolbar.swift */,
 				534146402F0CA0430012436B /* EditorSummaryViewController.swift */,
 			);
 			path = RichText;
@@ -1234,6 +1240,7 @@
 				531CD8AD2EEAAA0400FC22F7 /* VersionTool.swift in Sources */,
 				531CD8D52EEAABB400FC22F7 /* HomeViewController.swift in Sources */,
 				53F68DAA2F03B2210051FFE6 /* AudioPlayerView.swift in Sources */,
+				536D5BD52F18DA8200030A0E /* EditorToolbar.swift in Sources */,
 				531CD8B02EEAAA0400FC22F7 /* CALayer+Extension.swift in Sources */,
 				5382822E2EF3FB3A0097EAD0 /* SectionEmptyView.swift in Sources */,
 				538282202EF14ED70097EAD0 /* DetailTableHeaderView.swift in Sources */,
@@ -1299,6 +1306,7 @@
 				53F68F4A2F0BB5A40051FFE6 /* ZSSBarButtonItem.m in Sources */,
 				53F68F4B2F0BB5A40051FFE6 /* ZSSRichTextEditor.m in Sources */,
 				53F68F4C2F0BB5A40051FFE6 /* HRColorCursor.m in Sources */,
+				536D5BD32F18D80400030A0E /* RichTextEditorView.swift in Sources */,
 				53F68F4D2F0BB5A40051FFE6 /* CYRTextView.m in Sources */,
 				53F68F4E2F0BB5A40051FFE6 /* ZSSTextView.m in Sources */,
 				5341468E2F0F7DFB0012436B /* ArkChat.swift in Sources */,

@@ -199,7 +199,7 @@ extension HomeNoteDetailViewController:DetailNavTopViewDelegate {
                 let informationHtml = recordingItem!.todoJsonString ?? ""
                 let summariztionHtml = recordingItem!.chapterSummaryJsonString ?? ""
 //                self.navigationController?.pushViewController(EditorSummaryViewController(recordingItem: recordingItem!,html: informationHtml + kSplitStringWithHtml + summariztionHtml), animated: true)
-                self.navigationController?.pushViewController(EditorSummaryViewController(recordingItem: recordingItem!,html: informationHtml), animated: true)
+                self.navigationController?.pushViewController(EditorViewController(recordingItem: recordingItem!,html: informationHtml), animated: true)
             }
             if index == 1 {
                 UserDefaultsTools.segmentIndex = 1

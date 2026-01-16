@@ -12,6 +12,7 @@ class EditorSummaryViewController: ZSSRichTextEditor {
     private lazy var recordingItem:RecordingItem? = nil
     private lazy var htmlText:String? = ""
 
+
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
