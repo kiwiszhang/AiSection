@@ -9,9 +9,9 @@ import UIKit
 import AVFAudio
 import Speech
 import AVFoundation
+import IQKeyboardManagerSwift
 
 class ChatViewController: SuperViewController {
-
     private lazy var scrollToBottomButton = UIImageView().image(Asset.chatDown.image).enable(true).hidden(true).shadow(kkColorFromHexWithAlpha("000000", 0.16), 12.h, 4, 0, 4.h).onTap { [self] in
         let lastRow = itemList.count - 1
         if lastRow >= 0 {
@@ -23,6 +23,7 @@ class ChatViewController: SuperViewController {
     private var isControlVisible = false
     private var isShowKey = true
     private var bottomViewBottomConstraint: Constraint?
+    private var currentKeyboardHeight: CGFloat = 0
     private lazy var itemList:[ChatInfoItem] = []
     var recordingItem:RecordingItem? = nil
     private lazy var tableView = {
@@ -43,9 +44,7 @@ class ChatViewController: SuperViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         navigationController?.setNavigationBarHidden(true, animated: animated)
-
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow(_:)),
@@ -58,37 +57,65 @@ class ChatViewController: SuperViewController {
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
+        IQKeyboardManager.shared.isEnabled = false
+        IQKeyboardManager.shared.enableAutoToolbar = false
     }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         NotificationCenter.default.removeObserver(self)
+        IQKeyboardManager.shared.isEnabled = true
+        IQKeyboardManager.shared.enableAutoToolbar = true
     }
 
     @objc private func keyboardWillShow(_ notification: Notification) {
         guard
             let userInfo = notification.userInfo,
             let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
-            let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
+            let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+            let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt
         else { return }
-        
-        bottomViewBottomConstraint?.update(offset: -keyboardFrame.height)
-        UIView.animate(withDuration: duration) {
+
+        let keyboardHeight = keyboardFrame.height
+
+        // ① bottomView 上移
+        bottomViewBottomConstraint?.update(offset: -keyboardHeight)
+
+        // ② tableView 只补“安全区”
+        tableView.contentInset.bottom = 0
+        tableView.scrollIndicatorInsets.bottom = 0
+
+        let options = UIView.AnimationOptions(rawValue: curve << 16)
+
+        UIView.animate(withDuration: duration, delay: 0, options: options) {
             self.view.layoutIfNeeded()
+            self.scrollLastCellToVisible()
         }
     }
-
     @objc private func keyboardWillHide(_ notification: Notification) {
         guard
             let userInfo = notification.userInfo,
-            let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
+            let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+            let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt
         else { return }
-        
+
         bottomViewBottomConstraint?.update(offset: 0)
-        UIView.animate(withDuration: duration) {
+
+        tableView.contentInset.bottom = 0
+        tableView.scrollIndicatorInsets.bottom = 0
+
+        let options = UIView.AnimationOptions(rawValue: curve << 16)
+
+        UIView.animate(withDuration: duration, delay: 0, options: options) {
             self.view.layoutIfNeeded()
         }
+    }
+    
+    private func scrollLastCellToVisible() {
+        let lastRow = itemList.count - 1
+        guard lastRow >= 0 else { return }
+        let indexPath = IndexPath(row: lastRow, section: 0)
+        let rect = tableView.rectForRow(at: indexPath)
+        tableView.scrollRectToVisible(rect, animated: false)
     }
 
     
@@ -423,32 +450,25 @@ class ChatInfoItemCell: SuperTableViewCell {
         guard let label = gesture.view as? UILabel,
               let text = label.text,
               !text.isEmpty else { return }
-
         label.becomeFirstResponder()
-
         let menu = UIMenuController.shared
         menu.setTargetRect(label.bounds, in: label)
         menu.setMenuVisible(true, animated: true)
     }
-
-    
     
     func configure(with item: ChatInfoItem) {
         itemModel = item
-//        contentL.text(itemModel?.content)
         contentL.attributedText = makeAttributedText((itemModel?.content)!)
         if itemModel?.chatType == 0 {
             contentBg.cornerRadius(14.h, corners: [.topLeft,.bottomLeft,.bottomRight]).backgroundColor(kkColorFromHex(kkMainColor)).rightAligned()
             contentL.color(.white)
             leadingConstraint?.isActive = false
             trailingConstraint?.isActive = true
-
         }else{
             contentBg.cornerRadius(14.h, corners: [.topRight,.bottomLeft,.bottomRight]).backgroundColor(kkColorFromHex(kkHomeBgColor)).leftAligned()
             contentL.color(kkColorFromHex(kkMainTextColor))
             leadingConstraint?.isActive = true
             trailingConstraint?.isActive = false
-
         }
     }
 
@@ -456,7 +476,6 @@ class ChatInfoItemCell: SuperTableViewCell {
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = 4
         paragraph.lineBreakMode = .byWordWrapping
-
         return NSAttributedString(
             string: text,
             attributes: [

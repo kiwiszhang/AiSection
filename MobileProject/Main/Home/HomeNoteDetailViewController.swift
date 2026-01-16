@@ -654,12 +654,15 @@ class TranscriptionTableViewCell: SuperTableViewCell,UITextViewDelegate {
             make.bottom.equalToSuperview().offset(-10.h)
         }
 
-        
         editerImg.snp.makeConstraints { make in
             make.width.height.equalTo(24.h)
             make.right.equalToSuperview().offset(-8.w)
             make.top.equalToSuperview().offset(8.h)
         }
+        contentTextView.isScrollEnabled = false
+        contentTextView.textContainerInset = .zero
+        contentTextView.textContainer.lineFragmentPadding = 0
+
     }
     func configure(with item: TranscriptionItem,recordingItem:RecordingItem) {
         titleL.text(formatTime(item.start_time))
@@ -681,6 +684,35 @@ class TranscriptionTableViewCell: SuperTableViewCell,UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         exitEditMode()
     }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        isEditingContent = true
+    }
+
+    func textViewDidChange(_ textView: UITextView) {
+        guard isEditingContent else { return }
+        notifyTableViewUpdate()
+    }
+
+    private func notifyTableViewUpdate() {
+        if let tableView = findTableView() {
+            UIView.performWithoutAnimation {
+                tableView.beginUpdates()
+                tableView.endUpdates()
+            }
+        }
+    }
+
+    private func findTableView() -> UITableView? {
+        var view = self.superview
+        while view != nil {
+            if let tableView = view as? UITableView {
+                return tableView
+            }
+            view = view?.superview
+        }
+        return nil
+    }
+
 
     private func exitEditMode() {
         guard isEditingContent else { return }
