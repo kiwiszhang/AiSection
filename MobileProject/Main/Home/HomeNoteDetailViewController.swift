@@ -18,6 +18,8 @@ class HomeNoteDetailViewController: SuperViewController {
     private lazy var itemList:[DetailNoteItemModel] = []
     private lazy var itemTranscriptionList:[TranscriptionItem] = []
     var model:DetailNoteItemModel? = nil
+    private var cellHeights: [IndexPath: CGFloat] = [:]
+
     private lazy var recordingItem:RecordingItem? = nil
     private lazy var tableView = {
         return UITableView(frame: .zero, style: .grouped).delegate(self).dataSource(self).separatorStyle(.none).backgroundColor(.white).registerCells(HTMLTableViewCell.self).registerCells(TranscriptionTableViewCell.self).scrollEnable(true).headerHeight(0.01).footerHeight(0.01).clipsToBounds(true).registerHeaderFooters(SuperTableViewHeaderFooterView.self).rowHeightAutomaticDimension().showsH(false).showsV(false).estimatedRowHeight(100.h)
@@ -338,7 +340,7 @@ extension HomeNoteDetailViewController: UITableViewDelegate, UITableViewDataSour
         if UserDefaultsTools.segmentIndex == 0 {
             let cell = tableView.dequeueCell(HTMLTableViewCell.self, for: indexPath)
             cell.selectionStyle = .none
-            cell.configure(recordingItem: recordingItem!,indexPath: indexPath)
+            cell.configure(recordingItem: recordingItem!,indexPath: indexPath,table: tableView)
             return cell
         } else if UserDefaultsTools.segmentIndex == 1 {
             let cell = tableView.dequeueCell(TranscriptionTableViewCell.self, for: indexPath)
@@ -370,6 +372,16 @@ extension HomeNoteDetailViewController: UITableViewDelegate, UITableViewDataSour
         let foot = tableView.dequeueHeaderFooter(SuperTableViewHeaderFooterView.self)
         return foot
     }
+    
+    func tableView(_ tableView: UITableView,
+                   heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if UserDefaultsTools.segmentIndex == 0 {
+            return cellHeights[indexPath] ?? UITableView.automaticDimension
+        }else{
+            return UITableView.automaticDimension
+        }
+    }
+
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -405,10 +417,13 @@ extension HomeNoteDetailViewController: UITableViewDelegate, UITableViewDataSour
 }
 
 final class HTMLTableViewCell: SuperTableViewCell {
+    private var heightConstraint: Constraint?
+    weak var superTableView: UITableView?
 
     // MARK: - UI
     private lazy var bgView = UIView().backgroundColor(kkColorFromHex(kkHomeBgColor)).cornerRadius(14.h)
-    private lazy var htmlLabel = UILabel().backgroundColor(.clear).lines(0)
+//    private lazy var htmlLabel = UILabel().backgroundColor(.clear).lines(0)
+    private lazy var htmlLabel = RichTextEditorView()
     override func setUpUI() {
         selectionStyle = .none
         contentView.addSubview(bgView)
@@ -421,40 +436,46 @@ final class HTMLTableViewCell: SuperTableViewCell {
         }
 
         htmlLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(8.h)
-            make.bottom.equalToSuperview().offset(-8.h)
             make.left.equalToSuperview().offset(10.w)
             make.right.equalToSuperview().offset(-10.w)
+            make.top.equalToSuperview().offset(8.h)
+            make.bottom.equalToSuperview().offset(-8.h)
+            heightConstraint = make.height.equalTo(1).constraint // 👈
+
+        }
+        
+        htmlLabel.onHeightChange = { [weak self] height in
+            guard let self else { return }
+            let finalHeight = height
+            self.heightConstraint?.update(offset: finalHeight)
+            self.superTableView?.beginUpdates()
+            self.superTableView?.endUpdates()
         }
         
     }
 
     // MARK: - Public
 
-    func configure(recordingItem:RecordingItem,indexPath: IndexPath) {
-        
+    func configure(recordingItem:RecordingItem,indexPath: IndexPath,table:UITableView) {
+        superTableView = table
         if UserDefaultsTools.segmentIndex == 0 {
             if indexPath.row == 0 {
                 
                 let html = "<div><h1>Action Item</h1></div><p><ol><li>完成图片编辑类APP 1.0版本的需求文档和原型输出</li><li>完成拼图的视频编辑功能2.0原型修改</li><li>推动Flash Boys 2.0版本的模板和活动两个模块</li><li>完成扫描记账的英语、简体中文、繁体中文规划和数据撰写</li><li>完成Flash boots的泰国、越南的商家图规划和数据撰写</li><li>完成扫描记账和Flash boots的自定义页面规划</li><li>对接志祥，校验前面引导及订阅页的界面还原度和动画效果，并优化冥想模块细节</li><li>完成新增PDF功能模块的设计</li><li>完成拼图剩余网格设计</li><li>完成拼图2.0的高级版、超级版的引导订阅页的设计以及动画规划</li><li>完成视频编辑板块的流程设计</li><li>做一版不同背景色、排版的Flash Boys英文版上下图优化版本，制作泰国、越南上下图，及时修改饮品面积</li><li>若有修改需求，修改Fresh Books的logo和扫描记账的相关设计</li><li>完成睡眠APP新功能文本的现有全语种本地化，完成拼图APP新订阅页、积分制新功能现有全语种本地化，继续补充完善通用娱乐和专业娱乐产品</li><li>完成剩余的AI扩图功能及其他AI功能</li><li>完成女性模板拼接及所有模板处理</li><li>对已完成的睡眠项目进行查漏补缺、测试和修复</li><li>开发Freshworks的模板</li><li>继续添加设计制作出的不同模板到网格拼图功能中</li><li>接入SDK，实现音频APP音频工具对应的功能，争取周五打出初步版本</li><li>将工作重心转向新品开发，对现有工作做收尾节点</li><li>研究几个新品的技术方向，做前期准备</li><li>产品加快新品开发进度，修改产品需求</li><li>UI尽快进入新品设计，先确定首页等两三个页面，出1 - 2版设计内容</li><li>研发在UI出图后，开小会快速确定1.0版本功能，做项目前期准备和技术规划</li><li>李程以图片编辑产品为主，确定版本并规划技术性内容</li><li>方斌在3周内完成拼图项目基础测试和基础bug调试</li><li>志祥和李成在一周内完成拼图另外两个功能</li><li>1 - 2周内完成睡眠项目bug修复等工作</li><li>12月底完成音频编辑功能实现</li><li>周慧与军哥同步市场投放情况、基础报表、品的整体方向、市场期望、功能方向等，与产品进一步沟通产品迭代方向和进程</li><li>分析扫描记账和For boss的核心关键词、CPP主要国家投放情况、单个下载成本等数据，与SO同步数据，根据数据调整页面优化和落地页迭代</li><li>确定音频新品上线账号，调整时间周期，确定上线前核心关键词等准备工作负责人</li><li>UI人员自由搭配负责新品设计，提前调研竞品，邓凡留1 - 2天做新品调研和前期准备工作</li><li>军哥整理几个新品前期调研的东西，与UI和产品一起过一下，确定人员安排</li></ol></p>"
                 let isTest = false
-                
                 if let htmlStr = recordingItem.todoJsonString,htmlStr.contains(str: "<div>") {
-                    
                     var processedHTML = ""
                     if isTest {
-                        processedHTML = HTMLPreprocessor.preprocess(html)
+                        processedHTML = htmlStr
                         recordingItem.todoJsonString = processedHTML
                         try! RecordingItemStore.shared.updateRecordingItem(recordingItem)
                     }else{
-                        processedHTML = HTMLPreprocessor.preprocess(htmlStr)
+                        processedHTML = htmlStr
                     }
-
-                     htmlLabel.attributedText = Self.makeAttributedHTML(
-                         html: processedHTML,
-                         font: UIFont.interBase(size: 14.h, weight: .regularBase),
-                         textColor: .black
-                     )
+                    htmlLabel.loadHTML(processedHTML)
+                    htmlLabel.setScrollIndicator()
+                    htmlLabel.setNoScrollEnable()
+                    htmlLabel.setEditable(false)
                 }else{
                     var html = "<div><h1>\(L10n.actionItem)</h1></div>";
                     let arr = [String].fromJSONString(recordingItem.todoJsonString!)
@@ -465,23 +486,21 @@ final class HTMLTableViewCell: SuperTableViewCell {
                         }
                     }
                     html += "</ol></p>"
-                recordingItem.todoJsonString = html
-                try! RecordingItemStore.shared.updateRecordingItem(recordingItem)
-                    let processedHTML = HTMLPreprocessor.preprocess(html)
-                    htmlLabel.attributedText = Self.makeAttributedHTML(
-                        html: processedHTML,
-                        font: UIFont.interBase(size: 14.h, weight: .regularBase),
-                        textColor: .black
-                    )
+                    recordingItem.todoJsonString = html
+                    try! RecordingItemStore.shared.updateRecordingItem(recordingItem)
+                    let processedHTML = html
+                    htmlLabel.loadHTML(processedHTML)
+                    htmlLabel.setScrollIndicator()
+                    htmlLabel.setNoScrollEnable()
+                    htmlLabel.setEditable(false)
                 }
             } else if indexPath.row == 1 {
                 if let htmlStr = recordingItem.chapterSummaryJsonString, htmlStr.contains(str: "<div>") {
-                    let processedHTML = HTMLPreprocessor.preprocess(htmlStr)
-                    htmlLabel.attributedText = Self.makeAttributedHTML(
-                         html: processedHTML,
-                         font: UIFont.interBase(size: 14.h, weight: .regularBase),
-                         textColor: .black
-                     )
+                    let processedHTML = htmlStr
+                    htmlLabel.loadHTML(processedHTML)
+                    htmlLabel.setScrollIndicator()
+                    htmlLabel.setNoScrollEnable()
+                    htmlLabel.setEditable(false)
                 }else{
                     do{
                         var html = "<div><h1>\(L10n.chaptersummary)</h1>";
@@ -500,12 +519,11 @@ final class HTMLTableViewCell: SuperTableViewCell {
                         html += "</div>";
                         recordingItem.chapterSummaryJsonString = html
                         try! RecordingItemStore.shared.updateRecordingItem(recordingItem)
-                        let processedHTML = HTMLPreprocessor.preprocess(html)
-                        htmlLabel.attributedText = Self.makeAttributedHTML(
-                            html: processedHTML,
-                            font: UIFont.interBase(size: 14.h, weight: .regularBase),
-                            textColor: .black
-                        )
+                        let processedHTML = html
+                        htmlLabel.loadHTML(processedHTML)
+                        htmlLabel.setScrollIndicator()
+                        htmlLabel.setNoScrollEnable()
+                        htmlLabel.setEditable(false)
                     }catch{
                         MyLog(error)
                     }
@@ -516,94 +534,6 @@ final class HTMLTableViewCell: SuperTableViewCell {
         }
     }
 }
-
-extension HTMLTableViewCell {
-
-    static func makeAttributedHTML(html: String,
-                                    font: UIFont,
-                                    textColor: UIColor) -> NSAttributedString {
-
-        let wrappedHTML = wrapHTML(html, font: font, textColor: textColor)
-            guard let data = wrappedHTML.data(using: .utf8) else {
-                return NSAttributedString()
-            }
-
-            return (try? NSAttributedString(
-                data: data,
-                options: [
-                    .documentType: NSAttributedString.DocumentType.html,
-                    .characterEncoding: String.Encoding.utf8.rawValue
-                ],
-                documentAttributes: nil
-            )) ?? NSAttributedString()
-    }
-
-    static func wrapHTML(_ body: String, font: UIFont, textColor: UIColor) -> String {
-
-        let colorHex = textColor.hexString
-
-        return """
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <style>
-                body {
-                    font-family: -apple-system;
-                    font-size: \(font.pointSize)px;
-                    color: \(colorHex);
-                    margin: 0;
-                    padding: 0;
-                }
-
-                p {
-                    margin: 4px 0;
-                }
-
-                h1 { font-size: 20px; margin: 8px 0; }
-                h2 { font-size: 18px; margin: 8px 0; }
-                h3 { font-size: 16px; margin: 6px 0; }
-
-                ul, ol {
-                    margin: 6px 0 6px 18px;
-                    padding: 0;
-                }
-
-                li {
-                    margin: 4px 0;
-                }
-
-                blockquote {
-                    margin-left: 12px;
-                    padding-left: 8px;
-                    border-left: 3px solid #ddd;
-                    color: #666;
-                }
-            </style>
-        </head>
-        <body>
-            \(body)
-        </body>
-        </html>
-        """
-    }
-}
-
-extension UIColor {
-    var hexString: String {
-        var r: CGFloat = 0
-        var g: CGFloat = 0
-        var b: CGFloat = 0
-        var a: CGFloat = 0
-        getRed(&r, green: &g, blue: &b, alpha: &a)
-        return String(
-            format: "#%02X%02X%02X",
-            Int(r * 255),
-            Int(g * 255),
-            Int(b * 255)
-        )
-    }
-}
-
 
 class TranscriptionTableViewCell: SuperTableViewCell,UITextViewDelegate {
     private lazy var bgView = UIView().backgroundColor(kkColorFromHex(kkHomeBgColor)).cornerRadius(14.w)

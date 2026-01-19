@@ -18,6 +18,7 @@ final class RichTextEditorView: UIView, WKScriptMessageHandler {
         let config = WKWebViewConfiguration()
         let userController = WKUserContentController()
         userController.add(WeakScriptMessageHandler(self), name: "editorState")
+        userController.add(WeakScriptMessageHandler(self), name: "editorHeight")
         config.userContentController = userController
         let wv = NoAccessoryWebView(frame: .zero, configuration: config)
         // ⛔️ 禁止缩放（系统层）
@@ -34,6 +35,7 @@ final class RichTextEditorView: UIView, WKScriptMessageHandler {
     private var ready = false
     private var pendingHTML: String?
     var onStateChange: ((EditorState) -> Void)?
+    var onHeightChange: ((CGFloat) -> Void)?
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(webView)
@@ -91,7 +93,13 @@ final class RichTextEditorView: UIView, WKScriptMessageHandler {
         <script>
         const editor = document.getElementById('editor');
 
+        function notifyHeight() {
+            const height = editor.scrollHeight;
+            window.webkit.messageHandlers.editorHeight.postMessage(height);
+        }
+
         editor.addEventListener('input', () => {
+            notifyHeight();
             window.webkit.messageHandlers.editorState.postMessage({
                 bold: document.queryCommandState('bold'),
                 italic: document.queryCommandState('italic'),
@@ -103,17 +111,24 @@ final class RichTextEditorView: UIView, WKScriptMessageHandler {
 
         function exec(cmd, value=null) {
             document.execCommand(cmd, false, value);
-            editor.dispatchEvent(new Event('input'));
+            notifyHeight();
         }
 
         function setHTML(html) {
             editor.innerHTML = html;
+            // 等两帧，保证 layout 完成
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    notifyHeight();
+                });
+            });
         }
 
         function getHTML() {
             return editor.innerHTML;
         }
         </script>
+
         </body>
         </html>
         """
@@ -142,18 +157,22 @@ final class RichTextEditorView: UIView, WKScriptMessageHandler {
         }
     }
 
-    func setHTML(_ html: String) {
+    func setHTML(_ html: String, completion: (() -> Void)? = nil) {
         guard ready else {
             pendingHTML = html
             return
         }
-        let escaped = try? JSONSerialization.data(withJSONObject: [html], options: [])
+
+        let escaped = try? JSONSerialization.data(withJSONObject: [html])
         if let escapedString = escaped.flatMap({ String(data: $0, encoding: .utf8) }) {
-            webView.evaluateJavaScript("setHTML(\(escapedString)[0]);", completionHandler: { res, err in
-                if let err = err { print("setHTML JS error:", err) }
-            })
+            webView.evaluateJavaScript(
+                "setHTML(\(escapedString)[0]);"
+            ) { _, _ in
+                completion?()
+            }
         }
     }
+
 
     
     func getHTML(completion: @escaping (String) -> Void) {
@@ -163,16 +182,29 @@ final class RichTextEditorView: UIView, WKScriptMessageHandler {
     }
 
     // MARK: - WKScriptMessageHandler
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        guard let dict = message.body as? [String: Bool] else { return }
-        let state = EditorState(
-            bold: dict["bold"] ?? false,
-            italic: dict["italic"] ?? false,
-            underline: dict["underline"] ?? false,
-            orderedList: dict["orderedList"] ?? false,
-            unorderedList: dict["unorderedList"] ?? false
-        )
-        onStateChange?(state)
+    func userContentController(
+            _ userContentController: WKUserContentController,
+            didReceive message: WKScriptMessage
+        ) {
+        if message.name == "editorState" {
+            guard let dict = message.body as? [String: Bool] else { return }
+            let state = EditorState(
+                bold: dict["bold"] ?? false,
+                italic: dict["italic"] ?? false,
+                underline: dict["underline"] ?? false,
+                orderedList: dict["orderedList"] ?? false,
+                unorderedList: dict["unorderedList"] ?? false
+            )
+            onStateChange?(state)
+        }
+
+        if message.name == "editorHeight" {
+            if let height = message.body as? CGFloat {
+                onHeightChange?(height + 16)
+            } else if let height = message.body as? Double {
+                onHeightChange?(CGFloat(height + 16))
+            }
+        }
     }
 }
 
@@ -208,4 +240,15 @@ extension RichTextEditorView {
         webView.scrollView.contentInset.bottom = inset
         webView.scrollView.verticalScrollIndicatorInsets.bottom = inset
     }
+    func setNoScrollEnable(){
+        webView.scrollView.isScrollEnabled = false
+        webView.scrollView.bounces = false
+        webView.scrollView.alwaysBounceVertical = false
+        webView.scrollView.alwaysBounceHorizontal = false
+    }
+    func setScrollIndicator(){
+        webView.scrollView.showsVerticalScrollIndicator = false
+        webView.scrollView.showsHorizontalScrollIndicator = false
+    }
 }
+

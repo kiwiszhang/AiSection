@@ -74,7 +74,6 @@ class EditorViewController: UIViewController {
             editor.loadHTML(html)
         }
         editor.setEditable(true)
-
         setupToolbarActions()
     }
 
